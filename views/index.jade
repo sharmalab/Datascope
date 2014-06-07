@@ -4,6 +4,16 @@ block content
 	div(class='container-flud')
 		h1(class='page-header') Demo Visualisation
 		div(class='row')
+			p Filtering Attributes
+			div(class="btn-group btn-group")
+				button(type="button",data-toggle="modal", data-target="#aModal") A
+				button(type="button",data-toggle="modal", data-target="#bModal") B 
+				button(type="button",data-toggle="modal", data-target="#cModal") C
+				button(type="button",data-toggle="modal", data-target="#dModal") D
+				button(type="button",data-toggle="modal", data-target="#eModal") E
+				button(type="button",data-toggle="modal", data-target="#fModal") F							
+				button(type="button",data-toggle="modal", data-target="#gModal") G
+		div(class='row')
 			table(id='dc-data-table', class='table')
 				thead
 					tr(class='header')
@@ -15,21 +25,6 @@ block content
 							a(href="#" data-toggle="modal", data-target="#genderModal") Gender
 						th
 							a(href="#" data-toggle="modal", data-target="#isActiveModal") isActive
-						th 
-							a(href="#",data-toggle="modal", data-target="#aModal") A
-						th 
-							a(href="#",data-toggle="modal", data-target="#bModal") B
-						th 
-							a(href="#",data-toggle="modal", data-target="#cModal") C
-						th 
-							a(href="#",data-toggle="modal", data-target="#dModal") D
-						th
-							a(href="#",data-toggle="modal", data-target="#eModal") E
-						th 
-							a(href="#",data-toggle="modal", data-target="#fModal") F
-						th 
-							a(href="#",data-toggle="modal", data-target="#gModal") G
-
 
 
 	div(class="containter modals")
