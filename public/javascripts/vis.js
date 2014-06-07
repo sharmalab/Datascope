@@ -176,14 +176,7 @@ d3.json("../small-data.json", function(err,data){
 			function (d) {return d.Age},
 			function (d) {return d.id},
 			function (d) {return d.gender},
-			function (d) {return d.isActive},
-			function (d) {return d.Ai},
-			function (d) {return d.Bi},
-			function (d) {return d.Ci},
-			function (d) {return d.Di},
-			function (d) {return d.Eb},
-			function (d) {return d.Ff},
-			function (d) {return d.Gf}
+			function (d) {return d.isActive}
 		]);
 
 	$("#dc-age-chart").hide();	
