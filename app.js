@@ -99,6 +99,7 @@ app.use("/data",function(req,res,next) {
 
 })
 app.get('/', routes.index);
+app.get('/index2.html', routes.index2)
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
