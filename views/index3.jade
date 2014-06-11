@@ -1,0 +1,74 @@
+extends layout
+
+block content
+	div(class='container-flud')
+		h1(class='page-header') Demo Visualisation
+		div(class='row')
+			p Filtering Attributes
+			div(class="btn-group btn-group")
+				button(type="button",data-toggle="modal", data-target="#aModal") A
+				button(type="button",data-toggle="modal", data-target="#bModal") B 
+				button(type="button",data-toggle="modal", data-target="#cModal") C
+				button(type="button",data-toggle="modal", data-target="#dModal") D
+				button(type="button",data-toggle="modal", data-target="#eModal") E
+				button(type="button",data-toggle="modal", data-target="#fModal") F							
+				button(type="button",data-toggle="modal", data-target="#gModal") G
+		div(class='row')
+			table(id='dc-data-table', class='table')
+				thead
+					tr(class='header')
+						th 
+							a(href="#",data-toggle="modal", data-target="#ageModal") Age
+						th Id
+							//a(href="#",data-toggle="modal", data-target="#idModal") Id
+						th
+							a(href="#" data-toggle="modal", data-target="#genderModal") Gender
+						th
+							a(href="#" data-toggle="modal", data-target="#isActiveModal") isActive
+
+
+	div(class="containter modals")
+		div(class='modal fade', id='ageModal', role='dialog', aria-labelledby="myLargeModalLabel", aria-hidden="true")
+			div(class='modal-dialog modal-lg')
+				div(class='modal-content')
+					div(id="dc-age-chart")
+		div(class='modal fade', id='genderModal', role='dialog', aria-labelledby="myLargeModalLabel", aria-hidden="true")
+			div(class='modal-dialog modal-lg')
+				div(class='modal-content')
+					div(id="dc-gender-chart")
+		//
+		div(class='modal fade', id='isActiveModal', role='dialog', aria-labelledby="myLargeModalLabel", aria-hidden="true")
+			div(class='modal-dialog modal-lg')
+				div(class='modal-content')
+					div(id="dc-isActive-chart")
+		div(class='modal fade', id='aModal', role='dialog', aria-labelledby="myLargeModalLabel", aria-hidden="true")
+			div(class='modal-dialog modal-lg')
+				div(class='modal-content')
+					div(id="dc-a-chart")
+		div(class='modal fade', id='bModal', role='dialog', aria-labelledby="myLargeModalLabel", aria-hidden="true")
+			div(class='modal-dialog modal-lg')
+				div(class='modal-content')
+					div(id="dc-b-chart")
+		div(class='modal fade', id='cModal', role='dialog', aria-labelledby="myLargeModalLabel", aria-hidden="true")
+			div(class='modal-dialog modal-lg')
+				div(class='modal-content')
+					div(id="dc-c-chart")
+
+		div(class='modal fade', id='dModal', role='dialog', aria-labelledby="myLargeModalLabel", aria-hidden="true")
+			div(class='modal-dialog modal-lg')
+				div(class='modal-content')
+					div(id="dc-d-chart")
+		div(class='modal fade', id='eModal', role='dialog', aria-labelledby="myLargeModalLabel", aria-hidden="true")
+			div(class='modal-dialog modal-lg')
+				div(class='modal-content')
+					div(id="dc-e-chart")
+		div(class='modal fade', id='fModal', role='dialog', aria-labelledby="myLargeModalLabel", aria-hidden="true")
+			div(class='modal-dialog modal-lg')
+				div(class='modal-content')
+					div(id="dc-f-chart")
+		div(class='modal fade', id='gModal', role='dialog', aria-labelledby="myLargeModalLabel", aria-hidden="true")
+			div(class='modal-dialog modal-lg')
+				div(class='modal-content')
+					div(id="dc-g-chart")
+
+	script(src='javascripts/vis3.js', type='text/javascript')
