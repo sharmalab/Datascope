@@ -7,7 +7,7 @@ function refresh() {
 	table_data= []
 	d3.json("/data?filter="+JSON.stringify(queryFilter), function (d){
 		data = d;
-		console.log(queryFilter);
+		//console.log(queryFilter);
 		Object.keys(data).forEach(function (dim){
 			if(dim == "table_data"){
 				console.log('table_data')
@@ -37,16 +37,26 @@ function refresh() {
   var charts = [
 
     barChart()
-        .dimension("age")
-      .x(d3.scale.linear()
-        .domain([20, 41])
-        .rangeRound([0, 10 * 24])),
-    barChart()
         .dimension("Ai")
       .x(d3.scale.linear()
         .domain([0, 11])
-        .rangeRound([0, 10 * 24]))  
-
+        .rangeRound([0, 11 * 24])),
+    barChart()
+        .dimension("Bi")
+      .x(d3.scale.linear()
+        .domain([0, 9])
+        .rangeRound([0, 9*24])),
+	barChart()
+        .dimension("Ci")
+      .x(d3.scale.linear()
+        .domain([0, 12])
+        .rangeRound([0, 12*24])),
+	barChart()
+        .dimension("Di")
+      .x(d3.scale.linear()
+        .domain([4, 10])
+        .rangeRound([0,6*30]))
+    
   ];
 
   // Given our array of charts, which we assume are in the same order as the
@@ -55,7 +65,7 @@ function refresh() {
   var chart = d3.selectAll(".chart")
       .data(charts)
       .each(function(chart) { chart.on("brush", renderAll).on("brushend", renderAll); });
-  console.log(d3.selectAll(".chart"))
+  //console.log(d3.selectAll(".chart"))
   renderAll();
 
   // Renders the specified chart or list.
@@ -68,14 +78,6 @@ function refresh() {
     chart.each(render);
   }
 
-  // Like d3.time.format, but faster.
-  function parseDate(d) {
-    return new Date(2001,
-        d.substring(0, 2) - 1,
-        d.substring(2, 4),
-        d.substring(4, 6),
-        d.substring(6, 8));
-  }
 
   window.filter = function(filters) {
     filters.forEach(function(d, i) { charts[i].filter(d); });
@@ -304,7 +306,7 @@ function renderDataTable(){
     //console.log(columns);
   })
 
-  console.log(tbody);
+  //console.log(tbody);
   tbody.html("");
   thead.html("")
   thead.append("tr")
