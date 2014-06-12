@@ -11,4 +11,4 @@ We propose an environment for visualizing and exploring TCIA data . We leverage 
  or 
 ```node app_ajax.js```
 
-* Goto localhost:3000 or localhost:3000/index3.html(for the AJAX version) from your favorite browser.
+* Goto http://localhost:3000/index2.html or http://localhost:3000/index3.html(for the AJAX version) from your favorite browser.
