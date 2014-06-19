@@ -37,7 +37,7 @@ for(var attribute in schema){
 }
 //console.log(visual_attributes)
 // Read the CSV file into flights
-var dataraw = fs.readFileSync("public/small-data.json");
+var dataraw = fs.readFileSync("data/small-data.json");
 //var dataraw = fs.readFileSync("250_data.json")
 data = JSON.parse(dataraw)
 
