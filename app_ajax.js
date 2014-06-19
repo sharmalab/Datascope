@@ -37,7 +37,7 @@ for(var attribute in schema){
 }
 //console.log(visual_attributes)
 // Read the CSV file into flights
-var dataraw = fs.readFileSync("mil_data.json");
+var dataraw = fs.readFileSync("public/small-data.json");
 //var dataraw = fs.readFileSync("250_data.json")
 data = JSON.parse(dataraw)
 
@@ -130,6 +130,7 @@ app.use("/data",function(req,res,next) {
 app.get('/', routes.index);
 app.get('/index2.html', routes.index2)
 app.get('/index3.html', routes.index3)
+app.get('/test.html', routes.test)
 app.get('/users', user.list);
 
 var port = process.env.PORT || 3000;
