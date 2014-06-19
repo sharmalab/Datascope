@@ -2,7 +2,7 @@ body{
   padding-top:70px;
 }
 a {
-  color: #00B7FF;
+  color: #ffccff;
 }
 
 #filtering_attributes{
@@ -13,7 +13,15 @@ a {
 	padding: 14px 22px;
 }
 
-
+#header{
+  background: #556270;
+}
+#header a{
+  color: #ffeeef;
+}
+#header a:hover{
+  color: #ffffff;
+}
 footer {
   padding: 2em 0 1em 0;
   font-size: 12px;
