@@ -27,44 +27,32 @@ var visual_attributes = [];
 var filtering_attributes = [];
 
 //Read the schema
-var schema = fs.readFileSync("public/data-schema.json");
+var schema = fs.readFileSync("public/backend-schema.json");
 schema = JSON.parse(schema);
 //console.log(schema)
 for(var attribute in schema){
 	console.log(attribute)
 	if(schema[attribute]["visual-attribute"])
-		visual_attributes.push(schema[attribute]["name"])
+		visual_attributes.push(schema[attribute]["name"]);
+  if(schema[attribute]["filtering-attribute"])
+    filtering_attributes.push(schema[attribute]["name"]);
 }
 //console.log(visual_attributes)
 // Read the CSV file into flights
 var dataraw = fs.readFileSync("data/small-data.json");
 //var dataraw = fs.readFileSync("250_data.json")
 data = JSON.parse(dataraw)
+var dimensions = {};
+var groups = {};
+var ndx = crossfilter(data);
+for(var attr in filtering_attributes){
+  console.log(filtering_attributes[attr])
+  dimension = ndx.dimension(function(d){return d[filtering_attributes[attr]]});
+  dimensions[filtering_attributes[attr]] = dimension;
 
-
-var ndx = crossfilter(data),
-  dimensions = {
-    Ai: ndx.dimension(function (d){return d.Ai;}),
-    Bi: ndx.dimension(function (d){return d.Bi;}),
-    Ci: ndx.dimension(function (d){return d.Ci;}),
-    Di: ndx.dimension(function (d){return d.Di;}),
-    age: ndx.dimension(function (d){return d.age;}),
-    gender: ndx.dimension(function (d){return d.gender;}),
-    isActive: ndx.dimension(function (d) {return d.isActive;}),
-    Gf: ndx.dimension(function (d){return d.Gf}),
-    Hf: ndx.dimension(function (d){return d.Hf})
-  },
-  groups = {
-    Ai: dimensions.Ai.group(),
-    Bi: dimensions.Bi.group(),
-    Ci: dimensions.Ci.group(),
-    Di: dimensions.Di.group(),
-    age: dimensions.age.group(),
-    gender: dimensions.gender.group(),
-    isActive: dimensions.isActive.group(),
-    Gf: dimensions.Gf.group(function(d){return Math.round(d*10)/10;}),
-    Hf: dimensions.Hf.group(function(d){return Math.round(d*10)/10;})
-  }
+  group = dimension.group();
+  groups[filtering_attributes[attr]] = group;
+}
   size = ndx.size(),
   all = ndx.groupAll();
 
