@@ -16,7 +16,7 @@ function refresh() {
 		})
 		for(var attr in total_data){
 
-			console.log(total_data[attr])
+			//console.log(total_data[attr])
 			var row = total_data[attr]
 			var new_row={}
 			for(var vattr in visual_attributes){
@@ -25,14 +25,18 @@ function refresh() {
 			table_data.push(new_row)
 		}
 
-		console.log(data);
+		//console.log(data);
 		renderAll()
 		renderDataTable()
 	})
 	//render();
 }
-
-
+  var smallCharts = [
+    barChart()
+      .dimension("Ai")
+      .x(d3.scale.linear().domain([0,11]).rangeRound([0,11*12]))
+  ];
+  
   
   var charts = [
 
@@ -58,6 +62,15 @@ function refresh() {
         .rangeRound([0,6*30]))
     
   ];
+
+
+  var smallChart = d3.selectAll(".smallChart")
+    .data(smallCharts);
+  renderAllSmall();
+
+  function renderAllSmall(){
+    smallChart.each(render);
+  }
 
   // Given our array of charts, which we assume are in the same order as the
   // .chart elements in the DOM, bind the charts to the DOM and render them.
@@ -291,7 +304,7 @@ function refresh() {
 
 refresh();
 
-var datatable = d3.select("#dataTable").append("table"),
+var datatable = d3.select("#dataTable"),
   thead = datatable.append("thead"),
   tbody = datatable.append("tbody");
 
@@ -299,12 +312,32 @@ var datatable = d3.select("#dataTable").append("table"),
 
 
 function renderDataTable(){
+/*
+  var small_charts = $("#chart1").clone();
+  small_charts = small_charts.children("svg")
+  small_charts.attr("width", 80)
+    .attr("height", 50)
+    .attr("viewBox", "0 0"+ 80 + " "+50)
+  //console.log($(small_chart).children(".brush").remove());
+  console.log(small_charts)
+
+
+  //small_chart.width(80);
+  //small_chart.height(50);
+  //small_chart()
+  $("#small-chart").html(small_charts);
+  console.log(small_charts);
+ */ 
   var columns = [];
   Object.keys(table_data[0]).forEach(function(col){
     //console.log(col);
     columns.push(col);
     //console.log(columns);
+
+
   })
+
+
 
   //console.log(tbody);
   tbody.html("");
@@ -328,4 +361,5 @@ function renderDataTable(){
     .text(function(d){return d;})
 
   //console.log(cells)
+
 }
