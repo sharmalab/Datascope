@@ -1,86 +1,161 @@
 var queryFilter = {}
 var data = {}
-var visual_attributes=["id","guid","name","registered","gender"]
-var table_data = []
-var total_data = []
-function refresh() {
-	table_data= []
-	d3.json("/data?filter="+JSON.stringify(queryFilter), function (d){
-		data = d;
-		//console.log(queryFilter);
-		Object.keys(data).forEach(function (dim){
-			if(dim == "table_data"){
-				console.log('table_data')
-				total_data = data[dim]["data"]
-			}
-		})
-		for(var attr in total_data){
 
-			//console.log(total_data[attr])
-			var row = total_data[attr]
-			var new_row={}
-			for(var vattr in visual_attributes){
-				new_row[visual_attributes[vattr]]=row[visual_attributes[vattr]]
-			}
-			table_data.push(new_row)
-		}
+var attributes = [];
+var visual_attributes = [];
+var filtering_attributes = [];
+var table_data = [];
+var charts=[]
 
-		//console.log(data);
-		renderAll()
-		renderDataTable()
-	})
-	//render();
-}
-  var smallCharts = [
-    barChart()
-      .dimension("Ai")
-      .x(d3.scale.linear().domain([0,11]).rangeRound([0,11*12]))
-  ];
-  
-  
-  var charts = [
-
-    barChart()
-        .dimension("Ai")
-      .x(d3.scale.linear()
-        .domain([0, 11])
-        .rangeRound([0, 11 * 24])),
-    barChart()
-        .dimension("Bi")
-      .x(d3.scale.linear()
-        .domain([0, 9])
-        .rangeRound([0, 9*24])),
-	barChart()
-        .dimension("Ci")
-      .x(d3.scale.linear()
-        .domain([0, 12])
-        .rangeRound([0, 12*24])),
-	barChart()
-        .dimension("Di")
-      .x(d3.scale.linear()
-        .domain([4, 10])
-        .rangeRound([0,6*30]))
-    
-  ];
-
-
-  var smallChart = d3.selectAll(".smallChart")
-    .data(smallCharts);
-  renderAllSmall();
-
-  function renderAllSmall(){
-    smallChart.each(render);
+function create_buttons(){
+  var filtering_attributes_div = $("#filtering_attributes")
+  for(var i=0; i<filtering_attributes.length; i++){
+    var attribute_name = filtering_attributes[i]["name"];
+    var button = "<button id='button' class='btn btn-default' type='button' data-toggle='modal' data-target='#"+attribute_name+"Modal'>"+ attribute_name + "</button>";
+    filtering_attributes_div.append(button);
   }
+}
+function create_modals() {
+  var visualization_modals = $("#visualization_modals");
+  for(var i=0; i<filtering_attributes.length; i++){
+
+    var attribute_name = filtering_attributes[i]["name"];
+    var chart_modal = "<div class='modal fade' id='"+attribute_name+"Modal' role='dialog' aria-labelledby='myLargeModalLabel' aria-hidden='true'>"
+            + "<div class='modal-dialog modal-lg'>"
+              + "<div class='modal-content'>"
+                + "<div id="+attribute_name+"-chart' class='chart'></div>"
+              + "</div>"
+            + "</div>"
+            + "</div>"  
+    visualization_modals.append(chart_modal)
+  }
+}
+
+
+var datatable = d3.select("#dataTable"),
+  thead = datatable.append("thead"),
+  tbody = datatable.append("tbody");
+function render_table(){
+  var columns = [];
+  Object.keys(table_data[0]).forEach(function(col){
+    //console.log(col);
+    columns.push(col);
+    //console.log(columns);
+  })
+  //console.log(tbody);
+  tbody.html("");
+  thead.html("")
+  thead.append("tr")
+    .selectAll("th")
+    .data(columns)
+    .enter()
+    .append("th")
+    .text(function(column){return column;})
+  var rows = tbody.selectAll("tr")
+    .data(table_data)
+    .enter()
+    .append("tr");
+  var cells = rows.selectAll("td")
+    .data(function(d){
+      //console.log(d3.values(d));
+       return d3.values(d)})
+    .enter()
+    .append("td")
+    .text(function(d){return d;})
+  console.log("here")
+
+}
+
+function render_from_schema() {
+  create_buttons();
+  create_modals();
+ // render_table();
+}
+
+
+d3.json("visual-schema.json", function(err, data)
+{
+  function refresh() {
+    table_data= []
+    d3.json("/data?filter="+JSON.stringify(queryFilter), function (d){
+      data = d;
+      console.log(data)
+      //console.log(queryFilter);
+
+      total_data = data["table_data"]["data"]
+      console.log(total_data)
+      //console.log(data)
+      for(var attr in total_data){
+
+        //console.log(total_data[attr])
+        var row = total_data[attr]
+        var new_row={}
+        for(var vattr in visual_attributes){
+          new_row[visual_attributes[vattr]["name"]]=row[visual_attributes[vattr]["name"]]
+        }
+        table_data.push(new_row)
+      }
+      console.log(table_data)
+      //console.log(data);
+      renderAll();
+      render_table();
+    })
+    //render();
+  }
+
+  for(var index in data){
+    var attribute = data[index];
+    attributes.push(attribute);
+
+    if(attribute["visual-attribute"])
+      visual_attributes.push(attribute);
+    if(attribute["filtering-attribute"]){
+      //console.log(attribute["filtering-attribute-order"])
+      filtering_attributes[attribute["filtering-attribute-order"] -1] = attribute; // -1 for zero based indexing
+    }
+  }
+  console.log(filtering_attributes);
+  console.log(visual_attributes);
+  render_from_schema();
+  
+  /*
+   * Create chart definition and store in charts array
+   */
+  for(var i=0; i<filtering_attributes.length; i++){
+    var attribute_name = filtering_attributes[i]["name"];
+    var chart_type = filtering_attributes[i]["visualization-type"];
+    var x_min = 0;
+    var x_max = 100;
+    if(filtering_attributes[i]["domain"]){
+      x_max = filtering_attributes[i]["domain"][1];
+      x_min = filtering_attributes[i]["domain"][0];  
+    }
+    if(chart_type == "barChart"){
+      charts[i] = function(){ 
+        return barChart()
+        .dimension(attribute_name)
+        .x(d3.scale.linear().domain([x_min, x_max]).rangeRound([0, 10 * 24]))
+      }();  
+    } else {
+      //Modify this to support PieCharts etc.
+      charts[i] = function(){ 
+        return barChart()
+        .dimension("age")
+        .x(d3.scale.linear().domain([20, 40]).rangeRound([0, (20) * 24]))
+      }();  
+    }
+    
+  }
+
 
   // Given our array of charts, which we assume are in the same order as the
   // .chart elements in the DOM, bind the charts to the DOM and render them.
   // We also listen to the chart's brush events to update the display.
-  var chart = d3.selectAll(".chart")
+  chart = d3.selectAll(".chart")
       .data(charts)
-      .each(function(chart) { chart.on("brush", renderAll).on("brushend", renderAll); });
-  //console.log(d3.selectAll(".chart"))
-  renderAll();
+      .each(function (chart) { chart.on("brush", renderAll).on("brushend", renderAll); });
 
+  renderAll();
   // Renders the specified chart or list.
   function render(method) {
     d3.select(this).call(method);
@@ -90,22 +165,14 @@ function refresh() {
   function renderAll() {
     chart.each(render);
   }
-
-
   window.filter = function(filters) {
     filters.forEach(function(d, i) { charts[i].filter(d); });
     renderAll();
   };
-
   window.reset = function(i) {
     charts[i].filter(null);
     renderAll();
   };
-
-  function pieChart(){
-    
-  }
-
 
   function barChart() {
     if (!barChart.id) barChart.id = 0;
@@ -261,19 +328,16 @@ function refresh() {
       brush.x(x);
       return chart;
     };
-
     chart.y = function(_) {
       if (!arguments.length) return y;
       y = _;
       return chart;
     };
-
     chart.dimension = function(_) {
       if (!arguments.length) return dimension;
       dimension = _;
       return chart;
     };
-
     chart.filter = function(_) {
       if (_) {
         brush.extent(_);
@@ -285,81 +349,18 @@ function refresh() {
       brushDirty = true;
       return chart;
     };
-
     chart.group = function(_) {
       if (!arguments.length) return group;
       group = _;
       return chart;
     };
-
     chart.round = function(_) {
       if (!arguments.length) return round;
       round = _;
       return chart;
     };
-
     return d3.rebind(chart, brush, "on");
+
   }
-
-
 refresh();
-
-var datatable = d3.select("#dataTable"),
-  thead = datatable.append("thead"),
-  tbody = datatable.append("tbody");
-
-
-
-
-function renderDataTable(){
-/*
-  var small_charts = $("#chart1").clone();
-  small_charts = small_charts.children("svg")
-  small_charts.attr("width", 80)
-    .attr("height", 50)
-    .attr("viewBox", "0 0"+ 80 + " "+50)
-  //console.log($(small_chart).children(".brush").remove());
-  console.log(small_charts)
-
-
-  //small_chart.width(80);
-  //small_chart.height(50);
-  //small_chart()
-  $("#small-chart").html(small_charts);
-  console.log(small_charts);
- */ 
-  var columns = [];
-  Object.keys(table_data[0]).forEach(function(col){
-    //console.log(col);
-    columns.push(col);
-    //console.log(columns);
-
-
-  })
-
-
-
-  //console.log(tbody);
-  tbody.html("");
-  thead.html("")
-  thead.append("tr")
-    .selectAll("th")
-    .data(columns)
-    .enter()
-    .append("th")
-    .text(function(column){return column;})
-  var rows = tbody.selectAll("tr")
-    .data(table_data)
-    .enter()
-    .append("tr");
-  var cells = rows.selectAll("td")
-    .data(function(d){
-      //console.log(d3.values(d));
-       return d3.values(d)})
-    .enter()
-    .append("td")
-    .text(function(d){return d;})
-
-  //console.log(cells)
-
-}
+})
