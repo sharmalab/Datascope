@@ -6,9 +6,7 @@ We propose an environment for visualizing and exploring TCIA data . We leverage 
 
 * Install Node.js
 * Clone the repository
-* Run 
-```node app.js```
- or 
-```node app_ajax.js```
+* Run ```npm install```
+* Run ```node app_ajax.js```
 
-* Goto http://localhost:3000/index2.html or http://localhost:3000/index3.html(for the AJAX version) from your favorite browser.
+* Goto ```http://localhost:3000/index3.html``` from your favorite browser.
