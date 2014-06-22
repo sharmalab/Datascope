@@ -1,0 +1,123 @@
+[
+    {
+        "name": "id",
+        "datatype": "integer",
+        "visual-attribute": true
+    },
+    {
+        "name": "guid",
+        "datatype": "string",
+        "visual-attribute": true
+    },
+    {
+        "name": "name",
+        "datatype": "string",
+        "visual-attribute": true
+    },
+    {
+        "name": "registered",
+        "datatype": "string",
+        "visual-attribute": true
+    },
+    {
+        "name": "gender",
+        "datatype": "string",
+        "filtering-attribute": true,
+        "filtering-attribute-order": 4,
+        "filtering-attribute-filter": "",
+        "visualization-type": "pieChart"
+    },
+    {
+        "name": "age",
+        "datatype": "integer",
+        "filtering-attribute": true,
+        "visual-attribute": true,
+        "filtering-attribute-order": 1,
+        "filtering-attribute-filter": "",
+        "visualization-type": "barChart",
+        "domain": [20,40]
+
+    },
+    {
+        "name": "isActive",
+        "datatype": "boolean",
+        "filtering-attribute": true,
+        "visual-attribute": true,
+        "filtering-attribute-order": 3,
+        "filtering-attribute-filter": "",
+        "visualization-type": "pieChart"
+    },
+    {
+        "name": "Ai",
+        "datatype": "integer",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true,
+        "filtering-attribute-order": 2,
+        "filtering-attribute-filter": "",
+        "visualization-type": "barChart",
+        "domain": [0,11]
+    },
+    {
+        "name": "Bi",
+        "datatype": "integer",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true,
+        "filtering-attribute-order": 5,
+        "filtering-attribute-filter": "",
+        "visualization-type": "barChart"
+    },
+    {
+        "name": "Ci",
+        "datatype": "integer",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true,
+        "filtering-attribute-order": 6,
+        "filtering-attribute-filter": "",
+        "visualization-type": "barChart"
+    },
+    {
+        "name": "Di",
+        "datatype": "integer",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true,
+        "filtering-attribute-order": 7,
+        "filtering-attribute-filter": "",
+        "visualization-type": "barChart"
+    },
+    {
+        "name": "Eb",
+        "datatype": "boolean",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true,
+        "filtering-attribute-order": 8,
+        "filtering-attribute-filter": "",
+        "visualization-type": "barChart"
+    },
+    {
+        "name": "Ff",
+        "datatype": "float",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true,
+        "filtering-attribute-order": 9,
+        "filtering-attribute-filter": "",
+        "visualization-type": "barChart"
+    },
+    {
+        "name": "Gf",
+        "datatype": "float",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true,
+        "filtering-attribute-order": 10,
+        "filtering-attribute-filter": "",
+        "visualization-type": "barChart"
+    },
+    {
+        "name": "Hf",
+        "datatype": "float",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true,
+        "filtering-attribute-order": 11,
+        "filtering-attribute-filter": "",
+        "visualization-type": "barChart"
+    }
+]
