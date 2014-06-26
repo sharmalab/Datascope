@@ -15,3 +15,6 @@ exports.index3 = function(req,res){
 exports.test = function(req,res){
 	res.render('test')
 }
+exports.index4 = function(req,res){
+	res.render('index4')
+}

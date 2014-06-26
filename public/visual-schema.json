@@ -25,7 +25,8 @@
         "filtering-attribute": true,
         "filtering-attribute-order": 4,
         "filtering-attribute-filter": "",
-        "visualization-type": "pieChart"
+        "visualization-type": "pieChart",
+        "filter": "male"
     },
     {
         "name": "age",
@@ -35,7 +36,8 @@
         "filtering-attribute-order": 1,
         "filtering-attribute-filter": "",
         "visualization-type": "barChart",
-        "domain": [20,40]
+        "domain": [20,40],
+        "filter": [23,30]
 
     },
     {
@@ -64,7 +66,8 @@
         "filtering-attribute": true,
         "filtering-attribute-order": 5,
         "filtering-attribute-filter": "",
-        "visualization-type": "barChart"
+        "visualization-type": "barChart",
+        "domain": [0,8]
     },
     {
         "name": "Ci",
@@ -73,7 +76,8 @@
         "filtering-attribute": true,
         "filtering-attribute-order": 6,
         "filtering-attribute-filter": "",
-        "visualization-type": "barChart"
+        "visualization-type": "barChart",
+        "domain": [0,12]
     },
     {
         "name": "Di",
@@ -82,7 +86,8 @@
         "filtering-attribute": true,
         "filtering-attribute-order": 7,
         "filtering-attribute-filter": "",
-        "visualization-type": "barChart"
+        "visualization-type": "barChart",
+        "domain": [0,18]
     },
     {
         "name": "Eb",
@@ -91,33 +96,7 @@
         "filtering-attribute": true,
         "filtering-attribute-order": 8,
         "filtering-attribute-filter": "",
-        "visualization-type": "barChart"
-    },
-    {
-        "name": "Ff",
-        "datatype": "float",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true,
-        "filtering-attribute-order": 9,
-        "filtering-attribute-filter": "",
-        "visualization-type": "barChart"
-    },
-    {
-        "name": "Gf",
-        "datatype": "float",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true,
-        "filtering-attribute-order": 10,
-        "filtering-attribute-filter": "",
-        "visualization-type": "barChart"
-    },
-    {
-        "name": "Hf",
-        "datatype": "float",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true,
-        "filtering-attribute-order": 11,
-        "filtering-attribute-filter": "",
-        "visualization-type": "barChart"
-    }
+        "visualization-type": "pieChart"
+
+    }   
 ]
