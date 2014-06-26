@@ -1,210 +1,303 @@
-function print_filter(filter){
-	var f=eval(filter);
-	if (typeof(f.length) != "undefined") {}else{}
-	if (typeof(f.top) != "undefined") {f=f.top(Infinity);}else{}
-	if (typeof(f.dimension) != "undefined") {f=f.dimension(function(d) { return "";}).top(Infinity);}else{}
-	console.log(filter+"("+f.length+") = "+JSON.stringify(f).replace("[","[\n\t").replace(/}\,/g,"},\n\t").replace("]","\n]"));
-} 
+var queryFilter = {}
+var chartData = {}
 
-var attributes = [];
+var table_data = [];
+
+
+var datatable = d3.select("#dataTable"),
+  thead = datatable.append("thead"),
+  tbody = datatable.append("tbody");
+function render_table(){
+  var columns = [];
+  Object.keys(table_data[0]).forEach(function(col){
+    //console.log(col);
+    columns.push(col);
+    //console.log(columns);
+  })
+  //console.log(tbody);
+  tbody.html("");
+  thead.html("")
+  thead.append("tr")
+    .selectAll("th")
+    .data(columns)
+    .enter()
+    .append("th")
+    .text(function(column){return column;})
+  var rows = tbody.selectAll("tr")
+    .data(table_data)
+    .enter()
+    .append("tr");
+  var cells = rows.selectAll("td")
+    .data(function(d){
+      //console.log(d3.values(d));
+       return d3.values(d)})
+    .enter()
+    .append("td")
+    .text(function(d){return d;})
+  //console.log("here")
+
+}
+
+function refresh() {
+  table_data= [];
+  d3.json("/data?filter="+JSON.stringify(queryFilter), function (d){
+
+    chartData = d;
+    console.log(chartData);
+
+    //Delete later
+      total_data = chartData["table_data"]["data"]
+      for(var attr in total_data){
+
+        //console.log(total_data[attr])
+        var row = total_data[attr]
+        var new_row={}
+        for(var vattr in visual_attributes){
+          new_row[visual_attributes[vattr]["name"]]=row[visual_attributes[vattr]["name"]]
+        }
+        table_data.push(new_row)
+      }
+    render_table()
+    dc.renderAll();
+  })
+}
+
+function refresh_init() {
+  d3.json("/data?filter="+JSON.stringify(queryFilter), function (d){
+    chartData = d;
+    console.log(chartData);
+
+    process_schema();
+    create_buttons();
+    create_modals();
+
+    initialize_charts();
+
+    load_from_state();
+    initialize_thumbnails();
+    dc.renderAll(); 
+    
+
+    console.log(charts);
+    console.log(dimensions);
+    console.log(groups)
+  })
+}
+function load_from_state(){
+  for(var i in filtering_attributes){
+    var pre_filter = filtering_attributes[i]["filter"]
+    console.log(pre_filter)
+    console.log(i)
+    if(pre_filter)
+    { 
+      charts[i].filter(pre_filter);
+      console.log("Pre filtering")
+    }
+  }
+}
+
 var filtering_attributes = [];
 var visual_attributes = [];
-var key_attributes = [];
-var data_providers = [];
-var key_dimensions = [];
-var dimensions = [];
-var groups = [];
-var charts = [];
+var attributes = [];
+var schema_data = {};
+function create_buttons(){
+  var filtering_attributes_div = $("#filtering_attributes")
+  for(var i=0; i<filtering_attributes.length; i++){
+    var attribute_name = filtering_attributes[i]["name"];
+    var accordian_panel_header = '<div class="panel panel-default">\
+    							<div class="panel-heading">\
+    								<h4 class="panel-title">\
+    									<a data-toggle="collapse" data-parent="#filtering_attributes" href="#'+attribute_name+'-thumb">'+attribute_name+'\
+    									</a>\
+    								</h4>\
+    							</div>'
+    var accordian_panel_body = '<div id="'+attribute_name+'-thumb" class="panel-collapse collapse in">\
+    								<div class="panel-body">\
+    									<div id="dc-'+attribute_name+'-thumb" class="thumb-chart" data-toggle="modal" data-target="#'+attribute_name+'Modal"></div>\
+    								</div>\
+    							</div>\
+    						</div>'
+   	var accordian_full = accordian_panel_header + accordian_panel_body
+    //var button = "<button id='button' class='btn btn-default' type='button' data-toggle='modal' data-target='#"+attribute_name+"Modal'>"+ attribute_name + "</button>";
+    filtering_attributes_div.append(accordian_full);
+  }
+}
+function create_modals() {
+  var visualization_modals = $("#visualization_modals");
+  for(var i=0; i<filtering_attributes.length; i++){
 
-
-var data;
-var ndx;
-
-function merge_data(){
-	return;
+    var attribute_name = filtering_attributes[i]["name"];
+    var chart_modal = "<div class='modal fade' id='"+attribute_name+"Modal' role='dialog' aria-labelledby='myLargeModalLabel' aria-hidden='true'>"
+            + "<div class='modal-dialog modal-lg'>"
+              + "<div class='modal-content'>"
+                +"<h3>"+attribute_name+"</h3>"
+                + "<div id='dc-"+attribute_name+"-chart' class='chart'></div>"
+              + "</div>"
+            + "</div>"
+            + "</div>"  
+    visualization_modals.append(chart_modal)
+  }
 }
 
-function create_buttons(filtering_attribute){
-	var filtering_attributes_container = $("#filtering_attributes");
-	var attribute_name = filtering_attribute["name"]
-	filtering_attributes_container.append("<button type='button' class='btn btn-default btn-lg' data-toggle='modal' data-target='#"+attribute_name+"Modal'>"+attribute_name+"</button>");
-
-}
-function create_charts(filtering_attribute,index){
-	var filtering_charts_container = $("#filtering_charts");
-	var attribute_name = filtering_attribute["name"];
-
-	var chart_modal = "<div class='modal fade' id='"+attribute_name+"Modal' role='dialog' aria-labelledby='myLargeModalLabel' aria-hidden='true'>"
-						+ "<div class='modal-dialog modal-lg'>"
-							+ "<div class='modal-content'>"
-								+ "<div id='dc-"+attribute_name+"-chart'></div>"
-							+ "</div>"
-						+ "</div>"
-						+ "</div>"	
-	
-	filtering_charts_container.append(chart_modal);
-	
-
-
-	var chart_type = filtering_attribute["chart-type"]
-
-	var chart;
-
-	if(chart_type == "pieChart"){
-		chart = dc.pieChart("#dc-"+attribute_name+"-chart");
-		chart.dimension(dimensions[index])
-			.group(groups[index])
-			.width(300)
-			.height(300)
-			.radius(80)
-			.label(function(p){
-				return p.data.key + " ";
-			})
-			.innerRadius(40)
-			.transitionDuration(300)
-			.renderLabel(true);		
-	}
-	else
-	{
-		//Obtain max, min from the schema?
-		var min = d3.min(data, function(d){return +d[attribute_name]});
-		var max = d3.max(data, function(d){return +d[attribute_name]});
-
-
-		chart = dc.barChart("#dc-"+attribute_name+"-chart")
-		chart.dimension(dimensions[index])
-			.group(groups[index])
-			.width(400)
-			.height(240)
-			.x(d3.scale.linear().domain([min,max]))
-			.elasticY(true);		
-	}
-	//print_filter(dimensions[index].filter())
-	charts.push(chart)
-
-
-}
-function create_table(){
-	var table_columns = [];
-	var table_header = "";
-	for(var attr in visual_attributes){
-		var col_header = visual_attributes[attr]["name"];
-
-		table_header+= "<th>"
-		table_header+= col_header
-		table_header+= "</th>"
-		//nsole.log(visual_attributes[attr]["name"])
-		function colFunction(col_header){
-			return function(d){return d[col_header]}
-		}
-		table_columns.push(colFunction(col_header))
-	}
-
-
-	$("#dc-data-table-header").append(table_header);
-
-	var datatable=dc.dataTable("#dc-data-table");
-
-
-	datatable.dimension(key_dimensions[0])
-		.group(function(d){
-			var attribute = key_attributes[0]["name"];
-			return Math.floor(d[attribute]/100)*100;
-		})
-		.columns(table_columns);
-
-
-}
-
-function process_data(){
-
-	//Apply crossfilter to the data
-	ndx = crossfilter(data);
-
-
-	var index = 0;
-	//Process filtering attributes
-	for(var attr in filtering_attributes) {
-		//Create dimensions
-		dimension = ndx.dimension(function(d) {
-			var dim_attribute = filtering_attributes[attr]["name"]
-			return d[dim_attribute];
-		});
-		dimensions.push(dimension);
-		//Create groups
-		groups.push(dimension.group())
-
-		//Create html divs for displaying the visualization
-		create_buttons(filtering_attributes[attr])
-		create_charts(filtering_attributes[attr], index)
-		index++;
-	}
-	for(var attr in key_attributes){
-		dimension = ndx.dimension(function(d) {
-			var dim_attribute = key_attributes[attr]["name"]
-			return d[dim_attribute]
-		})
-		key_dimensions.push(dimension)
-	}
-	create_table();
-
-	dc.renderAll();
-}
-
-function load_data(data_providers){
-
-	for(var i in data_providers){
-		var data_provider = data_providers[i];
-		d3.json(data_provider, function(err,d){
-			if(err){
-				console.log("Error");
-			}
-			data = d;
-
-			//Merge data
-			merge_data();
-
-			process_data();
-		})
-	}
-
+function process_schema(){  
+  for(var index in schema_data){
+    var attribute = schema_data[index];
+    attributes.push(attribute);
+    if(attribute["visual-attribute"])
+      visual_attributes.push(attribute);
+    if(attribute["filtering-attribute"]){
+      filtering_attributes[attribute["filtering-attribute-order"] -1] = attribute; // -1 for zero based indexing
+    }
+  }
+  console.log(filtering_attributes);
+  console.log(visual_attributes);
 }
 
 
-d3.json("../data-schema.json", function(err,data){
-	if(err){
-		console.log(err);
-	}
-	console.log(data);	
-	for(var object in data){
-		//console.log(data[i]);
-		var attribute = data[object];
-		attributes.push(attribute);
-		//console.log(attribute["visual-attribute"])
-		if(attribute["visual-attribute"]){
-			visual_attributes.push(attribute);
-		}
-		if(attribute["filtering-attribute"]){
-			filtering_attributes.push(attribute);
-		}
-		if(attribute["key-attribute"]){
-			key_attributes.push(attribute);
-		}
+dimensions = {}
+groups = {}
+charts = []
+thumb_charts = []
+function initialize_charts(){
 
-		//Check if from a newer data source
-		var data_provider_exists = false;
-		for(var i in data_providers){
-			if(data_providers[i] == attribute["data-provider"]){
-				data_provider_exists = true;
-			}
-		}
-		if(data_provider_exists == false){
-			data_providers.push(attribute["data-provider"])
-		}
+  for(var i in filtering_attributes){
+    var attribute_name = filtering_attributes[i]["name"];
 
-		i++;
+    dimensions[attribute_name] = function(dim){
+      var dim = attribute_name
+      return {
+        filter: function(f) {
+        if(f) {
+                console.log("say wahaat?")
+                queryFilter[dim] = f;
+                refresh()
+          } else {
+                 console.log("say wahaat?")
+                delete queryFilter[dim];
+                refresh()
+          }
+        },
+        top: function(){
+          console.log("top")
+          return chartData[dim].top
+        }, 
+        filterAll: function(){
 
-	}
-	//Read data from various data providers
-	load_data(data_providers)
-})	
+        }
+      }
+    }();
+    groups[attribute_name] = function(dim){
+      var dim =attribute_name;
+      return {
+            all: function(){
+            return chartData[dim].values
+            }, 
+            order: function(){
+              return groups[dim]
+            },
+            top: function(){
+              return chartData[dim].values
+            }
+      }
+    }()  
+  }
+
+  for(var i in filtering_attributes){
+    var attribute_name = filtering_attributes[i]["name"];
+    var domain = [0,100];
+    var visualization_type = filtering_attributes[i]["visualization-type"];
+
+
+    if(filtering_attributes[i]["domain"]){
+      domain = filtering_attributes[i]["domain"]
+    }
+    if(visualization_type == "barChart"){
+      charts[i] = function(aname,pre_filter) {
+        aname = attribute_name;
+        pf = pre_filter
+        //attri = attr[index]
+        
+        //console.log("#dc-"+aname+"-chart");
+        var c =  dc.barChart("#dc-"+aname+"-chart");
+        c.width(300)
+        .height(250).dimension(dimensions[aname])
+        .group(groups[aname])
+        .x(d3.scale.linear().domain(domain))
+
+        return c;
+        }();
+    } else {
+      charts[i] = function(aname) {
+        aname = attribute_name;
+        //attri = attr[index]
+        
+        console.log("#dc-"+aname+"-chart");
+        var c =  dc.pieChart("#dc-"+aname+"-chart");
+        c.width(300)
+        .height(250).dimension(dimensions[aname])
+        .group(groups[aname])
+        
+        return c;
+        }();      
+    }
+  } 
+}
+
+function initialize_thumbnails(){
+  for(var i in filtering_attributes){
+    var attribute_name = filtering_attributes[i]["name"];
+    var domain = [0,100];
+    var visualization_type = filtering_attributes[i]["visualization-type"];
+
+
+    if(filtering_attributes[i]["domain"]){
+      domain = filtering_attributes[i]["domain"]
+    }
+    if(visualization_type == "barChart"){
+      charts[i] = function(aname,pre_filter) {
+        aname = attribute_name;
+        pf = pre_filter
+        //attri = attr[index]
+        
+        //console.log("#dc-"+aname+"-chart");
+        var c =  dc.barChart("#dc-"+aname+"-thumb");
+        c.width(180)
+        .height(120).dimension(dimensions[aname])
+        .group(groups[aname])
+        .x(d3.scale.linear().domain(domain))
+        .elasticY(true)
+        .turnOffControls()
+        .renderLabel(false)
+        .brushOn(false)
+        .xAxis().tickFormat(function(v) { return ""; })
+
+        return c;
+        }();
+    } else {
+      charts[i] = function(aname) {
+        aname = attribute_name;
+        //attri = attr[index]
+        
+        console.log("#dc-"+aname+"-chart");
+        var c =  dc.pieChart("#dc-"+aname+"-thumb");
+        c.width(80)
+        .height(80).dimension(dimensions[aname])
+        .group(groups[aname])
+        .turnOffControls()
+        .radius(30)
+        .filter(function(){})
+        .renderLabel(false)
+        
+        return c;
+        }();      
+    }
+  } 
+}
+
+d3.json("visual-schema.json", function(err, data){
+  schema_data = data;
+  refresh_init();
+  
+});
+
+
