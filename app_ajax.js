@@ -49,7 +49,6 @@ for(var attr in filtering_attributes){
   console.log(filtering_attributes[attr])
   dimension = ndx.dimension(function(d){return d[filtering_attributes[attr]]});
   dimensions[filtering_attributes[attr]] = dimension;
-
   group = dimension.group();
   groups[filtering_attributes[attr]] = group;
 }
@@ -78,19 +77,10 @@ app.use("/data",function(req,res,next) {
       // In this example the only string variables in the filter are dates
       //console.log("here")
       //console.log(dim)
-      console.log("here")
-      console.log(filter[dim][0])
+      console.log(filter[dim])
+    
       
-
-      if(typeof filter[dim][0] ==='string'){
-      	if(filter[dim][0] == "true"){
-      		filter[dim] = [0,filter[dim][1]]
-      	}else{
-      		filter[dim] = [1,filter[dim][1]]
-      	}
-      }
-
-      dimensions[dim].filterRange(filter[dim])
+      dimensions[dim].filter(filter[dim])
     } else {
       dimensions[dim].filterAll(null)
     }
@@ -102,7 +92,7 @@ app.use("/data",function(req,res,next) {
   }
   else{
       //dimensions[filter_dim].filterRange(filter_range)
-      results["table_data"] = {data:dimensions[filter_dim]  .top(100)}
+      results["table_data"] = {data:dimensions[filter_dim].top(100)}
   }
   Object.keys(groups).forEach(function(key) {
       results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value}
@@ -118,6 +108,7 @@ app.use("/data",function(req,res,next) {
 app.get('/', routes.index);
 app.get('/index2.html', routes.index2)
 app.get('/index3.html', routes.index3)
+app.get('/index4.html', routes.index4)
 app.get('/test.html', routes.test)
 app.get('/users', user.list);
 
