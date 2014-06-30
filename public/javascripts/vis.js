@@ -4,6 +4,16 @@ var chartData = {}
 var table_data = [];
 
 
+
+function clone(obj) {
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+    }
+    return copy;
+}
+
 var datatable = d3.select("#dataTable"),
   thead = datatable.append("thead"),
   tbody = datatable.append("tbody");
@@ -37,7 +47,7 @@ function render_table(){
   //console.log("here")
 
 }
-
+$("#loading").modal()
 function refresh() {
   table_data= [];
   d3.json("/data?filter="+JSON.stringify(queryFilter), function (d){
@@ -59,7 +69,9 @@ function refresh() {
       }
     render_table()
     dc.renderAll();
-  })
+    $("#loading").modal('hide')
+  });
+  $("#loading").modal('show')
 }
 
 function refresh_init() {
@@ -73,8 +85,9 @@ function refresh_init() {
 
     initialize_charts();
 
-    load_from_state();
     initialize_thumbnails();
+    
+    load_from_state();
     dc.renderAll(); 
     
 
@@ -113,7 +126,7 @@ function create_buttons(){
     							</div>'
     var accordian_panel_body = '<div id="'+attribute_name+'-thumb" class="panel-collapse collapse in">\
     								<div class="panel-body">\
-    									<div id="dc-'+attribute_name+'-thumb" class="thumb-chart" data-toggle="modal" data-target="#'+attribute_name+'Modal"></div>\
+    									<div id="dc-'+attribute_name+'-thumb" class="thumb-chart" data-toggle="modal" data-target="#'+attribute_name+'Modal">Click</div>\
     								</div>\
     							</div>\
     						</div>'
@@ -154,10 +167,10 @@ function process_schema(){
 }
 
 
-dimensions = {}
-groups = {}
-charts = []
-thumb_charts = []
+dimensions = {};
+groups = {};
+charts = [];
+thumb_charts = [];
 function initialize_charts(){
 
   for(var i in filtering_attributes){
@@ -176,12 +189,11 @@ function initialize_charts(){
                 delete queryFilter[dim];
                 refresh()
           }
-        },
-        top: function(){
-          console.log("top")
-          return chartData[dim].top
         }, 
         filterAll: function(){
+
+        },
+        filterFunction: function(d){
 
         }
       }
@@ -222,6 +234,7 @@ function initialize_charts(){
         c.width(300)
         .height(250).dimension(dimensions[aname])
         .group(groups[aname])
+        .elasticY(true)	
         .x(d3.scale.linear().domain(domain))
 
         return c;
@@ -245,6 +258,8 @@ function initialize_charts(){
 
 function initialize_thumbnails(){
   for(var i in filtering_attributes){
+
+  	
     var attribute_name = filtering_attributes[i]["name"];
     var domain = [0,100];
     var visualization_type = filtering_attributes[i]["visualization-type"];
@@ -254,11 +269,11 @@ function initialize_thumbnails(){
       domain = filtering_attributes[i]["domain"]
     }
     if(visualization_type == "barChart"){
-      charts[i] = function(aname,pre_filter) {
+      thumb_charts[i] = function(aname,pre_filter) {
         aname = attribute_name;
         pf = pre_filter
         //attri = attr[index]
-        
+        console.log(charts[i])
         //console.log("#dc-"+aname+"-chart");
         var c =  dc.barChart("#dc-"+aname+"-thumb");
         c.width(180)
@@ -266,7 +281,6 @@ function initialize_thumbnails(){
         .group(groups[aname])
         .x(d3.scale.linear().domain(domain))
         .elasticY(true)
-        .turnOffControls()
         .renderLabel(false)
         .brushOn(false)
         .xAxis().tickFormat(function(v) { return ""; })
@@ -274,7 +288,7 @@ function initialize_thumbnails(){
         return c;
         }();
     } else {
-      charts[i] = function(aname) {
+      thumb_charts[i] = function(aname) {
         aname = attribute_name;
         //attri = attr[index]
         
@@ -285,12 +299,12 @@ function initialize_thumbnails(){
         .group(groups[aname])
         .turnOffControls()
         .radius(30)
-        .filter(function(){})
         .renderLabel(false)
         
         return c;
         }();      
     }
+  
   } 
 }
 
