@@ -54,7 +54,8 @@
         "name": "Bi",
         "datatype": "integer",
         "data-provider": "small-data.json",
-        "filtering-attribute": true
+        "filtering-attribute": true,
+        "visual-attribute":true
     },
     {
         "name": "Ci",
