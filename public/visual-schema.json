@@ -66,8 +66,9 @@
         "filtering-attribute": true,
         "filtering-attribute-order": 5,
         "filtering-attribute-filter": "",
-        "visualization-type": "barChart",
-        "domain": [0,8]
+        "visualization-type": "pieChart",
+        "domain": [0,8],
+        "visual-attribute": true
     },
     {
         "name": "Ci",
