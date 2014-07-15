@@ -14,6 +14,7 @@ function clone(obj) {
     return copy;
 }
 
+
 var datatable = d3.select("#dataTable"),
   thead = datatable.append("thead"),
   tbody = datatable.append("tbody");
@@ -46,32 +47,47 @@ function render_table(){
     .text(function(d){return d;})
   //console.log("here")
 
+
 }
-$("#loading").modal()
+
+
+
 function refresh() {
   table_data= [];
-  d3.json("/data?filter="+JSON.stringify(queryFilter), function (d){
-
-    chartData = d;
-    console.log(chartData);
-
-    //Delete later
-      total_data = chartData["table_data"]["data"]
-      for(var attr in total_data){
-
-        //console.log(total_data[attr])
-        var row = total_data[attr]
-        var new_row={}
-        for(var vattr in visual_attributes){
-          new_row[visual_attributes[vattr]["name"]]=row[visual_attributes[vattr]["name"]]
-        }
-        table_data.push(new_row)
+  if(JSON.stringify(queryFilter)){
+    console.log(queryFilter)
+    for(qf in queryFilter){
+      if(queryFilter[qf].length === 0){
+        delete queryFilter[qf];
       }
-    render_table()
-    dc.renderAll();
-    $("#loading").modal('hide')
-  });
-  $("#loading").modal('show')
+    }
+    d3.json("/data?filter="+JSON.stringify(queryFilter), function (d){
+  
+      chartData = d;
+      console.log(chartData);
+  
+      //Delete later
+        total_data = chartData["table_data"]["data"]
+        console.log(table_data)
+        for(var attr in total_data){
+  
+          //console.log(total_data[attr])
+          var row = total_data[attr]
+          var new_row={}
+          for(var vattr in visual_attributes){
+            new_row[visual_attributes[vattr]["name"]]=row[visual_attributes[vattr]["name"]]
+          }
+          table_data.push(new_row)
+        }
+      render_table()
+      dc.renderAll();
+      //$("#loading").modal('hide');
+    });
+  } else {
+    console.log("Empty filter");
+  }
+
+  //$("#loading").modal('show');
 }
 
 function refresh_init() {
@@ -81,13 +97,31 @@ function refresh_init() {
 
     process_schema();
     create_buttons();
-    create_modals();
+    //create_modals();
+    initialize_dimensions();
+    //initialize_charts();
 
-    initialize_charts();
 
-    initialize_thumbnails();
+
+        total_data = chartData["table_data"]["data"]
+        console.log(table_data)
+        for(var attr in total_data){
+  
+          //console.log(total_data[attr])
+          var row = total_data[attr]
+          var new_row={}
+          for(var vattr in visual_attributes){
+            new_row[visual_attributes[vattr]["name"]]=row[visual_attributes[vattr]["name"]]
+          }
+          table_data.push(new_row)
+        }
+
+
     
-    load_from_state();
+    initialize_thumbnails();
+    render_table();
+    //load_from_state();
+    dc.EVENT_DELAY=100;
     dc.renderAll(); 
     
 
@@ -99,8 +133,7 @@ function refresh_init() {
 function load_from_state(){
   for(var i in filtering_attributes){
     var pre_filter = filtering_attributes[i]["filter"]
-    console.log(pre_filter)
-    console.log(i)
+
     if(pre_filter)
     { 
       charts[i].filter(pre_filter);
@@ -118,19 +151,19 @@ function create_buttons(){
   for(var i=0; i<filtering_attributes.length; i++){
     var attribute_name = filtering_attributes[i]["name"];
     var accordian_panel_header = '<div class="panel panel-default">\
-    							<div class="panel-heading">\
-    								<h4 class="panel-title">\
-    									<a data-toggle="collapse" data-parent="#filtering_attributes" href="#'+attribute_name+'-thumb">'+attribute_name+'\
-    									</a>\
-    								</h4>\
-    							</div>'
+                  <div class="panel-heading">\
+                    <h4 class="panel-title">\
+                      <a data-toggle="collapse" data-parent="#filtering_attributes" href="#'+attribute_name+'-thumb">'+attribute_name+'\
+                      </a>\
+                    </h4>\
+                  </div>'
     var accordian_panel_body = '<div id="'+attribute_name+'-thumb" class="panel-collapse collapse in">\
-    								<div class="panel-body">\
-    									<div id="dc-'+attribute_name+'-thumb" class="thumb-chart" data-toggle="modal" data-target="#'+attribute_name+'Modal">Click</div>\
-    								</div>\
-    							</div>\
-    						</div>'
-   	var accordian_full = accordian_panel_header + accordian_panel_body
+                    <div class="panel-body thumb-panel-body"  data-toggle="modal" data-target="#'+attribute_name+'Modal">\
+                      <div id="dc-'+attribute_name+'-thumb" class="thumb-chart"></div>\
+                    </div>\
+                  </div>\
+                </div>'
+    var accordian_full = accordian_panel_header + accordian_panel_body
     //var button = "<button id='button' class='btn btn-default' type='button' data-toggle='modal' data-target='#"+attribute_name+"Modal'>"+ attribute_name + "</button>";
     filtering_attributes_div.append(accordian_full);
   }
@@ -168,10 +201,13 @@ function process_schema(){
 
 
 dimensions = {};
+thumb_dimensions = {};
 groups = {};
+thumb_groups = {};
 charts = [];
 thumb_charts = [];
-function initialize_charts(){
+
+function  initialize_dimensions () {
 
   for(var i in filtering_attributes){
     var attribute_name = filtering_attributes[i]["name"];
@@ -180,14 +216,17 @@ function initialize_charts(){
       var dim = attribute_name
       return {
         filter: function(f) {
-        if(f) {
-                console.log("say wahaat?")
+          console.log(f)
+          if(f) {
                 queryFilter[dim] = f;
                 refresh()
           } else {
-                 console.log("say wahaat?")
+              if(queryFilter[dim]){
                 delete queryFilter[dim];
                 refresh()
+              } else {
+                return;
+              } 
           }
         }, 
         filterAll: function(){
@@ -211,19 +250,27 @@ function initialize_charts(){
               return chartData[dim].values
             }
       }
-    }()  
+    }();
+
+
   }
+
+}
+
+function initialize_charts(){
 
   for(var i in filtering_attributes){
     var attribute_name = filtering_attributes[i]["name"];
     var domain = [0,100];
     var visualization_type = filtering_attributes[i]["visualization-type"];
 
-
+    var width = filtering_attributes[i]["width"];
+    var height = filtering_attributes[i]["height"];
     if(filtering_attributes[i]["domain"]){
       domain = filtering_attributes[i]["domain"]
     }
     if(visualization_type == "barChart"){
+
       charts[i] = function(aname,pre_filter) {
         aname = attribute_name;
         pf = pre_filter
@@ -231,11 +278,22 @@ function initialize_charts(){
         
         //console.log("#dc-"+aname+"-chart");
         var c =  dc.barChart("#dc-"+aname+"-chart");
-        c.width(300)
-        .height(250).dimension(dimensions[aname])
+
+        if(width)
+          c.width(width)
+        else
+          c.width(300)
+
+        if(height)
+          c.height(height)
+        else
+          c.height(130)
+        c.dimension(dimensions[aname])    
+        .margins({top: 10, right: 20, bottom: 20, left: 40})
         .group(groups[aname])
-        .elasticY(true)	
+        .elasticY(true) 
         .x(d3.scale.linear().domain(domain))
+        .yAxis().tickFormat(function(v){return v})
 
         return c;
         }();
@@ -258,13 +316,9 @@ function initialize_charts(){
 
 function initialize_thumbnails(){
   for(var i in filtering_attributes){
-
-  	
     var attribute_name = filtering_attributes[i]["name"];
     var domain = [0,100];
     var visualization_type = filtering_attributes[i]["visualization-type"];
-
-
     if(filtering_attributes[i]["domain"]){
       domain = filtering_attributes[i]["domain"]
     }
@@ -273,45 +327,70 @@ function initialize_thumbnails(){
         aname = attribute_name;
         pf = pre_filter
         //attri = attr[index]
-        console.log(charts[i])
+        console.log(aname)
         //console.log("#dc-"+aname+"-chart");
         var c =  dc.barChart("#dc-"+aname+"-thumb");
-        c.width(180)
-        .height(120).dimension(dimensions[aname])
+        c.width(240)
+        .height(160).dimension(dimensions[aname])
         .group(groups[aname])
         .x(d3.scale.linear().domain(domain))
         .elasticY(true)
-        .renderLabel(false)
-        .brushOn(false)
-        .xAxis().tickFormat(function(v) { return ""; })
-
+        .elasticX(true)
+        .renderLabel(true)
+        console.log(c)
         return c;
         }();
-    } else {
+    } else if(visualization_type == "pieChart") {
       thumb_charts[i] = function(aname) {
         aname = attribute_name;
-        //attri = attr[index]
-        
         console.log("#dc-"+aname+"-chart");
         var c =  dc.pieChart("#dc-"+aname+"-thumb");
-        c.width(80)
-        .height(80).dimension(dimensions[aname])
+        c.width(180)
+        .height(180).dimension(dimensions[aname])
         .group(groups[aname])
-        .turnOffControls()
-        .radius(30)
-        .renderLabel(false)
+        .radius(90)
+        .renderLabel(true);
+        c.filterHandler(function(dimension, filters){
+          console.log(dimension);
+          console.log(filters);
+          if(filters)
+            dimension.filter(filters);
+          else
+            dimension.filter(null);
+          return filters;
+        })
         
         return c;
         }();      
+    } else {
+      thumb_charts[i] = function(aname) {
+        aname = attribute_name;
+        console.log("#dc-"+aname+"-chart");
+        var c =  dc.rowChart("#dc-"+aname+"-thumb");
+        c.width(200)
+        .height(160).dimension(dimensions[aname])
+        .group(groups[aname])
+        .elasticX(true)
+        .margins({top: 10, right: 20, bottom: 20, left: 10})
+
+        c.filterHandler(function(dimension, filters){
+          console.log(dimension);
+          console.log(filters);
+          if(filters)
+            dimension.filter(filters);
+          else
+            dimension.filter(null);
+          return filters;
+        })
+        return c;
+        }();           
     }
-  
   } 
 }
 
 d3.json("visual-schema.json", function(err, data){
   schema_data = data;
+  console.log(data)
   refresh_init();
   
 });
-
-
