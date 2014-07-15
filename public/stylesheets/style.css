@@ -6,11 +6,11 @@ a {
 }
 
 #filtering_attributes{
-	font-size: 120%;
-	padding: 0 30px 30px 30px;
+  font-size: 120%;
+  padding: 0 30px 30px 30px;
 }
 #filtering_attributes button{
-	padding: 14px 22px;
+  padding: 14px 22px;
 }
 
 #header{
@@ -138,4 +138,7 @@ body {
 
 .thumb-chart{
   cursor: pointer;
+}
+.thumb-panel-body{
+  
 }
