@@ -1,97 +1,34 @@
 [
     {
-        "name": "id",
+        "name": "date",
         "datatype": "integer",
-        "data-provider": "small-data.json",
+        "data-provider": "source1",
         "visual-attribute": true,
         "key-attribute": true
     },
     {
-        "name": "guid",
-        "datatype": "string",
-        "data-provider": "small-data.json",
+        "name": "delay",
+        "datatype": "integer",
+        "data-provider": "source1",
         "visual-attribute": true
     },
     {
-        "name": "name",
+        "name": "distance",
         "datatype": "string",
-        "data-provider": "small-data.json",
+        "data-provider": "source1",
         "visual-attribute": true
     },
     {
-        "name": "registered",
+        "name": "origin",
         "datatype": "string",
-        "data-provider": "small-data.json",
+        "data-provider": "source1",
         "visual-attribute": true
     },
     {
-        "name": "gender",
+        "name": "destination",
         "datatype": "string",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true
-    },
-    {
-        "name": "age",
-        "datatype": "integer",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true,
-        "visual-attribute": true      
-    },
-    {
-        "name": "isActive",
-        "datatype": "boolean",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true,
-        "visual-attribute": true
-    },
-    {
-        "name": "Ai",
-        "datatype": "integer",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true
-    },
-    {
-        "name": "Bi",
-        "datatype": "integer",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true,
-        "visual-attribute":true
-    },
-    {
-        "name": "Ci",
-        "datatype": "integer",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true
-    },
-    {
-        "name": "Di",
-        "datatype": "integer",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true
-    },
-    {
-        "name": "Eb",
-        "datatype": "boolean",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true
-    },
-    {
-        "name": "Ff",
-        "datatype": "float",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true
-    },
-    {
-        "name": "Gf",
-        "datatype": "float",
-        "data-provider": "small-data.json",
-        "filtering-attribute": true
-    },
-    {
-        "name": "Hf",
-        "datatype": "float",
-        "data-provider": "small-data.json",
+        "data-provider": "source1",
         "filtering-attribute": true
     }
-
+    
 ]
