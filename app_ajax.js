@@ -27,32 +27,17 @@ var visual_attributes = [];
 var filtering_attributes = [];
 
 var data_sources = [];
-var data = {};
+
 
 function load_data()
 {
   console.log("here ");
   console.log(data_sources)
   for(var data_source in data_sources){
-    var type = data_sources[data_source].type;
-    if(type == "json"){
-      
-      dataraw = fs.readFileSync(data_sources[data_source].path);
+    if(data_sources[data_source].type == "json"){
+      var dataraw = fs.readFileSync(data_sources[data_source].path);
       data = JSON.parse(dataraw);
-      console.log("json");
-
-    } else if(type == "csv") {
-      
-      data = fs.readFileSync(data_sourcess[data_source].path);
-      var header = data[0].split(",");
-      data = data.slice(1).map(function(d){
-        var line = {};
-        d.split(",").forEach(function(d,i){
-          line[header[i]] = d;
-        });
-        return line;
-      });    
-
+      console.log()
     }
   }
 }
@@ -79,8 +64,6 @@ var dimensions = {};
 var groups = {};
 var ndx;
 function apply_crossfilter(){
-  console.log("crossfilter");
-  //console.log(data)
   ndx = crossfilter(data);
   for(var attr in filtering_attributes){
     console.log(filtering_attributes[attr])
