@@ -51,6 +51,9 @@ function load_data()
         return line;
       });    
 
+    } else if(type== "rest/json"){
+
+      
     }
   }
 }
@@ -82,7 +85,7 @@ function apply_crossfilter(){
 
 
 
-  
+
   for(var attr in filtering_attributes){
     console.log(filtering_attributes[attr])
     dimension = ndx.dimension(function(d){return d[filtering_attributes[attr]]});
