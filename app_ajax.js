@@ -38,6 +38,19 @@ function load_data()
       var dataraw = fs.readFileSync(data_sources[data_source].path);
       data = JSON.parse(dataraw);
       console.log()
+    } else if(type == "csv") {
+      
+      data = fs.readFileSync(data_sources[data_source].path).toString().replace(/\r/g,"").split("\n");
+      //console.log(data)
+      var header = data[0].split(",");
+      data = data.slice(1).map(function(d){
+        var line = {};
+        d.split(",").forEach(function(d,i){
+          line[header[i]] = d;
+        });
+        return line;
+      });    
+
     }
   }
 }
@@ -65,6 +78,11 @@ var groups = {};
 var ndx;
 function apply_crossfilter(){
   ndx = crossfilter(data);
+
+
+
+
+  
   for(var attr in filtering_attributes){
     console.log(filtering_attributes[attr])
     dimension = ndx.dimension(function(d){return d[filtering_attributes[attr]]});
