@@ -388,7 +388,7 @@ function initialize_thumbnails(){
   } 
 }
 
-d3.json("visual-schema.json", function(err, data){
+d3.json("schemas/visual-schema.json", function(err, data){
   schema_data = data;
   console.log(data)
   refresh_init();

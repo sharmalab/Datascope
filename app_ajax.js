@@ -3,9 +3,10 @@
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
+var rest = require('./routes/rest');
 var http = require('http');
 var path = require('path');
-var crossfilter = require("./crossfilter.v1.min.js").crossfilter;
+var crossfilter = require("./crossfilter.js").crossfilter;
 var fs = require('fs');
 var d3 = require('d3');
 var app = express();
@@ -21,7 +22,7 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+var data="";
 
 var visual_attributes = [];
 var filtering_attributes = [];
@@ -58,11 +59,21 @@ function apply_crossfilter(){
 size = ndx.size(),
 all = ndx.groupAll();
 
+listen()
+}
+
+function listen(){
+
+var port = 3000;
+app.listen(port,function() {
+  console.log("listening to port "+port)  
+})
+
 }
 
 function process_backend_schema(){
   //Read the schema
-  var schema = fs.readFileSync("public/backend-schema.json");
+  var schema = fs.readFileSync("public/schemas/backend-schema.json");
   schema = JSON.parse(schema);
   //console.log(schema)
   for(var attribute in schema){
@@ -83,38 +94,69 @@ function load_data()
   console.log("here ");
   console.log(data_sources);
   for(var data_source in data_sources){
-    var type=  data_sources[data_source].type ;
+    var type=  data_sources[data_source].type;
+    var path = data_sources[data_source].path;
     if(type== "json"){
-      var dataraw = fs.readFileSync(data_sources[data_source].path);
-      data = JSON.parse(dataraw);
-      console.log()
+      fs.readFile(path, 'utf8', function(err, d){
+        if(err){
+          console.log("Error: "+ err);
+          return;
+        }
+        console.log("data read")
+        data = JSON.parse(d);
+        process_backend_schema();
+      })
     } else if(type == "csv") {
-      
-      data = fs.readFileSync(data_sources[data_source].path).toString().replace(/\r/g,"").split("\n");
-      //console.log(data)
-      var header = data[0].split(",");
-      data = data.slice(1).map(function(d){
-        var line = {};
-        d.split(",").forEach(function(d,i){
-          line[header[i]] = d;
+      fs.readFile(path, 'utf8', function(err,d){
+        data = d;
+        data = data.toString().replace(/\r/g,"").split("\n");
+        var header = data[0].split(",");
+        data = data.slice(1).map(function(d){
+          var line = {};
+          d.split(",").forEach(function(d,i){
+            line[header[i]] = d;
+          });
+          return line;
+        });    
+        process_backend_schema();
+      });
+    } else if(type == "rest/json") {
+      var options = data_sources[data_source].options;
+      console.log("Making request using"+options);
+      console.log(options)
+      http.get(options, function(response){
+        response.on('data',function(chunk){
+            if(chunk){
+                        data += chunk;
+                        console.log("Reading..")
+                        //console.log(data);
+            }
+            //process_backend_schema();
         });
-        return line;
-      });    
-
-    } else if(type== "rest/json"){
-
+        response.on('end', function(){
+          data = JSON.parse(data);
+          console.log("connection closed");
+          process_backend_schema();
+        })
+        /*
+        response.on('close', function(){
+          console.log("closing connections")
+          console.log(data);
+          process_backend_schema();
+        })
+        */
+      });
       
     }
   }
 
-  process_backend_schema();
 }
 
 
 
 
 function process_data_source(){
-  var data_source_schema = fs.readFileSync("public/data-source.json");
+  var data_source_schema = fs.readFileSync("public/schemas/data-source.json");
   data_source_schema = JSON.parse(data_source_schema);
 
 
@@ -138,8 +180,8 @@ process_data_source();
 
 
 
-// Handle the AJAX requests
-app.use("/data",function(req,res,next) {
+
+function handle_filter_request(req,res,next) {
   
   filter = req.param("filter") ? JSON.parse(req.param("filter")) : {}
   // Loop through each dimension and check if user requested a filter
@@ -159,6 +201,7 @@ app.use("/data",function(req,res,next) {
       //console.log(filter[dim])
     
       //If enumerated
+      //todo fix for numerical enumerated types
       if(filter[dim].length > 1){
         if(typeof filter[dim][0] == "string"){
           
@@ -204,17 +247,18 @@ app.use("/data",function(req,res,next) {
   //console.log(results)
   res.writeHead(200, { 'content-type': 'application/json' });
   res.end((JSON.stringify(results)))
-})
+}
+
+
+
+// Handle the AJAX requests
+app.use("/data",handle_filter_request);
 
 // Change this to the static directory of the index.html file
 app.get('/', routes.index);
+app.get('/rest/json', rest.index);
 app.get('/index2.html', routes.index2)
 app.get('/index3.html', routes.index3)
 app.get('/index4.html', routes.index4)
 app.get('/test.html', routes.test)
 app.get('/users', user.list);
-
-var port = 4000;
-app.listen(port,function() {
-  console.log("listening to port "+port)  
-})
