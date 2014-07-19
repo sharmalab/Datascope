@@ -119,7 +119,7 @@ function refresh_init() {
 
     
     initialize_thumbnails();
-    //render_table();
+    render_table();
     //load_from_state();
     dc.EVENT_DELAY=100;
     dc.renderAll(); 
