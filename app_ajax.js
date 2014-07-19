@@ -146,7 +146,35 @@ function load_data()
         })
         */
       });
-      
+    } else if (type == "rest/csv"){
+      var options = data_sources[data_source].options;
+      http.get(options, function(response){
+        response.on('data', function(chunk){
+          chunk = chunk.toString()
+          //console.log(chunk.toString())
+          if(chunk){
+            data+=chunk;
+          }
+        });
+        response.on('end', function(){
+          //data = data.toString().replace(/\r/g,"").split("\n");
+          //var header = data[0].split(",");
+          /*
+          data = data.slice(1).map(function(d){
+            var line = {};
+            d.split(",").forEach(function(d,i){
+              line[header[i]] = d;
+            });
+            return line;
+          });   
+          */ 
+
+          console.log(data)
+          data=JSON.parse(data);
+          process_backend_schema();          
+        })
+
+      })
     }
   }
 
