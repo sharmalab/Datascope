@@ -81,9 +81,10 @@ function process_backend_schema(){
 function load_data()
 {
   console.log("here ");
-  console.log(data_sources)
+  console.log(data_sources);
   for(var data_source in data_sources){
-    if(data_sources[data_source].type == "json"){
+    var type=  data_sources[data_source].type ;
+    if(type== "json"){
       var dataraw = fs.readFileSync(data_sources[data_source].path);
       data = JSON.parse(dataraw);
       console.log()
@@ -213,7 +214,7 @@ app.get('/index4.html', routes.index4)
 app.get('/test.html', routes.test)
 app.get('/users', user.list);
 
-var port = process.env.PORT || 3000;
+var port = 4000;
 app.listen(port,function() {
   console.log("listening to port "+port)  
 })
