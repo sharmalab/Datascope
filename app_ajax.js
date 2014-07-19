@@ -28,6 +28,55 @@ var filtering_attributes = [];
 
 var data_sources = [];
 
+var dimensions = {};
+var groups = {};
+var ndx;
+
+function apply_crossfilter(){
+  var ndx = crossfilter(data);
+  for(var attr in filtering_attributes){
+      if(filtering_attributes[attr]["datatype"] == "integer")
+      dimension = ndx.dimension(function(d){return 1*d[filtering_attributes[attr]["name"]]});
+    else
+      dimension = ndx.dimension(function(d){return d[filtering_attributes[attr]["name"]]});
+
+    if(filtering_attributes[attr]["dimension"])
+      dimension = ndx.dimension(filtering_attributes[attr]["dimensions"]())
+
+    dimensions[filtering_attributes[attr]["name"]] = dimension;
+    var bin_factor = filtering_attributes[attr]["bin-factor"];
+    if(bin_factor){
+      group = dimension.group(function(d){
+        return Math.floor(d/(bin_factor))*(bin_factor);
+      });
+    } else {
+      group = dimension.group();
+    }
+    groups[filtering_attributes[attr]["name"]] = group;
+  }
+
+size = ndx.size(),
+all = ndx.groupAll();
+
+}
+
+function process_backend_schema(){
+  //Read the schema
+  var schema = fs.readFileSync("public/backend-schema.json");
+  schema = JSON.parse(schema);
+  //console.log(schema)
+  for(var attribute in schema){
+    //console.log(attribute)
+    if(schema[attribute]["visual-attribute"])
+      visual_attributes.push(schema[attribute]);
+    if(schema[attribute]["filtering-attribute"])
+      filtering_attributes.push(schema[attribute]);
+  }
+
+  apply_crossfilter();
+
+}
+
 
 function load_data()
 {
@@ -56,7 +105,12 @@ function load_data()
       
     }
   }
+
+  process_backend_schema();
 }
+
+
+
 
 function process_data_source(){
   var data_source_schema = fs.readFileSync("public/data-source.json");
@@ -76,62 +130,16 @@ function process_data_source(){
 
 }
 
-var dimensions = {};
-var groups = {};
-var ndx;
-function apply_crossfilter(){
-  ndx = crossfilter(data);
 
-
-
-
-
-  for(var attr in filtering_attributes){
-    console.log(filtering_attributes[attr])
-    dimension = ndx.dimension(function(d){return d[filtering_attributes[attr]]});
-    dimensions[filtering_attributes[attr]] = dimension;
-    group = dimension.group();
-    groups[filtering_attributes[attr]] = group;
-  }
-    size = ndx.size(),
-    all = ndx.groupAll(); 
-}
-
-function process_backend_schema(){
-  //Read the schema
-  var schema = fs.readFileSync("public/backend-schema.json");
-  schema = JSON.parse(schema);
-  //console.log(schema)
-  for(var attribute in schema){
-    console.log(attribute)
-    if(schema[attribute]["visual-attribute"])
-      visual_attributes.push(schema[attribute]["name"]);
-    if(schema[attribute]["filtering-attribute"])
-      filtering_attributes.push(schema[attribute]["name"]);
-  }
-
-  apply_crossfilter();
-
-}
 
 
 process_data_source();
-process_backend_schema();
 
-
-
-
-/*
-var dataraw = fs.readFileSync("data/small-data.json");
-//var dataraw = fs.readFileSync("250_data.json")
-data = JSON.parse(dataraw)
-*/
 
 
 // Handle the AJAX requests
 app.use("/data",function(req,res,next) {
   
-  console.log("Getting /data")
   filter = req.param("filter") ? JSON.parse(req.param("filter")) : {}
   // Loop through each dimension and check if user requested a filter
 
@@ -145,16 +153,42 @@ app.use("/data",function(req,res,next) {
   }
   
   Object.keys(dimensions).forEach(function (dim) {
+
     if (filter[dim]) {
-      console.log(filter[dim])
-      dimensions[dim].filter(filter[dim])
+      //console.log(filter[dim])
+    
+      //If enumerated
+      if(filter[dim].length > 1){
+        if(typeof filter[dim][0] == "string"){
+          
+          //console.log(dimensions[dim]);
+          
+          dimensions[dim].filterFunction(
+          function(d){
+            for(var i=0; i<filter[dim].length; i++){
+              var f = filter[dim][i];
+              if(f == d ){
+                return true;
+              }
+            }
+            return false;  
+          });
+        
+        } else {
+          dimensions[dim].filter(filter[dim])
+        }
+      }
+      else{
+        dimensions[dim].filter(filter[dim][0])
+      }
     } else {
       dimensions[dim].filterAll(null)
     }
   })
   
   if(Object.keys(filter).length === 0){
-      results["table_data"] = {data:dimensions["Ai"].top(100)}
+      //dimensions["Ai"].filter(null)
+      results["table_data"] = {data:dimensions[filtering_attributes[0]["name"]].top(100)}
   }
   else{
       //dimensions[filter_dim].filterRange(filter_range)
@@ -163,8 +197,10 @@ app.use("/data",function(req,res,next) {
   Object.keys(groups).forEach(function(key) {
       results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value}
   })
-
+  //console.log(results)
+  //console.log(dimensions["age"].top(100))  
   // Send back as json
+  //console.log(results)
   res.writeHead(200, { 'content-type': 'application/json' });
   res.end((JSON.stringify(results)))
 })
