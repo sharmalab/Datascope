@@ -10,6 +10,7 @@ var crossfilter = require("./crossfilter.js").crossfilter;
 var fs = require('fs');
 var d3 = require('d3');
 var app = express();
+var load_data_source = require('./load_data_source')
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -56,18 +57,18 @@ function apply_crossfilter(){
     groups[filtering_attributes[attr]["name"]] = group;
   }
 
-size = ndx.size(),
-all = ndx.groupAll();
+  size = ndx.size(),
+  all = ndx.groupAll();
 
-listen()
+  listen();
 }
 
 function listen(){
 
-var port = 3000;
-app.listen(port,function() {
-  console.log("listening to port "+port)  
-})
+  var port = 3000;
+  app.listen(port,function() {
+    console.log("listening to port "+port)  
+  })
 
 }
 
@@ -88,93 +89,27 @@ function process_backend_schema(){
 
 }
 
+function process_data(){
+        data = load_data_source.data;
+        process_backend_schema();
+}
+
 
 function load_data()
 {
-  console.log("here ");
-  console.log(data_sources);
   for(var data_source in data_sources){
     var type=  data_sources[data_source].type;
     var path = data_sources[data_source].path;
     if(type== "json"){
-      fs.readFile(path, 'utf8', function(err, d){
-        if(err){
-          console.log("Error: "+ err);
-          return;
-        }
-        console.log("data read")
-        data = JSON.parse(d);
-        process_backend_schema();
-      })
+      load_data_source.json(path, data, process_data);
     } else if(type == "csv") {
-      fs.readFile(path, 'utf8', function(err,d){
-        data = d;
-        data = data.toString().replace(/\r/g,"").split("\n");
-        var header = data[0].split(",");
-        data = data.slice(1).map(function(d){
-          var line = {};
-          d.split(",").forEach(function(d,i){
-            line[header[i]] = d;
-          });
-          return line;
-        });    
-        process_backend_schema();
-      });
+      load_data_source.csv(path, data, process_data);
     } else if(type == "rest/json") {
-      var options = data_sources[data_source].options;
-      console.log("Making request using"+options);
-      console.log(options)
-      http.get(options, function(response){
-        response.on('data',function(chunk){
-            if(chunk){
-                        data += chunk;
-                        console.log("Reading..")
-                        //console.log(data);
-            }
-            //process_backend_schema();
-        });
-        response.on('end', function(){
-          data = JSON.parse(data);
-          console.log("connection closed");
-          process_backend_schema();
-        })
-        /*
-        response.on('close', function(){
-          console.log("closing connections")
-          console.log(data);
-          process_backend_schema();
-        })
-        */
-      });
+      var options = data_sources[data_source].options
+      load_data_source.rest_json(path, data,options, process_data);
     } else if (type == "rest/csv"){
       var options = data_sources[data_source].options;
-      http.get(options, function(response){
-        response.on('data', function(chunk){
-          chunk = chunk.toString()
-          //console.log(chunk.toString())
-          if(chunk){
-            data+=chunk;
-          }
-        });
-        response.on('end', function(){
-          //data = data.toString().replace(/\r/g,"").split("\n");
-          //var header = data[0].split(",");
-          /*
-          data = data.slice(1).map(function(d){
-            var line = {};
-            d.split(",").forEach(function(d,i){
-              line[header[i]] = d;
-            });
-            return line;
-          });   
-          */ 
-
-          console.log(data)
-          data=JSON.parse(data);
-          process_backend_schema();          
-        })
-
-      })
+      load_data_source.rest_json(path, data,options, process_data);
     }
   }
 
@@ -226,14 +161,11 @@ function handle_filter_request(req,res,next) {
   Object.keys(dimensions).forEach(function (dim) {
 
     if (filter[dim]) {
-      //console.log(filter[dim])
     
       //If enumerated
       //todo fix for numerical enumerated types
       if(filter[dim].length > 1){
         if(typeof filter[dim][0] == "string"){
-          
-          //console.log(dimensions[dim]);
           
           dimensions[dim].filterFunction(
           function(d){
@@ -259,20 +191,15 @@ function handle_filter_request(req,res,next) {
   })
   
   if(Object.keys(filter).length === 0){
-      //dimensions["Ai"].filter(null)
       results["table_data"] = {data:dimensions[filtering_attributes[0]["name"]].top(100)}
   }
   else{
-      //dimensions[filter_dim].filterRange(filter_range)
       results["table_data"] = {data:dimensions[filter_dim].top(100)}
   }
   Object.keys(groups).forEach(function(key) {
       results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value}
   })
-  //console.log(results)
-  //console.log(dimensions["age"].top(100))  
-  // Send back as json
-  //console.log(results)
+
   res.writeHead(200, { 'content-type': 'application/json' });
   res.end((JSON.stringify(results)))
 }
