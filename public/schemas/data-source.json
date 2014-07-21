@@ -1,16 +1,8 @@
 [
 	{
 		"name": "source1",
-		"type": "rest/json",
+		"type": "json",
 		"path": "data/small-data.json",
-		"options": {
-			"host": "localhost",
-			"path": "/rest/json",
-			"port": 1337,
-			"headers": {
-				"Content-Type": "application/json"
-			}
-		},
 		"attributes": ["id", "guid", "name", "age", "Ai", "Bi", "Ci", "Di", "Eb", "Ff", "Gf", "Hf"]
 	}
 ]
