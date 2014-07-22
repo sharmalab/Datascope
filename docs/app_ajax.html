@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>app_ajax.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>app_ajax.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Requires Express.js</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">var</span> routes = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./routes'</span>);
+<span class="hljs-keyword">var</span> user = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./routes/user'</span>);
+<span class="hljs-keyword">var</span> rest = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./routes/rest'</span>);
+<span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">var</span> crossfilter = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./crossfilter.js"</span>).crossfilter;
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">var</span> d3 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'d3'</span>);
+<span class="hljs-keyword">var</span> app = express();
+<span class="hljs-keyword">var</span> load_data_source = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./load_data_source'</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>all environments</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.set(<span class="hljs-string">'port'</span>, process.env.PORT || <span class="hljs-number">3000</span>);
+app.set(<span class="hljs-string">'views'</span>, path.join(__dirname, <span class="hljs-string">'views'</span>));
+app.set(<span class="hljs-string">'view engine'</span>, <span class="hljs-string">'jade'</span>);
+app.use(express.favicon());
+app.use(express.logger(<span class="hljs-string">'dev'</span>));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, <span class="hljs-string">'public'</span>)));
+
+<span class="hljs-keyword">var</span> data=<span class="hljs-string">""</span>;
+
+<span class="hljs-keyword">var</span> visual_attributes = [];
+<span class="hljs-keyword">var</span> filtering_attributes = [];
+
+<span class="hljs-keyword">var</span> data_sources = [];
+
+<span class="hljs-keyword">var</span> dimensions = {};
+<span class="hljs-keyword">var</span> groups = {};
+<span class="hljs-keyword">var</span> ndx;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">apply_crossfilter</span><span class="hljs-params">()</span></span>{
+  <span class="hljs-keyword">var</span> ndx = crossfilter(data);
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> attr <span class="hljs-keyword">in</span> filtering_attributes){
+      <span class="hljs-keyword">if</span>(filtering_attributes[attr][<span class="hljs-string">"datatype"</span>] == <span class="hljs-string">"integer"</span>)
+      dimension = ndx.dimension(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(d)</span></span>{<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>*d[filtering_attributes[attr][<span class="hljs-string">"name"</span>]]});
+    <span class="hljs-keyword">else</span>
+      dimension = ndx.dimension(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(d)</span></span>{<span class="hljs-keyword">return</span> d[filtering_attributes[attr][<span class="hljs-string">"name"</span>]]});
+
+    <span class="hljs-keyword">if</span>(filtering_attributes[attr][<span class="hljs-string">"dimension"</span>])
+      dimension = ndx.dimension(filtering_attributes[attr][<span class="hljs-string">"dimensions"</span>]())
+
+    dimensions[filtering_attributes[attr][<span class="hljs-string">"name"</span>]] = dimension;
+    <span class="hljs-keyword">var</span> bin_factor = filtering_attributes[attr][<span class="hljs-string">"bin-factor"</span>];
+    <span class="hljs-keyword">if</span>(bin_factor){
+      group = dimension.group(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(d)</span></span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.floor(d/(bin_factor))*(bin_factor);
+      });
+    } <span class="hljs-keyword">else</span> {
+      group = dimension.group();
+    }
+    groups[filtering_attributes[attr][<span class="hljs-string">"name"</span>]] = group;
+  }
+
+  size = ndx.size(),
+  all = ndx.groupAll();
+
+  listen();
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listen</span><span class="hljs-params">()</span></span>{
+
+  <span class="hljs-keyword">var</span> port = <span class="hljs-number">3000</span>;
+  app.listen(port,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"listening to port "</span>+port)  
+  })
+
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">process_backend_schema</span><span class="hljs-params">()</span></span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Read the schema</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> schema = fs.readFileSync(<span class="hljs-string">"public/schemas/backend-schema.json"</span>);
+  schema = <span class="hljs-built_in">JSON</span>.parse(schema);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>console.log(schema)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> attribute <span class="hljs-keyword">in</span> schema){</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>console.log(attribute)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span>(schema[attribute][<span class="hljs-string">"visual-attribute"</span>])
+      visual_attributes.push(schema[attribute]);
+    <span class="hljs-keyword">if</span>(schema[attribute][<span class="hljs-string">"filtering-attribute"</span>])
+      filtering_attributes.push(schema[attribute]);
+  }
+
+  apply_crossfilter();
+
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">process_data</span><span class="hljs-params">()</span></span>{
+        data = load_data_source.data;
+        process_backend_schema();
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">load_data</span><span class="hljs-params">()</span>
+</span>{
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> data_source <span class="hljs-keyword">in</span> data_sources){
+    <span class="hljs-keyword">var</span> type=  data_sources[data_source].type;
+    <span class="hljs-keyword">var</span> path = data_sources[data_source].path;
+    <span class="hljs-keyword">if</span>(type== <span class="hljs-string">"json"</span>){
+      load_data_source.json(path, data, process_data);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(type == <span class="hljs-string">"csv"</span>) {
+      load_data_source.csv(path, data, process_data);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(type == <span class="hljs-string">"rest/json"</span>) {
+      <span class="hljs-keyword">var</span> options = data_sources[data_source].options
+      load_data_source.rest_json(path, data,options, process_data);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type == <span class="hljs-string">"rest/csv"</span>){
+      <span class="hljs-keyword">var</span> options = data_sources[data_source].options;
+      load_data_source.rest_json(path, data,options, process_data);
+    }
+  }
+
+}
+
+
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">process_data_source</span><span class="hljs-params">()</span></span>{
+  <span class="hljs-keyword">var</span> data_source_schema = fs.readFileSync(<span class="hljs-string">"public/schemas/data-source.json"</span>);
+  data_source_schema = <span class="hljs-built_in">JSON</span>.parse(data_source_schema);
+
+
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> data_source <span class="hljs-keyword">in</span> data_source_schema){
+    <span class="hljs-built_in">console</span>.log(data_source_schema[data_source]);
+    data_sources.push(data_source_schema[data_source]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Join Logic?</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  }
+
+  <span class="hljs-built_in">console</span>.log(data_sources);
+
+  load_data();
+
+}
+
+
+
+
+process_data_source();
+
+
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handle_filter_request</span><span class="hljs-params">(req,res,next)</span> </span>{
+  
+  filter = req.param(<span class="hljs-string">"filter"</span>) ? <span class="hljs-built_in">JSON</span>.parse(req.param(<span class="hljs-string">"filter"</span>)) : {}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Loop through each dimension and check if user requested a filter</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Assemble group results and and the maximum value for each group</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> results = {} 
+  <span class="hljs-keyword">var</span> filter_dim;
+  <span class="hljs-keyword">var</span> filter_range=[];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>console.log(filter[dim])</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> filter){
+    filter_dim= key;
+  }
+  
+  <span class="hljs-built_in">Object</span>.keys(dimensions).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(dim)</span> </span>{
+
+    <span class="hljs-keyword">if</span> (filter[dim]) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>If enumerated
+todo fix for numerical enumerated types</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span>(filter[dim].length &gt; <span class="hljs-number">1</span>){
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> filter[dim][<span class="hljs-number">0</span>] == <span class="hljs-string">"string"</span>){
+          
+          dimensions[dim].filterFunction(
+          <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(d)</span></span>{
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>; i&lt;filter[dim].length; i++){
+              <span class="hljs-keyword">var</span> f = filter[dim][i];
+              <span class="hljs-keyword">if</span>(f == d ){
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+              }
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;  
+          });
+        
+        } <span class="hljs-keyword">else</span> {
+          dimensions[dim].filter(filter[dim])
+        }
+      }
+      <span class="hljs-keyword">else</span>{
+        dimensions[dim].filter(filter[dim][<span class="hljs-number">0</span>])
+      }
+    } <span class="hljs-keyword">else</span> {
+      dimensions[dim].filterAll(<span class="hljs-literal">null</span>)
+    }
+  })
+  
+  <span class="hljs-keyword">if</span>(<span class="hljs-built_in">Object</span>.keys(filter).length === <span class="hljs-number">0</span>){
+      results[<span class="hljs-string">"table_data"</span>] = {data:dimensions[filtering_attributes[<span class="hljs-number">0</span>][<span class="hljs-string">"name"</span>]].top(<span class="hljs-number">100</span>)}
+  }
+  <span class="hljs-keyword">else</span>{
+      results[<span class="hljs-string">"table_data"</span>] = {data:dimensions[filter_dim].top(<span class="hljs-number">100</span>)}
+  }
+  <span class="hljs-built_in">Object</span>.keys(groups).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(key)</span> </span>{
+      results[key] = {values:groups[key].all(),top:groups[key].top(<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>].value}
+  })
+
+  res.writeHead(<span class="hljs-number">200</span>, { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">'application/json'</span> });
+  res.end((<span class="hljs-built_in">JSON</span>.stringify(results)))
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Handle the AJAX requests</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.use(<span class="hljs-string">"/data"</span>,handle_filter_request);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Change this to the static directory of the index.html file</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.get(<span class="hljs-string">'/'</span>, routes.index);
+app.get(<span class="hljs-string">'/rest/json'</span>, rest.index);
+app.get(<span class="hljs-string">'/index2.html'</span>, routes.index2)
+app.get(<span class="hljs-string">'/index3.html'</span>, routes.index3)
+app.get(<span class="hljs-string">'/index4.html'</span>, routes.index4)
+app.get(<span class="hljs-string">'/test.html'</span>, routes.test)
+app.get(<span class="hljs-string">'/users'</span>, user.list);</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
