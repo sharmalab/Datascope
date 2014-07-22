@@ -1,5 +1,4 @@
-// Requires Express.js
-
+//Dependencies
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
@@ -10,10 +9,10 @@ var crossfilter = require("./crossfilter.js").crossfilter;
 var fs = require('fs');
 var d3 = require('d3');
 var app = express();
-var load_data_source = require('./load_data_source')
+var load_data_source = require('./load_data_source');   //Module for loading various data formats
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -23,6 +22,10 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//
+//Stores all the data from various data soruces
+//
 var data="";
 
 var visual_attributes = [];
@@ -34,6 +37,10 @@ var dimensions = {};
 var groups = {};
 var ndx;
 
+//
+//#### apply_crossfilter()
+//Applies crossfilter to all the ```dimensions``` and ```groups```
+//
 function apply_crossfilter(){
   var ndx = crossfilter(data);
   for(var attr in filtering_attributes){
@@ -63,22 +70,26 @@ function apply_crossfilter(){
   listen();
 }
 
+//
+// listen to the specified port for HTTP requests
+//
 function listen(){
 
-  var port = 3000;
+  var port = app.settings["port"];
   app.listen(port,function() {
     console.log("listening to port "+port)  
   })
 
 }
 
+//
+//#### process_backend_schema()
+//Reads the backend schema and fills the ```visual_attributes``` and ```filtering_attributes``` 
+//
 function process_backend_schema(){
-  //Read the schema
   var schema = fs.readFileSync("public/schemas/backend-schema.json");
   schema = JSON.parse(schema);
-  //console.log(schema)
   for(var attribute in schema){
-    //console.log(attribute)
     if(schema[attribute]["visual-attribute"])
       visual_attributes.push(schema[attribute]);
     if(schema[attribute]["filtering-attribute"])
@@ -94,7 +105,16 @@ function process_data(){
         process_backend_schema();
 }
 
-
+//
+//#### load_data()
+//Loads data using the type and path specified in ```data-sources.json```.
+//Currently supports
+//  *JSON
+//  *CSV
+// *REST JSON
+//  *REST CSV
+//The system can be extended to support more types using ```load_data_sources.json```
+//
 function load_data()
 {
   for(var data_source in data_sources){
@@ -117,7 +137,10 @@ function load_data()
 
 
 
-
+//
+//#### process_data_source()
+//Reads data-source.json which provides information about the type, path and the attributes of the data.
+//
 function process_data_source(){
   var data_source_schema = fs.readFileSync("public/schemas/data-source.json");
   data_source_schema = JSON.parse(data_source_schema);
@@ -126,7 +149,7 @@ function process_data_source(){
   for(var data_source in data_source_schema){
     console.log(data_source_schema[data_source]);
     data_sources.push(data_source_schema[data_source]);
-    //Join Logic?
+
 
   }
 
@@ -137,13 +160,26 @@ function process_data_source(){
 }
 
 
+//
+//#### init()
+//Initializtion function
+//
 
+function init(){
 
 process_data_source();
 
+}
+
+
+init();
 
 
 
+//
+//#### handle_filter_request(request, response, next)
+//Is fired on GET '/data' request. Performs filtering using the filtering information provided in the GET parameter:  ```filter```  
+//
 function handle_filter_request(req,res,next) {
   
   filter = req.param("filter") ? JSON.parse(req.param("filter")) : {}
@@ -153,7 +189,6 @@ function handle_filter_request(req,res,next) {
   var results = {} 
   var filter_dim;
   var filter_range=[];
-  //console.log(filter[dim])
   for(var key in filter){
     filter_dim= key;
   }
@@ -206,7 +241,7 @@ function handle_filter_request(req,res,next) {
 
 
 
-// Handle the AJAX requests
+// Listen for filtering requests on ```/data```
 app.use("/data",handle_filter_request);
 
 // Change this to the static directory of the index.html file
