@@ -1,0 +1,25 @@
+{
+	"id": "interactive-filters",
+	"type": "array",
+	"items": {
+		"type": "object",
+		"properties":{
+			"name": {
+				"type": "string",
+				"required": true
+			},
+			"visualization-type":{
+				"enum": ["barChart", "pieChart", "rowChart"],
+				"required": true
+			},
+			"order":{
+				"type": "integer"
+			},
+			"domain":{
+				"type": "array"
+			},
+			"filter":{
+			}
+		}
+	}
+}
