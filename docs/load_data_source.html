@@ -30,15 +30,7 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">json</span><span class="hljs-params">(path, data, callback)</span></span>{
-      fs.readFile(path, <span class="hljs-string">'utf8'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err, d)</span></span>{
-        <span class="hljs-keyword">if</span>(err){
-          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Error: "</span>+ err);
-          <span class="hljs-keyword">return</span>;
-        }
-        data = <span class="hljs-built_in">JSON</span>.parse(d);</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);</pre></div></div>
             
         </li>
         
@@ -49,7 +41,48 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>process_backend_schema();</p>
+              <h2 id="json-path-data-callback-">json(path, data, callback)</h2>
+<ul>
+<li><strong>path</strong>: specifies the file path</li>
+<li><strong>data</strong>: </li>
+<li><strong>callback</strong>: the callback function</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">json</span><span class="hljs-params">(path, data, callback)</span></span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Read the file using filepath</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      fs.readFile(path, <span class="hljs-string">'utf8'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err, d)</span></span>{
+        <span class="hljs-keyword">if</span>(err){
+          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Error: "</span>+ err);
+          <span class="hljs-keyword">return</span>;
+        }
+        data = <span class="hljs-built_in">JSON</span>.parse(d);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Send data back to app.js</p>
 
             </div>
             
@@ -57,6 +90,7 @@
       	callback();
       });
 }
+
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">csv</span><span class="hljs-params">(path, data, callback)</span></span>{
       fs.readFile(path, <span class="hljs-string">'utf8'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err,d)</span></span>{
@@ -73,44 +107,50 @@
         exports.data = data;
         callback();
       });
-}
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="rest_json-path-data-options-callback-">rest_json(path, data, options, callback)</h2>
+<ul>
+<li><strong>path</strong>: specifies the file path</li>
+<li><strong>data</strong>: </li>
+<li><strong>options</strong>: HTTP header options</li>
+<li><strong>callback</strong>: the callback function</li>
+</ul>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rest_json</span><span class="hljs-params">(path, data, options, callback)</span></span>{
-    <span class="hljs-keyword">var</span> options = options;
-    http.get(options, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(response)</span></span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rest_json</span><span class="hljs-params">(path, data, options, callback)</span></span>{
+    <span class="hljs-keyword">var</span> options = options;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Make the HTTP GET request</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    http.get(options, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(response)</span></span>{
         response.on(<span class="hljs-string">'data'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(chunk)</span></span>{
             <span class="hljs-keyword">if</span>(chunk){
-                data += chunk;</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-3">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
-              </div>
-              <p>console.log(data);</p>
+                data += chunk;
+            }
+        });
 
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>            }</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-4">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
-              </div>
-              <p>process_backend_schema();</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        });
         response.on(<span class="hljs-string">'end'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
         	exports.data = <span class="hljs-built_in">JSON</span>.parse(data);
         	callback();
@@ -126,11 +166,11 @@
         </li>
         
         
-        <li id="section-5">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <p>console.log(chunk.toString())</p>
 
