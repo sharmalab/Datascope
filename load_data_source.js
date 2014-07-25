@@ -1,6 +1,13 @@
 var fs = require('fs');
 
+//
+//## json(path, data, callback)
+// - **path**: specifies the file path
+// - **data**: 
+// - **callback**: the callback function
+
 function json(path, data, callback){
+      //Read the file using filepath
       fs.readFile(path, 'utf8', function(err, d){
         if(err){
           console.log("Error: "+ err);
@@ -8,11 +15,12 @@ function json(path, data, callback){
         }
         data = JSON.parse(d);
         
-        //process_backend_schema();
+        //Send data back to app.js
       	exports.data = data;
       	callback();
       });
 }
+
 
 function csv(path, data, callback){
       fs.readFile(path, 'utf8', function(err,d){
@@ -31,16 +39,21 @@ function csv(path, data, callback){
       });
 }
 
+//## rest_json(path, data, options, callback)
+// - **path**: specifies the file path
+// - **data**: 
+// - **options**: HTTP header options
+// - **callback**: the callback function
 function rest_json(path, data, options, callback){
     var options = options;
+    //Make the HTTP GET request
     http.get(options, function(response){
         response.on('data',function(chunk){
             if(chunk){
                 data += chunk;
-                        //console.log(data);
             }
-            //process_backend_schema();
         });
+
         response.on('end', function(){
         	exports.data = JSON.parse(data);
         	callback();
