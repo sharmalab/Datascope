@@ -1,0 +1,30 @@
+{
+	"id": "data-description",
+	"type": "array",
+	"items": {
+		"type": "object",
+		"properties":{
+			"name": {
+				"type": "string",
+				"required": true
+			},
+			"data-provider":{
+				"type": "string",
+				"required": true
+			},
+			"datatype":{
+				"type": "string",
+				"enum": ["boolean", "integer", "float", "enum", "string"]
+			},
+			"key-attribute":{
+				"type": "boolean"
+			},
+			"visual-attribute":{
+				"type": "boolean"
+			},
+			"filtering-attribute":{
+				"type": "boolean"
+			}
+		}
+	}
+}
