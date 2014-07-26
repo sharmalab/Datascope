@@ -3,95 +3,91 @@
         "name": "id",
         "datatype": "integer",
         "data-provider": "source1",
-        "visual-attribute": true,
-        "key-attribute": true
+        "attribute-type": ["visual", "key"]
     },
     {
         "name": "guid",
         "datatype": "string",
         "data-provider": "source1",
-        "visual-attribute": true
+        "attribute-type": ["visual"]
     },
     {
         "name": "name",
         "datatype": "string",
         "data-provider": "source1",
-        "visual-attribute": true
+        "attribute-type": ["visual"]
     },
     {
         "name": "registered",
         "datatype": "string",
         "data-provider": "source1",
-        "visual-attribute": true
+        "attribute-type": ["visual"]
     },
     {
         "name": "gender",
         "datatype": "string",
         "data-provider": "source1",
-        "filtering-attribute": true
+        "attribute-type": ["visual"]
     },
     {
         "name": "age",
         "datatype": "integer",
         "data-provider": "source1",
-        "filtering-attribute": true,
-        "visual-attribute": true      
+        "attribute-type": ["visual", "filtering"]
     },
     {
         "name": "isActive",
         "datatype": "boolean",
         "data-provider": "source1",
-        "filtering-attribute": true,
-        "visual-attribute": true
+        "attribute-type": ["visual", "filtering"]
     },
     {
         "name": "Ai",
         "datatype": "integer",
         "data-provider": "source1",
-        "filtering-attribute": true
+        "attribute-type": ["filtering"]
     },
     {
         "name": "Bi",
         "datatype": "integer",
         "data-provider": "source1",
-        "filtering-attribute": true,
-        "visual-attribute":true
+        "attribute-type": ["visual", "filtering"]
     },
     {
         "name": "Ci",
         "datatype": "integer",
         "data-provider": "source1",
-        "filtering-attribute": true
+        "attribute-type": ["filtering"]
     },
     {
         "name": "Di",
         "datatype": "integer",
         "data-provider": "source1",
-        "filtering-attribute": true
+        "attribute-type": ["filtering"]
     },
     {
         "name": "Eb",
         "datatype": "boolean",
         "data-provider": "source1",
-        "filtering-attribute": true
+        "attribute-type": ["filtering"]
     },
     {
         "name": "Ff",
         "datatype": "float",
         "data-provider": "source1",
-        "filtering-attribute": true
+        "attribute-type": ["filtering"]
     },
     {
         "name": "Gf",
         "datatype": "float",
         "data-provider": "source1",
-        "filtering-attribute": true
+        "attribute-type": ["filtering"]
     },
     {
         "name": "Hf",
         "datatype": "float",
         "data-provider": "source1",
-        "filtering-attribute": true
+        "attribute-type": ["filtering"]
     }
 
 ]
