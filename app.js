@@ -1,3 +1,8 @@
+//The application server
+//All the filtering and data processing happens here.
+//Processes the ```data-sources.json``` and ```data-description.json``` files
+
+
 //Dependencies
 var express = require('express');
 var routes = require('./routes');
@@ -28,14 +33,113 @@ app.use(express.static(path.join(__dirname, 'public')));
 //
 var data="";
 
-var visual_attributes = [];
+//Stores all visual attributes from data-description.json
+var visual_attributes = []; 
+//Stores all filtering attributes from data-description.json
 var filtering_attributes = [];
 
 var data_sources = [];
 
+//Crossfilter specific
+// - **dimensions** stores an array of dimensions.
+// - **groups** stores an array of groups.
+// - **ndx** is the crossfilter object.
 var dimensions = {};
 var groups = {};
 var ndx;
+
+
+init();
+
+
+//
+//#### init()
+//Initializtion function
+//
+
+function init(){
+	process_data_source();
+}
+
+//
+//#### process_data_source()
+//Reads data-source.json which provides information about the type, path and the attributes of the data.
+//
+function process_data_source(){
+  //Read the ```data-source.json``` file
+  var data_source_schema = fs.readFileSync("public/schemas/data-source.json");
+  data_source_schema = JSON.parse(data_source_schema);
+  //For each data source in the ```data-source.json``` file add to the ```data_sources``` array
+  for(var data_source in data_source_schema){
+    console.log(data_source_schema[data_source]);
+    data_sources.push(data_source_schema[data_source]);
+  }
+  //**Todo** Join logic. Joining data from multiple data sources
+
+  console.log(data_sources);
+  load_data();
+
+}
+
+
+//
+//#### load_data()
+//Loads data using the type and path specified in ```data-sources.json```.
+//Currently supports
+// * JSON
+// * CSV
+// * REST JSON
+// * REST CSV
+//
+//The system can be extended to support more types using ```load_data_sources.js```
+//
+function load_data()
+{
+  for(var data_source in data_sources){
+    var type=  data_sources[data_source].type;
+    var path = data_sources[data_source].path;
+    if(type== "json"){
+      load_data_source.json(path, data, process_data);
+    } else if(type == "csv") {
+      load_data_source.csv(path, data, process_data);
+    } else if(type == "rest/json") {
+      var options = data_sources[data_source].options
+      load_data_source.rest_json(path, data,options, process_data);
+    } else if (type == "rest/csv"){
+      var options = data_sources[data_source].options;
+      load_data_source.rest_json(path, data,options, process_data);
+    }
+  }
+
+}
+
+
+function process_data(){
+        data = load_data_source.data;
+        process_backend_schema();
+}
+
+
+//
+//#### process_backend_schema()
+//Reads the backend schema and fills the ```visual_attributes``` and ```filtering_attributes``` 
+//
+function process_backend_schema(){
+  var schema = fs.readFileSync("public/schemas/backend-schema.json");
+  schema = JSON.parse(schema);
+  for(var attribute in schema){
+    if(schema[attribute]["visual-attribute"])
+      visual_attributes.push(schema[attribute]);
+    if(schema[attribute]["filtering-attribute"])
+      filtering_attributes.push(schema[attribute]);
+  }
+
+  apply_crossfilter();
+
+}
+
+
+
 
 //
 //#### apply_crossfilter()
@@ -82,97 +186,8 @@ function listen(){
 
 }
 
-//
-//#### process_backend_schema()
-//Reads the backend schema and fills the ```visual_attributes``` and ```filtering_attributes``` 
-//
-function process_backend_schema(){
-  var schema = fs.readFileSync("public/schemas/backend-schema.json");
-  schema = JSON.parse(schema);
-  for(var attribute in schema){
-    if(schema[attribute]["visual-attribute"])
-      visual_attributes.push(schema[attribute]);
-    if(schema[attribute]["filtering-attribute"])
-      filtering_attributes.push(schema[attribute]);
-  }
-
-  apply_crossfilter();
-
-}
-
-function process_data(){
-        data = load_data_source.data;
-        process_backend_schema();
-}
-
-//
-//#### load_data()
-//Loads data using the type and path specified in ```data-sources.json```.
-//Currently supports
-//  *JSON
-//  *CSV
-// *REST JSON
-//  *REST CSV
-//The system can be extended to support more types using ```load_data_sources.json```
-//
-function load_data()
-{
-  for(var data_source in data_sources){
-    var type=  data_sources[data_source].type;
-    var path = data_sources[data_source].path;
-    if(type== "json"){
-      load_data_source.json(path, data, process_data);
-    } else if(type == "csv") {
-      load_data_source.csv(path, data, process_data);
-    } else if(type == "rest/json") {
-      var options = data_sources[data_source].options
-      load_data_source.rest_json(path, data,options, process_data);
-    } else if (type == "rest/csv"){
-      var options = data_sources[data_source].options;
-      load_data_source.rest_json(path, data,options, process_data);
-    }
-  }
-
-}
 
 
-
-//
-//#### process_data_source()
-//Reads data-source.json which provides information about the type, path and the attributes of the data.
-//
-function process_data_source(){
-  var data_source_schema = fs.readFileSync("public/schemas/data-source.json");
-  data_source_schema = JSON.parse(data_source_schema);
-
-
-  for(var data_source in data_source_schema){
-    console.log(data_source_schema[data_source]);
-    data_sources.push(data_source_schema[data_source]);
-
-
-  }
-
-  console.log(data_sources);
-
-  load_data();
-
-}
-
-
-//
-//#### init()
-//Initializtion function
-//
-
-function init(){
-
-process_data_source();
-
-}
-
-
-init();
 
 
 
