@@ -16,7 +16,11 @@ var res3 = v.validate(data_source, data_source_schema);
 
 if(res1.errors.length == 0)
 	console.log("data_description_schema passed");
+else
+	console.log(res1.errors)
 if(res2.errors.length == 0)
 	console.log("interactive_filters_schema passed");
 if(res3.errors.length == 0)
 	console.log("data_source_schema passed"); 
+else
+	console.log(res3.errors)
