@@ -27,6 +27,21 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
+              <p>The application server
+All the filtering and data processing happens here.
+Processes the <code>data-sources.json</code> and <code>data-description.json</code> files</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
               <p>Dependencies</p>
 
             </div>
@@ -46,11 +61,11 @@
         </li>
         
         
-        <li id="section-2">
+        <li id="section-3">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
+                <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
               <p>all environments</p>
 
@@ -69,35 +84,247 @@ app.use(express.static(path.join(__dirname, <span class="hljs-string">'public'</
         </li>
         
         
-        <li id="section-3">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
-              </div>
-              <p>Stores all the data from various data soruces</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> data=<span class="hljs-string">""</span>;
-
-<span class="hljs-keyword">var</span> visual_attributes = [];
-<span class="hljs-keyword">var</span> filtering_attributes = [];
-
-<span class="hljs-keyword">var</span> data_sources = [];
-
-<span class="hljs-keyword">var</span> dimensions = {};
-<span class="hljs-keyword">var</span> groups = {};
-<span class="hljs-keyword">var</span> ndx;</pre></div></div>
-            
-        </li>
-        
-        
         <li id="section-4">
             <div class="annotation">
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Stores all the data from various data soruces</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> data=<span class="hljs-string">""</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Stores all visual attributes from data-description.json</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> visual_attributes = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Stores all filtering attributes from data-description.json</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> filtering_attributes = [];
+
+<span class="hljs-keyword">var</span> data_sources = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Crossfilter specific</p>
+<ul>
+<li><strong>dimensions</strong> stores an array of dimensions.</li>
+<li><strong>groups</strong> stores an array of groups.</li>
+<li><strong>ndx</strong> is the crossfilter object.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> dimensions = {};
+<span class="hljs-keyword">var</span> groups = {};
+<span class="hljs-keyword">var</span> ndx;
+
+
+init();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h4 id="init-">init()</h4>
+<p>Initializtion function</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span>{
+	process_data_source();
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h4 id="process_data_source-">process_data_source()</h4>
+<p>Reads data-source.json which provides information about the type, path and the attributes of the data.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">process_data_source</span><span class="hljs-params">()</span></span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Read the <code>data-source.json</code> file</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> data_source_schema = fs.readFileSync(<span class="hljs-string">"public/schemas/data-source.json"</span>);
+  data_source_schema = <span class="hljs-built_in">JSON</span>.parse(data_source_schema);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>For each data source in the <code>data-source.json</code> file add to the <code>data_sources</code> array</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> data_source <span class="hljs-keyword">in</span> data_source_schema){
+    <span class="hljs-built_in">console</span>.log(data_source_schema[data_source]);
+    data_sources.push(data_source_schema[data_source]);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p><strong>Todo</strong> Join logic. Joining data from multiple data sources</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  <span class="hljs-built_in">console</span>.log(data_sources);
+  load_data();
+
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h4 id="load_data-">load_data()</h4>
+<p>Loads data using the type and path specified in <code>data-sources.json</code>.
+Currently supports</p>
+<ul>
+<li>JSON</li>
+<li>CSV</li>
+<li>REST JSON</li>
+<li>REST CSV</li>
+</ul>
+<p>The system can be extended to support more types using <code>load_data_sources.js</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">load_data</span><span class="hljs-params">()</span>
+</span>{
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> data_source <span class="hljs-keyword">in</span> data_sources){
+    <span class="hljs-keyword">var</span> type=  data_sources[data_source].type;
+    <span class="hljs-keyword">var</span> path = data_sources[data_source].path;
+    <span class="hljs-keyword">if</span>(type== <span class="hljs-string">"json"</span>){
+      load_data_source.json(path, data, process_data);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(type == <span class="hljs-string">"csv"</span>) {
+      load_data_source.csv(path, data, process_data);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(type == <span class="hljs-string">"rest/json"</span>) {
+      <span class="hljs-keyword">var</span> options = data_sources[data_source].options
+      load_data_source.rest_json(path, data,options, process_data);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type == <span class="hljs-string">"rest/csv"</span>){
+      <span class="hljs-keyword">var</span> options = data_sources[data_source].options;
+      load_data_source.rest_json(path, data,options, process_data);
+    }
+  }
+
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">process_data</span><span class="hljs-params">()</span></span>{
+        data = load_data_source.data;
+        process_backend_schema();
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <h4 id="process_backend_schema-">process_backend_schema()</h4>
+<p>Reads the backend schema and fills the <code>visual_attributes</code> and <code>filtering_attributes</code> </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">process_backend_schema</span><span class="hljs-params">()</span></span>{
+  <span class="hljs-keyword">var</span> schema = fs.readFileSync(<span class="hljs-string">"public/schemas/backend-schema.json"</span>);
+  schema = <span class="hljs-built_in">JSON</span>.parse(schema);
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> attribute <span class="hljs-keyword">in</span> schema){
+    <span class="hljs-keyword">if</span>(schema[attribute][<span class="hljs-string">"visual-attribute"</span>])
+      visual_attributes.push(schema[attribute]);
+    <span class="hljs-keyword">if</span>(schema[attribute][<span class="hljs-string">"filtering-attribute"</span>])
+      filtering_attributes.push(schema[attribute]);
+  }
+
+  apply_crossfilter();
+
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <h4 id="apply_crossfilter-">apply_crossfilter()</h4>
 <p>Applies crossfilter to all the <code>dimensions</code> and <code>groups</code></p>
@@ -136,11 +363,11 @@ app.use(express.static(path.join(__dirname, <span class="hljs-string">'public'</
         </li>
         
         
-        <li id="section-5">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <p>listen to the specified port for HTTP requests</p>
 
@@ -158,140 +385,11 @@ app.use(express.static(path.join(__dirname, <span class="hljs-string">'public'</
         </li>
         
         
-        <li id="section-6">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
-              </div>
-              <h4 id="process_backend_schema-">process_backend_schema()</h4>
-<p>Reads the backend schema and fills the <code>visual_attributes</code> and <code>filtering_attributes</code> </p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">process_backend_schema</span><span class="hljs-params">()</span></span>{
-  <span class="hljs-keyword">var</span> schema = fs.readFileSync(<span class="hljs-string">"public/schemas/backend-schema.json"</span>);
-  schema = <span class="hljs-built_in">JSON</span>.parse(schema);
-  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> attribute <span class="hljs-keyword">in</span> schema){
-    <span class="hljs-keyword">if</span>(schema[attribute][<span class="hljs-string">"visual-attribute"</span>])
-      visual_attributes.push(schema[attribute]);
-    <span class="hljs-keyword">if</span>(schema[attribute][<span class="hljs-string">"filtering-attribute"</span>])
-      filtering_attributes.push(schema[attribute]);
-  }
-
-  apply_crossfilter();
-
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">process_data</span><span class="hljs-params">()</span></span>{
-        data = load_data_source.data;
-        process_backend_schema();
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-7">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
-              </div>
-              <h4 id="load_data-">load_data()</h4>
-<p>Loads data using the type and path specified in <code>data-sources.json</code>.
-Currently supports
- <em>JSON
- </em>CSV
-<em>REST JSON
- </em>REST CSV
-The system can be extended to support more types using <code>load_data_sources.json</code></p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">load_data</span><span class="hljs-params">()</span>
-</span>{
-  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> data_source <span class="hljs-keyword">in</span> data_sources){
-    <span class="hljs-keyword">var</span> type=  data_sources[data_source].type;
-    <span class="hljs-keyword">var</span> path = data_sources[data_source].path;
-    <span class="hljs-keyword">if</span>(type== <span class="hljs-string">"json"</span>){
-      load_data_source.json(path, data, process_data);
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(type == <span class="hljs-string">"csv"</span>) {
-      load_data_source.csv(path, data, process_data);
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(type == <span class="hljs-string">"rest/json"</span>) {
-      <span class="hljs-keyword">var</span> options = data_sources[data_source].options
-      load_data_source.rest_json(path, data,options, process_data);
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type == <span class="hljs-string">"rest/csv"</span>){
-      <span class="hljs-keyword">var</span> options = data_sources[data_source].options;
-      load_data_source.rest_json(path, data,options, process_data);
-    }
-  }
-
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-8">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
-              </div>
-              <h4 id="process_data_source-">process_data_source()</h4>
-<p>Reads data-source.json which provides information about the type, path and the attributes of the data.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">process_data_source</span><span class="hljs-params">()</span></span>{
-  <span class="hljs-keyword">var</span> data_source_schema = fs.readFileSync(<span class="hljs-string">"public/schemas/data-source.json"</span>);
-  data_source_schema = <span class="hljs-built_in">JSON</span>.parse(data_source_schema);
-
-
-  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> data_source <span class="hljs-keyword">in</span> data_source_schema){
-    <span class="hljs-built_in">console</span>.log(data_source_schema[data_source]);
-    data_sources.push(data_source_schema[data_source]);
-
-
-  }
-
-  <span class="hljs-built_in">console</span>.log(data_sources);
-
-  load_data();
-
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-9">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
-              </div>
-              <h4 id="init-">init()</h4>
-<p>Initializtion function</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span>{
-
-process_data_source();
-
-}
-
-
-init();</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-10">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <h4 id="handle_filter_request-request-response-next-">handle_filter_request(request, response, next)</h4>
 <p>Is fired on GET ‘/data’ request. Performs filtering using the filtering information provided in the GET parameter:  <code>filter</code>  </p>
@@ -305,11 +403,11 @@ init();</pre></div></div>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <p>Loop through each dimension and check if user requested a filter</p>
 
@@ -318,11 +416,11 @@ init();</pre></div></div>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <p>Assemble group results and and the maximum value for each group</p>
 
@@ -342,11 +440,11 @@ init();</pre></div></div>
         </li>
         
         
-        <li id="section-13">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <p>If enumerated
 todo fix for numerical enumerated types</p>
@@ -396,11 +494,11 @@ todo fix for numerical enumerated types</p>
         </li>
         
         
-        <li id="section-14">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <p>Listen for filtering requests on <code>/data</code></p>
 
@@ -411,11 +509,11 @@ todo fix for numerical enumerated types</p>
         </li>
         
         
-        <li id="section-15">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <p>Change this to the static directory of the index.html file</p>
 
