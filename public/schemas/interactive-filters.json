@@ -3,49 +3,18 @@
     {
         "name": "gender",
         "order": 4,
-        "visualization-type": "pieChart",
-        "filter": "male"
+        "visualization": {
+            "visType": "pieChart"
+        },
+        "filter": ["male", "female"]
     },
     {
         "name": "age",
         "order": 1,
-        "visualization-type": "barChart",
-        "domain": [20,40],
+        "visualization":{
+            "visType": "barChart"
+
+        },
         "filter": [23,30]
-
-    },
-    {
-        "name": "isActive",
-        "order": 3,
-        "visualization-type": "pieChart"
-    },
-    {
-        "name": "Ai",
-        "visualization-type": "barChart",
-        "domain": [0,11]
-    },
-    {
-        "name": "Bi",
-        "order": 5,
-        "visualization-type": "barChart",
-        "domain": [0,8]
-    },
-    {
-        "name": "Ci",
-        "order": 6,
-        "visualization-type": "barChart",
-        "domain": [0,12]
-    },
-    {
-        "name": "Di",
-        "order": 7,
-        "visualization-type": "barChart",
-        "domain": [0,18]
-    },
-    {
-        "name": "Eb",
-        "order": 8,
-        "visualization-type": "pieChart"
-
     }   
 ]
