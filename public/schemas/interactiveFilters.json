@@ -1,0 +1,20 @@
+[
+
+    {
+        "name": "gender",
+        "order": 4,
+        "visualization": {
+            "visType": "pieChart"
+        },
+        "filter": ["male", "female"]
+    },
+    {
+        "name": "age",
+        "order": 1,
+        "visualization":{
+            "visType": "barChart"
+
+        },
+        "filter": [23,30]
+    }   
+]
