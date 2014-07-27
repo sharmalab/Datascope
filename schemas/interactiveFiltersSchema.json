@@ -36,7 +36,7 @@
 		"required": ["name", "visualization"]
 	},
 	"supportedVisTypes":{
-		"description": "The list of visualization types supported by the system."
+		"description": "The list of visualization types supported by the system.",
 		"type": "string",
 		"enum": ["barChart", "pieChart", "rowChart"]
 	}

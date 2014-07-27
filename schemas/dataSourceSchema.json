@@ -1,27 +1,27 @@
 {
 	"id": "dataSsourceSchema",
-	"description": "Describes the data sources. Provides the system information as to how to access these sources."
+	"description": "Describes the data sources. Provides the system information as to how to access these sources.",
 	"type": "array",
 	"items": {
 		"type": "object",
 		"properties":{
 			"name": {
-				"description": "Used to identify the data source in the system."
+				"description": "Used to identify the data source in the system.",
 				"type": "string",
 				"required": true
 			},
 			"type":{
-				"description": "The type of data source"
+				"description": "The type of data source",
 				"enum": ["json", "csv", "rest/json", "rest/csv"],
 				"required": true
 			},
 			"attributes":{
-				"description": "The subset of attributes provided by this data source."
+				"description": "The subset of attributes provided by this data source.",
 				"type": "array",
 				"items": {"type": "string"}
 			},
 			"options":{
-				"description": "Addition options required to access the repository. File path information or REST HTTP headers."
+				"description": "Addition options required to access the repository. File path information or REST HTTP headers.",
 				"type": "object",
 				"properties":{
 					"oneOf":[
@@ -34,11 +34,11 @@
 	},
 	"definitions": {
 		"file": {
-			"description": "For a file based data repository"
+			"description": "For a file based data repository",
 			"path": {"type": "string"}
 		},
 		"rest": {
-					"description": "For accessing data repository through REST"
+					"description": "For accessing data repository through REST",
 					"host": {"type": "string"},
 					"path": {"type": "string"},
 					"port": {"type": "number"},
