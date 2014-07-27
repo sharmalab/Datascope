@@ -1,12 +1,14 @@
 var fs = require('fs');
 
 //
-//## json(path, data, callback)
-// - **path**: specifies the file path
-// - **data**: 
+//## json(path, callback)
+// - **options**: specifies the file path
 // - **callback**: the callback function
 
-function json(path, data, callback){
+function json(options, callback){
+      console.log(options)
+      var path = options.path;
+      console.log(path)
       //Read the file using filepath
       fs.readFile(path, 'utf8', function(err, d){
         if(err){
@@ -22,7 +24,8 @@ function json(path, data, callback){
 }
 
 
-function csv(path, data, callback){
+function csv(options, callback){
+      var path = options.path;
       fs.readFile(path, 'utf8', function(err,d){
         data = d;
         data = data.toString().replace(/\r/g,"").split("\n");
@@ -39,12 +42,12 @@ function csv(path, data, callback){
       });
 }
 
-//## rest_json(path, data, options, callback)
+//## rest_json(path, options, callback)
 // - **path**: specifies the file path
 // - **data**: 
 // - **options**: HTTP header options
 // - **callback**: the callback function
-function rest_json(path, data, options, callback){
+function rest_json(path, options, callback){
     var options = options;
     //Make the HTTP GET request
     http.get(options, function(response){
@@ -61,11 +64,10 @@ function rest_json(path, data, options, callback){
     });
 }
 
-function rest_csv(path, data, options, callback){
+function rest_csv(path, options, callback){
       http.get(options, function(response){
         response.on('data', function(chunk){
           chunk = chunk.toString()
-          //console.log(chunk.toString())
           if(chunk){
             data+=chunk;
           }

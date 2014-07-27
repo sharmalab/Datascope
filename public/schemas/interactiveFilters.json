@@ -16,5 +16,12 @@
 
         },
         "filter": [23,30]
-    }   
+    },
+    {
+        "name": "Ai",
+        "order": 2,
+        "visualization": {
+            "visType": "barChart"
+        }
+    }
 ]
