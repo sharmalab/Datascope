@@ -27,7 +27,7 @@
         "name": "gender",
         "datatype": "string",
         "dataProvider": "source1",
-        "attributeType": ["visual"]
+        "attributeType": ["visual", "filtering"]
     },
     {
         "name": "age",
