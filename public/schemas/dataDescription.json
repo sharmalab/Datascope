@@ -1,0 +1,93 @@
+[
+    {
+        "name": "id",
+        "datatype": "integer",
+        "dataProvider": "source1",
+        "attributeType": ["visual", "key"]
+    },
+    {
+        "name": "guid",
+        "datatype": "string",
+        "dataProvider": "source1",
+        "attributeType": ["visual"]
+    },
+    {
+        "name": "name",
+        "datatype": "string",
+        "dataProvider": "source1",
+        "attributeType": ["visual"]
+    },
+    {
+        "name": "registered",
+        "datatype": "string",
+        "dataProvider": "source1",
+        "attributeType": ["visual"]
+    },
+    {
+        "name": "gender",
+        "datatype": "string",
+        "dataProvider": "source1",
+        "attributeType": ["visual"]
+    },
+    {
+        "name": "age",
+        "datatype": "integer",
+        "dataProvider": "source1",
+        "attributeType": ["visual", "filtering"]
+    },
+    {
+        "name": "isActive",
+        "datatype": "boolean",
+        "dataProvider": "source1",
+        "attributeType": ["visual", "filtering"]
+    },
+    {
+        "name": "Ai",
+        "datatype": "integer",
+        "dataProvider": "source1",
+        "attributeType": ["filtering"]
+    },
+    {
+        "name": "Bi",
+        "datatype": "integer",
+        "dataProvider": "source1",
+        "attributeType": ["visual", "filtering"]
+    },
+    {
+        "name": "Ci",
+        "datatype": "integer",
+        "dataProvider": "source1",
+        "attributeType": ["filtering"]
+    },
+    {
+        "name": "Di",
+        "datatype": "integer",
+        "dataProvider": "source1",
+        "attributeType": ["filtering"]
+    },
+    {
+        "name": "Eb",
+        "datatype": "boolean",
+        "dataProvider": "source1",
+        "attributeType": ["filtering"]
+    },
+    {
+        "name": "Ff",
+        "datatype": "float",
+        "dataProvider": "source1",
+        "attributeType": ["filtering"]
+    },
+    {
+        "name": "Gf",
+        "datatype": "float",
+        "dataProvider": "source1",
+        "attributeType": ["filtering"]
+    },
+    {
+        "name": "Hf",
+        "datatype": "float",
+        "dataProvider": "source1",
+        "attributeType": ["filtering"]
+    }
+
+]
