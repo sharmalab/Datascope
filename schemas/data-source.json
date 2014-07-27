@@ -1,0 +1,43 @@
+{
+	"id": "data_source",
+	"type": "array",
+	"items": {
+		"type": "object",
+		"properties":{
+			"name": {
+				"type": "string",
+				"required": true
+			},
+			"type":{
+				"enum": ["json", "csv", "rest/json", "rest/csv"],
+				"required": true
+			},
+			"attributes":{
+				"type": "array",
+				"items": {"type": "string"}
+			},
+			"options":{
+				"type": "object",
+				"properties":{
+					"oneOf":[
+						{"$ref": "#/definitions/file"},
+						{"$ref": "#/definitions/rest"}
+					]
+				}
+			}
+		}
+	},
+	"definitions": {
+		"file": {
+			"path": {"type": "string"}
+		},
+		"rest": {
+					"host": {"type": "string"},
+					"path": {"type": "string"},
+					"port": {"type": "number"},
+					"headers":{
+						"type": "object"
+					}
+		}
+	}
+}
