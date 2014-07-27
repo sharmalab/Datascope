@@ -67,7 +67,7 @@ function init(){
 //
 function process_data_source(){
   //Read the ```data-source.json``` file
-  var data_source_schema = fs.readFileSync("public/schemas/data-source.json");
+  var data_source_schema = fs.readFileSync("public/schemas/dataSource.json");
   data_source_schema = JSON.parse(data_source_schema);
   //For each data source in the ```data-source.json``` file add to the ```data_sources``` array
   for(var data_source in data_source_schema){
@@ -96,18 +96,19 @@ function process_data_source(){
 function load_data()
 {
   for(var data_source in data_sources){
+  
     var type=  data_sources[data_source].type;
-    var path = data_sources[data_source].path;
+    var options = data_sources[data_source].options;
+    console.log(options);
+    console.log(type);
     if(type== "json"){
-      load_data_source.json(path, data, process_data);
+      load_data_source.json(options, process_data);
     } else if(type == "csv") {
-      load_data_source.csv(path, data, process_data);
+      load_data_source.csv(options, process_data);
     } else if(type == "rest/json") {
-      var options = data_sources[data_source].options
-      load_data_source.rest_json(path, data,options, process_data);
+      load_data_source.rest_json(options, process_data);
     } else if (type == "rest/csv"){
-      var options = data_sources[data_source].options;
-      load_data_source.rest_json(path, data,options, process_data);
+      load_data_source.rest_json(options, process_data);
     }
   }
 
@@ -116,7 +117,7 @@ function load_data()
 
 function process_data(){
         data = load_data_source.data;
-        process_backend_schema();
+        process_data_description();
 }
 
 
@@ -124,18 +125,22 @@ function process_data(){
 //#### process_backend_schema()
 //Reads the backend schema and fills the ```visual_attributes``` and ```filtering_attributes``` 
 //
-function process_backend_schema(){
-  var schema = fs.readFileSync("public/schemas/backend-schema.json");
-  schema = JSON.parse(schema);
-  for(var attribute in schema){
-    if(schema[attribute]["visual-attribute"])
-      visual_attributes.push(schema[attribute]);
-    if(schema[attribute]["filtering-attribute"])
-      filtering_attributes.push(schema[attribute]);
+function process_data_description(){
+  var dataDescription = fs.readFileSync("public/schemas/dataDescription.json");
+  dataDescription = JSON.parse(dataDescription);
+
+  for(var attribute_index in dataDescription){
+    var attribute = dataDescription[attribute_index];
+    console.log(attribute["attributeType"].length)
+    for(var type_index in attribute["attributeType"]){
+      if(attribute["attributeType"][type_index] == "filtering")
+        filtering_attributes.push(attribute);
+      else
+        visual_attributes.push(attribute);
+    }
   }
 
   apply_crossfilter();
-
 }
 
 
@@ -146,26 +151,27 @@ function process_backend_schema(){
 //Applies crossfilter to all the ```dimensions``` and ```groups```
 //
 function apply_crossfilter(){
+  //apply crossfilter to the data
   var ndx = crossfilter(data);
+
   for(var attr in filtering_attributes){
-      if(filtering_attributes[attr]["datatype"] == "integer")
-      dimension = ndx.dimension(function(d){return 1*d[filtering_attributes[attr]["name"]]});
-    else
-      dimension = ndx.dimension(function(d){return d[filtering_attributes[attr]["name"]]});
 
-    if(filtering_attributes[attr]["dimension"])
-      dimension = ndx.dimension(filtering_attributes[attr]["dimensions"]())
-
-    dimensions[filtering_attributes[attr]["name"]] = dimension;
-    var bin_factor = filtering_attributes[attr]["bin-factor"];
+    var filtering_attribute = filtering_attributes[attr];
+    //Create a crossfilter dimension on this attribute
+    var dimension = ndx.dimension(function(d){
+        return d[filtering_attribute["name"]]
+    });
+    dimensions[filtering_attribute["name"]] = dimension;
+    var bin_factor = filtering_attribute["binFactor"];
+    //If a ```bin_factor``` has been specified then create bins accordingly
     if(bin_factor){
       group = dimension.group(function(d){
         return Math.floor(d/(bin_factor))*(bin_factor);
       });
     } else {
-      group = dimension.group();
+      group = dimension.group()
     }
-    groups[filtering_attributes[attr]["name"]] = group;
+    groups[filtering_attribute["name"]] = group;
   }
 
   size = ndx.size(),
@@ -240,12 +246,6 @@ function handle_filter_request(req,res,next) {
     }
   })
   
-  if(Object.keys(filter).length === 0){
-      results["table_data"] = {data:dimensions[filtering_attributes[0]["name"]].top(100)}
-  }
-  else{
-      results["table_data"] = {data:dimensions[filter_dim].top(100)}
-  }
   Object.keys(groups).forEach(function(key) {
       results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value}
   })
