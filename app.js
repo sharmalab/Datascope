@@ -13,7 +13,7 @@ var path = require('path');
 var crossfilter = require("./crossfilter.js").crossfilter;
 var fs = require('fs');
 var app = express();
-var load_data_source = require('./load_data_source');   //Module for loading various data formats
+var load_data_source = require('./modules/loadDataSources');   //Module for loading various data formats
 
 // all environments
 app.set('port', 3000);
