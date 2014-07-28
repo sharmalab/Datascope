@@ -12,7 +12,6 @@ var http = require('http');
 var path = require('path');
 var crossfilter = require("./crossfilter.js").crossfilter;
 var fs = require('fs');
-var d3 = require('d3');
 var app = express();
 var load_data_source = require('./load_data_source');   //Module for loading various data formats
 
