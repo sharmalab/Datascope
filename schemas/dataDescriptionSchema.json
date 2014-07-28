@@ -1,22 +1,29 @@
 {
-	"id": "data-description",
+	"id": "dataDescriptionSchema",
+	"description": "Describes the data",
 	"type": "array",
 	"items": {
+		"id": "attribute",
+		"description": "Description of each attribute in the data.",
 		"type": "object",
 		"properties":{
 			"name": {
+				"description": "The name of the attribute. Attribute is identified by its name",
 				"type": "string",
 				"required": true
 			},
 			"dataProvider":{
+				"description": "The name of the data provider.",
 				"type": "string",
 				"required": true
 			},
 			"datatype":{
+				"description": "The data-type that the attribute accepts.",
 				"type": "string",
 				"enum": ["boolean", "integer", "float", "enum", "string"]
 			},
 			"attributeType": {
+				"description": "The type of attribute. Could be any combination of the 3 attributeTypes",
 				"type": "array",
 				"required": true,
 				"items":{
