@@ -3,7 +3,7 @@
 	"description": "Schema for interactiveFilters.json. Specifies the information required for filtering",
 	"type": "array",
 	"items": {
-		"id": "attribute",
+		"description": "Each object in the array describes an attribute",
 		"type": "object",
 		"properties": {
 			"name": {
