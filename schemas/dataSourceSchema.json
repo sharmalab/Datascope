@@ -1,8 +1,9 @@
 {
-	"id": "dataSsourceSchema",
+	"id": "dataSourceSchema",
 	"description": "Describes the data sources. Provides the system information as to how to access these sources.",
 	"type": "array",
 	"items": {
+		"id": "dataSource",
 		"type": "object",
 		"properties":{
 			"name": {
