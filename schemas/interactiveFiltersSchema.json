@@ -1,8 +1,9 @@
 {
-	"id": "interactive-filters",
+	"id": "interactiveFiltersSchema",
 	"description": "Schema for interactiveFilters.json. Specifies the information required for filtering",
 	"type": "array",
 	"items": {
+		"id": "attribute",
 		"type": "object",
 		"properties": {
 			"name": {
@@ -11,11 +12,16 @@
 				"required" : true
 			}, 
 			"order": {
+				"description": "Display order on the dashboard.",
 				"type": "integer"
 			},
 			"filter":{
 				"description": "Existing filter on the attribute",
 				"type": "array"
+			},
+			"label":{
+				"description": "The label that is displayed on the dashboard for this attribute.",
+				"type": "string"
 			},
 			"visualization": {
 				"description": "Describes the type of visualization for the filtering attribute",
@@ -27,10 +33,6 @@
 						"type": "array"
 					}
 				}
-			},
-			"label":{
-				"description": "The label that is displayed on the dashboard for this attribute.",
-				"type": "string"
 			}
 		},
 		"required": ["name", "visualization"]
