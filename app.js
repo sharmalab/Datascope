@@ -12,8 +12,11 @@ var http = require('http');
 var path = require('path');
 var crossfilter = require("./crossfilter.js").crossfilter;
 var fs = require('fs');
-var app = express();
 var load_data_source = require('./modules/loadDataSources');   //Module for loading various data formats
+var Validator = require('jsonschema').Validator;
+var schemaValidator = new Validator();
+
+var app = express();
 
 // all environments
 app.set('port', 3000);
@@ -57,7 +60,41 @@ init();
 //
 
 function init(){
+  schema_validation();
 	process_data_source();
+}
+
+//
+//### schema_validation()
+//Validates all the configuration files against their
+//
+function schema_validation(){
+  var dataDescription = JSON.parse(fs.readFileSync("public/schemas/dataDescription.json"));
+  var interactiveFilters = JSON.parse(fs.readFileSync("public/schemas/interactiveFilters.json"));
+  var dataSource = JSON.parse(fs.readFileSync("public/schemas/dataSource.json"))
+
+  var dataDescriptionSchema = JSON.parse(fs.readFileSync("schemas/dataDescriptionSchema.json"));
+  var interactiveFiltersSchema = JSON.parse(fs.readFileSync("schemas/interactiveFiltersSchema.json"));
+  var dataSourceSchema = JSON.parse(fs.readFileSync("schemas/dataSourceSchema.json"));
+
+
+  var res1 = schemaValidator.validate(dataSource, dataSourceSchema);
+  console.log(res3);
+  var res2 = schemaValidator.validate(dataDescription, dataDescriptionSchema);
+  console.log(res1);
+  var res3 = schemaValidator.validate(interactiveFilters, interactiveFiltersSchema);
+  console.log(res2);
+  if(res1.errors.length == 0){}
+  else{
+      console.log(res1.errors)
+  }
+  if(res2.errors.length == 0){}
+  else 
+    console.log(res2.errors)
+  if(res3.errors.length == 0){}
+  else
+    console.log(res3.errors)
+
 }
 
 //
