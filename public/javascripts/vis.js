@@ -22,7 +22,8 @@ init();
 
 function init(){
   d3.json("schemas/interactiveFilters.json", function(err, data){
-    var interactive_filters = data;    refresh_init(interactive_filters);
+    var interactive_filters = data;    
+    refresh_init(interactive_filters);
   });
 }
 
@@ -36,7 +37,7 @@ function refresh_init(interactive_filters) {
     create_buttons();
     initialize_dimensions();
     initialize_thumbnails();
-
+    visualization();
 
     dc.renderAll(); 
   })
@@ -182,6 +183,58 @@ function initialize_thumbnails(){
   } 
 }
 
+//Data table visualization
+var visualization_div = d3.select("#visualization");
+function visualization(){
+  visualization_div.html("")
+  var table = visualization_div.append("table");
+    table.attr("class", "table");
+    thead = table.append("thead"),
+    tbody = table.append("tbody");
+    var table_data = [];
+    //Get data
+    var raw_table_data = chartData["table_data"]["data"];
+    //console.log(raw_table_data)
+    for(var attr in raw_table_data){
+      var row = raw_table_data[attr];
+      //console.log(row);
+      var new_row = {};
+      for(var vis_attr in filtering_attributes){
+        //console.log(vis_attr);
+        //console.log(filtering_attributes[vis_attr])
+        new_row[filtering_attributes[vis_attr]["name"]] = row[filtering_attributes[vis_attr]["name"]];
+      }
+      table_data.push(new_row);
+    }
+    console.log(table_data)
+    //console.log(table_data)
+    var columns = [];
+    Object.keys(table_data[0]).forEach(function(col){
+      columns.push(col);    
+    });
+    tbody.html("");
+    thead.html("");
+    thead.append("tr")
+      .selectAll("th")
+      .data(columns)
+      .enter()
+      .append("th")
+      .text(function(column){return column;})
+    var rows = tbody.selectAll("tr")
+              .data(table_data)
+              .enter()
+              .append("tr")
+
+    var cells = rows.selectAll("td")
+      .data(function(d){
+        return d3.values(d);
+      })
+      .enter()
+      .append("td")
+      .text(function(d){ return d;})
+    //console.log(chartData)
+}
+
 
 function refresh() {
   if(JSON.stringify(queryFilter)){
@@ -193,6 +246,7 @@ function refresh() {
     }
     d3.json("/data?filter="+JSON.stringify(queryFilter), function (d){
       chartData = d;
+      visualization();
       dc.renderAll();
     });
   } else {
