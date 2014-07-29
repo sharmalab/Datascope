@@ -280,7 +280,9 @@ function handle_filter_request(req,res,next) {
     } else {
       dimensions[dim].filterAll(null)
     }
-  })
+  });
+  results["table_data"] = {data:dimensions[filtering_attributes[0]["name"]].top(100)}
+  console.log(results["table_data"])
   
   Object.keys(groups).forEach(function(key) {
       results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value}

@@ -1,18 +1,5 @@
-[ 
-    {
-        "name": "id",
-        "datatype": "integer"
-    },
-    {
-        "name": "guid",
-        "datatype": "string"
-    },
-    {
-        "name": "name",
-        "datatype": "string"
-    },
-    {
-        "name": "registered",
-        "datatype": "string"
-    }
+[
+{
+    "type": "dataTable"
+}
 ]
