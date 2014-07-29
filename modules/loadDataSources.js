@@ -6,9 +6,8 @@ var fs = require('fs');
 // - **callback**: the callback function
 
 function json(options, callback){
-      console.log(options)
+
       var path = options.path;
-      console.log(path)
       //Read the file using filepath
       fs.readFile(path, 'utf8', function(err, d){
         if(err){
@@ -23,7 +22,10 @@ function json(options, callback){
       });
 }
 
-
+//
+//## csv(path, callback)
+// - **options**: specifies the file path
+// - **callback**: the callback function
 function csv(options, callback){
       var path = options.path;
       fs.readFile(path, 'utf8', function(err,d){
@@ -42,12 +44,10 @@ function csv(options, callback){
       });
 }
 
-//## rest_json(path, options, callback)
-// - **path**: specifies the file path
-// - **data**: 
+//## rest_json(options, callback)
 // - **options**: HTTP header options
 // - **callback**: the callback function
-function rest_json(path, options, callback){
+function rest_json(options, callback){
     var options = options;
     //Make the HTTP GET request
     http.get(options, function(response){
@@ -64,10 +64,13 @@ function rest_json(path, options, callback){
     });
 }
 
-function rest_csv(path, options, callback){
+//## rest_csv(options, callback)
+// - **options**: HTTP header options
+// - **callback**: the callback function
+function rest_csv(options, callback){
       http.get(options, function(response){
         response.on('data', function(chunk){
-          chunk = chunk.toString()
+          chunk = chunk.toString();
           if(chunk){
             data+=chunk;
           }
