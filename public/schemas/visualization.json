@@ -1,5 +1,10 @@
-[
+
 {
-    "type": "dataTable"
+    "type": "dataTable",
+    "attributes":[
+    	{"name": "id"},
+    	{"name": "guid"},
+    	{"name": "Ai"},
+    	{"name": "Bi"} 
+    ]
 }
-]
