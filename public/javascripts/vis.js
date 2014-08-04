@@ -70,28 +70,27 @@ function processVisualization(visualization, visualAttributes) {
 
 function createButtons(filteringAttributes) {
     console.log("createButtons")
-  var filtering_attributes_div = $("#filtering_attributes")
-  for(var i=0; i<filteringAttributes.length; i++){
+    var $filteringAttributes = $("#filtering_attributes")
+    for(var i=0; i<filteringAttributes.length; i++){
         var attribute = filteringAttributes[i];
-
-        var attribute_name = filteringAttributes[i]["name"];
+        var attributeName = attribute["name"];
         var attributeLabel = attribute["label"] ? attribute["label"] : attribute["name"]
-        var accordian_panel_header = '<div class="panel panel-default">\
+        var $accordianPanelHeader = '<div class="panel panel-default">\
                       <div class="panel-heading">\
                         <h4 class="panel-title">\
-                          <a data-toggle="collapse" data-parent="#filtering_attributes" href="#'+attribute_name+'-thumb">'+attributeLabel+'\
+                          <a data-toggle="collapse" data-parent="#filtering_attributes" href="#'+attributeName+'-thumb">'+attributeLabel+'\
                           </a>\
                         </h4>\
                       </div>'
-        var accordian_panel_body = '<div id="'+attribute_name+'-thumb" class="panel-collapse collapse in">\
-                        <div class="panel-body thumb-panel-body"  data-toggle="modal" data-target="#'+attribute_name+'Modal">\
-                          <div id="dc-'+attribute_name+'-thumb" class="thumb-chart"></div>\
+        var $accordianPanelBody = '<div id="'+attributeName+'-thumb" class="panel-collapse collapse in">\
+                        <div class="panel-body thumb-panel-body"  data-toggle="modal" data-target="#'+attributeName+'Modal">\
+                          <div id="dc-'+attributeName+'-thumb" class="thumb-chart"></div>\
                         </div>\
                       </div>\
                     </div>'
-        var accordian_full = accordian_panel_header + accordian_panel_body
+        var $accordianFull = $accordianPanelHeader + $accordianPanelBody;
         //var button = "<button id='button' class='btn btn-default' type='button' data-toggle='modal' data-target='#"+attribute_name+"Modal'>"+ attribute_name + "</button>";
-        filtering_attributes_div.append(accordian_full);
+        $filteringAttributes.append($accordianFull);
     }
 }
 function initializeCrossfilter(filteringAttributes, queryFilter, visualAttributes) {
