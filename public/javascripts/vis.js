@@ -8,13 +8,13 @@ init();
 function init() {
     var interactiveFilters,
         visualization;
-    d3.json("schemas/interactiveFilters.json", function(err, data) {
+    d3.json("config/interactiveFilters.json", function(err, data) {
         if(err) {
             console.log(err);
             return;
         }
         interactiveFilters = data;
-        d3.json("schemas/visualization.json", function(err, data) {
+        d3.json("config/visualization.json", function(err, data) {
             if(err) {
                 console.log(err);
                 return;
@@ -76,7 +76,7 @@ function createButtons(filteringAttributes) {
         var attributeName = attribute["name"];
         var attributeLabel = attribute["label"] ? attribute["label"] : attribute["name"]
         var $accordianPanelHeader = '<div class="panel panel-default">\
-                      <div class="panel-heading">\
+                      <div class="panel-heading" id="'+attributeName+'-panel-heading">\
                         <h4 class="panel-title">\
                           <a data-toggle="collapse" data-parent="#filtering_attributes" href="#'+attributeName+'-thumb">'+attributeLabel+'\
                           </a>\
@@ -174,7 +174,7 @@ function initializeThumbnails(filteringAttributes, thumbCharts ) {
                     .renderLabel(true)
                     return c;
                 }();
-
+                createFilterForm(attributeName);
                 //thumb_charts[i] = barChart(attributeName, preFilter, dimensions, groups);
                 break;
             case "pieChart":
@@ -289,6 +289,12 @@ function refresh(queryFilter, visualAttributes) {
         } else {
             
         }
+}
+
+function createFilterForm(attributeName) {
+    var $panelHeading = $("#"+attributeName+"-panel-heading");
+
+    //incomplete
 }
     
 
