@@ -62,6 +62,7 @@ init();
 function init(){
   schema_validation();
 	process_data_source();
+  process_visualization();
 }
 
 //
@@ -69,9 +70,9 @@ function init(){
 //Validates all the configuration files against their
 //
 function schema_validation(){
-  var dataDescription = JSON.parse(fs.readFileSync("public/schemas/dataDescription.json"));
-  var interactiveFilters = JSON.parse(fs.readFileSync("public/schemas/interactiveFilters.json"));
-  var dataSource = JSON.parse(fs.readFileSync("public/schemas/dataSource.json"))
+  var dataDescription = JSON.parse(fs.readFileSync("public/config/dataDescription.json"));
+  var interactiveFilters = JSON.parse(fs.readFileSync("public/config/interactiveFilters.json"));
+  var dataSource = JSON.parse(fs.readFileSync("public/config/dataSource.json"));
 
   var dataDescriptionSchema = JSON.parse(fs.readFileSync("schemas/dataDescriptionSchema.json"));
   var interactiveFiltersSchema = JSON.parse(fs.readFileSync("schemas/interactiveFiltersSchema.json"));
@@ -103,7 +104,7 @@ function schema_validation(){
 //
 function process_data_source(){
   //Read the ```data-source.json``` file
-  var data_source_schema = fs.readFileSync("public/schemas/dataSource.json");
+  var data_source_schema = fs.readFileSync("public/config/dataSource.json");
   data_source_schema = JSON.parse(data_source_schema);
   //For each data source in the ```data-source.json``` file add to the ```data_sources``` array
   for(var data_source in data_source_schema){
@@ -114,6 +115,12 @@ function process_data_source(){
 
   console.log(data_sources);
   load_data();
+
+}
+
+function process_visualization(){
+  var visualization = fs.readFileSync("public/config/visualization.json");
+  visualization = JSON.parse(visualization)
 
 }
 
@@ -162,7 +169,7 @@ function process_data(){
 //Reads the backend schema and fills the ```visual_attributes``` and ```filtering_attributes``` 
 //
 function process_data_description(){
-  var dataDescription = fs.readFileSync("public/schemas/dataDescription.json");
+  var dataDescription = fs.readFileSync("public/config/dataDescription.json");
   dataDescription = JSON.parse(dataDescription);
 
   for(var attribute_index in dataDescription){
