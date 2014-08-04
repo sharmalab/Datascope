@@ -196,11 +196,30 @@ function initializeThumbnails(filteringAttributes, thumbCharts ) {
                     return c;
                 }();      
                 break;
-            case "lineChart":
+            case "rowChart":
                 thumbCharts[i] = function() {
-                    var c = dc.lineChart("#dc-"+attributeName+"-thumb");
+                    var c = dc.rowChart("#dc-"+attributeName+"-thumb")
+                    c.width(200)
+                    .height(200)
+                    .dimension(dimensions[attributeName])
+                    .group(groups[attributeName])
+                    
+                    .renderLabel(true)
+                    .elasticX(true)
+                    .margins({top: 10, right: 20, bottom: 20, left: 10})
 
-                }
+                    c.filterHandler(function(dimension, filters){
+                        console.log(dimension);
+                        console.log(filters);
+                        if(filters)
+                            dimension.filter(filters);
+                        else
+                            dimension.filter(null);
+                        return filters;
+                    })
+                    return c;        
+                }();
+                break;
         }
     }
 }
