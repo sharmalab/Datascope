@@ -22,6 +22,7 @@
         "order": 2,
         "visualization": {
             "visType": "barChart"
-        }
+        },
+        "label": "AttriI"
     }
 ]
