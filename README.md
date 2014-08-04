@@ -7,8 +7,8 @@ We propose an environment for visualizing and exploring TCIA data . We leverage 
 * Install Node.js
 * Clone the repository
 * Run ```npm install```
-* Fill in schemas present in ```public/schemas``` to fit your needs.
-* Run ```node app_ajax.js```
+* Fill in files present in ```public/schemas``` to fit your needs.
+* Run ```node app.js```
 
 * Goto ```http://localhost:3000``` from your favorite browser.
 
@@ -16,4 +16,4 @@ We propose an environment for visualizing and exploring TCIA data . We leverage 
 
 * Open ```generate.py``` and change ```num_recs``` to the number of records you want.
 * Run ```python generate.py > small-data.json``` to generate a new dataset.
-* Run ```node app_ajax.js``` to start playing.
+* Run ```node app.js``` to start playing.
