@@ -26,6 +26,9 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+
+app.use(express.cookieParser('S3CRE7'));
+app.use(express.cookieSession());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -51,6 +54,7 @@ var dimensions = {};
 var groups = {};
 var ndx;
 
+var filter = {};
 
 init();
 
@@ -313,7 +317,8 @@ function listen(){
 //
 function handle_filter_request(req,res,next) {
   
-  filter = req.param("filter") ? JSON.parse(req.param("filter")) : {}
+  filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
+  req.session["f"] = filter;
   // Loop through each dimension and check if user requested a filter
 
   // Assemble group results and and the maximum value for each group
@@ -369,8 +374,14 @@ function handle_filter_request(req,res,next) {
 
 
 
+function handle_state(req, res, next){
+  res.writeHead(200, { 'content-type': 'application/json' });
+  res.end((JSON.stringify(req.session["f"])))
+}
+
 // Listen for filtering requests on ```/data```
 app.use("/data",handle_filter_request);
+app.use("/state", handle_state);
 
 // Change this to the static directory of the index.html file
 app.get('/', routes.index);
