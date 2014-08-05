@@ -8,14 +8,16 @@ block content
 	div(class='container-fluid')
 		div(class='row')
 			div(class='col-sm-3 col-md-3 sidebar')
-				h4 Filtering Attributes
-				//
-					div(class='panel panel-default')
-						div(class='panel-heading') 
-							h3(class='panel-title') Panel
-						div(class='panel-body smallChart' id='small-chart') 
-				div(class='panel-group' id="filtering_attributes")
-					//div(class='panel pan')
+				div(class='row')
+					div(class="btn-group")
+						a(href='/state' target="_blank")
+							button(class='btn' style="margin:2px 4px") View State
+						a(href="#")
+							button(class='btn') Load State
+				div(class='row')
+					h4 Filtering Attributes
+					div(class='panel-group' id="filtering_attributes")
+						//div(class='panel pan')
 			div(class='col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-3 main')
 				div(class='row')
 					div(id='visualization')
