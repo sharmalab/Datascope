@@ -1,7 +1,8 @@
 var dimensions = {};
 var groups = {};
 var thumbCharts = [];
-var filteredData = {}
+var filteredData = {};
+var visualizationMain = {};
 
 
 init();
@@ -20,8 +21,8 @@ function init() {
                 return;
             }
             visualization = data;
-            console.log(visualization);
-            console.log(interactiveFilters);
+            //console.log(visualization);
+            //console.log(interactiveFilters);
             refreshInit(interactiveFilters, visualization);
         });
     });
@@ -35,17 +36,14 @@ function refreshInit(interactiveFilters, visualization) {
     var queryFilter = {};
 
     d3.json("/data?filter={}", function(d) {
-        console.log("refreshInit()")
         filteredData = d;
-        console.log(filteredData)
         processInteractiveFilters(interactiveFilters,filteringAttributes);
         processVisualization(visualization, visualAttributes);
-        console.log("creating button")
         createButtons(filteringAttributes);
-        initializeCrossfilter( filteringAttributes, queryFilter,  visualAttributes);
-        console.log(filteringAttributes)
+        initializeCrossfilter( filteringAttributes, queryFilter, visualAttributes);
+    
         initializeThumbnails(filteringAttributes, thumbCharts);
-        renderVisualizationInit( visualAttributes);
+        renderVisualizationInit( visualization, visualAttributes);
         dc.renderAll()
     });
 }
@@ -61,7 +59,6 @@ function processVisualization(visualization, visualAttributes) {
     console.log("processVisualization")
     console.log(visualization);
     var attributes = visualization.attributes;
-    console.log(attributes);
     for (var i=0; i< attributes.length; i++) {
         var attribute = attributes[i];
         visualAttributes.push(attribute);
@@ -126,7 +123,6 @@ function initializeCrossfilter(filteringAttributes, queryFilter, visualAttribute
             var fData = filteredData[dim]
             return {
                 all: function() {
-                    console.log(filteredData[dim].values);
                     return filteredData[dim].values;
                 },
                 order: function() {
@@ -138,6 +134,56 @@ function initializeCrossfilter(filteringAttributes, queryFilter, visualAttribute
             }
         }();
     }
+    visualizationFilters(visualAttributes);
+}
+
+function visualizationFilters(visualAttributes){
+    var dim;
+    for(var attr in visualAttributes){
+        var attribute = visualAttributes[attr];
+        if(attribute.dimension)
+            dim = attribute.name;
+    }
+    dimensions["visualization"] = function() {
+            
+             return {
+                filter: function(f) {
+                    if(f) {
+                        queryFilter[dim] = f;
+                        refresh(queryFilter, visualAttributes);
+                        } else {
+                            if(queryFilter[dim]) {
+                                delete queryFilter[dim];
+                                refresh(queryFilter, visualAttributes);
+                            } else {
+                                return;
+                            }
+                        }
+                },
+                filterAll: function() {
+                        
+                },
+                filterFunction: function(d) {
+                        
+                }
+            }       
+    }
+    groups["visualization"] = function(){
+        var dim = "visualization";
+        var fData = filteredData[dim];
+        return {
+            all: function() {
+                return filteredData[dim].values;
+            },
+            order: function() {
+                return groups[dim];
+            },
+            top: function() {
+                return filteredData[dim].values;
+            }
+        }
+    }();
+
 }
         
 
@@ -260,8 +306,27 @@ function pieChart(attributeName, preFilter, dimensions, groups) {
     return c;
 }
 
-function renderVisualizationInit(visualAttributes) {
-    renderTableInit(visualAttributes);
+function renderVisualizationInit(visualization, visualAttributes) {
+    var visualizationType = visualization.type;
+    var visualizationHeading  = visualization.heading;
+    var visualizationSubHeading = visualization.subheading;
+    var visualizationDiv = d3.select("#visualization");
+    visualizationDiv.append("h1")
+        .html(visualizationHeading);
+    visualizationDiv.append("h3")
+        .html(visualizationSubHeading);
+
+    switch (visualizationType) {
+        case "dataTable":
+            renderTableInit(visualAttributes);
+            break;
+        case "barChart":
+            renderBarChartInit(visualAttributes);
+            break;
+        case "bubbleChart":
+            renderBubbleChartInit(visualAttributes);
+    }
+
 }
 
 function renderVisualization(visualAttributes) {
@@ -273,7 +338,6 @@ function renderVisualization(visualAttributes) {
 
 function refresh(queryFilter, visualAttributes) {
     if(JSON.stringify(queryFilter)) {
-        console.log(queryFilter)
         for (qf in queryFilter) {
             if(queryFilter[qf].length === 0) {
                 delete queryFilter[qf];
@@ -305,82 +369,3 @@ function createFilterForm(attributeName) {
 ///////////////visualization.js
 ///////////////////////////////
 ///////////////////////////////
-
-function renderTableInit(visualAttributes) {
-    
-    var $visualization = d3.select("#visualization");
-    var $table = $visualization.append("table")
-    .attr("id", "dataTable")
-    .attr("class", "table")
-    var $thead = $table.append("thead");
-    var $tbody = $table.append("tbody");
-    
-    var tableData = [];
-    var columns = [];
-    //Get data
-    var rawTableData = filteredData["table_data"]["data"];
-    
-    for (var attribute in rawTableData) {
-        var row = rawTableData[attribute];
-        var newRow = {};
-        for (var visualAttribute in visualAttributes) {
-            newRow[visualAttributes[visualAttribute]["name"]] = row[visualAttributes[visualAttribute]["name"]];
-        }
-        tableData.push(newRow);
-    }
-    Object.keys(tableData[0]).forEach(function(column) {
-        columns.push(column)
-    });
-    $tbody.html("");
-    $thead.html("");
-    $thead.append("tr")
-    .selectAll("th")
-    .data(columns)
-    .enter()
-    .append("th")
-    .text(function(column) {return column;});
-    var rows = $tbody.selectAll("tr")
-    .data(tableData)
-    .enter()
-    .append("tr")
-    var cells = rows.selectAll("td")
-    .data(function(d) {
-        return d3.values(d);
-    })
-    .enter()
-    .append("td")
-    .text(function(d) {return d;});
-}
-
-
-function renderTable(visualAttributes) {
-    var $table = d3.select("#dataTable");
-    var $tbody = $table.select("tbody");
-    $tbody.html("");
-    var tableData = [];
-    
-    //Get data
-    var rawTableData = filteredData["table_data"]["data"];
-    
-    for (var attribute in rawTableData) {
-        var row = rawTableData[attribute];
-        var newRow = {};
-        for (var visualAttribute in visualAttributes) {
-            newRow[visualAttributes[visualAttribute]["name"]] = row[visualAttributes[visualAttribute]["name"]];
-        }
-        tableData.push(newRow);
-    }
-    var rows = $tbody.selectAll("tr")
-    .data(tableData)
-    .enter()
-    .append("tr")
-    var cells = rows.selectAll("td")
-    .data(function(d) {
-        return d3.values(d);
-    })
-    .enter()
-    .append("td")
-    .text(function(d) {return d;});
-    
-}
-    
