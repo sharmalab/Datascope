@@ -4205,6 +4205,9 @@ dc.bubbleChart = function(parent, chartGroup) {
     return _chart.anchor(parent, chartGroup);
 };
 
+
+
+
 /**
 ## <a name="composite-chart" href="#composite-chart">#</a> Composite Chart [Concrete] < [CoordinateGrid Chart](#coordinate-grid-chart)
 Composite chart is a special kind of chart that resides somewhere between abstract and concrete charts. It does not
