@@ -1,0 +1,16 @@
+{
+	"id": "visualizationScehma",
+	"description": "Schema for visualization.json. Specifies the visualization to be displayed.",
+	"type": "object",
+	"properties":{
+		"type":{
+			"description": "The type of visualization.",
+			"type": "string",
+			"enum": ["dataTable", "bubbleChart", "barChart"]
+		},
+		"attributes":{
+			"description": "The attributes used for creating the visualization.",
+			"type": "array"
+		}
+	}
+}
