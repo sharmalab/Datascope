@@ -37,6 +37,7 @@ var data="";
 
 //Stores all visual attributes from data-description.json
 var visual_attributes = []; 
+var visualization;
 //Stores all filtering attributes from data-description.json
 var filtering_attributes = [];
 
@@ -119,8 +120,12 @@ function process_data_source(){
 }
 
 function process_visualization(){
-  var visualization = fs.readFileSync("public/config/visualization.json");
-  visualization = JSON.parse(visualization)
+  visualization = fs.readFileSync("public/config/visualization.json");
+  visualization = JSON.parse(visualization);
+
+  if(visualization.type == "dataTable"){
+
+  }
 
 }
 
@@ -195,7 +200,7 @@ function process_data_description(){
 //
 function apply_crossfilter(){
   //apply crossfilter to the data
-  var ndx = crossfilter(data);
+  ndx = crossfilter(data);
 
   for(var attr in filtering_attributes){
 
@@ -216,12 +221,74 @@ function apply_crossfilter(){
     }
     groups[filtering_attribute["name"]] = group;
   }
+  visualization_filters();
+
 
   size = ndx.size(),
   all = ndx.groupAll();
 
   listen();
 }
+
+
+function visualization_filters(){
+  if(visualization.type == "bubbleChart")
+  {
+    var xAttr;
+    var yAttr;
+    var rAttr;
+    var colorAttr;
+    var dimension;
+    for(var attr in visualization.attributes){
+      var attribute = visualization.attributes[attr];
+      if(attribute.dimension){  
+        dimension = attribute.name;
+        dimension["visualization"] = ndx.dimension(function(d){
+          return d[attribute.name];        
+        });
+      }
+      if(attribute.type == "x"){
+        xAttr = attribute.name;
+      }
+      if(attribute.type == "y"){
+        yAttr = attribute.name;
+      }
+      if(attribute.type == "r"){
+        rAttr = attribute.name;
+      }
+      if(attribute.type == "color"){
+        colorAttr = attribute.name;
+      }
+    }
+    groups["visualization"] = dimensions[dimension].group().reduce(
+      function(p,v){
+        p[xAttr] += v[xAttr];
+        p[yAttr] += v[yAttr];
+        p[rAttr] += v[rAttr];
+        p[colorAttr] += v[colorAttr];
+        return p;
+      },
+      function(p,v){
+        p[xAttr] -= v[xAttr];
+        p[yAttr] -= v[yAttr];
+        p[rAttr] -= v[rAttr];
+        p[colorAttr] -= v[colorAttr];
+        return p;
+      },
+      function(){
+        var obj = {};
+        obj[xAttr] = 0;
+        obj[yAttr] = 0;
+        obj[rAttr] = 0;
+        obj[colorAttr] = 0;
+        return obj;
+      }
+    );
+  }
+
+
+}
+
 
 //
 // listen to the specified port for HTTP requests
@@ -288,8 +355,9 @@ function handle_filter_request(req,res,next) {
       dimensions[dim].filterAll(null)
     }
   });
-  results["table_data"] = {data:dimensions[filtering_attributes[0]["name"]].top(100)}
-  console.log(results["table_data"])
+
+    results["table_data"] = {data:dimensions[filtering_attributes[0]["name"]].top(100)}
+  //console.log(results["table_data"])
   
   Object.keys(groups).forEach(function(key) {
       results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value}
@@ -312,3 +380,4 @@ app.get('/index3.html', routes.index3)
 app.get('/index4.html', routes.index4)
 app.get('/test.html', routes.test)
 app.get('/users', user.list);
+  
