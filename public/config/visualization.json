@@ -1,10 +1,26 @@
 
+
 {
-    "type": "dataTable",
+    "type": "bubbleChart",
     "attributes":[
-    	{"name": "id"},
-    	{"name": "guid"},
-    	{"name": "Ai"},
-    	{"name": "Bi"} 
-    ]
+    	{
+    		"name": "Ai",
+    		"type": "color",
+    		"dimension": true
+    	},
+    	{	
+    		"name": "Bi",
+    		"type": "x"
+    	},
+    	{
+    		"name": "Ci",
+    		"type":"y"
+    	},
+    	{
+    		"name": "Di",
+			"type": "r"
+		}
+    ],
+    "heading": "Bubble Chart",
+    "subheading": "Using dummy data"
 }
