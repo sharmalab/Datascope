@@ -49,15 +49,15 @@ function refreshInit(interactiveFilters, visualization) {
 }
 
 function processInteractiveFilters(interactiveFilters, filteringAttributes) {
-    console.log(interactiveFilters)
+    //console.log(interactiveFilters)
     for (var i=0; i<interactiveFilters.length; i++) {
         var attribute = interactiveFilters[i];
         filteringAttributes.push(attribute);
     }
 }
 function processVisualization(visualization, visualAttributes) {
-    console.log("processVisualization")
-    console.log(visualization);
+    //console.log("processVisualization")
+    //console.log(visualization);
     var attributes = visualization.attributes;
     for (var i=0; i< attributes.length; i++) {
         var attribute = attributes[i];
@@ -66,7 +66,7 @@ function processVisualization(visualization, visualAttributes) {
 }
 
 function createButtons(filteringAttributes) {
-    console.log("createButtons")
+    //console.log("createButtons")
     var $filteringAttributes = $("#filtering_attributes")
     for(var i=0; i<filteringAttributes.length; i++){
         var attribute = filteringAttributes[i];
@@ -91,7 +91,7 @@ function createButtons(filteringAttributes) {
     }
 }
 function initializeCrossfilter(filteringAttributes, queryFilter, visualAttributes) {
-    console.log("initializeCrossfilter")
+    //console.log("initializeCrossfilter")
     for (var i=0; i<filteringAttributes.length; i++) {
         var attributeName = filteringAttributes[i]["name"];
         dimensions[attributeName] = function() {
@@ -188,13 +188,13 @@ function visualizationFilters(visualAttributes){
         
 
 function initializeThumbnails(filteringAttributes, thumbCharts ) {
-    console.log("initializeThumbnails");
-    console.log(filteringAttributes)
+    //console.log("initializeThumbnails");
+    //console.log(filteringAttributes)
     for (var i=0; i<filteringAttributes.length; i++) {
-        console.log(dimensions);
-        console.log(groups);
+        //console.log(dimensions);
+        //console.log(groups);
         var attribute = filteringAttributes[i];
-        console.log(attribute)
+        //console.log(attribute)
         var attributeName = attribute["name"];
         var domain = [0,100];
         var visualizationType = attribute["visualization"]["visType"];
@@ -202,7 +202,7 @@ function initializeThumbnails(filteringAttributes, thumbCharts ) {
             domain = attribute["domain"];
         var preFilter = "";
 
-        console.log(attributeName)
+        //console.log(attributeName)
 
         switch(visualizationType) {
             case "barChart":
@@ -306,6 +306,7 @@ function pieChart(attributeName, preFilter, dimensions, groups) {
     return c;
 }
 
+
 function renderVisualizationInit(visualization, visualAttributes) {
     var visualizationType = visualization.type;
     var visualizationHeading  = visualization.heading;
@@ -325,14 +326,34 @@ function renderVisualizationInit(visualization, visualAttributes) {
             break;
         case "bubbleChart":
             renderBubbleChartInit(visualAttributes);
+            break;
+        case "imageGrid":
+            renderImageGridInit(visualAttributes);
+            break;
     }
 
 }
 
 function renderVisualization(visualAttributes) {
-    console.log(visualAttributes)
-    renderTable(visualAttributes);
+    //console.log(visualAttributes)
+    var visualizationType = visualization.type;
+    console.log(visualizationType);
+    switch (visualizationType) {
+        case "dataTable":
+            renderTableInit(visualAttributes);
+            break;
+        case "barChart":
+            //renderBarChartInit(visualAttributes);
+            break;
+        case "bubbleChart":
+            //renderBubbleChartInit(visualAttributes);
+            break;
+        case "imageGrid":
+            renderImageGrid(visualAttributes);
+            break;
+    }
 }
+
 
 
 
@@ -345,7 +366,7 @@ function refresh(queryFilter, visualAttributes) {
         }
         d3.json("/data?filter="+JSON.stringify(queryFilter), function (d) {
             filteredData = d;
-            console.log(filteredData);
+            //console.log(filteredData);
             dc.renderAll();
 
             renderVisualization(visualAttributes);
