@@ -69,25 +69,25 @@
         "name": "Eb",
         "datatype": "boolean",
         "dataProvider": "source1",
-        "attributeType": ["filtering"]
+        "attributeType": ["visual", "filtering"]
     },
     {
         "name": "Ff",
         "datatype": "float",
         "dataProvider": "source1",
-        "attributeType": ["filtering"]
+        "attributeType": ["viusal"]
     },
     {
         "name": "Gf",
         "datatype": "float",
         "dataProvider": "source1",
-        "attributeType": ["filtering"]
+        "attributeType": ["visual"]
     },
     {
         "name": "Hf",
         "datatype": "float",
         "dataProvider": "source1",
-        "attributeType": ["filtering"]
+        "attributeType": ["visual", "filtering"]
     }
 
 ]

@@ -1,4 +1,86 @@
 
+function renderImageGridInit(visualAttributes){
+    var $visualization = d3.select("#visualization")
+
+    var $grid = $visualization.append("table")
+                    .attr("id", "grid");
+    var $tbody = $grid.append("tbody");
+    console.log(filteredData)
+    //var rawData = filteredData["visualization"];
+    var rawData = [];
+    for(var a in filteredData["visualization"]){
+        var d = filteredData["visualization"][a];
+        for(var obj in d){
+            var o = d[obj];
+            var i = o["image"];
+            //console.log(i)
+            rawData.push(i);
+        }
+        //console.log(d);
+        //rawData.push(d.image)
+    }
+    var gridData = [];
+    while(rawData.length){
+        gridData.push(rawData.splice(0,10));
+    }
+
+    var rows = $tbody.selectAll("tr")
+    .data(gridData)
+    .enter()
+    .append("tr")
+    var cells = rows.selectAll("td")
+    .data(function(d) {
+        return d3.values(d);
+    })
+    .enter()
+    .append("td")
+    .html(function(d) {
+        var img = "<img style='border: 1px solid #fff' src='data/"+d+"' />"
+        return img;
+    });
+    
+}
+
+function renderImageGrid(visualAttributes){
+    //console.log("rendering grid..")
+    var $grid = d3.select("#grid");
+    var $tbody = $grid.select("tbody");
+    $tbody.html("");
+    //console.log(filteredData)
+    //var rawData = filteredData["visualization"];
+    var rawData = [];
+    for(var a in filteredData["visualization"]){
+        var d = filteredData["visualization"][a];
+        for(var obj in d){
+            var o = d[obj];
+            var i = o["image"];
+            //console.log(i)
+            rawData.push(i);
+        }
+        //console.log(d);
+        //rawData.push(d.image)
+    }
+    var gridData = [];
+    while(rawData.length){
+        gridData.push(rawData.splice(0,10));
+    }
+
+    var rows = $tbody.selectAll("tr")
+    .data(gridData)
+    .enter()
+    .append("tr")
+    var cells = rows.selectAll("td")
+    .data(function(d) {
+        return d3.values(d);
+    })
+    .enter()
+    .append("td")
+    .html(function(d) {
+        var img = "<img style='border: 1px solid #fff' src='"+d+"' />"
+        return img;
+    });
+    
+}
 function renderTableInit(visualAttributes) {
     var $visualization = d3.select("#visualization");
     var $table = $visualization.append("table")
