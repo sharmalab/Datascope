@@ -10,7 +10,7 @@ var user = require('./routes/user');
 var rest = require('./routes/rest');
 var http = require('http');
 var path = require('path');
-var crossfilter = require("./crossfilter.js").crossfilter;
+var crossfilter = require("crossfilter");
 var fs = require('fs');
 var load_data_source = require('./modules/loadDataSources');   //Module for loading various data formats
 var Validator = require('jsonschema').Validator;
@@ -214,15 +214,8 @@ function apply_crossfilter(){
         return d[filtering_attribute["name"]]
     });
     dimensions[filtering_attribute["name"]] = dimension;
-    var bin_factor = filtering_attribute["binFactor"];
-    //If a ```bin_factor``` has been specified then create bins accordingly
-    if(bin_factor){
-      group = dimension.group(function(d){
-        return Math.floor(d/(bin_factor))*(bin_factor);
-      });
-    } else {
-      group = dimension.group()
-    }
+
+    group = dimension.group()
     groups[filtering_attribute["name"]] = group;
   }
   visualization_filters();
@@ -234,10 +227,7 @@ function apply_crossfilter(){
   listen();
 }
 
-
-function visualization_filters(){
-  if(visualization.type == "bubbleChart")
-  {
+function bubbleChartFilters(){
     var xAttr;
     var yAttr;
     var rAttr;
@@ -287,9 +277,35 @@ function visualization_filters(){
         obj[colorAttr] = 0;
         return obj;
       }
-    );
-  }
+    );	
+}
 
+function imageGridFilters(){
+  var dimension;
+  for(var attr in visualization.attributes){
+    var attribute = visualization.attributes[attr];
+    if(attribute.type == "image"){  
+      dimension = attribute.name;
+      console.log(attribute.name)
+      dimensions["visualization"] = ndx.dimension(function(d){
+        return d[attribute.name];        
+      });
+    }
+
+  }
+  groups["visualization"] = dimensions["visualization"].group();
+}
+
+
+function visualization_filters(){
+	var visualizationType = visualization.type;
+	switch(visualizationType){
+		case "bubbleChart":
+			bubbleChartFilters();
+		case "imageGrid":
+			imageGridFilters();
+
+	}
 
 }
 
@@ -336,8 +352,9 @@ function handle_filter_request(req,res,next) {
       //If enumerated
       //todo fix for numerical enumerated types
       if(filter[dim].length > 1){
-        if(typeof filter[dim][0] == "string"){
-          
+      	
+        //if(typeof filter[dim][0] == "string"){
+          /*
           dimensions[dim].filterFunction(
           function(d){
             for(var i=0; i<filter[dim].length; i++){
@@ -348,8 +365,20 @@ function handle_filter_request(req,res,next) {
             }
             return false;  
           });
-        
-        } else {
+        */
+        //} else {
+        if(filter[dim].length > 2){
+          dimensions[dim].filterFunction(
+          function(d){
+            for(var i=0; i<filter[dim].length; i++){
+              var f = filter[dim][i];
+              if(f == d ){
+                return true;
+              }
+            }
+            return false;  
+          });
+        }else{
           dimensions[dim].filter(filter[dim])
         }
       }
@@ -361,13 +390,15 @@ function handle_filter_request(req,res,next) {
     }
   });
 
-    results["table_data"] = {data:dimensions[filtering_attributes[0]["name"]].top(100)}
-  //console.log(results["table_data"])
-  
   Object.keys(groups).forEach(function(key) {
       results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value}
   })
 
+  if(visualization.type == "imageGrid")
+    results["visualization"] = {values:(dimensions["visualization"].top(100))}
+  else if(visualization.type == "dataTable")
+    results["table_data"] = {data:dimensions[filtering_attributes[0]["name"]].top(100)}
+  
   res.writeHead(200, { 'content-type': 'application/json' });
   res.end((JSON.stringify(results)))
 }
