@@ -1,0 +1,130 @@
+29 attributes(24 filtering)
+50k- 1000
+100k -1100
+250k - memory
+500k - memory
+1mil - memory exceeded
+
+20 attributes (15 filtering)
+1mil - memory exceeded
+500k - memory exceeded
+250k - 2000ms 
+100k - 1000ms
+50k - 900ms
+
+16 attributes (12 filtering)
+1mil - 19000 ms
+500k - 6000 ms
+250k - 2500ms
+100k - 1000ms
+50k - 800ms
+
+
+
+250k
+GET /data?filter={} 200 3824ms
+GET /data?filter={%22age%22:[25.5,33.125]} 200 2290ms
+GET /data?filter={%22age%22:[25.5,33.125],%22Ai%22:[7.125,8.75]} 200 2199ms
+GET /data?filter={%22age%22:[25.5,33.125],%22Ai%22:[7.125,8.75],%22Di%22:[7]} 200 2776ms
+GET /data?filter={%22age%22:[25.5,33.125],%22Ai%22:[7.125,8.75],%22Di%22:[7],%22gender%22:[%22female%22]} 200 3973ms
+GET /data?filter={%22age%22:[25.5,33.125],%22Ai%22:[7.125,8.75],%22Di%22:[7]} 200 1961ms
+GET /data?filter={%22age%22:[25.5,33.125],%22Di%22:[7]} 200 2656ms
+GET /data?filter={%22age%22:[25.5,33.125],%22Di%22:[7],%22Ai%22:[0.9375,4.875]} 200 1077ms
+
+100k
+GET /data?filter={} 200 910ms
+GET /data?filter={%22gender%22:[%22female%22]} 200 1327ms
+GET /data?filter={%22gender%22:[%22female%22],%22Di%22:[5]} 200 834ms
+GET /data?filter={%22gender%22:[%22female%22],%22Di%22:[5],%22Ai%22:[4.875,6.937500000000001]} 200 1181ms
+GET /data?filter={%22gender%22:[%22female%22],%22Di%22:[5],%22Ai%22:[4.875,6.937500000000001],%22age%22:[32,35.625]} 200 944ms
+
+50k
+GET /data?filter={} 200 750ms
+GET /data?filter={%22age%22:[28.125,33.125]} 200 1568ms
+GET /data?filter={%22age%22:[28.125,33.125],%22Ai%22:[5.8125,8.4375]} 200 880ms
+GET /data?filter={%22age%22:[28.125,33.125],%22Ai%22:[5.8125,8.4375],%22Di%22:[6]} 200 1046ms
+GET /data?filter={%22age%22:[28.125,33.125],%22Ai%22:[5.8125,8.4375],%22Di%22:[6],%22gender%22:[%22female%22]} 200 1137ms
+
+
+
+16 attributes
+
+50k
+GET /data?filter={} 200 681ms
+GET /data?filter={%22gender%22:[%22female%22]} 200 475ms
+GET /data?filter={%22gender%22:[%22female%22],%22Ai%22:[5.5625,6.5625]} 200 2202ms
+GET /data?filter={%22gender%22:[%22female%22],%22Ai%22:[5.5625,6.5625],%22Di%22:[7]} 200 874ms
+GET /data?filter={%22gender%22:[%22female%22],%22Ai%22:[5.5625,6.5625],%22Di%22:[7],%22age%22:[24.5,27.25]} 200 810ms
+GET /data?filter={%22gender%22:[%22female%22],%22Ai%22:[5.5625,6.5625],%22Di%22:[7]} 200 2035ms
+GET /data?filter={%22gender%22:[%22female%22],%22Ai%22:[5.5625,6.5625],%22Di%22:[7],%22age%22:[24.5,26.375]} 200 594ms
+GET /data?filter={%22Ai%22:[5.5625,6.5625],%22Di%22:[7],%22age%22:[24.5,26.375]} 200 627ms
+GET /data?filter={%22Ai%22:[5.5625,6.5625],%22Di%22:[7]} 200 627ms
+GET /data?filter={%22Ai%22:[5.5625,6.5625],%22Di%22:[7],%22age%22:[30.375,40]} 200 640ms
+GET /data?filter={%22Ai%22:[5.5625,6.5625],%22Di%22:[7]} 200 605ms
+GET /data?filter={%22Ai%22:[5.5625,6.5625],%22Di%22:[7],%22age%22:[20.875,22.125]} 200 607ms
+GET /data?filter={%22Ai%22:[5.5625,6.5625],%22Di%22:[7]} 200 609ms
+GET /data?filter={%22Ai%22:[5.5625,6.5625],%22Di%22:[7],%22age%22:[20.875,21.25]} 200 618ms
+GET /data?filter={%22Ai%22:[5.5625,6.5625],%22Di%22:[7],%22age%22:[20.875,21.25],%22gender%22:[%22female%22]} 200 381ms
+GET /data?filter={%22Ai%22:[5.5625,6.5625],%22age%22:[20.875,21.25],%22gender%22:[%22female%22]} 200 662ms
+GET /data?filter={%22Ai%22:[5.5625,6.5625],%22age%22:[20.875,21.25],%22gender%22:[%22female%22],%22Di%22:[9]} 200 604ms
+GET /data?filter={%22age%22:[20.875,21.25],%22gender%22:[%22female%22],%22Di%22:[9]} 200 682ms
+GET /data?filter={%22age%22:[20.875,21.25],%22gender%22:[%22female%22],%22Di%22:[9],%22Ai%22:[8.1875,8.9375]} 200 1273ms
+GET /data?filter={%22age%22:[20.875,21.25],%22gender%22:[%22female%22],%22Di%22:[9]} 200 615ms
+GET /data?filter={%22age%22:[20.875,21.25],%22gender%22:[%22female%22],%22Di%22:[9],%22Ai%22:[6.312500000000001,9]} 200 536ms
+
+100k
+GET /data?filter={%22age%22:[28.25,34.375]} 200 1387ms
+GET /data?filter={%22age%22:[28.25,34.375],%22Ai%22:[2.1875,7.4375]} 200 951ms
+GET /data?filter={%22age%22:[28.25,34.375],%22Ai%22:[2.1875,7.4375],%22Di%22:[6]} 200 957ms
+GET /data?filter={%22age%22:[28.25,34.375],%22Ai%22:[2.1875,7.4375],%22Di%22:[6],%22gender%22:[%22female%22]} 200 1415ms
+GET /data?filter={%22Ai%22:[2.1875,7.4375],%22Di%22:[6],%22gender%22:[%22female%22]} 200 927ms
+GET /data?filter={%22Ai%22:[2.1875,7.4375],%22Di%22:[6],%22gender%22:[%22female%22],%22age%22:[22.125,24.5]} 200 1717ms
+GET /data?filter={%22Di%22:[6],%22gender%22:[%22female%22],%22age%22:[22.125,24.5]} 200 1302ms
+GET /data?filter={%22Di%22:[6],%22gender%22:[%22female%22],%22age%22:[22.125,24.5],%22Ai%22:[5.1875,7.4375]} 200 748ms
+GET /data?filter={%22Di%22:[6],%22gender%22:[%22female%22],%22Ai%22:[5.1875,7.4375]} 200 1106ms
+GET /data?filter={%22Di%22:[6],%22gender%22:[%22female%22],%22Ai%22:[5.1875,7.4375],%22age%22:[20,37.875]} 200 1052ms
+GET /data?filter={%22Di%22:[6],%22gender%22:[%22female%22],%22age%22:[20,37.875]} 200 1166ms
+GET /data?filter={%22Di%22:[6],%22gender%22:[%22female%22],%22age%22:[20,37.875],%22Ai%22:[0.37500000000000006,8.3125]} 200 1031ms
+GET /data?filter={%22gender%22:[%22female%22],%22age%22:[20,37.875],%22Ai%22:[0.37500000000000006,8.3125]} 200 1249ms
+
+250k
+GET /data?filter={%22Ai%22:[3.5000000000000004,7.0625]} 200 1834ms
+GET /data?filter={%22Ai%22:[3.5000000000000004,7.0625],%22age%22:[25,40]} 200 5319ms
+GET /data?filter={%22Ai%22:[3.5000000000000004,7.0625],%22age%22:[25,40],%22gender%22:[%22female%22]} 200 2697ms
+GET /data?filter={%22Ai%22:[3.5000000000000004,7.0625],%22age%22:[25,40],%22gender%22:[%22female%22],%22Di%22:[7]} 200 2602ms
+GET /data?filter={%22Ai%22:[3.5000000000000004,7.0625],%22gender%22:[%22female%22],%22Di%22:[7]} 200 2662ms
+GET /data?filter={%22Ai%22:[3.5000000000000004,7.0625],%22gender%22:[%22female%22],%22Di%22:[7],%22age%22:[25,30.875]} 200 2567ms
+GET /data?filter={%22gender%22:[%22female%22],%22Di%22:[7],%22age%22:[25,30.875]} 200 2777ms
+GET /data?filter={%22gender%22:[%22female%22],%22Di%22:[7],%22age%22:[25,30.875],%22Ai%22:[6.125,7.0625]} 200 2157ms
+GET /data?filter={%22gender%22:[%22female%22],%22Di%22:[7],%22age%22:[25,30.875]} 200 2999ms
+GET /data?filter={%22gender%22:[%22female%22],%22Di%22:[7],%22age%22:[25,30.875],%22Ai%22:[3.875,6.937500000000001]} 200 2606ms
+GET /data?filter={%22gender%22:[%22female%22],%22Di%22:[7],%22Ai%22:[3.875,6.937500000000001]} 200 3517ms
+GET /data?filter={%22gender%22:[%22female%22],%22Di%22:[7],%22Ai%22:[3.875,6.937500000000001],%22age%22:[27.875,30.875]} 200 5774ms
+GET /data?filter={%22gender%22:[%22female%22],%22Di%22:[7],%22age%22:[27.875,30.875]} 200 3043ms
+GET /data?filter={%22gender%22:[%22female%22],%22Di%22:[7],%22age%22:[27.875,30.875],%22Ai%22:[5.375,6.937500000000001]} 200 2630ms
+
+500k
+GET /data?filter={%22age%22:[25.5,34.875],%22Di%22:[5]} 200 7316ms
+GET /data?filter={%22age%22:[25.5,34.875],%22Di%22:[5],%22gender%22:[%22female%22]} 200 5273ms
+GET /data?filter={%22age%22:[25.5,34.875],%22Di%22:[5],%22gender%22:[%22female%22],%22Ai%22:[3.0625,4.25]} 200 5810ms
+GET /data?filter={%22Di%22:[5],%22gender%22:[%22female%22],%22Ai%22:[3.0625,4.25]} 200 4974ms
+GET /data?filter={%22Di%22:[5],%22gender%22:[%22female%22],%22Ai%22:[3.0625,4.25],%22age%22:[21.5,23.75]} 200 10987ms
+GET /data?filter={%22Di%22:[5],%22gender%22:[%22female%22],%22age%22:[21.5,23.75]} 200 5805ms
+GET /data?filter={%22Di%22:[5],%22gender%22:[%22female%22],%22age%22:[21.5,23.75],%22Ai%22:[5.125000000000001,6.8125]} 200 5745ms
+GET /data?filter={%22Di%22:[5],%22gender%22:[%22female%22],%22Ai%22:[5.125000000000001,6.8125]} 200 5695ms
+GET /data?filter={%22Di%22:[5],%22gender%22:[%22female%22],%22Ai%22:[5.125000000000001,6.8125],%22age%22:[25.75,34]} 200 6337ms
+GET /data?filter={%22Di%22:[5],%22gender%22:[%22female%22],%22age%22:[25.75,34]} 200 4188ms
+GET /data?filter={%22Di%22:[5],%22gender%22:[%22female%22],%22age%22:[25.75,34],%22Ai%22:[2.8125,10]} 200 9236ms
+GET /data?filter={%22Di%22:[5,9],%22gender%22:[%22female%22],%22age%22:[25.75,34],%22Ai%22:[2.8125,10]} 200 6063ms
+GET /data?filter={%22Di%22:[5,9,7],%22gender%22:[%22female%22],%22age%22:[25.75,34],%22Ai%22:[2.8125,10]} 200 3893ms
+GET /data?filter={%22Di%22:[5,9,7],%22gender%22:[%22female%22],%22Ai%22:[2.8125,10]} 200 6113ms
+GET /data?filter={%22Di%22:[5,9,7],%22gender%22:[%22female%22],%22Ai%22:[2.8125,10],%22age%22:[20,37]} 200 6114ms
+
+1mil
+GET /data?filter={} 200 19702ms
+GET /data?filter={%22gender%22:[%22female%22]} 200 19118ms
+GET /data?filter={%22gender%22:[%22female%22],%22Ai%22:[2.5,5.375]} 200 14564ms
+GET /data?filter={%22gender%22:[%22female%22],%22Ai%22:[2.5,5.375],%22Di%22:[6]} 200 19168ms
+GET /data?filter={%22gender%22:[%22female%22],%22Ai%22:[2.5,5.375],%22Di%22:[6],%22age%22:[23.625,36.125]} 200 17288ms
+
+
