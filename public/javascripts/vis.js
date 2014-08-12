@@ -1,14 +1,15 @@
 var dimensions = {};
 var groups = {};
-var thumbCharts = [];
+var thumbCharts = {};
 var filteredData = {};
 var visualizationMain = {};
+var visualization = {};
 
 
 init();
 function init() {
-    var interactiveFilters,
-        visualization;
+    var interactiveFilters;
+        
     d3.json("config/interactiveFilters.json", function(err, data) {
         if(err) {
             console.log(err);
@@ -74,10 +75,15 @@ function createButtons(filteringAttributes) {
         var attributeLabel = attribute["label"] ? attribute["label"] : attribute["name"]
         var $accordianPanelHeader = '<div class="panel panel-default">\
                       <div class="panel-heading" id="'+attributeName+'-panel-heading">\
+                        <div class=".col" style="width:100px float:left">\
                         <h4 class="panel-title">\
                           <a data-toggle="collapse" data-parent="#filtering_attributes" href="#'+attributeName+'-thumb">'+attributeLabel+'\
                           </a>\
                         </h4>\
+                        </div>\
+                        <div class=".col" style="float:right; width: 30px;">\
+                        <a href="javascript:thumbCharts.'+attributeName+'.filterAll() " >Reset</a>\
+                        </div>\
                       </div>'
         var $accordianPanelBody = '<div id="'+attributeName+'-thumb" class="panel-collapse collapse in">\
                         <div class="panel-body thumb-panel-body"  data-toggle="modal" data-target="#'+attributeName+'Modal">\
@@ -111,7 +117,8 @@ function initializeCrossfilter(filteringAttributes, queryFilter, visualAttribute
                         }
                 },
                 filterAll: function() {
-                        
+                    delete queryFilter[dim];
+                    refresh(queryFilter, visualAttributes);
                 },
                 filterFunction: function(d) {
                         
@@ -206,7 +213,7 @@ function initializeThumbnails(filteringAttributes, thumbCharts ) {
 
         switch(visualizationType) {
             case "barChart":
-                thumbCharts[i] = function() {
+                thumbCharts[attributeName] = function() {
 
                     var aname = attributeName;
                     console.log(aname)
@@ -224,7 +231,7 @@ function initializeThumbnails(filteringAttributes, thumbCharts ) {
                 //thumb_charts[i] = barChart(attributeName, preFilter, dimensions, groups);
                 break;
             case "pieChart":
-                thumbCharts[i] = function() {
+                thumbCharts[attributeName] = function() {
                     aname = attributeName;
                     var c =  dc.pieChart("#dc-"+aname+"-thumb");
                     c.width(180)
@@ -243,7 +250,7 @@ function initializeThumbnails(filteringAttributes, thumbCharts ) {
                 }();      
                 break;
             case "rowChart":
-                thumbCharts[i] = function() {
+                thumbCharts[attributeName] = function() {
                     var c = dc.rowChart("#dc-"+attributeName+"-thumb")
                     c.width(200)
                     .height(200)
@@ -340,7 +347,8 @@ function renderVisualization(visualAttributes) {
     console.log(visualizationType);
     switch (visualizationType) {
         case "dataTable":
-            renderTableInit(visualAttributes);
+            console.log("refresh")
+            renderTable(visualAttributes);
             break;
         case "barChart":
             //renderBarChartInit(visualAttributes);
