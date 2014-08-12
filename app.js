@@ -10,6 +10,7 @@ var user = require('./routes/user');
 var rest = require('./routes/rest');
 var http = require('http');
 var path = require('path');
+//var process = require('process')
 var crossfilter = require("crossfilter");
 var fs = require('fs');
 var load_data_source = require('./modules/loadDataSources');   //Module for loading various data formats
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //
 var data="";
 
+var attributes = {};
 //Stores all visual attributes from data-description.json
 var visual_attributes = []; 
 var visualization;
@@ -85,21 +87,28 @@ function schema_validation(){
 
 
   var res1 = schemaValidator.validate(dataSource, dataSourceSchema);
-  console.log(res3);
+  //console.log(res3);
   var res2 = schemaValidator.validate(dataDescription, dataDescriptionSchema);
-  console.log(res1);
+  //console.log(res1);
   var res3 = schemaValidator.validate(interactiveFilters, interactiveFiltersSchema);
-  console.log(res2);
+  //console.log(res2);
   if(res1.errors.length == 0){}
   else{
+
       console.log(res1.errors)
+      process.exit()
   }
   if(res2.errors.length == 0){}
-  else 
-    console.log(res2.errors)
+  else{ 
+      console.log(res2.errors)
+      process.exit()
+  }
   if(res3.errors.length == 0){}
-  else
+  else{
+
     console.log(res3.errors)
+    process.exit();
+  }
 
 }
 
@@ -112,13 +121,22 @@ function process_data_source(){
   var data_source_schema = fs.readFileSync("public/config/dataSource.json");
   data_source_schema = JSON.parse(data_source_schema);
   //For each data source in the ```data-source.json``` file add to the ```data_sources``` array
+  //console.log(data_source_schema)
   for(var data_source in data_source_schema){
-    console.log(data_source_schema[data_source]);
-    data_sources.push(data_source_schema[data_source]);
+    var data_source = data_source_schema[data_source]
+    console.log(data_source);
+
+    data_sources.push(data_source);
+    //console.log(data_sources)
+    for(var attribute_index in data_source.attributes){
+      var a = data_source.attributes[attribute_index];
+      attributes[a] = true;
+
+    }
+    console.log(attributes)
   }
   //**Todo** Join logic. Joining data from multiple data sources
-
-  console.log(data_sources);
+  console.log(data_sources)
   load_data();
 
 }
@@ -147,8 +165,9 @@ function process_visualization(){
 //
 function load_data()
 {
+
   for(var data_source in data_sources){
-  
+    console.log(data_sources)
     var type=  data_sources[data_source].type;
     var options = data_sources[data_source].options;
     console.log(options);
@@ -163,13 +182,24 @@ function load_data()
       load_data_source.rest_json(options, process_data);
     }
   }
-
 }
 
 
 function process_data(){
-        data = load_data_source.data;
-        process_data_description();
+  data = load_data_source.data;
+
+  for(var obj in data){
+    var tuple = data[obj];
+    for(var prop in tuple){
+      if(attributes.hasOwnProperty(prop)){
+
+      }else {
+        delete tuple[prop]
+      }
+    }
+  }
+    console.log(data[0]); 
+  process_data_description();
 }
 
 
@@ -183,10 +213,12 @@ function process_data_description(){
 
   for(var attribute_index in dataDescription){
     var attribute = dataDescription[attribute_index];
-    console.log(attribute["attributeType"].length)
+    //console.log(attribute["attributeType"].length)
     for(var type_index in attribute["attributeType"]){
-      if(attribute["attributeType"][type_index] == "filtering")
+      if(attribute["attributeType"][type_index] == "filtering"){
+        console.log("filtering")
         filtering_attributes.push(attribute);
+      }
       else
         visual_attributes.push(attribute);
     }
@@ -389,7 +421,6 @@ function handle_filter_request(req,res,next) {
       dimensions[dim].filterAll(null)
     }
   });
-
   Object.keys(groups).forEach(function(key) {
       results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value}
   })
