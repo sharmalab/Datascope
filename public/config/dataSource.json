@@ -3,8 +3,19 @@
 		"name": "source1",
 		"type": "json",
 		"options":{
-			"path": "data/10k.json"
+			"path": "data/small-data.json"
 		},
-		"attributes": ["id", "guid", "name", "age", "Ai", "Bi", "Ci", "Di", "Eb", "Ff", "Gf", "Hf"]
+		"attributes": [
+		"id", 
+		"guid", 
+		"name", 
+		"age", 
+		"gender",
+		"registered",
+		"Ai", 
+		"Bi", 
+		"Ci", 
+		"Di"
+		]
 	}
 ]
