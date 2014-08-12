@@ -1,0 +1,97 @@
+[
+    {
+        "name": "id",
+        "datatype": "integer",
+        "data-provider": "small-data.json",
+        "visual-attribute": true,
+        "key-attribute": true
+    },
+    {
+        "name": "guid",
+        "datatype": "string",
+        "data-provider": "small-data.json",
+        "visual-attribute": true
+    },
+    {
+        "name": "name",
+        "datatype": "string",
+        "data-provider": "small-data.json",
+        "visual-attribute": true
+    },
+    {
+        "name": "registered",
+        "datatype": "string",
+        "data-provider": "small-data.json",
+        "visual-attribute": true
+    },
+    {
+        "name": "gender",
+        "datatype": "string",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true
+    },
+    {
+        "name": "age",
+        "datatype": "integer",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true,
+        "visual-attribute": true      
+    },
+    {
+        "name": "isActive",
+        "datatype": "boolean",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true,
+        "visual-attribute": true
+    },
+    {
+        "name": "Ai",
+        "datatype": "integer",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true
+    },
+    {
+        "name": "Bi",
+        "datatype": "integer",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true,
+        "visual-attribute":true
+    },
+    {
+        "name": "Ci",
+        "datatype": "integer",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true
+    },
+    {
+        "name": "Di",
+        "datatype": "integer",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true
+    },
+    {
+        "name": "Eb",
+        "datatype": "boolean",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true
+    },
+    {
+        "name": "Ff",
+        "datatype": "float",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true
+    },
+    {
+        "name": "Gf",
+        "datatype": "float",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true
+    },
+    {
+        "name": "Hf",
+        "datatype": "float",
+        "data-provider": "small-data.json",
+        "filtering-attribute": true
+    }
+
+]

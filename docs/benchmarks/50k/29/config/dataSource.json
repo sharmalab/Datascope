@@ -1,0 +1,17 @@
+[
+	{
+		"name": "source1",
+		"type": "json",
+		"options":{
+			"path": "data/50k/29.json"
+		},
+		"attributes": ["id", "guid", "name", "age", "Ai", "Bi", "Ci", "Di", "Eb", "Ff", "Gf", 
+		"Hf",
+		"Ji",
+		"Ki",
+		"Li",
+		"Ms",
+		"Ns",
+		"Oi", "Pi", "Qs", "Ri", "Si", "Ti", "Ui", "Vi", "Wi", "Xi"]
+	}
+]
