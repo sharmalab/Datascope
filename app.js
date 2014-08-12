@@ -334,9 +334,10 @@ function visualization_filters(){
 	switch(visualizationType){
 		case "bubbleChart":
 			bubbleChartFilters();
+      break;
 		case "imageGrid":
 			imageGridFilters();
-
+      break;
 	}
 
 }
