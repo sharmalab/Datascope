@@ -3,20 +3,8 @@
 		"name": "source1",
 		"type": "json",
 		"options":{
-			"path": "data/50k/29.json"
+			"path": "data/image-data.json"
 		},
-		"attributes": [
-		"id", 
-		"guid", 
-		"name", 
-		"age", 
-		"gender",
-		"registered",
-		"Ai", 
-		"Bi", 
-		"Ci",
-		"Di", 
-		"Ms"
-		]
+		"attributes": ["id", "guid", "name", "age", "Ai","gender","isActive", "Bi", "Ci", "Di", "Eb", "Ff", "Gf", "Hf", "image"]
 	}
 ]
