@@ -233,10 +233,11 @@ function process_data_description(){
 function apply_crossfilter(){
   //apply crossfilter to the data
   ndx = crossfilter(data);
-
+  console.log("applied crossfilter")
   for(var attr in filtering_attributes){
 
     var filtering_attribute = filtering_attributes[attr];
+    console.log(filtering_attribute)
     //Create a crossfilter dimension on this attribute
     var dimension = ndx.dimension(function(d){
         return d[filtering_attribute["name"]]
@@ -381,11 +382,7 @@ function handle_filter_request(req,res,next) {
       if(filter[dim].length > 1){
         console.log(attributes[dim])
         if(attributes[dim].datatype == "enum"){
-          //do something
-          console.log("enum")
-          dimensions[dim].filterFunction(function(d){
-            return filter[dim].indexOf(d) > -1;
-          });
+
         }
         else{
           console.log("not enum")
