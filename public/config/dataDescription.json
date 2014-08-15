@@ -36,6 +36,12 @@
         "attributeType": ["visual", "filtering"]
     },
     {
+        "name": "isActive",
+        "datatype": "boolean",
+        "dataProvider": "source1",
+        "attributeType": ["visual", "filtering"]
+    },
+    {
         "name": "Ai",
         "datatype": "integer",
         "dataProvider": "source1",
@@ -58,5 +64,36 @@
         "datatype": "integer",
         "dataProvider": "source1",
         "attributeType": ["filtering"]
+    },
+    {
+        "name": "Eb",
+        "datatype": "boolean",
+        "dataProvider": "source1",
+        "attributeType": ["visual", "filtering"]
+    },
+    {
+        "name": "Ff",
+        "datatype": "float",
+        "dataProvider": "source1",
+        "attributeType": ["visual"]
+    },
+    {
+        "name": "Gf",
+        "datatype": "float",
+        "dataProvider": "source1",
+        "attributeType": ["visual"]
+    },
+    {
+        "name": "Hf",
+        "datatype": "float",
+        "dataProvider": "source1",
+        "attributeType": ["visual", "filtering"]
+    },
+    {
+        "name": "image",
+        "datatype": "string",
+        "dataProvider": "source1",
+        "attributeType": ["visual"]
     }
+
 ]
