@@ -151,9 +151,11 @@ function initializeCrossfilter(filteringAttributes, queryFilter, visualAttribute
         }();
         groups[attributeName] = function() {
             var dim = attributeName;
+            console.log(dim)
             var fData = filteredData[dim]
             return {
                 all: function() {
+                    console.log(dim)
                     return filteredData[dim].values;
                 },
                 order: function() {

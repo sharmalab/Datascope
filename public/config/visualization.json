@@ -1,25 +1,12 @@
 
 
 {
-    "type": "dataTable",
+    "type": "imageGrid",
     "attributes":[
-    	{
-    		"name": "Ai",
-    		"type": "color",
-    		"dimension": true
-    	},
-    	{	
-    		"name": "Bi",
-    		"type": "x"
-    	},
-    	{
-    		"name": "Ci",
-    		"type":"y"
-    	},
-    	{
-    		"name": "Di",
-			"type": "r"
-		}
+        {
+            "name": "image",
+            "type": "image"
+        }
     ],
     "heading": "Bubble Chart",
     "subheading": "Using dummy data"
