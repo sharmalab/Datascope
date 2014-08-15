@@ -25,6 +25,7 @@ function init() {
             //console.log(visualization);
             //console.log(interactiveFilters);
             refreshInit(interactiveFilters, visualization);
+
         });
     });
 }
@@ -45,6 +46,26 @@ function refreshInit(interactiveFilters, visualization) {
     
         initializeThumbnails(filteringAttributes, thumbCharts);
         renderVisualizationInit( visualization, visualAttributes);
+
+        /*
+        * ###Listeners
+        */
+        $(".filterForm").keypress(function(e){
+            if(e.which == 13){
+                var dim = e.target.id;
+                console.log(dim.id)
+                dim = dim.substr(9, dim.length);
+                
+                var beg, end;
+                beg = $("#filterBeg"+dim).val()*1;
+                end = $("#filterEnd"+dim).val()*1;
+                var f = [beg, end]
+                console.log(f);
+                thumbCharts[dim].filterAll()
+                thumbCharts[dim].filter(f);
+
+            }
+        })
         dc.renderAll()
     });
 }
@@ -81,8 +102,9 @@ function createButtons(filteringAttributes) {
                           </a>\
                         </h4>\
                         </div>\
-                        <div class=".col" style="float:right; width: 30px;">\
-                        <a href="javascript:thumbCharts.'+attributeName+'.filterAll() " >Reset</a>\
+                        <div class="panel-heading-right">\
+                            <div class="panel-form"></div>\
+                            <a class="panel-reset" title="Reset filter" href="javascript:thumbCharts.'+attributeName+'.filterAll() " >X</a>\
                         </div>\
                       </div>'
         var $accordianPanelBody = '<div id="'+attributeName+'-thumb" class="panel-collapse collapse in">\
@@ -104,24 +126,26 @@ function initializeCrossfilter(filteringAttributes, queryFilter, visualAttribute
             var dim = attributeName;
             return {
                 filter: function(f) {
-                    if(f) {
+               
+                  if(f) {
                         queryFilter[dim] = f;
-                        refresh(queryFilter, visualAttributes);
-                        } else {
-                            if(queryFilter[dim]) {
-                                delete queryFilter[dim];
-                                refresh(queryFilter, visualAttributes);
-                            } else {
-                                return;
-                            }
-                        }
+                        refresh(queryFilter, visualAttributes)
+                  } else {
+                      if(queryFilter[dim]){
+                        delete queryFilter[dim];
+                        refresh(queryFilter, visualAttributes)
+                      } else {
+                        return;
+                      } 
+                    }
                 },
+
                 filterAll: function() {
                     delete queryFilter[dim];
                     refresh(queryFilter, visualAttributes);
                 },
-                filterFunction: function(d) {
-                        
+                name: function(){
+                    return dim;
                 }
             }
         }();
@@ -158,19 +182,17 @@ function visualizationFilters(visualAttributes){
                     if(f) {
                         queryFilter[dim] = f;
                         refresh(queryFilter, visualAttributes);
-                        } else {
+                        } 
+                    else {
                             if(queryFilter[dim]) {
                                 delete queryFilter[dim];
                                 refresh(queryFilter, visualAttributes);
                             } else {
                                 return;
                             }
-                        }
+                    }
                 },
                 filterAll: function() {
-                        
-                },
-                filterFunction: function(d) {
                         
                 }
             }       
@@ -218,13 +240,38 @@ function initializeThumbnails(filteringAttributes, thumbCharts ) {
                     var aname = attributeName;
                     console.log(aname)
                     var c =  dc.barChart("#dc-"+aname+"-thumb");
-                    c.width(240)
+                    c.width(250)
                     .height(160).dimension(dimensions[aname])
                     .group(groups[aname])
                     .x(d3.scale.linear().domain(domain))
                     .elasticY(true)
-                    .elasticX(true)
+                    .elasticX(true)        
+
                     .renderLabel(true)
+                    var panel = d3.select("#"+attributeName+"-panel-heading").select(".panel-form");
+                    var begin = panel.append("input")
+                                    .attr("id", "filterBeg"+attributeName)
+                                    .attr("class", "filterForm");
+                    var end = panel.append("input")
+                                .attr("id", "filterEnd"+attributeName)
+                                .attr("class", "filterForm");
+                    //panel.append(form)
+                    
+                    c.filterHandler(function(dimension, filter){
+
+                        var begin = $("#filterBeg"+dimension.name());
+                        var end = $("#filterEnd"+dimension.name());
+                        console.log(filter)
+                        if(filter.length > 0 && filter.length!=2){
+                           filter = filter[0]
+                           console.log(filter)
+                        }
+                        begin.val(filter[0]);
+                        end.val(filter[1]);
+                        dimension.filter(filter);
+                        return filter;
+                    });
+
                     return c;
                 }();
                 createFilterForm(attributeName);
@@ -259,7 +306,7 @@ function initializeThumbnails(filteringAttributes, thumbCharts ) {
                     
                     .renderLabel(true)
                     .elasticX(true)
-                    .margins({top: 10, right: 20, bottom: 20, left: 10})
+                    .margins({top: 10, right: 20, bottom: 20, left: 20})
 
                     c.filterHandler(function(dimension, filters){
                         console.log(dimension);
@@ -374,6 +421,7 @@ function refresh(queryFilter, visualAttributes) {
         }
         d3.json("/data?filter="+JSON.stringify(queryFilter), function (d) {
             filteredData = d;
+            console.log(filteredData)
             //console.log(filteredData);
             dc.renderAll();
 
@@ -391,10 +439,3 @@ function createFilterForm(attributeName) {
 }
     
 
-
-
-///////////////////////////////
-///////////////////////////////
-///////////////visualization.js
-///////////////////////////////
-///////////////////////////////

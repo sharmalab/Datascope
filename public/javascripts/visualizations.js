@@ -244,6 +244,7 @@ function renderBubbleChartInit(visualAttributes){
 }
 
 function renderTable(visualAttributes) {
+    console.log("redrawing table")
     var $table = d3.select("#dataTable");
     var $tbody = $table.select("tbody");
     $tbody.html("");
