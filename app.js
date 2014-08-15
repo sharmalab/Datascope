@@ -124,7 +124,7 @@ function process_data_source(){
   //console.log(data_source_schema)
   for(var data_source in data_source_schema){
     var data_source = data_source_schema[data_source]
-    console.log(data_source);
+
 
     data_sources.push(data_source);
     //console.log(data_sources)
@@ -133,10 +133,9 @@ function process_data_source(){
       attributes[a] = true;
 
     }
-    console.log(attributes)
   }
   //**Todo** Join logic. Joining data from multiple data sources
-  console.log(data_sources)
+
   load_data();
 
 }
@@ -167,11 +166,8 @@ function load_data()
 {
 
   for(var data_source in data_sources){
-    console.log(data_sources)
     var type=  data_sources[data_source].type;
     var options = data_sources[data_source].options;
-    console.log(options);
-    console.log(type);
     if(type== "json"){
       load_data_source.json(options, process_data);
     } else if(type == "csv") {
@@ -198,7 +194,6 @@ function process_data(){
       }
     }
   }
-    console.log(data[0]); 
   process_data_description();
 }
 
@@ -218,6 +213,7 @@ function process_data_description(){
       if(attribute["attributeType"][type_index] == "filtering"){
         console.log("filtering")
         filtering_attributes.push(attribute);
+        attributes[attribute.name] = attribute;
       }
       else
         visual_attributes.push(attribute);
@@ -367,7 +363,7 @@ function listen(){
 function handle_filter_request(req,res,next) {
   
   filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
-  req.session["f"] = filter;
+  //req.session["f"] = filter;
   // Loop through each dimension and check if user requested a filter
 
   // Assemble group results and and the maximum value for each group
@@ -381,41 +377,23 @@ function handle_filter_request(req,res,next) {
   Object.keys(dimensions).forEach(function (dim) {
 
     if (filter[dim]) {
-    
-      //If enumerated
-      //todo fix for numerical enumerated types
+      //array
       if(filter[dim].length > 1){
-      	
-        //if(typeof filter[dim][0] == "string"){
-          /*
-          dimensions[dim].filterFunction(
-          function(d){
-            for(var i=0; i<filter[dim].length; i++){
-              var f = filter[dim][i];
-              if(f == d ){
-                return true;
-              }
-            }
-            return false;  
+        console.log(attributes[dim])
+        if(attributes[dim].datatype == "enum"){
+          //do something
+          console.log("enum")
+          dimensions[dim].filterFunction(function(d){
+            return filter[dim].indexOf(d) > -1;
           });
-        */
-        //} else {
-        if(filter[dim].length > 2){
-          dimensions[dim].filterFunction(
-          function(d){
-            for(var i=0; i<filter[dim].length; i++){
-              var f = filter[dim][i];
-              if(f == d ){
-                return true;
-              }
-            }
-            return false;  
-          });
-        }else{
-          dimensions[dim].filter(filter[dim])
         }
-      }
-      else{
+        else{
+          console.log("not enum")
+          dimensions[dim].filterRange(filter[dim])
+        }
+
+      } else {
+
         dimensions[dim].filter(filter[dim][0])
       }
     } else {
@@ -439,7 +417,7 @@ function handle_filter_request(req,res,next) {
 
 function handle_state(req, res, next){
   res.writeHead(200, { 'content-type': 'application/json' });
-  res.end((JSON.stringify(req.session["f"])))
+  //res.end((JSON.stringify(req.session["f"])))
 }
 
 // Listen for filtering requests on ```/data```

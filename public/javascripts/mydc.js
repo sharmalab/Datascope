@@ -2141,6 +2141,8 @@ dc.coordinateGridChart = function (_chart) {
             }, dc.constants.EVENT_DELAY);
         }
         */
+        //console.log(extent)
+        return extent;
     }
     function brushStart(p){
         
