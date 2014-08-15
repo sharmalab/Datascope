@@ -24,11 +24,5 @@
             "visType": "barChart"
         },
         "label": "AttriI"
-    },
-    {
-        "name": "Di",
-        "visualization": {
-            "visType": "rowChart"
-        }
     }
 ]
