@@ -3,7 +3,7 @@
 		"name": "source1",
 		"type": "json",
 		"options":{
-			"path": "data/small-data.json"
+			"path": "data/50k/29.json"
 		},
 		"attributes": [
 		"id", 
@@ -14,8 +14,9 @@
 		"registered",
 		"Ai", 
 		"Bi", 
-		"Ci", 
-		"Di"
+		"Ci",
+		"Di", 
+		"Ms"
 		]
 	}
 ]
