@@ -35,7 +35,7 @@ function renderImageGridInit(visualAttributes){
     .enter()
     .append("td")
     .html(function(d) {
-        var img = "<img style='border: 1px solid #fff' src='data/"+d+"' />"
+        var img = "<img style='border: 1px solid #fff' src='"+d+"' />"
         return img;
     });
     
