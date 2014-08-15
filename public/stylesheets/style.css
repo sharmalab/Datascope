@@ -139,3 +139,27 @@ body {
 .thumb-panel-body{
   
 }
+.panel-heading-right{
+  float: right;
+  display: inline;
+  width: 100px;
+  position: relative;
+  top: -25px;
+}
+.panel-heading-right input{
+  border: 1px solid #ccc;
+  width: 25px;
+  height: 25px;
+  margin:  4px;
+  float: left;
+  padding: 1px;
+  color: #aaa;
+  font-size: 11px;
+}
+a.panel-reset {
+  color: #333;
+}
+.panel-reset{
+  float: right;
+  margin-top: 2px;
+}
