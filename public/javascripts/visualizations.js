@@ -81,48 +81,7 @@ function renderImageGrid(visualAttributes){
     });
     
 }
-function renderTableInit(visualAttributes) {
-    var $visualization = d3.select("#visualization");
-    var $table = $visualization.append("table")
-    .attr("id", "dataTable")
-    .attr("class", "table")
-    var $thead = $table.append("thead");
-    var $tbody = $table.append("tbody");
-    var tableData = [];
-    var columns = [];
-    //Get data
-    var rawTableData = filteredData["table_data"]["data"];
-    for (var attribute in rawTableData) {
-        var row = rawTableData[attribute];
-        var newRow = {};
-        for (var visualAttribute in visualAttributes) {
-            newRow[visualAttributes[visualAttribute]["name"]] = row[visualAttributes[visualAttribute]["name"]];
-        }
-        tableData.push(newRow);
-    }
-    Object.keys(tableData[0]).forEach(function(column) {
-        columns.push(column)
-    });
-    $tbody.html("");
-    $thead.html("");
-    $thead.append("tr")
-    .selectAll("th")
-    .data(columns)
-    .enter()
-    .append("th")
-    .text(function(column) {return column;});
-    var rows = $tbody.selectAll("tr")
-    .data(tableData)
-    .enter()
-    .append("tr")
-    var cells = rows.selectAll("td")
-    .data(function(d) {
-        return d3.values(d);
-    })
-    .enter()
-    .append("td")
-    .text(function(d) {return d;});
-}
+
 
 function renderBarChartInit(visualAttributes){
     var $visualization = d3.select("#visualization");
@@ -243,6 +202,155 @@ function renderBubbleChartInit(visualAttributes){
 
 }
 
+
+function drawTable(tableData, state, visualAttributes){
+    var $visualization = d3.select("#visualization")
+    var $table = d3.select("#dataTable");
+    var $tbody = $table.select("tbody");
+    $tbody.html("");
+
+    var rows = $tbody.selectAll("tr")
+    .data(tableData)
+    .enter()
+    .append("tr")
+    var cells = rows.selectAll("td")
+    .data(function(d) {
+        return d3.values(d);
+    })
+    .enter()
+    .append("td")
+    .text(function(d) {return d;});
+
+    var next = d3.select("#dataTableNext");
+    var prev = $("#dataTablePrev");
+    console.log(state)
+    if(state <= 1){
+        console.log("here")
+        prev.hide();
+    }else
+        prev.show()
+
+
+}
+
+function renderTableInit(visualAttributes) {
+    var $visualization = d3.select("#visualization");
+    var $table = $visualization.append("table")
+    .attr("id", "dataTable")
+    .attr("class", "table")
+    var $thead = $table.append("thead");
+    var $tbody = $table.append("tbody");
+    var tableData = [];
+    var columns = [];
+    //Get data
+    var rawTableData = filteredData["table_data"]["data"];
+    for (var attribute in rawTableData) {
+        var row = rawTableData[attribute];
+        var newRow = {};
+        for (var visualAttribute in visualAttributes) {
+            newRow[visualAttributes[visualAttribute]["name"]] = row[visualAttributes[visualAttribute]["name"]];
+        }
+        tableData.push(newRow);
+    }
+    Object.keys(tableData[0]).forEach(function(column) {
+        columns.push(column)
+    });
+    $thead.html("");
+    $thead.append("tr")
+    .selectAll("th")
+    .data(columns)
+    .enter()
+    .append("th")
+    .text(function(column) {return column;});
+
+
+    drawTable(tableData, 0,visualAttributes);
+
+
+
+
+
+
+
+    //Next and previous
+
+
+
+
+
+    var $dataTableNav = $visualization.append("div")
+            .attr("id", "dataTableNav")
+
+
+    $dataTableNav.append("a")
+        //.attr("href", "/dataTable/next")
+        .attr("href", "#")
+        .attr("id", "dataTablePrev")
+        .text("<< prev");
+    var prev = $("#dataTablePrev");
+    prev.hide()
+    prev.click(function(e){
+        if(state > 1){
+            state--;
+            $.get("/dataTable/next?state="+state, function(rawTableData){
+                console.log(rawTableData)
+                var $table = d3.select("#dataTable");
+                var $tbody = $table.select("tbody");
+                $tbody.html("");
+                var rawTableData = rawTableData["table_data"]["data"];    
+                var tableData = [];              
+                for (var attribute in rawTableData) {
+                    var row = rawTableData[attribute];
+                    var newRow = {};
+                    for (var visualAttribute in visualAttributes) {
+                        newRow[visualAttributes[visualAttribute]["name"]] = row[visualAttributes[visualAttribute]["name"]];
+                    }
+                    tableData.push(newRow);
+                }
+                console.log(tableData)
+                //var state = rawTableData.state;
+                drawTable(tableData, state, visualAttributes)
+        
+            })
+        }
+    })
+
+
+
+
+    $dataTableNav.append("a")
+        //.attr("href", "/dataTable/next")
+        .attr("href", "#")
+        .attr("id", "dataTableNext")
+        .text("next >>");
+    var next = $("#dataTableNext");
+    var state=1;
+    next.click(function(e){
+        state++;
+        $.get("/dataTable/next?state="+state, function(rawTableData){
+            console.log(rawTableData)
+            var $table = d3.select("#dataTable");
+            var $tbody = $table.select("tbody");
+            $tbody.html("");
+            var rawTableData = rawTableData["table_data"]["data"];    
+            var tableData = [];              
+            for (var attribute in rawTableData) {
+                var row = rawTableData[attribute];
+                var newRow = {};
+                for (var visualAttribute in visualAttributes) {
+                    newRow[visualAttributes[visualAttribute]["name"]] = row[visualAttributes[visualAttribute]["name"]];
+                }
+                tableData.push(newRow);
+            }
+            console.log(tableData)
+            //var state = rawTableData.state;
+            drawTable(tableData, state, visualAttributes)
+    
+        })
+    })
+
+}
+
 function renderTable(visualAttributes) {
     console.log("redrawing table")
     var $table = d3.select("#dataTable");
@@ -261,17 +369,9 @@ function renderTable(visualAttributes) {
         }
         tableData.push(newRow);
     }
-    var rows = $tbody.selectAll("tr")
-    .data(tableData)
-    .enter()
-    .append("tr")
-    var cells = rows.selectAll("td")
-    .data(function(d) {
-        return d3.values(d);
-    })
-    .enter()
-    .append("td")
-    .text(function(d) {return d;});
+    console.log(tableData)
+
+    drawTable(tableData,0, visualAttributes)
     
 }
     
