@@ -352,8 +352,7 @@ function listen(){
 
 }
 
-
-
+var TABLE_STATE = 0;
 
 
 
@@ -403,13 +402,30 @@ function handle_filter_request(req,res,next) {
 
   if(visualization.type == "imageGrid")
     results["visualization"] = {values:(dimensions["visualization"].top(100))}
-  else if(visualization.type == "dataTable")
-    results["table_data"] = {data:dimensions[filtering_attributes[0]["name"]].top(100)}
-  
+  else if(visualization.type == "dataTable"){
+    TABLE_DATA = dimensions[filtering_attributes[0]["name"]].top(Infinity);
+    results["table_data"] = {
+      data:TABLE_DATA.slice(0,100),
+      active: all.value(),
+      state: TABLE_STATE
+    }
+  }
   res.writeHead(200, { 'content-type': 'application/json' });
   res.end((JSON.stringify(results)))
 }
 
+app.use("/dataTable/next", function(req, res, next){
+  var state = req.param("state") ? JSON.parse(req.param("state")) : {};
+  var results = {}
+  TABLE_DATA = dimensions[filtering_attributes[0]["name"]].top(Infinity);
+  results["table_data"] = {
+    data:TABLE_DATA.slice(state*100,state*100 +100),
+    active: all.value(),
+    state: state
+  }
+  res.writeHead(200, {'content-type': 'application/json'});
+  res.end(JSON.stringify(results));
+})
 
 
 function handle_state(req, res, next){
