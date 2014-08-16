@@ -163,3 +163,15 @@ a.panel-reset {
   float: right;
   margin-top: 2px;
 }
+
+.inactive{
+  color: #333;
+}
+
+#dataTableNav{
+  text-align: center;
+}
+#dataTableNav a{
+
+  padding: 12px;
+}
