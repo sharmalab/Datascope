@@ -1,13 +1,21 @@
 
 
 {
-    "type": "imageGrid",
+    "type": "dataTable",
     "attributes":[
         {
-            "name": "image",
-            "type": "image"
+            "name": "age"
+        },
+        {
+            "name": "id"
+        },
+        {
+            "name": "Ai"
+        },
+        {
+            "name": "Bi"
         }
     ],
-    "heading": "Image Grid",
+    "heading": "Data table",
     "subheading": "Using dummy data"
 }
