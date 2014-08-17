@@ -175,3 +175,11 @@ a.panel-reset {
 
   padding: 12px;
 }
+#activeRecords div{
+  display: inline;
+
+}
+#activeRecords{
+  float: right;
+  font-size: 12px;
+}
