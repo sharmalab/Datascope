@@ -138,8 +138,6 @@ function renderBarChartInit(visualAttributes){
         .dimension(dimensions[visualAttributes[0]["name"]])
         .group(groups[visualAttributes[0]["name"]])
         .x(d3.scale.linear().domain([0,10]))
-
-
 }
 
 
@@ -230,11 +228,31 @@ function drawTable(tableData, state, visualAttributes){
     }else
         prev.show()
 
+    var $nActive = d3.select("#nActive")
+    $nActive.text(filteredData["table_data"]["active"] );
+
+
+
+
+
 
 }
 
 function renderTableInit(visualAttributes) {
     var $visualization = d3.select("#visualization");
+
+    $activeRecords = $visualization.append("div")
+        .attr("id", "activeRecords");
+    $activeRecords.append("div")
+        .attr("id", "nActive")
+        .text(filteredData["table_data"]["active"]);
+    $activeRecords.append("div")
+        .attr("id", "nSize")
+        .text(" of "+filteredData["table_data"]["size"] + " selected")
+
+
+
+
     var $table = $visualization.append("table")
     .attr("id", "dataTable")
     .attr("class", "table")
@@ -267,23 +285,13 @@ function renderTableInit(visualAttributes) {
     drawTable(tableData, 0,visualAttributes);
 
 
-
-
-
-
-
     //Next and previous
-
-
-
-
 
     var $dataTableNav = $visualization.append("div")
             .attr("id", "dataTableNav")
 
 
     $dataTableNav.append("a")
-        //.attr("href", "/dataTable/next")
         .attr("href", "#")
         .attr("id", "dataTablePrev")
         .text("<< prev");
