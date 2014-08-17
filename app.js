@@ -407,7 +407,8 @@ function handle_filter_request(req,res,next) {
     results["table_data"] = {
       data:TABLE_DATA.slice(0,100),
       active: all.value(),
-      state: TABLE_STATE
+      state: TABLE_STATE,
+      size: size
     }
   }
   res.writeHead(200, { 'content-type': 'application/json' });
