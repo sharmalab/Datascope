@@ -5,7 +5,7 @@ function renderImageGridInit(visualAttributes){
     var $grid = $visualization.append("table")
                     .attr("id", "grid");
     var $tbody = $grid.append("tbody");
-    console.log(filteredData)
+
     //var rawData = filteredData["visualization"];
     var rawData = [];
     for(var a in filteredData["visualization"]){
@@ -13,11 +13,8 @@ function renderImageGridInit(visualAttributes){
         for(var obj in d){
             var o = d[obj];
             var i = o["image"];
-            //console.log(i)
             rawData.push(i);
         }
-        //console.log(d);
-        //rawData.push(d.image)
     }
     var gridData = [];
     while(rawData.length){
@@ -42,23 +39,17 @@ function renderImageGridInit(visualAttributes){
 }
 
 function renderImageGrid(visualAttributes){
-    //console.log("rendering grid..")
     var $grid = d3.select("#grid");
     var $tbody = $grid.select("tbody");
     $tbody.html("");
-    //console.log(filteredData)
-    //var rawData = filteredData["visualization"];
     var rawData = [];
     for(var a in filteredData["visualization"]){
         var d = filteredData["visualization"][a];
         for(var obj in d){
             var o = d[obj];
             var i = o["image"];
-            //console.log(i)
             rawData.push(i);
         }
-        //console.log(d);
-        //rawData.push(d.image)
     }
     var gridData = [];
     while(rawData.length){
@@ -120,7 +111,6 @@ function renderBarChartInit(visualAttributes){
             var fData = filteredData[dim]
             return {
                 all: function() {
-                    //console.log(filteredData[dim].values);
                     return filteredData[dim].values;
                 },
                 order: function() {
@@ -146,7 +136,6 @@ function renderBubbleChartInit(visualAttributes){
     var $bubbleChartDiv = $visualization.append("div")
         .attr("id", "bubbleChartDiv")
     visBubbleChart = dc.bubbleChart("#visualization");
-    console.log("renderBubbleChartInit")
 
     var xAttr;
     var yAttr;
@@ -168,7 +157,6 @@ function renderBubbleChartInit(visualAttributes){
             colorAttr = attribute.name;
         }    
     }
-    console.log(filteredData)
     visBubbleChart.width(900)
         .height(400)
         .dimension(dimensions["visualization"])
@@ -219,15 +207,20 @@ function drawTable(tableData, state, visualAttributes){
     .append("td")
     .text(function(d) {return d;});
 
-    var next = d3.select("#dataTableNext");
+    var next = $("#dataTableNext");
     var prev = $("#dataTablePrev");
-    console.log(state)
+    console.log(state);
+    console.log(tableData.length)
     if(state <= 1){
         console.log("here")
         prev.hide();
     }else
         prev.show()
-
+    if(tableData.length < 100){
+        next.hide();
+    }else{
+        next.show();
+    }
     var $nActive = d3.select("#nActive")
     $nActive.text(filteredData["table_data"]["active"] );
 
@@ -301,7 +294,7 @@ function renderTableInit(visualAttributes) {
         if(state > 1){
             state--;
             $.get("/dataTable/next?state="+state, function(rawTableData){
-                console.log(rawTableData)
+
                 var $table = d3.select("#dataTable");
                 var $tbody = $table.select("tbody");
                 $tbody.html("");
@@ -315,7 +308,6 @@ function renderTableInit(visualAttributes) {
                     }
                     tableData.push(newRow);
                 }
-                console.log(tableData)
                 //var state = rawTableData.state;
                 drawTable(tableData, state, visualAttributes)
         
@@ -336,7 +328,7 @@ function renderTableInit(visualAttributes) {
     next.click(function(e){
         state++;
         $.get("/dataTable/next?state="+state, function(rawTableData){
-            console.log(rawTableData)
+
             var $table = d3.select("#dataTable");
             var $tbody = $table.select("tbody");
             $tbody.html("");
@@ -350,7 +342,6 @@ function renderTableInit(visualAttributes) {
                 }
                 tableData.push(newRow);
             }
-            console.log(tableData)
             //var state = rawTableData.state;
             drawTable(tableData, state, visualAttributes)
     
@@ -360,7 +351,6 @@ function renderTableInit(visualAttributes) {
 }
 
 function renderTable(visualAttributes) {
-    console.log("redrawing table")
     var $table = d3.select("#dataTable");
     var $tbody = $table.select("tbody");
     $tbody.html("");
@@ -377,7 +367,6 @@ function renderTable(visualAttributes) {
         }
         tableData.push(newRow);
     }
-    console.log(tableData)
 
     drawTable(tableData,0, visualAttributes)
     
