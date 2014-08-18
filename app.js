@@ -208,10 +208,8 @@ function process_data_description(){
 
   for(var attribute_index in dataDescription){
     var attribute = dataDescription[attribute_index];
-    //console.log(attribute["attributeType"].length)
     for(var type_index in attribute["attributeType"]){
       if(attribute["attributeType"][type_index] == "filtering"){
-        console.log("filtering")
         filtering_attributes.push(attribute);
         attributes[attribute.name] = attribute;
       }
@@ -233,11 +231,9 @@ function process_data_description(){
 function apply_crossfilter(){
   //apply crossfilter to the data
   ndx = crossfilter(data);
-  console.log("applied crossfilter")
   for(var attr in filtering_attributes){
 
     var filtering_attribute = filtering_attributes[attr];
-    console.log(filtering_attribute)
     //Create a crossfilter dimension on this attribute
     var dimension = ndx.dimension(function(d){
         return d[filtering_attribute["name"]]
@@ -315,7 +311,6 @@ function imageGridFilters(){
     var attribute = visualization.attributes[attr];
     if(attribute.type == "image"){  
       dimension = attribute.name;
-      console.log(attribute.name)
       dimensions["visualization"] = ndx.dimension(function(d){
         return d[attribute.name];        
       });
@@ -379,12 +374,10 @@ function handle_filter_request(req,res,next) {
     if (filter[dim]) {
       //array
       if(filter[dim].length > 1){
-        console.log(attributes[dim])
         if(attributes[dim].datatype == "enum"){
 
         }
         else{
-          console.log("not enum")
           dimensions[dim].filterRange(filter[dim])
         }
 
@@ -431,7 +424,7 @@ app.use("/dataTable/next", function(req, res, next){
 
 function handle_state(req, res, next){
   res.writeHead(200, { 'content-type': 'application/json' });
-  //res.end((JSON.stringify(req.session["f"])))
+
 }
 
 // Listen for filtering requests on ```/data```
