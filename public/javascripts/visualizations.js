@@ -1,6 +1,16 @@
 
 function renderImageGridInit(visualAttributes){
-    var $visualization = d3.select("#visualization")
+    var $visualization = d3.select("#visualization");
+    $activeRecords = $visualization.append("div")
+        .attr("id", "activeRecords");
+    $activeRecords.append("div")
+        .attr("id", "nActive")
+        .text(filteredData["visualization"]["active"]);
+    $activeRecords.append("div")
+        .attr("id", "nSize")
+        .text(" of "+filteredData["visualization"]["size"] + " selected")
+
+
 
     var $grid = $visualization.append("table")
                     .attr("id", "grid");
@@ -39,6 +49,9 @@ function renderImageGridInit(visualAttributes){
 }
 
 function renderImageGrid(visualAttributes){
+    var $nActive = d3.select("#nActive")
+    $nActive.text(filteredData["visualization"]["active"] );
+
     var $grid = d3.select("#grid");
     var $tbody = $grid.select("tbody");
     $tbody.html("");
