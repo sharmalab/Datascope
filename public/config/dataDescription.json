@@ -49,7 +49,7 @@
     },
     {
         "name": "Bi",
-        "datatype": "integer",
+        "datatype": "enum",
         "dataProvider": "source1",
         "attributeType": ["visual", "filtering"]
     },
@@ -61,7 +61,7 @@
     },
     {
         "name": "Di",
-        "datatype": "integer",
+        "datatype": "enum",
         "dataProvider": "source1",
         "attributeType": ["filtering"]
     },
@@ -85,7 +85,7 @@
     },
     {
         "name": "Hf",
-        "datatype": "float",
+        "datatype": "enum",
         "dataProvider": "source1",
         "attributeType": ["visual", "filtering"]
     },
