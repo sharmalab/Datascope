@@ -10,10 +10,11 @@ var user = require('./routes/user');
 var rest = require('./routes/rest');
 var http = require('http');
 var path = require('path');
+var assert = require('assert')
 //var process = require('process')
-var crossfilter = require("crossfilter");
+var crossfilter = require("./crossfilter").crossfilter;
 var fs = require('fs');
-var load_data_source = require('./modules/loadDataSources');   //Module for loading various data formats
+var loadDataSource = require('./modules/loadDataSource');   //Module for loading various data formats
 var Validator = require('jsonschema').Validator;
 var schemaValidator = new Validator();
 
@@ -41,12 +42,12 @@ var data="";
 
 var attributes = {};
 //Stores all visual attributes from data-description.json
-var visual_attributes = []; 
+var visualAttributes = []; 
 var visualization;
 //Stores all filtering attributes from data-description.json
-var filtering_attributes = [];
+var filteringAttributes = [];
 
-var data_sources = [];
+var dataSources = [];
 
 //Crossfilter specific
 // - **dimensions** stores an array of dimensions.
@@ -58,6 +59,8 @@ var ndx;
 
 var filter = {};
 
+console.log("starting")
+
 init();
 
 
@@ -67,16 +70,18 @@ init();
 //
 
 function init(){
-  schema_validation();
-	process_data_source();
-  process_visualization();
+
+  console.log("init")
+  schemaValidation();
+	processDataSource();
+  processVisualization();
 }
 
 //
-//### schema_validation()
+//### schemaValidation()
 //Validates all the configuration files against their
 //
-function schema_validation(){
+function schemaValidation(){
   var dataDescription = JSON.parse(fs.readFileSync("public/config/dataDescription.json"));
   var interactiveFilters = JSON.parse(fs.readFileSync("public/config/interactiveFilters.json"));
   var dataSource = JSON.parse(fs.readFileSync("public/config/dataSource.json"));
@@ -92,6 +97,9 @@ function schema_validation(){
   //console.log(res1);
   var res3 = schemaValidator.validate(interactiveFilters, interactiveFiltersSchema);
   //console.log(res2);
+
+  console.log("validating against schemas")
+
   if(res1.errors.length == 0){}
   else{
 
@@ -109,38 +117,37 @@ function schema_validation(){
     console.log(res3.errors)
     process.exit();
   }
+  console.log("Valid config files")
 
 }
 
 //
-//#### process_data_source()
+//#### processDataSource()
 //Reads data-source.json which provides information about the type, path and the attributes of the data.
 //
-function process_data_source(){
+function processDataSource(){
   //Read the ```data-source.json``` file
-  var data_source_schema = fs.readFileSync("public/config/dataSource.json");
-  data_source_schema = JSON.parse(data_source_schema);
-  //For each data source in the ```data-source.json``` file add to the ```data_sources``` array
-  //console.log(data_source_schema)
-  for(var data_source in data_source_schema){
-    var data_source = data_source_schema[data_source]
+  var dataSourcesConfig = fs.readFileSync("public/config/dataSource.json");
+  dataSourcesConfig = JSON.parse(dataSourcesConfig);
+  //For each data source in the ```data-source.json``` file add to the ```dataSources``` array
 
+  for(var dataSource in dataSourcesConfig){
 
-    data_sources.push(data_source);
-    //console.log(data_sources)
-    for(var attribute_index in data_source.attributes){
-      var a = data_source.attributes[attribute_index];
+    dataSources.push(dataSourcesConfig[dataSource]);
+  
+    for(var attributeIndex in dataSourcesConfig[dataSource].attributes){
+      var a = dataSourcesConfig[dataSource].attributes[attributeIndex];
       attributes[a] = true;
 
     }
   }
   //**Todo** Join logic. Joining data from multiple data sources
 
-  load_data();
+  loadData();
 
 }
 
-function process_visualization(){
+function processVisualization(){
   visualization = fs.readFileSync("public/config/visualization.json");
   visualization = JSON.parse(visualization);
 
@@ -152,38 +159,38 @@ function process_visualization(){
 
 
 //
-//#### load_data()
-//Loads data using the type and path specified in ```data-sources.json```.
+//#### loadData()
+//Loads data using the type and path specified in ```public/config/dataSource.json```.
 //Currently supports
 // * JSON
 // * CSV
 // * REST JSON
 // * REST CSV
 //
-//The system can be extended to support more types using ```load_data_sources.js```
+//The system can be extended to support more types using ```loadDataSources.js```
 //
-function load_data()
+function loadData()
 {
-
-  for(var data_source in data_sources){
-    var type=  data_sources[data_source].type;
-    var options = data_sources[data_source].options;
+  console.log("loading data")
+  for(var dataSource in dataSources){
+    var type=  dataSources[dataSource].type;
+    var options = dataSources[dataSource].options;
     if(type== "json"){
-      load_data_source.json(options, process_data);
+      loadDataSource.json(options, processData);
     } else if(type == "csv") {
-      load_data_source.csv(options, process_data);
+      loadDataSource.csv(options, processData);
     } else if(type == "rest/json") {
-      load_data_source.rest_json(options, process_data);
+      loadDataSource.restJson(options, processData);
     } else if (type == "rest/csv"){
-      load_data_source.rest_json(options, process_data);
+      loadDataSource.restCsv(options, processData);
     }
   }
 }
 
 
-function process_data(){
-  data = load_data_source.data;
-
+function processData(){
+  data = loadDataSource.data;
+  //console.log(data)
   for(var obj in data){
     var tuple = data[obj];
     for(var prop in tuple){
@@ -194,56 +201,57 @@ function process_data(){
       }
     }
   }
-  process_data_description();
+  console.log("data processes")
+  processDataDescription();
 }
 
 
 //
-//#### process_backend_schema()
-//Reads the backend schema and fills the ```visual_attributes``` and ```filtering_attributes``` 
+//#### processDataDescription()
+//Reads the backend schema and fills the ```visualAttributes``` and ```filteringAttributes``` 
 //
-function process_data_description(){
+function processDataDescription(){
   var dataDescription = fs.readFileSync("public/config/dataDescription.json");
   dataDescription = JSON.parse(dataDescription);
 
-  for(var attribute_index in dataDescription){
-    var attribute = dataDescription[attribute_index];
-    for(var type_index in attribute["attributeType"]){
-      if(attribute["attributeType"][type_index] == "filtering"){
-        filtering_attributes.push(attribute);
+  for(var attributeIndex in dataDescription){
+    var attribute = dataDescription[attributeIndex];
+    for(var typeIndex in attribute["attributeType"]){
+      if(attribute["attributeType"][typeIndex] == "filtering"){
+        filteringAttributes.push(attribute);
         attributes[attribute.name] = attribute;
       }
       else
-        visual_attributes.push(attribute);
+        visualAttributes.push(attribute);
     }
   }
 
-  apply_crossfilter();
+  applyCrossfilter();
 }
 
 
 
 
 //
-//#### apply_crossfilter()
+//#### applyCrossfilter()
 //Applies crossfilter to all the ```dimensions``` and ```groups```
 //
-function apply_crossfilter(){
+function applyCrossfilter(){
   //apply crossfilter to the data
   ndx = crossfilter(data);
-  for(var attr in filtering_attributes){
+  for(var attr in filteringAttributes){
 
-    var filtering_attribute = filtering_attributes[attr];
+    var filteringAttribute = filteringAttributes[attr];
     //Create a crossfilter dimension on this attribute
     var dimension = ndx.dimension(function(d){
-        return d[filtering_attribute["name"]]
+        return d[filteringAttribute["name"]]
     });
-    dimensions[filtering_attribute["name"]] = dimension;
+    dimensions[filteringAttribute["name"]] = dimension;
 
     group = dimension.group()
-    groups[filtering_attribute["name"]] = group;
+    groups[filteringAttribute["name"]] = group;
   }
-  visualization_filters();
+  visualizationFilters();
 
 
   size = ndx.size(),
@@ -321,7 +329,7 @@ function imageGridFilters(){
 }
 
 
-function visualization_filters(){
+function visualizationFilters(){
 	var visualizationType = visualization.type;
 	switch(visualizationType){
 		case "bubbleChart":
@@ -339,7 +347,7 @@ function visualization_filters(){
 // listen to the specified port for HTTP requests
 //
 function listen(){
-
+  console.log("listening...")
   var port = app.settings["port"];
   app.listen(port,function() {
     console.log("listening to port "+port)  
@@ -352,10 +360,10 @@ var TABLE_STATE = 0;
 
 
 //
-//#### handle_filter_request(request, response, next)
+//#### handleFilterRequest(request, response, next)
 //Is fired on GET '/data' request. Performs filtering using the filtering information provided in the GET parameter:  ```filter```  
 //
-function handle_filter_request(req,res,next) {
+function handleFilterRequest(req,res,next) {
   
   filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
   //req.session["f"] = filter;
@@ -363,10 +371,10 @@ function handle_filter_request(req,res,next) {
 
   // Assemble group results and and the maximum value for each group
   var results = {} 
-  var filter_dim;
-  var filter_range=[];
+  var filterDim;
+  var filterRange=[];
   for(var key in filter){
-    filter_dim= key;
+    filterDim= key;
   }
   
   Object.keys(dimensions).forEach(function (dim) {
@@ -374,13 +382,22 @@ function handle_filter_request(req,res,next) {
     if (filter[dim]) {
       //array
       if(filter[dim].length > 1){
-        if(attributes[dim].datatype == "enum"){
-
+        if(typeof filter[dim][0] == "string"){
+          console.log()
+          dimensions[dim].filterFunction(
+          function(d){
+            for(var i=0; i<filter[dim].length; i++){
+              var f = filter[dim][i];
+              if(f == d ){
+                return true;
+              }
+            }
+            return false;  
+          });
+        
+        } else {
+          dimensions[dim].filter(filter[dim])
         }
-        else{
-          dimensions[dim].filterRange(filter[dim])
-        }
-
       } else {
 
         dimensions[dim].filter(filter[dim][0])
@@ -396,7 +413,7 @@ function handle_filter_request(req,res,next) {
   if(visualization.type == "imageGrid")
     results["visualization"] = {values:(dimensions["visualization"].top(100))}
   else if(visualization.type == "dataTable"){
-    TABLE_DATA = dimensions[filtering_attributes[0]["name"]].top(Infinity);
+    TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
     results["table_data"] = {
       data:TABLE_DATA.slice(0,100),
       active: all.value(),
@@ -411,7 +428,7 @@ function handle_filter_request(req,res,next) {
 app.use("/dataTable/next", function(req, res, next){
   var state = req.param("state") ? JSON.parse(req.param("state")) : {};
   var results = {}
-  TABLE_DATA = dimensions[filtering_attributes[0]["name"]].top(Infinity);
+  TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
   results["table_data"] = {
     data:TABLE_DATA.slice(state*100,state*100 +100),
     active: all.value(),
@@ -422,14 +439,14 @@ app.use("/dataTable/next", function(req, res, next){
 })
 
 
-function handle_state(req, res, next){
+function handleState(req, res, next){
   res.writeHead(200, { 'content-type': 'application/json' });
 
 }
 
 // Listen for filtering requests on ```/data```
-app.use("/data",handle_filter_request);
-app.use("/state", handle_state);
+app.use("/data",handleFilterRequest);
+app.use("/state", handleState);
 
 // Change this to the static directory of the index.html file
 app.get('/', routes.index);
