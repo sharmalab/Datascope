@@ -404,7 +404,10 @@ function handleFilterRequest(req,res,next) {
   })
 
   if(visualization.type == "imageGrid")
-    results["visualization"] = {values:(dimensions["visualization"].top(100))}
+    results["visualization"] = {values:(dimensions["visualization"].top(100)),
+      active:all.value(),
+      size: size
+    }
   else if(visualization.type == "dataTable"){
     TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
     results["table_data"] = {
