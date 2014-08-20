@@ -382,22 +382,15 @@ function handleFilterRequest(req,res,next) {
     if (filter[dim]) {
       //array
       if(filter[dim].length > 1){
-        if(typeof filter[dim][0] == "string"){
-          console.log()
-          dimensions[dim].filterFunction(
-          function(d){
-            for(var i=0; i<filter[dim].length; i++){
-              var f = filter[dim][i];
-              if(f == d ){
-                return true;
-              }
-            }
-            return false;  
-          });
-        
-        } else {
-          dimensions[dim].filter(filter[dim])
+        if(attributes[dim].datatype == "enum"){
+          dimensions[dim].filterFunction(function(d){
+            return filter[dim].indexOf(d) >= 0; 
+          })
         }
+        else{
+          dimensions[dim].filterRange(filter[dim])
+        }
+
       } else {
 
         dimensions[dim].filter(filter[dim][0])
