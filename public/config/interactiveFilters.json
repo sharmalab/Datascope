@@ -24,5 +24,11 @@
             "visType": "barChart"
         },
         "label": "AttriI"
+    },
+    {
+        "name": "Hf",
+        "visualization":{
+            "visType": "pieChart"
+        }
     }
 ]
