@@ -4,7 +4,7 @@
     "type": "dataTable",
     "attributes":[
         {
-            "name": "image"
+            "name": "guid"
         },
         {
             "name": "id"
@@ -14,6 +14,9 @@
         },
         {
             "name": "Bi"
+        },
+        {
+        	"name": "gender"
         }
     ],
     "heading": "Data table",
