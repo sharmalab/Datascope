@@ -3,7 +3,7 @@
 		"name": "source1",
 		"type": "json",
 		"options":{
-			"path": "data/image-data.json"
+			"path": "data/small-data.json"
 		},
 		"attributes": ["id", "guid", "name", "age", "Ai","gender","isActive", "Bi", "Ci", "Di", "Eb", "Ff", "Gf", "Hf", "image"]
 	}
