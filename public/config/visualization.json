@@ -4,7 +4,7 @@
     "type": "dataTable",
     "attributes":[
         {
-            "name": "age"
+            "name": "image"
         },
         {
             "name": "id"
@@ -17,5 +17,5 @@
         }
     ],
     "heading": "Data table",
-    "subheading": "Using dummy data"
+    "subheading": "Using synthetic data"
 }
