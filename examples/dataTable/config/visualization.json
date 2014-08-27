@@ -1,0 +1,32 @@
+
+
+{
+    "type": "dataTable",
+    "attributes":[
+        {
+            "name": "guid"
+        },
+        {
+            "name": "id"
+        },
+        {
+            "name": "Ai",
+            "type": "x",
+            "dimension": true
+        },
+        {
+            "name": "Bi",
+            "type": "r"
+        },
+        {
+        	"name": "gender",
+            "type": "color"
+        },
+        {
+            "name": "Ci",
+            "type": "y"
+        }
+    ],
+    "heading": "Data table",
+    "subheading": "Using synthetic data"
+}
