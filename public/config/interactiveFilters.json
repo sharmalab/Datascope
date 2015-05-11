@@ -30,5 +30,11 @@
         "visualization":{
             "visType": "pieChart"
         }
+    },
+    {
+        "name": "Ff",
+        "visualization":{
+            "visType": "barChart"
+        }
     }
 ]
