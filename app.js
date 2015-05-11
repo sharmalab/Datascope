@@ -243,9 +243,18 @@ function applyCrossfilter(){
 
     var filteringAttribute = filteringAttributes[attr];
     //Create a crossfilter dimension on this attribute
-    var dimension = ndx.dimension(function(d){
-        return d[filteringAttribute["name"]]
-    });
+    var dimension = {}
+    if(filteringAttribute["datatype"] == "float"){
+      dimension = ndx.dimension(function(d){
+        //set binning parameter here
+        return Math.round(d[filteringAttribute["name"]]*10)/10;
+      });
+    } else {
+      dimension = ndx.dimension(function(d){
+        return d[filteringAttribute["name"]];
+      });
+    }
+
     dimensions[filteringAttribute["name"]] = dimension;
 
     group = dimension.group()
