@@ -75,7 +75,7 @@
         "name": "Ff",
         "datatype": "float",
         "dataProvider": "source1",
-        "attributeType": ["visual"]
+        "attributeType": ["visual", "filtering"]
     },
     {
         "name": "Gf",
