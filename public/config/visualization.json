@@ -4,21 +4,21 @@
     "type": "dataTable",
     "attributes":[
         {
-            "name": "guid"
+            "name": "PassengerId"
         },
         {
-            "name": "id"
+            "name": "Survived"
         },
         {
-            "name": "Ai"
+            "name": "Name"
         },
         {
-            "name": "Bi"
+            "name": "Sex"
         },
         {
-        	"name": "gender"
+            "name": "Age"
         }
     ],
-    "heading": "Data table",
-    "subheading": "Using synthetic data"
+    "heading": "Titanic Data",
+    "subheading": "Who survived?"
 }
