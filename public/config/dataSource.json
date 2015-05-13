@@ -3,8 +3,8 @@
 		"name": "source1",
 		"type": "json",
 		"options":{
-			"path": "data/small-data.json"
+			"path": "data/titanicClean.json"
 		},
-		"attributes": ["id", "guid", "name", "age", "Ai","gender","isActive", "Bi", "Ci", "Di", "Eb", "Ff", "Gf", "Hf", "image"]
+		"attributes": ["PassengerId", "Survived","Pclass","Name", "Sex", "Age", "SibSp", "Parch", "Ticket", "Fare", "Cabin", "Embarked"]
 	}
 ]
