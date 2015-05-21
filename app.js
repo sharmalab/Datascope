@@ -183,6 +183,8 @@ function loadData()
       loadDataSource.restJson(options, processData);
     } else if (type == "rest/csv"){
       loadDataSource.restCsv(options, processData);
+    } else if (type == "odbc") {
+      loadDataSource.odbc(options, processData);
     }
   }
 }
