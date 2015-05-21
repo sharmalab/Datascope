@@ -13,7 +13,7 @@
 			},
 			"type":{
 				"description": "The type of data source",
-				"enum": ["json", "csv", "rest/json", "rest/csv"],
+				"enum": ["odbc", "json", "csv", "rest/json", "rest/csv"],
 				"required": true
 			},
 			"attributes":{
