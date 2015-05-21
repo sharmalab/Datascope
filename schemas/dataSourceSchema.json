@@ -27,7 +27,8 @@
 				"properties":{
 					"oneOf":[
 						{"$ref": "#/definitions/file"},
-						{"$ref": "#/definitions/rest"}
+						{"$ref": "#/definitions/rest"},
+						{"$ref": "#/definitions/odbc"}
 					]
 				}
 			}
@@ -46,6 +47,11 @@
 					"headers":{
 						"type": "object"
 					}
+		},
+		"odbc": {
+			"description": "For connecting to database using odbc",
+			"cn": {"type": "string"},
+			"table": {"type": "string"}
 		}
 	}
 }
