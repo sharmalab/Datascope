@@ -107,6 +107,7 @@ function restCsv(options, callback){
       })
 }
 
+exports.odbc = odbc;
 exports.json = json;
 exports.csv = csv;
 exports.restJson = restJson;
