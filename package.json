@@ -1,18 +1,22 @@
 {
-  "name": "Emory-Interactive-Data-Exploration",
+  "name": "interactive-data-exploration",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
+    "anytojson": "^2.0.4",
+    "async": "^1.0.0",
     "express": "3.4.2",
-    "jade": "*"
+    "jade": "*",
+    "should": "^6.0.3"
   },
   "description": "We propose an environment for visualizing and exploring TCIA data . We leverage TCIA's REST API to programmatically query and download data. We propose methods to create a new search interface to the data as an alternate way to explore the contents of TCIA, create dynamic dashboards that can be extended to support the exploration of TCIA data using Javascript libraries like crossfilter and dc.js. This method is extendible to support data from other remote archives.",
   "main": "app.js",
   "directories": {
     "doc": "docs",
+    "example": "examples",
     "test": "test"
   },
   "devDependencies": {},
