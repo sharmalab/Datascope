@@ -1,0 +1,12 @@
+[
+	{
+		"name": "source1",
+		"type": "odbc",
+		"options":{
+            "cn": "dsn=mysql;server=localhost;user=root;database=test;port=3306;password=123456;command timeout=30000;",
+            "table": "titanicClean"
+
+		},
+		"attributes": ["PassengerId", "Survived","Pclass","Name", "Sex", "Age", "SibSp", "Parch", "Ticket", "Fare", "Cabin", "Embarked"]
+	}
+]
