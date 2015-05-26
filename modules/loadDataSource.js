@@ -1,114 +1,34 @@
-var fs = require('fs');
-var db = require("odbc")()
-
-
-
-//
-//## odbc(path, callback)
-// - **options**: specifies the file path
-// - **callback**: the callback function
-function odbc(options, callback){
-  var cn = options.cn;
-  var table = options.table;
-  db.open(cn, function (err) {
-      if (err) {
-          return console.log(err);
-      }
-
-      db.query("select * from "+table, function(err, rows, moreResults){
-          exports.data = rows;
-          callback();
-      })
-   });
-
-}
+var anyToJSON = require("anytojson");
 
 
 //
-//## json(path, callback)
-// - **options**: specifies the file path
-// - **callback**: the callback function
-
-function json(options, callback){
-      console.log("json")
-      var path = options.path;
-      //Read the file using filepath
-      fs.readFile(path, 'utf8', function(err, d){
-        if(err){
-          console.log("Error: "+ err);
-          return;
-        }
-        data = JSON.parse(d);
-        
-        //Send data back to app.js
-      	exports.data = data;
-      	callback();
-      });
-}
-
+//#### loadData()
+//Loads data using the type and path specified in ```public/config/dataSource.json```.
+//Currently supports
+// * JSON
+// * CSV
+// * REST JSON
+// * REST CSV
 //
-//## csv(path, callback)
-// - **options**: specifies the file path
-// - **callback**: the callback function
-function csv(options, callback){
-      var path = options.path;
-      fs.readFile(path, 'utf8', function(err,d){
-        data = d;
-        data = data.toString().replace(/\r/g,"").split("\n");
-        var header = data[0].split(",");
-        data = data.slice(1).map(function(d){
-          var line = {};
-          d.split(",").forEach(function(d,i){
-            line[header[i]] = d;
-          });
-          return line;
-        });    
-        exports.data = data;
-        callback();
-      });
+//The system can be extended to support more types using ```loadDataSources.js```
+//
+function loadData(dataSources, processData)
+{
+
+  for(var dataSource in dataSources){
+    var type=  dataSources[dataSource].type;
+    var options = dataSources[dataSource].options;
+    if(type== "json"){
+      anyToJSON.json(options, processData);
+    } else if(type == "csv") {
+      anyToJSON.csv(options, processData);
+    } else if(type == "rest/json") {
+      anyToJSON.restJson(options, processData);
+    } else if (type == "rest/csv"){
+      anyToJSON.restCsv(options, processData);
+    } else if (type == "odbc") {
+      anyToJSON.odbc(options, processData);
+    }
+  }
 }
-
-//## restJson(options, callback)
-// - **options**: HTTP header options
-// - **callback**: the callback function
-function restJson(options, callback){
-    var options = options;
-    //Make the HTTP GET request
-    http.get(options, function(response){
-        response.on('data',function(chunk){
-            if(chunk){
-                data += chunk;
-            }
-        });
-
-        response.on('end', function(){
-        	exports.data = JSON.parse(data);
-        	callback();
-        })
-    });
-}
-
-//## restCsv(options, callback)
-// - **options**: HTTP header options
-// - **callback**: the callback function
-function restCsv(options, callback){
-      http.get(options, function(response){
-        response.on('data', function(chunk){
-          chunk = chunk.toString();
-          if(chunk){
-            data+=chunk;
-          }
-        });
-        response.on('end', function(){
-          exports.data=JSON.parse(data);
-          callback();          
-        })
-
-      })
-}
-
-exports.odbc = odbc;
-exports.json = json;
-exports.csv = csv;
-exports.restJson = restJson;
-exports.restCsv = restCsv;
+module.exports = loadData;
