@@ -59,7 +59,9 @@ var ndx;
 
 var filter = {};
 
-console.log("starting")
+console.log("starting");
+
+var end = function(){};
 
 
 //
@@ -67,12 +69,13 @@ console.log("starting")
 //Initializtion function
 //
 
-function init(end){
+function init(callback){
 
   console.log("init")
   processConfig.validate();
 	processDataSource();
   var data = {};
+  end = callback;
   loadDataSource(processConfig.dataSource, processData);
 
   //async.waterfall([loadDataSource(dataSources, processData), processVisualization(), visualizationFilters(), listen(end)])
@@ -138,7 +141,6 @@ function processVisualization(){
   visualization = fs.readFileSync("public/config/visualization.json");
   visualization = JSON.parse(visualization);
   console.log("visualization...")
-  console.log(visualization)
   if(visualization.type == "dataTable"){
 
   }
@@ -210,7 +212,7 @@ function applyCrossfilter(data){
   all = ndx.groupAll();
     processVisualization();
     visualizationFilters();
-    listen();
+    listen(end);
 }
 
 function bubbleChartFilters(){
@@ -285,7 +287,6 @@ function imageGridFilters(){
 function visualizationFilters(){
 
 	var visualizationType = visualization.type;
-	console.log(visualization)
   switch(visualizationType){
 		case "bubbleChart":
 			bubbleChartFilters();
@@ -305,7 +306,9 @@ function listen(){
   console.log("listening...")
   var port = app.settings["port"];
   app.listen(port,function() {
-    console.log("listening to port "+port)  
+    console.log("listening to port "+port);
+
+    end();
   })
 
 }
