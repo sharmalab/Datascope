@@ -1,0 +1,24 @@
+
+
+{
+    "type": "dataTable",
+    "attributes":[
+        {
+            "name": "PassengerId"
+        },
+        {
+            "name": "Survived"
+        },
+        {
+            "name": "Name"
+        },
+        {
+            "name": "Sex"
+        },
+        {
+            "name": "Age"
+        }
+    ],
+    "heading": "Titanic Data",
+    "subheading": "Who survived?"
+}

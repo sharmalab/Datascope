@@ -1,0 +1,31 @@
+[
+    {
+        "name": "Pclass",
+        "order": 1,
+        "visualization": {
+            "visType": "rowChart"
+        }
+    }, 
+    {
+        "name": "Sex",
+        "order": 2,
+        "visualization": {
+            "visType": "pieChart"
+        }
+    }, 
+    {
+        "name": "Survived",
+        "order": 3, 
+        "visualization": {
+            "visType": "pieChart"
+        }
+    }, 
+    {
+        "name": "Age",
+        "order": 3, 
+        "visualization": {
+            "visType": "barChart"
+        }
+    }
+
+]
