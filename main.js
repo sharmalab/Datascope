@@ -196,6 +196,10 @@ function applyCrossfilter(data){
         //set binning parameter here
         return Math.round(d[filteringAttribute["name"]]*10)/10;
       });
+    } else if(filteringAttribute["datatype"] == "integer"){
+      dimension = ndx.dimension(function(d){
+        return parseInt(d[filteringAttribute["name"]]);
+      })
     } else {
       dimension = ndx.dimension(function(d){
         return d[filteringAttribute["name"]];
@@ -210,9 +214,9 @@ function applyCrossfilter(data){
 
   size = ndx.size(),
   all = ndx.groupAll();
-    processVisualization();
-    visualizationFilters();
-    listen(end);
+  processVisualization();
+  visualizationFilters();
+  listen(end);
 }
 
 function bubbleChartFilters(){
