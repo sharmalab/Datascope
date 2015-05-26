@@ -12,22 +12,22 @@ var anyToJSON = require("anytojson");
 //
 //The system can be extended to support more types using ```loadDataSources.js```
 //
-function loadData(dataSources, processData)
+function loadData(dataSources, processData, end)
 {
 
   for(var dataSource in dataSources){
     var type=  dataSources[dataSource].type;
     var options = dataSources[dataSource].options;
     if(type== "json"){
-      anyToJSON.json(options, processData);
+      anyToJSON.json(options, processData, end);
     } else if(type == "csv") {
-      anyToJSON.csv(options, processData);
+      anyToJSON.csv(options, processData, end);
     } else if(type == "rest/json") {
-      anyToJSON.restJson(options, processData);
+      anyToJSON.restJson(options, processData, end);
     } else if (type == "rest/csv"){
-      anyToJSON.restCsv(options, processData);
+      anyToJSON.restCsv(options, processData, end);
     } else if (type == "odbc") {
-      anyToJSON.odbc(options, processData);
+      anyToJSON.odbc(options, processData, end);
     }
   }
 }
