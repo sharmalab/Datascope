@@ -68,41 +68,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 //
 
 function init(callback){
-  console.log("...")
   dataSource.init();
   dataDescription.init();
   interactiveFilters.init();
   visualization.init();
-  console.log("...")
   dataSource.loadData(function(data){
     interactiveFilters.applyCrossfilter(data);
-    listen(end);
+    listen(callback);
   })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //
 // listen to the specified port for HTTP requests
 //
-function listen(){
+function listen(callback){
   console.log("listening...")
   var port = app.settings["port"];
   app.listen(port,function() {
     console.log("listening to port "+port);
 
-    end();
+    callback();
   })
 
 }

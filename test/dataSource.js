@@ -12,6 +12,7 @@ describe("dataSource", function() {
 
 
         it("Reads the config files and processes it", function() {
+            console.log("dataSource")
             dataSource.init("./examples/titanicTable/config/dataSource.json");
             var expected_attrbiutes = { 
               PassengerId: true,
