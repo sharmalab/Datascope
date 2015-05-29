@@ -30,7 +30,7 @@ var dataDescription = (function(){
     var _init = function (path){
         _loadConfig(path);
         for(var attributeIndex in dataDescriptionConfig){
-          var attribute = dataDescriptionConfig[attributeIndex];
+          var attribute = dataDescriptionConfig[attributeIndex];    
           attributes[attribute.name] = attribute; 
           for(var typeIndex in attribute["attributeType"]){
             if(attribute["attributeType"][typeIndex] == "filtering"){

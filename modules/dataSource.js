@@ -23,17 +23,16 @@ var dataSource = (function(){
         for(var i in dataSourcesConfig){
           source = dataSourcesConfig[i];
           dataSources.push(source);
-          for(var j in dataSource.attributes){
-            attribute = dataSource.attributes[j];
+          for(var j in source.attributes){
+            attribute = source.attributes[j];
             attributes[attribute] = true;
           }
         }
     };
     var _loadDataSourceConfig = function (path){
-
-            dataSourceConfigPath = path || dataSourceConfigPath;
-            dataSourcesConfig = fs.readFileSync(dataSourceConfigPath);
-            dataSourcesConfig = JSON.parse(dataSourcesConfig);   
+        dataSourceConfigPath = path || dataSourceConfigPath;
+        dataSourcesConfig = fs.readFileSync(dataSourceConfigPath);
+        dataSourcesConfig = JSON.parse(dataSourcesConfig);   
     };
 
     var _loadData = function(callback){
