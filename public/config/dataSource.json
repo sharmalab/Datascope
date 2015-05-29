@@ -3,8 +3,8 @@
 		"name": "source1",
 		"type": "csv",
 		"options":{
-            "path": "data/TCIA.csv"
+            "path": "data/TCIA2.csv"
 		},
-		"attributes": ["CancerType","BCRPatientUIDFromPathology","BCRPatientUIDFromClinical","BCRSlideUID","PatientBarcode","SampleBarcode","SlideBarcode","ImageFileName","SectionLocation","TumorCells","Necrosis","StromalCells", "NormalCells","TumorNuclei","KarnofskyScore", "AgeatInitialDiagnosis", "HistologicDiagnosis", "Laterality", "TumorSite", "SupratentorialLocalization", "Gender", "Race"]
+		"attributes": ["CancerType","BCRPatientUIDFromPathology","BCRPatientUIDFromClinical","BCRSlideUID","PatientBarcode","SampleBarcode","SlideBarcode","ImageFileName","SectionLocation","TumorCells","Necrosis","StromalCells", "NormalCells","TumorNuclei","KarnofskyScore", "AgeatInitialDiagnosis", "HistologicDiagnosis", "Laterality", "TumorSite", "SupratentorialLocalization", "Gender", "Race", "LastContact"]
 	}
 ]
