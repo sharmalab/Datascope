@@ -85,5 +85,11 @@
         "datatype": "string",
         "attributeType": ["visual", "filtering"],
         "dataProvider": "source1"
+    },
+    {
+        "name": "LastContact",
+        "datatype": "string",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "source1"
     }
 ]
