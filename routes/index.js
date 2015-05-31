@@ -92,12 +92,23 @@ var _tableNext = function(req, res, next){
   res.end(JSON.stringify(results));
 };
 
+var _save = function(req, res, next){
+  var dimensions = interactiveFilters.getDimensions();
+  var groups = interactiveFilters.getGroups();
+  var filteringAttributes = dataDescription.getFilteringAttributes();
+  var state = req.param("state") ? JSON.parse(req.param("state")) : {};
+  var results = {}
+  TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
+  res.writeHead(200,{'content-type': 'application/json'});
+  res.end(JSON.stringify(TABLE_DATA));
+}
 
 exports.index = function(req, res){
   res.render('index', { title: 'Express' });
 };
 exports.handleFilterRequest = _handleFilterRequest;
 exports.tableNext = _tableNext;
+exports.save = _save;
 
 exports.index3 = function(req,res){
 	res.render('index3')
