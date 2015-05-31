@@ -35,7 +35,6 @@ var _handleFilterRequest = function(req,res,next) {
     if (filter[dim]) {
       //array
       if(filter[dim].length > 1){
-        console.log(dim)
         if(dataDescription.getDataType(dim) == "enum"){
 
           dimensions[dim].filterFunction(function(d){
@@ -84,7 +83,6 @@ var _tableNext = function(req, res, next){
   var state = req.param("state") ? JSON.parse(req.param("state")) : {};
   var results = {}
   TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
-  console.log(TABLE_DATA)
   results["table_data"] = {
     data:TABLE_DATA.slice(state*100,state*100 +100),
     active: all.value(),
