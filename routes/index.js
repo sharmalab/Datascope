@@ -93,14 +93,38 @@ var _tableNext = function(req, res, next){
 };
 
 var _save = function(req, res, next){
+
   var dimensions = interactiveFilters.getDimensions();
   var groups = interactiveFilters.getGroups();
   var filteringAttributes = dataDescription.getFilteringAttributes();
-  var state = req.param("state") ? JSON.parse(req.param("state")) : {};
+
+
+  var requiredAttributes = req.param("attributes") ? JSON.parse(req.param("attributes")) : {};
+  console.log(requiredAttributes)
+
   var results = {}
   TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
   res.writeHead(200,{'content-type': 'application/json'});
-  res.end(JSON.stringify(TABLE_DATA));
+
+  var EXPORT_DATA = [];
+  for(i in TABLE_DATA){
+    var row = TABLE_DATA[i];
+    EXPORT_DATA.push({})
+    for(j in row){
+      for(k in requiredAttributes["list"]){
+        if(j == requiredAttributes["list"][k]){
+
+          col = row[j];
+          EXPORT_DATA[i][j] = row[j];
+        }
+      }
+    }
+  }
+  console.log(EXPORT_DATA)
+
+  var attributes = Object.keys(TABLE_DATA[0])
+  //console.log(attributes)
+  res.end(JSON.stringify(EXPORT_DATA));
 }
 
 exports.index = function(req, res){
