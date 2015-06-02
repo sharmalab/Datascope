@@ -5,7 +5,8 @@
 
 var interactiveFilters = require("../modules/interactiveFilters"),
     dataDescription = require("../modules/dataDescription"),
-    visualization = require("../modules/visualization");
+    visualization = require("../modules/visualization"),
+    json2csv = require("json2csv");
 var TABLE_STATE = 0;
 
 
@@ -100,31 +101,49 @@ var _save = function(req, res, next){
 
 
   var requiredAttributes = req.param("attributes") ? JSON.parse(req.param("attributes")) : {};
-  console.log(requiredAttributes)
-
+  
+  requiredAttributes = requiredAttributes["list"]
+  type = requiredAttributes["type"] || "csv"; 
   var results = {}
   TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
-  res.writeHead(200,{'content-type': 'application/json'});
+  
+  if(type == "json"){
+    res.writeHead(200,{'content-type': 'application/json'});
+    var EXPORT_DATA = [];
+    for(i in TABLE_DATA){
+      var row = TABLE_DATA[i];
+      EXPORT_DATA.push({})
+      for(j in row){
+        for(k in requiredAttributes["list"]){
+          if(j == requiredAttributes["list"][k]){
 
-  var EXPORT_DATA = [];
-  for(i in TABLE_DATA){
-    var row = TABLE_DATA[i];
-    EXPORT_DATA.push({})
-    for(j in row){
-      for(k in requiredAttributes["list"]){
-        if(j == requiredAttributes["list"][k]){
-
-          col = row[j];
-          EXPORT_DATA[i][j] = row[j];
+            col = row[j];
+            EXPORT_DATA[i][j] = row[j];
+          }
         }
       }
     }
+
+    res.end(JSON.stringify(EXPORT_DATA));
   }
+  else if(type == "csv"){
+    res.writeHead(200,{'content-type': 'text/csv'});
+
+    json2csv({data: TABLE_DATA, fields: requiredAttributes}, function(err, csv){
+      if(err){
+        console.log(err);
+      }
+
+      res.end((csv));
+    });
+
+  }
+  /*
   console.log(EXPORT_DATA)
 
   var attributes = Object.keys(TABLE_DATA[0])
   //console.log(attributes)
-  res.end(JSON.stringify(EXPORT_DATA));
+  */
 }
 
 exports.index = function(req, res){
