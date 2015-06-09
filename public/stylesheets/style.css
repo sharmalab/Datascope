@@ -61,22 +61,33 @@ body {
 
 /* Hide for mobile, show later */
 .sidebar {
-  display: none;
+  display: block;
 }
 @media (min-width: 768px) {
   .sidebar {
+
+    
     position: fixed;
+
     top: 51px;
     bottom: 0;
     left: 0;
     z-index: 1000;
+    padding: 20px 12px;
+
+   width: 330px;
+
     display: block;
-    padding: 20px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
   }
+}
+
+#interactiveFiltersPanel{
+  overflow-y: scroll;
+  height: 600px;
 }
 
 /* Sidebar navigation */
@@ -101,12 +112,6 @@ body {
 
 .main {
   padding: 20px;
-}
-@media (min-width: 768px) {
-  .main {
-    padding-right: 40px;
-    padding-left: 40px;
-  }
 }
 .main .page-header {
   margin-top: 0;
@@ -144,7 +149,7 @@ body {
   display: inline;
   width: 100px;
   position: relative;
-  top: -25px;
+  top: -4px;
 }
 .panel-heading-right input{
   border: 1px solid #ccc;
@@ -167,7 +172,10 @@ a.panel-reset {
 .inactive{
   color: #333;
 }
+table#dataTable{
 
+  overflow-x: scroll;
+}
 #dataTableNav{
   text-align: center;
 }
@@ -182,4 +190,8 @@ a.panel-reset {
 #activeRecords{
   float: right;
   font-size: 12px;
+}
+
+#main{
+  padding: 15px;
 }
