@@ -81,13 +81,27 @@ var _tableNext = function(req, res, next){
   var dimensions = interactiveFilters.getDimensions();
   var groups = interactiveFilters.getGroups();
   var filteringAttributes = dataDescription.getFilteringAttributes();
-  var state = req.param("state") ? JSON.parse(req.param("state")) : {};
-  var results = {}
+  var state = req.param("state") ? JSON.parse(req.param("state")) : 1;
+  var results = {};
   TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
-  results["table_data"] = {
-    data:TABLE_DATA.slice(state*100,state*100 +100),
+
+  var DATA_ARRAY = [];
+  for(var i in TABLE_DATA){
+    var row = Object.keys(TABLE_DATA[i]).map(function(k) { return TABLE_DATA[i][k] });
+    DATA_ARRAY.push(row);
+  }
+
+  //var reqParams = iDisplayLength, iDisplayStart
+  console.log(req.query.draw);
+  var start = req.query.start;
+  var length = req.query.length;
+  results = {
+    data: DATA_ARRAY.slice(start,start +length),
     active: all.value(),
-    state: state
+    state: state,
+    draw: req.query.draw,
+    recordsTotal: 372,
+    recordsFiltered: DATA_ARRAY.length
   }
   res.writeHead(200, {'content-type': 'application/json'});
   res.end(JSON.stringify(results));
