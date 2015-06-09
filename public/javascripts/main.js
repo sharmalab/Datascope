@@ -91,7 +91,20 @@ function createButtons(filteringAttributes) {
     for(var i=0; i<filteringAttributes.length; i++){
         var attribute = filteringAttributes[i];
         var attributeName = attribute["name"];
-        var attributeLabel = attribute["label"] ? attribute["label"] : attribute["name"]
+        var attributeLabel = attribute["label"] ? attribute["label"] : attribute["name"];
+        var $accordianPanelHeader = '<div class="chart-wrapper">\
+                      <div class="chart-title" id="'+attributeName+'-panel-heading">\
+                          <a data-toggle="collapse" data-parent="#filtering_attributes" href="#'+attributeName+'-thumb">'+attributeLabel+'\
+                          </a>\
+                            <div class="panel-heading-right">\
+                                <a class="panel-reset" title="Reset filter" href="javascript:thumbCharts.'+attributeName+'.filterAll() " >X</a>\
+                            </div>\
+                      </div>';
+        var $accordianPanelBody = '<div id="'+attributeName+'-thumb" class="chart-stage">\
+                                    <div id="dc-'+attributeName+'-thumb" class="thumb-chart"></div>\
+                                   </div>\
+                                </div>';
+        /*
         var $accordianPanelHeader = '<div class="panel panel-default">\
                       <div class="panel-heading" id="'+attributeName+'-panel-heading">\
                         <div class=".col" style="width:100px float:left">\
@@ -104,13 +117,14 @@ function createButtons(filteringAttributes) {
                             <div class="panel-form"></div>\
                             <a class="panel-reset" title="Reset filter" href="javascript:thumbCharts.'+attributeName+'.filterAll() " >X</a>\
                         </div>\
-                      </div>'
+                      </div>';
         var $accordianPanelBody = '<div id="'+attributeName+'-thumb" class="panel-collapse collapse in">\
                         <div class="panel-body thumb-panel-body"  data-toggle="modal" data-target="#'+attributeName+'Modal">\
                           <div id="dc-'+attributeName+'-thumb" class="thumb-chart"></div>\
                         </div>\
                       </div>\
-                    </div>'
+                    </div>';
+            */
         var $accordianFull = $accordianPanelHeader + $accordianPanelBody;
         //var button = "<button id='button' class='btn btn-default' type='button' data-toggle='modal' data-target='#"+attribute_name+"Modal'>"+ attribute_name + "</button>";
         $filteringAttributes.append($accordianFull);
@@ -303,11 +317,10 @@ function initializeThumbnails(filteringAttributes, thumbCharts ) {
                     .height(200)
                     .dimension(dimensions[attributeName])
                     .group(groups[attributeName])
-                    
                     .renderLabel(true)
                     .elasticX(true)
                     .margins({top: 10, right: 20, bottom: 20, left: 20})
-
+;
                     c.filterHandler(function(dimension, filters){
                         console.log(dimension);
                         console.log(filters);
