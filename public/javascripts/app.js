@@ -1,4 +1,5 @@
-
+var TabbedArea      = ReactBootstrap.TabbedArea,
+    TabPane         = ReactBootstrap.TabPane;
 
 var filteredData = {};
 var queryFilter = {};
@@ -99,7 +100,7 @@ var FilteringAttribute = React.createClass({
                 break;
             case "barChart":
                 var c = dc.barChart(divId);
-                c.width(280)
+                c.width(250)
                     .height(160).dimension(self.state.dimension)
                     .group(self.state.group)
                     .x(d3.scale.linear().domain(domain))
@@ -124,7 +125,7 @@ var FilteringAttribute = React.createClass({
                 break;
             case "rowChart":
                 var c = dc.rowChart(divId);
-                c.width(280)
+                c.width(250)
                 .height(200)
                 .dimension(self.state.dimension)
                 .group(self.state.group)
@@ -142,47 +143,98 @@ var FilteringAttribute = React.createClass({
                 })     
         }
     },    
+
     render: function(){
         var divId = "dc-"+this.props.config.name;
-        return (
-            <div className="chart-wrapper">
-                <div className="chart-title">
-                  {this.props.config.name}
+        console.log(this.props.full)
+        if(this.props.full == true){
+            return (
+                <div className="col-md-3">
+                    <div className="chart-wrapper">
+                        <div className="chart-title">
+                          {this.props.config.name}
+                        </div>
+                        <div className="chart-stage">
+                            <div  id={divId}> </div>
+                        </div>
+                        <div className="chart-notes">
+                          Full view
+                        </div>
+                    </div>
                 </div>
-                <div className="chart-stage">
-                    <div  id={divId}> </div>
+            )
+        } else {
+            return (
+                <div className="col-md-12" onClick={this.fullView}>
+                    <div className="chart-wrapper">
+                        <div className="chart-title">
+                          {this.props.config.name}
+                        </div>
+                        <div className="chart-stage">
+                            <div  id={divId}> </div>
+                        </div>
+                        <div className="chart-notes">
+                          Additional description here
+                        </div>
+                    </div>
                 </div>
-                <div className="chart-notes">
-                  Additional description here
-                </div>
-            </div>
-        )
+            );
+        }
+
     }
 });
 
 var InteractiveFilters = React.createClass({      
+    getInitialState: function(){
+        return {full:false};
+    },
+    fullView: function(){
+        if(this.state.full){
+            if(this.state.full == false)
+                this.setState({full: true});
+            else
+                this.setState({full: false});
 
+        }else{
+
+            this.setState({full:true});   
+        }
+    },
     render: function(){
         var filteringAttributes;
 
-
+        var self = this;
         if(this.props.config){
             filteringAttributes = this.props.config.map(function(filteringAttribute){
                 console.log(filteringAttribute);
                 return (
-                    <FilteringAttribute config={filteringAttribute} />
+                    <FilteringAttribute config={filteringAttribute}  full={self.state.full}/>
                 );
             })    
         } else {
             filteringAttribute = <div></div>
         }
-        return(
-            <div  className="col-sm-3 fixed" id="interactiveFiltersPanel">
-                <h4> Filtering Attributes</h4>
+        if(this.state.full){
+            return(
+                <div  className="col-sm-12 fixed" id="interactiveFiltersPanel">
+                    <h4> Filtering Attributes</h4>
+                     <button onClick={this.fullView}>Filtering view</button>
 
-                <div>{filteringAttributes}</div>
-            </div>
-        );
+                    <div>{filteringAttributes}</div>
+                </div>
+            );   
+
+        } else {
+            return(
+                <div  className="col-sm-3 fixed" id="interactiveFiltersPanel">
+                    <h4> Filtering Attributes</h4>
+                     <button onClick={this.fullView}>Coordinated view</button>
+
+                    <div>{filteringAttributes}</div>
+                </div>
+            );            
+        }
+
     }
 });
 
@@ -218,6 +270,7 @@ var DataTable = React.createClass({
                 "serverSide": true,
                 "scrollY": 420,
                 "scrollX": true,
+                 "pageLength": 100,
                 columns: columns
 
             });   
@@ -246,8 +299,17 @@ var Visualization = React.createClass({
                 case "dataTable":
                     return(
                         <div id="visualization" className="col-sm-9">
-                            <div id="visualizationToggle" className="row">Toggle </div>
-                            <DataTable config={this.props.config} />
+                          <TabbedArea defaultActiveKey={1}>
+                            <TabPane eventKey={1} tab='DataTable'>
+                                <DataTable config={this.props.config} />
+                            </TabPane>
+                            <TabPane eventKey={2} tab='Visualization 2'>
+                                <h3>Visualization</h3>
+                            </TabPane>
+                            <TabPane eventKey={3} tab='Vis 3'>
+                                <h3>TabPane 3 content</h3>
+                            </TabPane>
+                          </TabbedArea>
                         </div>
                     );
                     break;
