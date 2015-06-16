@@ -78,13 +78,14 @@ var _handleFilterRequest = function(req,res,next) {
 }
 
 var _tableNext = function(req, res, next){
-  var dimensions = interactiveFilters.getDimensions();
-  var groups = interactiveFilters.getGroups();
-  var filteringAttributes = dataDescription.getFilteringAttributes();
-  var state = req.param("state") ? JSON.parse(req.param("state")) : 1;
-  var results = {};
-  TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
-
+  var dimensions = interactiveFilters.getDimensions(),
+    groups = interactiveFilters.getGroups(),
+    filteringAttributes = dataDescription.getFilteringAttributes(),
+    state = req.param("state") ? JSON.parse(req.param("state")) : 1,
+    results = {};
+    TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
+    console.log(TABLE_DATA)
+    console.log("...")
   var DATA_ARRAY = [];
   for(var i in TABLE_DATA){
     var row = Object.keys(TABLE_DATA[i]).map(function(k) { return TABLE_DATA[i][k] });
@@ -160,6 +161,22 @@ var _save = function(req, res, next){
   */
 }
 
+var _heat = function(req, res){
+      var ndx = interactiveFilters.getndx();
+      var dimension;
+      var xAttr = "AgeatInitialDiagnosis";
+      var yAttr = "KarnofskyScore";
+
+      dimension = ndx.dimension(function(d){
+        return ([+d[xAttr]*1, +d[yAttr]*1]);
+      });
+      var group = dimension.group(); 
+      var results = {visualization: {values:group.all(),top:group.top(1)[0].value}};
+
+    res.writeHead(200, { 'content-type': 'application/json' });
+    res.end((JSON.stringify(results)))
+}
+
 exports.index = function(req, res){
   res.render('index', { title: 'Express' });
 };
@@ -176,3 +193,4 @@ exports.test = function(req,res){
 exports.index4 = function(req,res){
 	res.render('index4')
 }
+exports.heat = _heat;
