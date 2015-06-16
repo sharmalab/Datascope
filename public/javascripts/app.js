@@ -85,8 +85,8 @@ var FilteringAttribute = React.createClass({
         switch(visType){
             case "pieChart":
                 var c   = dc.pieChart(divId);
-                c.width(210)
-                .height(210).dimension(self.state.dimension)
+                c.width(250)
+                .height(190).dimension(self.state.dimension)
                 .group(self.state.group)
                 .radius(90)
                 .renderLabel(true);
@@ -101,7 +101,7 @@ var FilteringAttribute = React.createClass({
             case "barChart":
                 var c = dc.barChart(divId);
                 c.width(250)
-                    .height(160).dimension(self.state.dimension)
+                    .height(190).dimension(self.state.dimension)
                     .group(self.state.group)
                     .x(d3.scale.linear().domain(domain))
                     .elasticY(true)
@@ -126,7 +126,7 @@ var FilteringAttribute = React.createClass({
             case "rowChart":
                 var c = dc.rowChart(divId);
                 c.width(250)
-                .height(200)
+                .height(190)
                 .dimension(self.state.dimension)
                 .group(self.state.group)
                 .renderLabel(true)
@@ -243,8 +243,6 @@ var DataTable = React.createClass({
 
 
         var self = this;
-        console.log("afssadfasdf");
-
 
 
 
@@ -287,6 +285,8 @@ var DataTable = React.createClass({
             );
     }
 });
+
+
 
 var BubbleChart = React.createClass({
     componentWillMount: function(){
@@ -464,8 +464,8 @@ var HeatMap = React.createClass({
             console.log(dim) 
 
             var heat = dc.heatMap("#heat");
-            heat.width(45 * 20 + 120)
-            .height(45 * 5 )
+            heat.width(45 * 20 + 90)
+            .height(45 * 5+260 )
             .dimension(dim)
             .group(group)
             .keyAccessor(function(d) { return +d.key[0]; })
@@ -484,7 +484,7 @@ var HeatMap = React.createClass({
     },
     render: function(){
         return(
-            <div id="heat">asdfsdf</div>
+            <div id="heat"> </div>
         );
     }
 
