@@ -1,6 +1,6 @@
 var TabbedArea      = ReactBootstrap.TabbedArea,
-    TabPane         = ReactBootstrap.TabPane;
-
+    TabPane         = ReactBootstrap.TabPane,
+    Button = ReactBootstrap.Button;
 var filteredData = {};
 var queryFilter = {};
 var dataTable;
@@ -30,7 +30,7 @@ function refresh() {
 
 var FilteringAttribute = React.createClass({
     componentWillMount: function(){
-        //Initialize crossfilter dimensions and groups before rendering
+     //Initialize crossfilter dimensions and groups before rendering
 
         var attributeName = this.props.config.name;
         var dim = {
@@ -218,7 +218,7 @@ var InteractiveFilters = React.createClass({
             return(
                 <div  className="col-sm-12 fixed" id="interactiveFiltersPanel">
                     <h4> Filtering Attributes</h4>
-                     <button onClick={this.fullView}>Filtering view</button>
+                     <Button onClick={this.fullView} id="interactiveFiltersPanelSlider" bsSize="xsmall"> &laquo; </Button>
 
                     <div>{filteringAttributes}</div>
                 </div>
@@ -226,9 +226,9 @@ var InteractiveFilters = React.createClass({
 
         } else {
             return(
-                <div  className="col-sm-3 fixed" id="interactiveFiltersPanel">
+                <div  className="col-sm-3 fixed" id="interactiveFiltersPanel" >
                     <h4> Filtering Attributes</h4>
-                     <button onClick={this.fullView}>Coordinated view</button>
+                     <Button onClick={this.fullView}  id="interactiveFiltersPanelSlider" bsSize="xsmall"> &raquo; </Button>
 
                     <div>{filteringAttributes}</div>
                 </div>
@@ -243,11 +243,10 @@ var DataTable = React.createClass({
 
 
         var self = this;
-        console.log(filteredData.table_data.data);
+        console.log("afssadfasdf");
 
-        if(filteredData.table_data){
-            console.log(filteredData.table_data.data);
-            console.log(self.props.config.attributes)
+
+
 
             var columns = [];   
             var count=0;
@@ -274,7 +273,7 @@ var DataTable = React.createClass({
                 columns: columns
 
             });   
-        }
+  
 
     },
     render: function(){
@@ -288,32 +287,266 @@ var DataTable = React.createClass({
             );
     }
 });
+
+var BubbleChart = React.createClass({
+    componentWillMount: function(){
+     //Initialize crossfilter dimensions and groups before rendering
+
+        var attributeName = this.props.config.name;
+        var dim = {
+            filter: function(f) {
+                if(f) {
+                        queryFilter[attributeName] = f;
+                        refresh()
+                } else {
+                      if(queryFilter[attributeName]){
+                        delete queryFilter[attributeName];
+                        refresh()
+                      } else {
+                        return;
+                      } 
+                    }
+                },
+            filterAll: function() {
+                    delete queryFilter[attributeName];
+                    refresh();
+                },
+            name: function(){
+                    return attributeName;
+                }
+       
+        };
+        var group = {
+                all: function() {
+                    return filteredData[attributeName].values;
+                },
+                order: function() {
+                    return groups[attributeName];
+                },
+                top: function() {
+                    return filteredData[attributeName].values;
+                }
+ 
+        };
+
+        this.setState({dimension: dim, group: group});
+    },
+    componentDidMount: function(){
+        var config = this.props.config;
+
+        var visualAttributes = this.props.config.attributes;
+        var xAttr;
+        var yAttr;
+        var rAttr;
+        var colorAttr;
+        for (var i=0; i<visualAttributes.length; i++) {
+            attribute = visualAttributes[i];
+
+            if(attribute.type == "x"){
+                xAttr = attribute.name;
+            }
+            if(attribute.type == "y"){
+                yAttr = attribute.name;
+            }
+            if(attribute.type == "r"){
+                rAttr = attribute.name;
+            }
+            if(attribute.type == "color"){
+                colorAttr = attribute.name;
+            }    
+        }
+        visBubbleChart = dc.bubbleChart("#vis");
+
+        visBubbleChart.width(900)
+            .height(400)
+            .dimension(dimensions["visualization"])
+            .group(groups["visualization"])
+            .maxBubbleRelativeSize(0.4)       
+            .margins({top: 50, right: 50, bottom: 30, left: 40})
+            .colors(colorbrewer.RdYlGn[9]) // (optional) define color function or array for bubbles
+            .colorAccessor(function(d){
+                return d.value[colorAttr];
+            })
+            .radiusValueAccessor(function(d){
+                return d.value[rAttr]/100000;
+            })
+            .keyAccessor(function(d){
+                return d.value[xAttr];
+            })
+            .valueAccessor(function(d){
+                return d.value[yAttr];
+            })
+            .x(d3.scale.linear().domain([0, 100]))
+            .y(d3.scale.linear().domain([0, 10]))
+            .r(d3.scale.linear().domain([0, 10]))
+            .elasticY(true)
+            .elasticX(true)
+            .yAxisPadding(100)
+            .xAxisPadding(500)
+            .renderHorizontalGridLines(true) // (optional) render horizontal grid lines, :default=false
+            .renderVerticalGridLines(true) // (optional) render vertical grid lines, :default=false
+
+
+        },
+    render: function(){
+        return(
+            <div id="vis">
+
+            </div>
+        )
+    }
+
+});
+
+var HeatMap = React.createClass({
+    getInitialState: function(){
+        return({dimension: null, group: null})
+    },
+    componentWillMount: function(){
+
+
+
+    },
+
+    componentDidMount: function(){
+
+        var self = this;
+        d3.json("/heat", function(d){
+            var dim = {
+                filter: function(f) {
+                    if(f) {
+                            queryFilter[attributeName] = f;
+                            refresh()
+                    } else {
+                          if(queryFilter[attributeName]){
+                            delete queryFilter[attributeName];
+                            refresh()
+                          } else {
+                            return;
+                          } 
+                        }
+                    },
+                filterAll: function() {
+                        delete queryFilter[attributeName];
+                        refresh();
+                    },
+                name: function(){
+                        return attributeName;
+                    }
+           
+            };
+            var group = {
+                    all: function() {
+                        return d["visualization"].values;
+                    },
+                    order: function() {
+                        return groups[attributeName];
+                    },
+                    top: function() {
+                        return filteredData[attributeName].values;
+                    }
+     
+            };
+            console.log(d)
+
+
+            var config = self.props.config.attributes;
+            for (var i=0; i<config.length; i++) {
+
+                attribute = config  [i];
+                if(attribute.type == "x"){
+                    xAttr = attribute.name;
+                }
+                if(attribute.type == "y"){
+                    yAttr = attribute.name;
+                }    
+            }       
+            console.log(dim) 
+
+            var heat = dc.heatMap("#heat");
+            heat.width(45 * 20 + 120)
+            .height(45 * 5 )
+            .dimension(dim)
+            .group(group)
+            .keyAccessor(function(d) { return +d.key[0]; })
+            .valueAccessor(function(d) { return +d.key[1]; })
+            .colorAccessor(function(d) { return +d.value; })
+            .title(function(d) {
+                return "AgeatInitialDiagnosis:   " + d.key[0] + "\n" +
+                       "KarnofskyScore:  " + d.key[1] + "\n" +
+                       "Total: " + ( + d.value);})
+            .colors(["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"])
+            .calculateColorDomain(); 
+            //heat.render()  
+            console.log(heat)
+        });      
+
+    },
+    render: function(){
+        return(
+            <div id="heat">asdfsdf</div>
+        );
+    }
+
+});
 var Visualization = React.createClass({
+    render: function(){
+        var visType = this.props.config.type;
+
+        switch(visType){
+            case "dataTable":
+                return(
+                    <DataTable config={this.props.config} />
+                );
+                break;
+            case "bubbleChart":
+                return(
+                    <div></div>
+
+                );
+                break;
+            case "heatMap":
+                return(
+                    <HeatMap config={this.props.config} />
+                );
+            default:
+                return(
+                    <div></div>
+                );
+        }         
+          
+    }
+
+})
+
+var Visualizations = React.createClass({
     render: function(){
 
 
         if(this.props.config){
 
-            var visType = this.props.config.type;
-            switch(visType){
-                case "dataTable":
-                    return(
-                        <div id="visualization" className="col-sm-9">
-                          <TabbedArea defaultActiveKey={1}>
-                            <TabPane eventKey={1} tab='DataTable'>
-                                <DataTable config={this.props.config} />
-                            </TabPane>
-                            <TabPane eventKey={2} tab='Visualization 2'>
-                                <h3>Visualization</h3>
-                            </TabPane>
-                            <TabPane eventKey={3} tab='Vis 3'>
-                                <h3>TabPane 3 content</h3>
-                            </TabPane>
-                          </TabbedArea>
-                        </div>
-                    );
-                    break;
-            }            
+            console.log("...");
+            console.log(this.props.config);
+            var count=0;
+            var visualizations = this.props.config.map(function(visualization){
+                console.log(visualization);
+                console.log(filteredData);
+                count++;   
+                return(
+                    <TabPane tab={visualization.type} eventKey={count}>
+                        <Visualization config ={visualization}  />
+                    </TabPane>
+                );            
+            });
+
+            return(
+                <div id="visualization" className="col-sm-9">
+                    <TabbedArea defaultActiveKey={1}>
+                        {visualizations}
+                    </TabbedArea>
+                </div>
+            );
+
         }
         return (
             <div></div>
@@ -345,6 +578,8 @@ var Dashboard = React.createClass({
                 d3.json("/data?filter={}", function(d) {
                     filteredData = d;
                 
+
+
                     self.setState({
                         interactiveFilters: interactiveFilters,
                         visualization: visualization,
@@ -365,8 +600,8 @@ var Dashboard = React.createClass({
           <div>
             <InteractiveFilters config={this.state.interactiveFilters}>
             </InteractiveFilters>
-            <Visualization config ={this.state.visualization}>
-            </Visualization>
+            <Visualizations config ={this.state.visualization}>
+            </Visualizations>
           </div>
         );
       }
