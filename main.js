@@ -103,7 +103,7 @@ app.use("/data",routes.handleFilterRequest);
 app.use("/dataTable/next", routes.tableNext)
 app.use("/state",  handleState);
 app.use("/save", routes.save)
-
+app.use("/heat", routes.heat);
 // Change this to the static directory of the index.html file
 app.get('/', routes.index);
 app.get('/rest/json', rest.index);
