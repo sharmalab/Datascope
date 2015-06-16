@@ -212,3 +212,12 @@ table#dataTable{
 #vis_info, #vis_paginate{
   font-size: small;
 }
+
+#interactiveFiltersPanelSlider{
+
+  float: right;
+  margin: 4px;
+  z-index: 10000;
+  margin: 10px;
+  margin-top: -29px;
+}
