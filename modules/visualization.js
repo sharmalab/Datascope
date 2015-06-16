@@ -29,7 +29,6 @@ var visualization = (function(){
     }
 
 
-
     var bubbleChartFilters = function(){
         var xAttr;
         var yAttr;
