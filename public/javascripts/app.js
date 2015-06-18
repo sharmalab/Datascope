@@ -1,6 +1,6 @@
 var TabbedArea      = ReactBootstrap.TabbedArea,
     TabPane         = ReactBootstrap.TabPane,
-    Button = ReactBootstrap.Button;
+    Button          = ReactBootstrap.Button;
 var filteredData = {};
 var queryFilter = {};
 var dataTable;
@@ -15,7 +15,6 @@ function refresh() {
         d3.json("/data?filter="+JSON.stringify(queryFilter), function (d) {
             filteredData = d;
 
-            console.log(dataTable);
             if(dataTable.ajax){  
                 dataTable.ajax.reload();
             }
@@ -41,7 +40,7 @@ var FilteringAttribute = React.createClass({
                 } else {
                       if(queryFilter[attributeName]){
                         delete queryFilter[attributeName];
-                        refresh()
+                        refresh();
                       } else {
                         return;
                       } 
@@ -108,8 +107,6 @@ var FilteringAttribute = React.createClass({
                     .elasticX(true)        
                     .renderLabel(true)
 
- 
-                    
                     c.filterHandler(function(dimension, filter){
 
                         var begin = $("#filterBeg"+dimension.name());
@@ -133,8 +130,6 @@ var FilteringAttribute = React.createClass({
                 .elasticX(true)
                 .margins({top: 10, right: 20, bottom: 20, left: 20});
                 c.filterHandler(function(dimension, filters){
-                    console.log(dimension);
-                    console.log(filters);
                     if(filters)
                         dimension.filter(filters);
                     else
@@ -146,7 +141,6 @@ var FilteringAttribute = React.createClass({
 
     render: function(){
         var divId = "dc-"+this.props.config.name;
-        console.log(this.props.full)
         if(this.props.full == true){
             return (
                 <div className="col-md-3">
@@ -206,7 +200,6 @@ var InteractiveFilters = React.createClass({
         var self = this;
         if(this.props.config){
             filteringAttributes = this.props.config.map(function(filteringAttribute){
-                console.log(filteringAttribute);
                 return (
                     <FilteringAttribute config={filteringAttribute}  full={self.state.full}/>
                 );
@@ -256,7 +249,6 @@ var DataTable = React.createClass({
                 columns[count]["bSortable"] =false ;
                 count++;
             }
-            console.log(columns)
             dataTable = $('#vis').DataTable({
                 bSort: false,
                 bFilter: false,
@@ -306,14 +298,14 @@ var BubbleChart = React.createClass({
                         return;
                       } 
                     }
-                },
+            },
             filterAll: function() {
                     delete queryFilter[attributeName];
                     refresh();
-                },
+            },
             name: function(){
                     return attributeName;
-                }
+            }
        
         };
         var group = {
@@ -409,77 +401,70 @@ var HeatMap = React.createClass({
     },
 
     componentDidMount: function(){
-
         var self = this;
-        d3.json("/heat", function(d){
-            var dim = {
-                filter: function(f) {
-                    if(f) {
-                            queryFilter[attributeName] = f;
-                            refresh()
-                    } else {
-                          if(queryFilter[attributeName]){
-                            delete queryFilter[attributeName];
-                            refresh()
-                          } else {
-                            return;
-                          } 
-                        }
-                    },
-                filterAll: function() {
-                        delete queryFilter[attributeName];
+        var dim = {
+            filter: function(f) {
+                if(f) {
+                        queryFilter[attributeName] = f;
                         refresh();
-                    },
-                name: function(){
-                        return attributeName;
+                } else {
+                      if(queryFilter[attributeName]){
+                        delete queryFilter[attributeName];
+                        refresh()
+                      } else {
+                        return;
+                      } 
                     }
-           
-            };
-            var group = {
-                    all: function() {
-                        return d["visualization"].values;
-                    },
-                    order: function() {
-                        return groups[attributeName];
-                    },
-                    top: function() {
-                        return filteredData[attributeName].values;
-                    }
-     
-            };
-            console.log(d)
+            },
+            filterAll: function() {
+                    delete queryFilter[attributeName];
+                    refresh();
+            },
+            name: function(){
+                    return attributeName;
+            }
+        };
+        var group = {
+            all: function() {
+                return filteredData["heatMapGroup"].values;
+            },
+            order: function() {
+                return groups["heatMapGroup"];
+            },
+            top: function() {
+                return filteredData["heatMapGroup"].values;
+            }
+        };
 
+        var config = self.props.config.attributes;
+        for (var i=0; i<config.length; i++) {
 
-            var config = self.props.config.attributes;
-            for (var i=0; i<config.length; i++) {
+            attribute = config  [i];
+            if(attribute.type == "x"){
+                xAttr = attribute.name;
+            }
+            if(attribute.type == "y"){
+                yAttr = attribute.name;
+            }    
+        }       
+        console.log(dim) 
 
-                attribute = config  [i];
-                if(attribute.type == "x"){
-                    xAttr = attribute.name;
-                }
-                if(attribute.type == "y"){
-                    yAttr = attribute.name;
-                }    
-            }       
-            console.log(dim) 
-
-            var heat = dc.heatMap("#heat");
-            heat.width(45 * 20 + 90)
-            .height(45 * 5+260 )
-            .dimension(dim)
-            .group(group)
-            .keyAccessor(function(d) { return +d.key[0]; })
-            .valueAccessor(function(d) { return +d.key[1]; })
-            .colorAccessor(function(d) { return +d.value; })
-            .title(function(d) {
-                return "AgeatInitialDiagnosis:   " + d.key[0] + "\n" +
-                       "KarnofskyScore:  " + d.key[1] + "\n" +
-                       "Total: " + ( + d.value);})
-            .colors(["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"])
-            .calculateColorDomain(); 
-            //heat.render()  
-            console.log(heat)
-        });      
+        var heat = dc.heatMap("#heat");
+        heat.width(45 * 20 + 20)
+        .height(45 * 5+260 )
+        .dimension(dim)
+        .group(group)
+        .keyAccessor(function(d) { return +d.key[0]; })
+        .valueAccessor(function(d) { return +d.key[1]; })
+        .colorAccessor(function(d) { return +d.value; })
+        .title(function(d) {
+            return "AgeatInitialDiagnosis:   " + d.key[0] + "\n" +
+                   "KarnofskyScore:  " + d.key[1] + "\n" +
+                   "Total: " + ( + d.value);})
+        .colors(["#ffffff","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"])
+        .calculateColorDomain(); 
+        //heat.render()  
+        console.log(heat)
 
     },
     render: function(){
@@ -487,8 +472,70 @@ var HeatMap = React.createClass({
             <div id="heat"> </div>
         );
     }
-
 });
+
+
+var ImageGrid = React.createClass({
+    componentDidMount: function(){
+
+        var $visualization = d3.select("#imageGrid");
+        console.log(filteredData)
+        $activeRecords = $visualization.append("div")
+            .attr("id", "activeRecords");
+            /*
+        $activeRecords.append("div")
+            .attr("id", "nActive")
+            .text(filteredData["imageGrid"]);
+        $activeRecords.append("div")
+            .attr("id", "nSize")
+            .text(" of "+filteredData["imageGrid"]["size"] + " selected")
+            */  
+
+
+        var $grid = $visualization.append("table")
+                        .attr("id", "grid");
+        var $tbody = $grid.append("tbody");
+
+        //var rawData = filteredData["visualization"];
+        var rawData = [];
+        for(var a in filteredData["imageGrid"]){
+            var d = filteredData["imageGrid"][a];
+            for(var obj in d){
+                var o = d[obj];
+                var i = o["image"];
+                rawData.push(i);
+            }
+        }
+        var gridData = [];
+        while(rawData.length){
+            gridData.push(rawData.splice(0,10));
+        }
+
+        var rows = $tbody.selectAll("tr")
+        .data(gridData)
+        .enter()
+        .append("tr")
+        var cells = rows.selectAll("td")
+        .data(function(d) {
+            return d3.values(d);
+        })
+        .enter()
+        .append("td")
+        .html(function(d) {
+            var img = "<img style='border: 1px solid #fff' src='"+d+"' />"
+            return img;
+        });
+
+    },
+
+    
+    render: function(){
+        return(
+            <div id="imageGrid"></div>
+        );
+    }
+})
+
 var Visualization = React.createClass({
     render: function(){
         var visType = this.props.config.type;
@@ -509,6 +556,11 @@ var Visualization = React.createClass({
                 return(
                     <HeatMap config={this.props.config} />
                 );
+            case "imageGrid":
+                return(
+                    <ImageGrid config={this.props.config} />
+
+                );
             default:
                 return(
                     <div></div>
@@ -517,7 +569,7 @@ var Visualization = React.createClass({
           
     }
 
-})
+});
 
 var Visualizations = React.createClass({
     render: function(){
@@ -525,12 +577,9 @@ var Visualizations = React.createClass({
 
         if(this.props.config){
 
-            console.log("...");
-            console.log(this.props.config);
             var count=0;
             var visualizations = this.props.config.map(function(visualization){
-                console.log(visualization);
-                console.log(filteredData);
+
                 count++;   
                 return(
                     <TabPane tab={visualization.type} eventKey={count}>
@@ -578,7 +627,7 @@ var Dashboard = React.createClass({
                 d3.json("/data?filter={}", function(d) {
                     filteredData = d;
                 
-
+                    console.log(filteredData);
 
                     self.setState({
                         interactiveFilters: interactiveFilters,
