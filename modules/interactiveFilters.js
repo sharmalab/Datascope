@@ -71,6 +71,19 @@ var interactiveFilters = (function(){
           groups[filteringAttribute["name"]] = group;
         }
 
+        var xAttr = "AgeatInitialDiagnosis";
+        var yAttr = "KarnofskyScore";
+
+        dimensions["heatMapDim"] = ndx.dimension(function(d){
+          return ([+d[xAttr]*1, +d[yAttr]*1]);
+        });
+        groups["heatMapGroup"] = dimensions["heatMapDim"].group();
+        /*
+        dimensions["imageGrid"] = ndx.dimension(function(d){
+          return d["image"];        
+        });
+        groups["imageGrid"] = dimensions["imageGrid"].group();
+        */
         size = ndx.size(),
         all = ndx.groupAll();
     }
