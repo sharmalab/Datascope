@@ -8,6 +8,7 @@ var express = require('express'),
   routes = require('./routes'),
   user = require('./routes/user'),
   rest = require('./routes/rest'),
+  visualizationRoutes = require('./routes/visualizations');
   http = require('http'),
   path = require('path'),
   assert = require('assert'),
@@ -74,6 +75,7 @@ function init(callback){
   visualization.init();
   dataSource.loadData(function(data){
     interactiveFilters.applyCrossfilter(data);
+    visualizationRoutes.heatInit();
     listen(callback);
   })
 }
@@ -103,7 +105,8 @@ app.use("/data",routes.handleFilterRequest);
 app.use("/dataTable/next", routes.tableNext)
 app.use("/state",  handleState);
 app.use("/save", routes.save)
-app.use("/heat", routes.heat);
+app.use("/heat", visualizationRoutes.heat);
+
 // Change this to the static directory of the index.html file
 app.get('/', routes.index);
 app.get('/rest/json', rest.index);
