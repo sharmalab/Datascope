@@ -65,7 +65,9 @@
                 "name": "KarnofskyScore",
                 "type": "y"
             }
-        ]
+        ],
+        "heading": "Heat Map",
+        "subheading": "AgeatInitialDiagnosis vs KarnofskyScore"
     }
 
 ]
