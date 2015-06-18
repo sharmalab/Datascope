@@ -84,8 +84,8 @@ var _tableNext = function(req, res, next){
     state = req.param("state") ? JSON.parse(req.param("state")) : 1,
     results = {};
     TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
-    console.log(TABLE_DATA)
-    console.log("...")
+ 
+  
   var DATA_ARRAY = [];
   for(var i in TABLE_DATA){
     var row = Object.keys(TABLE_DATA[i]).map(function(k) { return TABLE_DATA[i][k] });
@@ -93,7 +93,6 @@ var _tableNext = function(req, res, next){
   }
 
   //var reqParams = iDisplayLength, iDisplayStart
-  console.log(req.query.draw);
   var start = req.query.start;
   var length = req.query.length;
   results = {
@@ -161,7 +160,7 @@ var _save = function(req, res, next){
   */
 }
 
-var _heat = function(req, res){
+var _heatInit = function(){
       var ndx = interactiveFilters.getndx();
       var dimension;
       var xAttr = "AgeatInitialDiagnosis";
@@ -171,6 +170,10 @@ var _heat = function(req, res){
         return ([+d[xAttr]*1, +d[yAttr]*1]);
       });
       var group = dimension.group(); 
+}
+
+var _heat = function(req, res){
+
       var results = {visualization: {values:group.all(),top:group.top(1)[0].value}};
 
     res.writeHead(200, { 'content-type': 'application/json' });
