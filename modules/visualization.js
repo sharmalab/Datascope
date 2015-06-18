@@ -19,7 +19,7 @@ var visualization = (function(){
         var attribute = visualization.attributes[attr];
         if(attribute.type == "image"){  
           dimension = attribute.name;
-          dimensions["visualization"] = ndx.dimension(function(d){
+          dimensions["imageGrid"] = ndx.dimension(function(d){
             return d[attribute.name];        
           });
         }
