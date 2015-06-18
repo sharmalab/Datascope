@@ -449,7 +449,7 @@ var HeatMap = React.createClass({
         }       
         console.log(dim) 
 
-        var heat = dc.heatMap("#heat");
+        var heat = dc.heatMap("#heatVis");
         heat.width(45 * 20 + 20)
         .height(45 * 5+260 )
         .dimension(dim)
@@ -468,8 +468,15 @@ var HeatMap = React.createClass({
 
     },
     render: function(){
+
+        console.log(this.props.config);
         return(
-            <div id="heat"> </div>
+            
+            <div id="heat">
+                <h2>{this.props.config.heading}</h2>
+                <h4>{this.props.config.subheading}</h4>
+                <div id="heatVis"></div>
+             </div>
         );
     }
 });
