@@ -9,6 +9,7 @@
     "anytojson": "^2.0.4",
     "async": "^1.0.0",
     "express": "3.4.2",
+    "extend": "^2.0.1",
     "fixed-data-table": "^0.3.0",
     "jade": "*",
     "json2csv": "^2.3.0",
