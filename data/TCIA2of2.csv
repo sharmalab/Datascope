@@ -1,0 +1,373 @@
+BCRSlideUID,HistologicDiagnosis,Laterality,TumorSite,SupratentorialLocalization,Gender,Race,VitalStatus,LastContact
+fe030126-a759-4d1a-b36c-eae67ed84cfd,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,143
+51841026-fc46-4f2f-9daa-388703a50dd5,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,143
+16b648a7-d48e-41fb-b716-3e78ccca1bc3,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Dead,234
+703f6dbf-ab68-4e1c-9fd4-1162706bfec5,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Dead,234
+e2895049-a361-4a18-8b1c-91808a819299,Astrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,FEMALE,BLACK OR AFRICAN AMERICAN,Dead,1335
+953381a7-1f74-4773-944d-d9824975ccae,Astrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,FEMALE,BLACK OR AFRICAN AMERICAN,Dead,1335
+d305d1bf-a05c-427a-8a95-515b8f910d80,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,481
+e75e0ad1-e39e-4022-8cd5-d031fa40c0d1,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,481
+c0346459-f310-44de-8a08-944ae92650d9,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,323
+9417ca66-5fb3-48ac-aa94-a54790bdd954,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,323
+a499ec69-8a94-444e-a9e2-6185ca5b7650,Oligodendroglioma,Right,"Supratentorial, Parietal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,1966
+cab28756-a99c-4c07-ad65-513ebcf45843,Oligodendroglioma,Right,"Supratentorial, Parietal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,1966
+9fcff907-953d-4e32-837f-4a2f82c5bb59,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,857
+e9f7678c-0160-48ee-b365-bd532cfab73c,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,857
+62f04584-1566-4c68-a640-f9f5cafc9d72,Oligodendroglioma,Right,"Supratentorial, Parietal Lobe",Cerebral Cortex,MALE,BLACK OR AFRICAN AMERICAN,Dead,639
+d32788c9-bea6-4be0-931e-a9cca8b6e642,Oligodendroglioma,Right,"Supratentorial, Parietal Lobe",Cerebral Cortex,MALE,BLACK OR AFRICAN AMERICAN,Dead,639
+74c766e5-95b9-41d4-b01d-69b5b937f853,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,303
+6960105b-09ad-4588-b19b-2856bb301760,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,303
+3cd2b684-6b4d-4560-b93f-11879fb76ac2,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Dead,194
+4eb20601-5641-418a-8582-28db9d08a201,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Dead,194
+5685f3fc-7ef6-42b7-8c8a-a6a1d23ce486,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Dead,538
+d184f52c-4712-4221-8bba-bc6656cc3885,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Dead,538
+24ff9f20-82f4-45a5-9e36-bdf9cde66755,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,725
+e34ddd5a-ed32-4b89-9aa7-549d766d5e4a,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,725
+a39c8238-9208-4ee9-b46f-43624637d5f7,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,[Not Available],Alive,546
+2104717f-9314-45f6-a54c-1b15b10e8c17,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,378
+111b7aec-72da-471b-80c8-6a3184a7e7eb,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,378
+2d9aebc4-73a8-413a-9bb5-41b80eba3625,Astrocytoma,Right,"Supratentorial, Parietal Lobe",Cerebral Cortex,MALE,WHITE,Alive,258
+798ad682-cd6c-4928-a885-6eea91efa9ae,Astrocytoma,Right,"Supratentorial, Parietal Lobe",Cerebral Cortex,MALE,WHITE,Alive,258
+f143a39e-a29c-4023-86a8-25f995c0ba1a,Astrocytoma,Left,"Supratentorial, Parietal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,230
+eb9d262b-fac9-4170-bce6-9fa1cca2a41d,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,244
+40941e3a-f21e-4236-bca1-847dcce69114,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,244
+8d6fc1e6-8312-4cc6-be5c-50ed3103fff6,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,225
+20240fda-f484-41a8-8557-066e4b5cc258,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,225
+0c102194-d20b-47fe-b2cf-5d6648d43102,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,1726
+252cf808-f370-404f-9764-3d25c2cc3f3f,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,1726
+D47FE99D-6365-429C-936E-A50160FACEFC,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,573
+E6061CA7-A51E-4A84-B9A6-F8D2BFB442C2,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,335
+2203AC47-B377-45E2-8442-2D5DDB424BA9,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,[Unknown],Alive,182
+D7AE3FCB-BC30-4286-A0AD-C0690AC346CB,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,[Not Evaluated],Alive,489
+67A731CC-09CB-4331-921C-F2B4F01963E9,Oligoastrocytoma,[Not Available],"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,469
+C68C9ACC-B011-4914-B035-56D6C846BFEF,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,846
+EFE282B7-6456-4D51-8BE3-624AD83C2B8B,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,448
+FA725452-AD49-4C2B-975F-0A55DEBF5211,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,415
+6FE7670B-E471-4039-A393-954919970623,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,332
+4E3D9149-9A75-4628-B339-C5762A699A71,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,196
+FE4B10BA-0756-40AD-8334-0730D45BDB12,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,935
+3a2fa09d-5038-443e-abab-3ad084fd51d3,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Dead,607
+f717aac2-0ed9-4ed0-89fa-a2c0b84bfe4d,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Dead,607
+c4ef4682-abd8-4206-ac76-9fbd2b8fe861,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,922
+4947a076-e18f-4eef-beb5-d3164616a57e,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,922
+b14e1fab-6e83-4e2d-b876-55899b982983,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,438
+9e85319a-5463-4924-9bfb-95117934dd8a,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,438
+5e350538-b82f-4cf0-8c70-9d5de5a311c6,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,244
+2322f424-b701-49cb-8597-4273b679a209,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,244
+6C1FC65E-25E0-4C11-AD46-FA5C4DAE5AA6,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,901
+EA7A39E2-E249-48C1-A7E3-0F006004E508,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,479
+C9E6AF70-E6B8-4BC8-ABAE-D0EDE0EE10BB,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,237
+BD66C53D-CFE8-4285-B882-08A39C4785AA,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,117
+C9EB32A4-50A0-4764-9A72-F65240068FE4,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,1650
+20214A89-5C15-4792-ACD1-C3A651A2B821,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,105
+FE86DC69-860E-4553-B124-E844B61C4067,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,189
+3d3e3866-fb08-4341-88aa-fee9b892b396,Oligoastrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,531
+f3e12b9c-e600-42fc-9093-c2588b153c39,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",White Matter,FEMALE,WHITE,Dead,205
+88615bcd-9b95-4e88-9adf-03de6ff6113b,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",White Matter,FEMALE,WHITE,Dead,205
+32557d47-325b-4891-995d-ab09e832b3a8,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,407
+707d3520-1d4a-4171-b717-3a56847e2548,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,407
+68d668fe-a095-476f-ac6f-556ec4a5fe1b,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,257
+762a553a-81b6-4cd7-8ee5-fab933a5500c,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,257
+b978a275-2753-42f2-89d0-c536a7349a2e,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,207
+9a72a221-9da8-4b0e-94d9-e960b14a9a30,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,207
+bacf77f7-db6e-46b6-9067-b527124963fc,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,5546
+5408fb38-be68-433c-ada1-c92af6ccdbe3,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,5546
+3CD12C12-1D6E-4D5B-8A78-72E12109C637,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,5546
+af054575-5ef8-43ac-9788-651e63463b60,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,576
+6a5d9653-51ca-40ca-99fe-6ad2ebcf7d1d,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,576
+de6335cc-07ab-4306-883f-bf5702c92508,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,461
+8e692d40-2ece-4cb3-b3cc-862b484e6204,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,461
+6b650468-a1cf-4f65-a78d-d7ed78a123a7,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Dead,2286
+f349c7bb-077c-42f3-8379-d20afa378cc2,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Dead,2286
+c1f0c8f2-4bf7-4e30-b171-ee01459ff2e4,Oligoastrocytoma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,354
+7745d859-ca3a-416d-847b-a92da30a27d5,Oligoastrocytoma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,354
+37f6beea-e9e1-4f4f-ba79-971792bf4491,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,4068
+2c5bcf78-6622-4dc2-b059-ead2d80c671a,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,4068
+5F06ED2F-035B-4A16-A7DE-3CC22A09E5A6,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,4068
+F1FB2086-7951-4603-A4B1-0E254CD49350,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,4068
+36b1bb28-bfb3-46a7-be1a-88a6c410c849,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,605
+d6d9cc8c-316c-479c-9f0e-6dda77ef23dc,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,605
+bc2f10ec-3b78-4d0f-8866-6aa26a107503,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,2875
+DDCA3FBE-94B2-4791-B4DB-144E172B45EF,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,2875
+90E66B88-254F-4CAD-8415-662A50022438,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,2875
+3d5bee9c-b086-4b21-8069-119182e7fc0d,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,3470
+6d3de885-8ccd-4418-84ad-3e358019abaf,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,3470
+38ad854e-0ea6-4143-bedd-70231dd6acf0,Oligodendroglioma,Midline,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,242
+63f6941e-c0ec-4104-8fcb-03fce2fdbbb2,Oligodendroglioma,Midline,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,242
+63615549-3bd3-4681-aa01-0a8544b51dfe,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Dead,3200
+94792828-8e5d-4bc0-a858-495b4e2845c3,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Dead,3200
+a3eed4d1-1367-407e-8275-7ff82cf4ea74,Astrocytoma,Left,"Supratentorial, Temporal Lobe",White Matter,MALE,WHITE,Dead,269
+54903332-63d3-4dee-ad78-50e7078eb612,Astrocytoma,Left,"Supratentorial, Temporal Lobe",White Matter,MALE,WHITE,Dead,269
+eecc55a9-5bec-4bd2-b02f-8bc06b8b58fb,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Dead,3571
+a28a52fe-b757-4840-ae72-5b1e4935417a,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Dead,3571
+143220bc-60fc-427d-a4df-e1a947425ec8,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,2761
+159cc1fc-10af-4306-8a58-b5df137dea87,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,2761
+eb9c922a-7214-4bdf-ad63-fda825f37c1b,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,933
+ea96e559-c0ec-4c9d-b5d1-1cbfe10f4edd,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,933
+9a33bc19-33ff-4e60-b348-2ba9486567ba,Oligoastrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,800
+887fe1df-ba84-433a-bbac-ff89be5104a1,Oligoastrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,800
+cefa8c09-7859-43fe-82dd-bbdcb15d5cba,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,2869
+f81946ff-0758-4c9f-870c-d7dbc6b58e0f,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,2869
+0ae38ed0-e8a2-47e5-bb42-5b11dfc19ac0,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,BLACK OR AFRICAN AMERICAN,Dead,576
+85197b39-852e-4c6a-b529-b30baf96e2c1,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,BLACK OR AFRICAN AMERICAN,Dead,576
+a11d5415-34c6-45c7-b4cd-505a2a52ca41,Astrocytoma,Left,"Supratentorial, Parietal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,1339
+7086c40a-e6bc-4e91-8f66-8168032c43c9,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,1886
+ae901cbc-145e-4a07-a4b7-49c1099662d6,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,788
+2f9e2b72-6c72-4a2b-aa77-e05c3e8371a9,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,788
+40040113-c1e9-4671-82e7-602153b167dd,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,1834
+64e6bf46-7cc0-4fd8-a95a-88976f29a72c,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,1834
+3634ec27-331b-499b-b0a5-f0298138e11a,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,709
+047aaa50-428a-410f-a09c-1aeed00676ea,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,709
+D7999F8B-6E75-43C7-85FE-C05E11308B28,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,709
+d0cc8c51-d9f5-41c7-becd-e28d02e1dff6,Oligoastrocytoma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,1277
+50c6d018-a9c9-49d8-b058-43ef28214fa6,Oligoastrocytoma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,1277
+5ed84165-52b5-4fc4-8dd0-4b65fecbb1c0,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,84
+672c9806-7968-42b1-9c94-5ec3035189ad,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,84
+7d8518aa-1043-4c67-96d1-ce9a1f1c144e,Astrocytoma,Left,"Supratentorial, Frontal Lobe",[Not Available],FEMALE,WHITE,Dead,155
+a3c38079-b34d-4c7d-9470-426cf315936f,Oligoastrocytoma,Left,"Supratentorial, Not Otherwise Specified",Not listed in Medical Record,FEMALE,WHITE,Dead,722
+dcca838a-7b70-4f0e-98be-3e59be23f521,Oligoastrocytoma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,121
+bbb2c705-0ba4-4d9f-9679-c04d9a60c5f1,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,197
+94c90050-14a9-432f-b470-9f526b2131a7,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,185
+c4f7743a-9f8b-49a5-b2f6-3dd77937ee82,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,98
+7cb0734d-ae96-474c-8e55-5598ad0f6046,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,108
+1C2A87D9-FB95-410D-B9B6-548984406C2C,Astrocytoma,Right,"Supratentorial, Parietal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,433
+83370ED5-89DE-477F-A7EF-12234076FC0F,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,383
+8AF2BEC7-5AE4-40A5-B9FD-C96E17E13305,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,BLACK OR AFRICAN AMERICAN,Alive,460
+83D88540-E6B9-4591-B3C6-C0AE19D41A4E,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,111
+F51E72C8-8C0F-47B1-93FF-87295F0B2157,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,BLACK OR AFRICAN AMERICAN,Alive,172
+814912D7-A468-4F53-8C12-E40D6E5C50A0,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,BLACK OR AFRICAN AMERICAN,Alive,263
+31208162-EA32-436A-999B-034FAA69D92C,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,2372
+DED44647-01AC-4599-ADF6-B4C9D5C011A5,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,220
+ACA610C7-BAE8-4E77-9E92-F25E68F0F7CE,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,182
+B0C0A0E7-B026-42BE-A8F7-8CBEB037AA7A,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,648
+B4FAB91E-63D4-4241-9CAB-841D8CD84516,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,547
+776C92C7-E515-4890-88DA-9DE91B41E981,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,3787
+F791F2E9-64DD-471D-B217-30A340329BFA,Oligodendroglioma,Right,"Supratentorial, Occipital Lobe",Not listed in Medical Record,MALE,WHITE,Alive,2369
+C4E88132-DCAB-417D-A434-5E851D5D85E0,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,ASIAN,Alive,1287
+0DE881D5-C763-4E34-A4FB-A8FDB42917F6,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,715
+021AF7FB-B3EA-4722-86FB-47E3D11F82AB,Oligoastrocytoma,Right,"Supratentorial, Temporal Lobe",[Not Available],MALE,WHITE,Dead,228
+E1DCF62B-3A08-4B9A-8EC7-670A8190A3B6,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,1351
+62de33fb-ad99-4da1-bd87-d85012582464,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,1525
+6ddb80e3-0ecb-4a9c-b0de-d8d8da2be911,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,1525
+e124c531-a538-435c-aaa7-d2ae1ce5e2c1,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,2052
+2f4f65d5-6bc8-4e19-8a97-b1ee53ecb5e1,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,2052
+062e4970-750f-441d-a06c-6bbfa2b8c9cc,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,1251
+6162b23d-9535-428e-a11a-cedc0d0d6dce,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,1251
+7a192ba9-1908-4ba0-864f-c2f2f0cc2680,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,2433
+348f4ea0-e9ed-473c-8a0f-0e104fe74fc6,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,2433
+50faa615-71bf-46e3-bdf1-b51552b03a6c,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,1762
+a1675840-2b1b-4396-9aa6-a887407c7129,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,1762
+cb702181-a633-499f-8e21-1c6cfd92dbc4,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,4084
+425dc9ad-a64e-4edb-9fea-bfa855842e58,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,4084
+5b48feda-9ee0-4095-85f4-1a750111a07a,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,2379
+8d2be164-1cc9-4f17-9ea7-0e9148e08994,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,2379
+ef477ff4-0222-4022-8456-707497a50c30,Oligoastrocytoma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,3978
+2c6b291f-b2a7-4c8b-b835-9aa01b20bd83,Oligoastrocytoma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,3978
+65079920-072F-412E-A047-C43E43242F91,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,886
+B3EE5462-620F-467D-AA51-AF7CF15FEA9F,Astrocytoma,Right,"Supratentorial, Temporal Lobe",White Matter,FEMALE,WHITE,Dead,2835
+8BB8BAA7-0C36-40F7-B205-B1B4F7570994,Astrocytoma,Right,"Supratentorial, Occipital Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,111
+5384E2BA-8F28-438D-849E-78547441B7C6,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Dead,378
+930F0E3A-E7A8-43EA-A19F-4077C6BCB000,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,492
+F088A288-755C-46A0-A015-6647D0BF3D39,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,648
+B8EA5760-5873-4153-BD23-1EABE1B0EF8D,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,2282
+559BD2A5-A0B7-42BD-9246-BC2331C0F7D5,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",White Matter,FEMALE,BLACK OR AFRICAN AMERICAN,Dead,1578
+7F93D6B4-CE32-4C38-8816-356AE27981F1,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,BLACK OR AFRICAN AMERICAN,Dead,466
+75269E41-6139-485E-B4B3-2E2FDC5321AF,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,987
+C5B93DC0-98EF-4E4C-8998-0A296B4F5228,Oligoastrocytoma,Left,"Supratentorial, Parietal Lobe",Cerebral Cortex,MALE,WHITE,Dead,1120
+A2001734-B696-401B-A240-D8ADD1323D76,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,4445
+575832DD-915A-4B25-8E78-340198C90A2E,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,4412
+5BEBAB27-24EE-4B9C-957F-7A8EAD5F8EFE,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,984
+e2d0149d-dbd4-48c5-a66b-c102f920d86b,Astrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,547
+3adfc3dc-37b5-4182-be97-e51b1341e08a,Astrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,547
+821BB828-D37B-4AC2-8353-5CEBAFC21B1C,Astrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,547
+7e843bf4-8f99-4052-8197-52b4dec04c4e,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,979
+b0c729a5-e4fe-4602-8f13-59fcf0d3f646,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,979
+BF4ACD8C-575B-404F-9E63-9EA7181FD807,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,979
+1C087E11-5130-4095-979F-3D949C41EF15,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,979
+ff2eb34c-431a-4d0d-b7de-b09c280de461,Astrocytoma,Left,"Supratentorial, Parietal Lobe",Not listed in Medical Record,FEMALE,BLACK OR AFRICAN AMERICAN,Alive,221
+f757ea4a-f40c-4512-b04f-98713c87e63d,Astrocytoma,Left,"Supratentorial, Parietal Lobe",Not listed in Medical Record,FEMALE,BLACK OR AFRICAN AMERICAN,Alive,221
+ad2a204f-4edb-4c56-85f4-7a2a1b2b11df,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,190
+9c1821f4-dd3c-4565-9e30-8e00a186d5fc,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,190
+90c68205-5bfe-4822-a5de-a93e89a195c8,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,143
+5860d06d-7e89-446c-bb32-4ffb6c1b058e,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,143
+6e20a0fb-5d5d-4b91-9e4c-a29dfd4e4d61,Astrocytoma,Right,"Supratentorial, Temporal Lobe",White Matter,FEMALE,WHITE,Alive,103
+85d2911b-b9fd-4dda-aa04-1966a18c9cb3,Astrocytoma,Right,"Supratentorial, Temporal Lobe",White Matter,FEMALE,WHITE,Alive,103
+c2f235f1-63ac-484f-a572-3c0281d5e1be,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,124
+35395e7c-a23b-423f-a1cf-3bf6ab96782d,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,124
+f207492e-bdcd-4f30-bbcf-b3a3c92cc82e,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,233
+ef29b78f-ee6a-4ef0-bc7b-aaa0a51dd1f9,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,233
+f207492e-bdcd-4f30-bbcf-b3a3c92cc82e,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,233
+ef29b78f-ee6a-4ef0-bc7b-aaa0a51dd1f9,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,233
+96c980de-1224-484b-9731-f98cff63d967,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,106
+766814dd-21ce-43fc-b7a0-8c86a19eeeeb,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,106
+a0a760e1-3d2a-45cd-bf60-cc2b7e93659c,Astrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,70
+b478b029-d731-407a-bd41-d6aca1e635f8,Astrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,70
+2f5dcc53-eba5-4e91-aad8-786803cdb5e5,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,121
+585159f5-b0ea-425d-bcb2-00c7c21d6158,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,121
+485e1491-14ce-4528-af03-2fbf30ff932f,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,215
+f85de027-c48d-4996-8955-9ff65e1d0e70,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,215
+b9596e87-efca-4434-bec4-5f3db774127b,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,97
+2c38322c-5f90-44e1-b3ec-5e82f91e07c1,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,97
+A8411A41-58C4-429F-BCC9-576CE5DA667F,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,361
+7B652176-1CD6-44B3-9E69-372B37A6CAE1,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,744
+20871686-4B1A-43C3-9DC0-3643DDFF83AA,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,744
+0346F513-0EC9-45BE-9B9E-B3E84D5C7F66,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,160
+403242FD-5E98-4775-AD6E-7490BB0CD344,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,113
+8E05AB6F-06E0-4700-9EC8-5921A411F684,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,214
+DC87F54F-8EB9-4100-AF94-930DF6F0B400,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,214
+8FD1D824-12F9-4994-A525-DE22F7582D1F,Oligodendroglioma,Left,"Supratentorial, Not Otherwise Specified",Not listed in Medical Record,FEMALE,WHITE,Alive,124
+8CF02F0A-B653-4A66-8608-221F8AFABDAD,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,322
+0546D5AC-B409-442F-866B-09A293AAC0E5,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,1329
+A95E7964-57C5-432D-8894-C826F1BA40F2,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,159
+6434C350-A751-4C33-A355-F2AD717E4B81,Astrocytoma,Right,"Supratentorial, Parietal Lobe",White Matter,FEMALE,WHITE,Alive,174
+6fa8ed8c-7c72-4274-b634-6e5bbaec1908,Oligodendroglioma,Right,"Supratentorial, Parietal Lobe",White Matter,MALE,WHITE,Alive,146
+9ad11d69-85f3-4f4d-8e23-3e737eecce38,Oligodendroglioma,Right,"Supratentorial, Parietal Lobe",White Matter,MALE,WHITE,Alive,146
+f5437fcd-4baa-4bc9-92dd-b7192229b871,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",White Matter,MALE,WHITE,Alive,268
+6fea1c7d-d8c1-4640-b47e-7a9a118ace8e,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,446
+1b9217f5-a430-4049-bbf2-4fdc8f146634,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,446
+3DD3483B-8EAD-423D-84BB-8EB6171FCB21,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,738
+5583139b-6291-45f0-8ada-a2abae162f0f,Astrocytoma,Right,"Supratentorial, Parietal Lobe",White Matter,MALE,WHITE,Alive,122
+d6a19f12-5ae8-445c-a850-3b01c579efa7,Astrocytoma,Right,"Supratentorial, Parietal Lobe",White Matter,MALE,WHITE,Alive,122
+6b3a450c-2aaa-4fa9-85d4-2f0886618bb4,Astrocytoma,Left,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Dead,96
+34663100-2516-4aaf-a26a-2071271cd181,Astrocytoma,Left,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Dead,96
+06a0f502-568c-4930-925b-0dd04eed26a7,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,1399
+7fe35985-4c32-4816-8757-e56ae05e8fc0,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,1399
+12d5be3d-874d-4bd9-827b-b9546175e706,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,1752
+febf0bd5-a61a-4284-945d-e17aa27077a2,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,1752
+d80cc5b6-fdf6-4df0-af4a-5eebb3cc2ce4,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,125
+ab8a813a-77f9-40cc-b82a-d55a7bd83b6a,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,125
+de3b2126-b071-4a45-bb92-d52b3405b886,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",[Not Available],MALE,WHITE,Alive,90
+fd40e69f-381a-433c-8cd6-9f37f3dd9735,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",[Not Available],MALE,WHITE,Alive,90
+67ece220-ff72-47e3-8a87-e73eefbe1c6b,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",[Not Available],FEMALE,WHITE,Alive,533
+add113e7-5aa5-4384-be76-9813ffcc25ec,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",[Not Available],FEMALE,WHITE,Alive,533
+b7c242d1-f51a-455f-ab51-0332cad3beff,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,210
+921af409-5c8e-4036-938c-6dc84ad32b5c,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,210
+cdd9a813-8c8a-4449-b055-3a195773c52d,Astrocytoma,Left,"Supratentorial, Temporal Lobe",White Matter,MALE,WHITE,Alive,292
+340928a7-d769-4145-9db1-495d8089090d,Astrocytoma,Left,"Supratentorial, Temporal Lobe",White Matter,MALE,WHITE,Alive,292
+b416c3ee-0711-4f95-9f86-11628b8cecb0,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,10
+d574fcea-987e-4ad3-b172-88081dee9555,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,10
+f2ced310-4468-4268-abc9-e6a12b16200f,Astrocytoma,Left,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,343
+36734ae3-9e72-4b47-9878-680887dd0f2f,Astrocytoma,Left,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,343
+1f03b371-88c5-4335-ae8e-3238613f88f9,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,478
+39d8f670-b809-4c79-8300-1a544c118d4d,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,478
+F121C09B-9E3B-4CAD-B56A-EB6FC4BB7478,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,319
+7D99484A-2CF4-486F-9618-05D9FCD02E9B,Astrocytoma,Right,"Supratentorial, Parietal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,426
+A9AAB7F6-D71A-4856-B727-9E0C343D8E85,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,447
+80CBF1DC-9B53-4CF5-9DC2-8641EADAED07,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,162
+5EA26D6A-C341-4BAE-A813-3CB84AE0A5ED,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,396
+88054A65-0A60-4DBD-B4E9-1B74B9A456A5,Oligodendroglioma,Right,"Supratentorial, Not Otherwise Specified",Not listed in Medical Record,MALE,AMERICAN INDIAN OR ALASKA NATIVE,Alive,491
+198EA0B5-554D-4571-A43B-1BCC6443088D,Astrocytoma,[Not Available],"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,162
+07D06BDE-21EF-4EE8-86FF-1CAE6981B357,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,194
+1C988789-7077-4B3B-B8D6-A33B055093DB,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,225
+69D1BEDC-584C-4284-B0E1-B3A0DB1B308F,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,103
+33886610-FCB7-4BA6-AC43-4DEDDC78E7C5,Oligoastrocytoma,Right,"Supratentorial, Parietal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,336
+4a011faf-664c-4d71-bda8-1354b48960d7,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Dead,578
+b6881dd0-e2dd-4b32-853c-9729ce0a02f3,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Dead,578
+11F02AAB-0521-4104-A158-E537E35CA380,Oligoastrocytoma,Left,"Supratentorial, Parietal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,159
+E0F11BC3-9626-4987-9067-05633E55AF9B,Astrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,144
+68B6098D-7964-4AA0-A7FF-A6C511BF31C5,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,0
+E4C4C08C-A73A-4BE3-94A9-EB66ABC1A8AF,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,7
+8344A8AE-7816-4842-B450-0762C2E32157,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,204
+BF94A5C3-EDEF-48A4-97A1-64E6DBD72E08,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,50
+D922089B-477D-416A-9912-BEFC81D2695C,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,125
+ACCCBD1A-B0D0-4B30-B349-A5449FB2AA65,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,232
+ECCBFA45-E2BC-4D8F-90D1-1ED7DBFE1F18,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,23
+4F900C1C-0820-4309-85CC-393498A146B1,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,39
+3772F7AC-7CE2-472F-ABCF-C6B2B35F0BEA,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",[Not Available],FEMALE,WHITE,Alive,6
+088E4193-6D27-44F6-8549-83935DE0D184,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,175
+054903B8-8FC1-4302-BAFD-032FE13606B6,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,77
+9C60097E-FDA4-4BBB-9A4B-D4EC314F2861,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",White Matter,FEMALE,WHITE,Alive,147
+26114BB7-5536-4422-AC0F-6ABDD93F9883,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,237
+AB97FB21-A74C-4FD9-AC8C-A8D093667866,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,125
+2240D670-ABA9-4ED4-8D19-AEEC62ADA95E,Astrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,127
+1D6FD1E2-84FE-4DB5-A65B-DF3A9BE3B6E7,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,ASIAN,Alive,90
+28AD8C43-0982-4A83-8E03-F45D45F6FEC6,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,67
+1B578F04-FAB1-4E3F-A3D2-C4799DFD0459,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,96
+72288737-6142-4956-B9AE-87AAF12FF0A8,Oligoastrocytoma,Right,"Supratentorial, Parietal Lobe",White Matter,MALE,WHITE,Alive,18
+97A59781-1E28-432F-A7C8-1218462549BE,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,192
+5C8FDD8C-467B-48C5-B36B-BA8342BCA61A,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,119
+85385A92-E916-43B6-9313-3C93011C1871,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,144
+C8739841-E9EF-4713-9E11-DD40FFEB8302,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",White Matter,FEMALE,WHITE,Alive,58
+B05AA7FA-8132-4694-AFED-41A3B2872B32,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,7
+DF1D2A08-EB3D-4075-9F83-E94EB3F06252,Astrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,153
+74BB3635-8836-443F-837F-5DB490404E21,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,106
+DF100D4A-6D7D-4A8C-8E01-EBD0C4BAAD66,Oligoastrocytoma,Right,"Supratentorial, Occipital Lobe",White Matter,FEMALE,WHITE,Alive,2
+C1581C4E-5004-49FA-98E6-DAA26496B571,Oligodendroglioma,Left,"Supratentorial, Parietal Lobe",Cerebral Cortex,MALE,WHITE,Alive,166
+5E13E938-AB58-4D11-876E-4E7C4AE47B8E,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,[Unknown],Alive,854
+5FE99454-68A7-4675-967A-A3D07AE8F663,Oligoastrocytoma,Left,"Supratentorial, Parietal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,596
+0D4E8888-4D3A-402F-8DB8-495E9E366832,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,933
+05F11061-E005-4602-834F-D71A77E163ED,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Dead,1891
+8764C48F-59EC-42C5-A537-235E08E8DB18,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,2101
+228D099E-FF54-44C6-B21E-F9A17DFE7681,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,571
+15638AB7-402F-4056-A349-EFD332F8B9E9,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,860
+F9D1B9B8-1188-49B3-B45A-62DC4FFE9301,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,856
+85853FC0-8980-46F8-AF0F-DA2A39E3E168,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,684
+43427A97-9BB1-4B80-B7DD-92099FB6EE44,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,658
+61C8C454-8EC1-4837-B0C7-D9B604AEBD2D,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,498
+91927198-FC88-4748-A077-96E2B03A56D6,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,344
+8CE2E47A-4B12-426E-A5E6-29B55E959666,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,475
+BFC0EF27-B6CB-445B-B0E4-BBD76E5B651F,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,610
+36E99A3A-7D2A-49D7-B72D-A99D31B26684,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,300
+419E9AF5-6F59-4D0D-BDB7-DB0B83CF40C7,Astrocytoma,Left,"Supratentorial, Temporal Lobe",White Matter,MALE,WHITE,Alive,2878
+A699EE50-4776-4D15-9CE8-A2E49DF147BF,Astrocytoma,Right,"Supratentorial, Temporal Lobe","Deep Gray (e.g.basal ganglia, thalamus)",MALE,WHITE,Dead,178
+96188F8C-C150-48F9-9CFA-EAD477A15FEB,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,3156
+F0F34684-3C89-4149-922A-107DF03B3D0F,Oligodendroglioma,Left,"Supratentorial, Parietal Lobe",Cerebral Cortex,MALE,WHITE,Alive,1897
+8A78C32A-2B51-49D5-93B8-9D907DC40F06,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,2208
+06A061DF-AC98-4751-8EF5-034F2D8C840D,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,2146
+D8285EF3-B3B6-41CF-9EB2-EE15568C7487,Oligoastrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,697
+858A8130-0424-48EF-BB86-28E3828FD104,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,FEMALE,WHITE,Alive,2149
+177000B9-A983-4CC9-AD36-DAF45348BB3D,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,331
+0DCF195F-79F3-44BD-A9A6-6332987B6C0F,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,283
+BF1A671B-4C52-4784-8658-3A9D42E55F44,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,275
+2AA40454-B530-4B21-8F83-E9427B3AA052,Astrocytoma,Left,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,231
+D78BEFC6-80A4-4B8E-B156-63B5693A5447,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,187
+C036A1DD-EDF7-4A29-BB65-AD5B30D273EB,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,103
+FBE54F4A-1BD7-423C-B914-D4316BB3BB8C,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,434
+E448FABF-DD88-44AA-9825-FC5B0122EC96,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,241
+E419682B-2FF6-4053-AD2A-67C9E87EA653,Astrocytoma,Right,"Supratentorial, Temporal Lobe",White Matter,MALE,WHITE,Alive,597
+56C4E8D6-A3F9-4550-B0ED-705CFBF79309,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,383
+16698412-7198-4F5C-B3E6-85B12CF56A82,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,128
+D739BD14-087E-4EEA-ABFC-05EB2A4AC6D9,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,285
+52B69C1A-035C-45FB-B90C-1040C0A842A0,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Alive,249
+11FB7027-3B1A-470C-BACB-A73EC779731A,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,62
+4AB1B719-3704-4723-89D1-EB363D6BD525,Oligodendroglioma,Left,"Supratentorial, Parietal Lobe",White Matter,FEMALE,WHITE,Alive,247
+72864BB8-B58F-4D33-B7B1-9A7928A4F6EB,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,109
+AC201C2A-7C9F-41F9-9EEC-A5CC42E6DF95,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,123
+5A3288D0-97C9-49CE-9BAE-38B2C2039E9F,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,554
+BD1DB4BE-E9A6-4AB9-B873-C8B72DFBD6C9,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,396
+332B72B3-EDF0-4DCF-9DE2-B13FD8EFA7D7,Oligodendroglioma,Midline,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,5000
+A51F5495-9533-40C1-8B08-AE20098E7DD1,Astrocytoma,Left,"Supratentorial, Temporal Lobe",White Matter,MALE,WHITE,Dead,316
+24AB3CE7-C9F4-47B6-AC92-3CE4D21C3857,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,FEMALE,WHITE,Alive,2649
+6D51D487-E118-4160-A8F2-C9D430C91B7C,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,530
+AE99233E-BFA3-4E6A-AEB9-6A3F090DFC21,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Cerebral Cortex,MALE,WHITE,Alive,2549
+78A54345-BDD8-41C6-B305-AD8011F2C42C,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Dead,961
+9DDADEDC-5B85-4C19-B961-14A8696972FD,Astrocytoma,Right,"Posterior Fossa, Cerebellum",Cerebral Cortex,MALE,WHITE,Alive,569
+DB8DE749-C5AB-4A8B-8A31-1E079C90ABFF,Astrocytoma,Right,"Supratentorial, Frontal Lobe",White Matter,MALE,WHITE,Alive,152
+5AE4E1C7-2174-4AB5-B08D-F85A810FD546,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,1504
+C335F373-3D43-4F99-8AE5-639F59B2F4E1,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,1093
+54A0DF2B-1269-4FB5-91B7-1061A9ACE8E4,Oligoastrocytoma,Left,"Supratentorial, Parietal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,770
+CA84C110-86AA-482C-B66C-17FE11D0E2DC,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,687
+68D4F804-8A52-4997-B250-A2ECDF5E6A0E,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,1472
+AFF553FF-4080-4CF5-BF41-C82D10F7F934,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,1472
+EDB1F9C9-5F8F-4C31-90FA-7DEA9F0EB833,Astrocytoma,Left,"Supratentorial, Parietal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,365
+B559B7A8-ACF8-4BD5-BD68-A25E74D106BE,Astrocytoma,Midline,"Posterior Fossa, Brain Stem",Not listed in Medical Record,MALE,WHITE,Alive,459
+69D1E87F-59E3-480F-B646-2969F2DBE247,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,1544
+3F20D55D-F1AD-4EDE-9905-B456D7DB4898,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,1045
+CB5D80F3-D6E0-4348-8C77-0830E59DE14C,Oligoastrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,738
+1B153B8B-7D8D-40BD-8B18-C9459BC6F29A,Astrocytoma,Left,"Supratentorial, Parietal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,589
+596A75A4-A972-4905-8460-0A280437D72C,Oligodendroglioma,Left,"Supratentorial, Occipital Lobe",Not listed in Medical Record,MALE,WHITE,Alive,532
+3DEAC019-AA8E-44FE-9C37-820B5D203438,Oligoastrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,1242
+021D115A-2E27-4E28-9723-0AE434E869CC,Oligodendroglioma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,502
+9CF9D00F-873B-4D8D-99DB-C6EE1DE8AF2D,Oligodendroglioma,Right,"Supratentorial, Not Otherwise Specified",Not listed in Medical Record,FEMALE,WHITE,Dead,1011
+697B218C-1440-4CBB-B1F0-8758B8A10FFB,Astrocytoma,Left,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,575
+D1D1B7E1-4194-4DB7-B539-05FE63D45172,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,287
+D4BBC439-0ED0-4B24-A945-6AA60755A333,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,139
+22664156-5CF9-48FF-A17E-17CFF2D80BD3,Oligoastrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,365
+22B93B82-0E44-4F6E-9917-355037488C9A,Oligodendroglioma,Left,"Supratentorial, Temporal Lobe",Cerebral Cortex,MALE,WHITE,Dead,821
+8AEC5340-6CA5-4B80-915E-87E6A762BD9A,Oligodendroglioma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,1006
+2D139CD9-E64F-4FD0-A0AA-EB8D5DC30EEF,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,[Unknown],Alive,411
+CB6F9C97-4181-4B00-8112-EDFDDA2C38AD,Astrocytoma,Right,"Supratentorial, Temporal Lobe",Not listed in Medical Record,MALE,WHITE,Dead,240
+990C63C2-C976-4C1E-966C-3AA23B26C3EE,Oligodendroglioma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,MALE,WHITE,Alive,815
+8FD2C9F7-6A37-47EE-9E4B-FCC80B3EA41D,Astrocytoma,Right,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,333
+38DD32BF-1DE0-4FAD-AD0A-9D30D427C9C2,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,1337
+4FB95067-DCB6-43AC-882B-936AADBDC541,Astrocytoma,Left,"Supratentorial, Frontal Lobe",Not listed in Medical Record,FEMALE,WHITE,Alive,1213
