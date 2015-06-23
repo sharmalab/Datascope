@@ -1,4 +1,4 @@
-var anyToJSON = require("anytojson");
+ var anyToJSON = require("anytojson");
 
 
 //
@@ -12,11 +12,12 @@ var anyToJSON = require("anytojson");
 //
 //The system can be extended to support more types using ```loadDataSources.js```
 //
-function loadData(dataSources, processData)
+function loadData(dataSource, processData)
 {
-  for(var dataSource in dataSources){
-    var type=  dataSources[dataSource].type;
-    var options = dataSources[dataSource].options;
+    console.log(dataSource)
+
+    var type=  dataSource.type;
+    var options = dataSource.options;
     if(type== "json"){
       anyToJSON.json(options, processData);
     } else if(type == "csv") {
@@ -28,6 +29,6 @@ function loadData(dataSources, processData)
     } else if (type == "odbc") {
       anyToJSON.odbc(options, processData);
     }
-  }
+
 }
 module.exports = loadData;
