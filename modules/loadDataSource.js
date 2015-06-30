@@ -14,7 +14,7 @@
 //
 function loadData(dataSource, processData)
 {
-    console.log(dataSource)
+
 
     var type=  dataSource.type;
     var options = dataSource.options;
