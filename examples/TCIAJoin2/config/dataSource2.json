@@ -1,0 +1,10 @@
+[
+    {
+        "name": "source1",
+        "type": "csv",
+        "options":{
+            "path": "examples/TCIAJoin2/data/CombinedData.csv"
+        },
+        "key": ["BCR Slide UID"]
+    }
+]
