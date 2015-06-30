@@ -1,0 +1,94 @@
+[
+    {
+        "name": "SectionLocation",
+        "order": 3, 
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },    
+    {
+        "name": "TumorCells",
+        "order": 3, 
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },    
+    {
+        "name": "Necrosis",
+        "order": 3, 
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },   
+    {
+        "name": "NormalCells",
+        "order": 3, 
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },  
+    {
+        "name": "TumorNuclei",
+        "order": 3, 
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },
+    {
+        "name": "KarnofskyScore",
+        "order": 3, 
+        "visualization": {
+            "visType": "barChart"
+        }
+    },
+    {
+        "name": "AgeatInitialDiagnosis",
+        "order": 3, 
+        "visualization": {
+            "visType": "barChart"
+        }
+    },        
+    {
+        "name": "HistologicDiagnosis",
+        "order": 5,
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },
+    {
+        "name": "Laterality",
+        "order": 6,
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },  
+    {
+        "name": "TumorSite",
+        "order": 6,
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },  
+    {
+        "name": "SupratentorialLocalization",
+        "order": 6,
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },  
+    {
+        "name": "Gender",
+        "order": 6,
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },  
+    {
+        "name": "Race",
+        "order": 6,
+        "visualization": {
+            "visType": "rowChart"
+        }
+    }
+        
+]
