@@ -10,11 +10,15 @@ var loadDataSource = require('../modules/loadDataSource');
 
 
 describe("loadDataSource", function() {
-
+    describe("#join", function(){
+        it("should join 2 tables", function(done){
+            
+        });
+    });
     describe("#csv", function(){
         it("should convert csv data to json", function(done){    
-            optionsCSV = {"path": "test/data/titanicClean.csv"};
-            optionsJSON = {"path": "test/data/titanicClean.json"};
+            optionsCSV = [{"path": "test/data/titanicClean.csv"}];
+            optionsJSON = [{"path": "test/data/titanicClean.json"}];
             loadDataSource.json(optionsJSON , function(){
                 csv = loadDataSource.data;
                 loadDataSource.json(optionsJSON, function(){
