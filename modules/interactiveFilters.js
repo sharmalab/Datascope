@@ -73,7 +73,10 @@ var interactiveFilters = (function(){
 
         var xAttr = "AgeatInitialDiagnosis";
         var yAttr = "KarnofskyScore";
-
+        dimensions["imageGrid"] = ndx.dimension(function(d){
+          return d.image;
+        });
+        //groups["imageGrid"] = dimensions["imageGrid"].group();
         dimensions["heatMapDim"] = ndx.dimension(function(d){
           return ([+d[xAttr]*1, +d[yAttr]*1]);
         });

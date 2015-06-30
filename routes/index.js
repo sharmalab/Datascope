@@ -58,12 +58,17 @@ var _handleFilterRequest = function(req,res,next) {
       results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value}
   })
   //console.log(visualization.getVisualizationType())
-  if(visualization.getVisualizationType() == "imageGrid")
-    results["visualization"] = {values:(dimensions["visualization"].top(100)),
+
+  //if(visualization.getVisualizationType() == "imageGrid"){
+    console.log(dimensions["imageGrid"].top(100))
+    results["imageGrid"] = {values:(dimensions["imageGrid"].top(100)),
       active:all.value(),
       size: size
     }
-  else if(visualization.getVisualizationType() == "dataTable"){
+
+  //}
+
+  if(visualization.getVisualizationType() == "dataTable"){
     TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
     results["table_data"] = {
       data:TABLE_DATA.slice(0,100),
