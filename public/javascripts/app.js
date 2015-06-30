@@ -523,13 +523,14 @@ var ImageGrid = React.createClass({
         .enter()
         .append("tr")
         var cells = rows.selectAll("td")
+        .style({"width": "40px"})
         .data(function(d) {
             return d3.values(d);
         })
         .enter()
         .append("td")
         .html(function(d) {
-            var img = "<img style='border: 1px solid #fff' src='"+d+"' />"
+            var img = "<img style='border: 1px solid #fff' width='100' src='"+d+"' />"
             return img;
         });
 
