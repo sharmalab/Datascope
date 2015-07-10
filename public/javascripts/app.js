@@ -5,6 +5,9 @@ var filteredData = {};
 var queryFilter = {};
 var dataTable;
 
+var AppActions = require("./actions/AppActions.jsx");
+var AppStore = require("./stores/AppStore.jsx");
+/*
 function refresh() {
     if(JSON.stringify(queryFilter)) {
         for (qf in queryFilter) {
@@ -25,7 +28,7 @@ function refresh() {
         }
 }
 
-
+*/
 
 var FilteringAttribute = React.createClass({
     componentWillMount: function(){
@@ -36,11 +39,16 @@ var FilteringAttribute = React.createClass({
             filter: function(f) {
                 if(f) {
                         queryFilter[attributeName] = f;
-                        refresh()
+                        //refresh()
+
+                        AppActions.refresh();
                 } else {
                       if(queryFilter[attributeName]){
                         delete queryFilter[attributeName];
-                        refresh();
+
+                        //here would call the update action
+                        //refresh();
+                        AppActions.refresh();
                       } else {
                         return;
                       } 
@@ -48,7 +56,8 @@ var FilteringAttribute = React.createClass({
                 },
             filterAll: function() {
                     delete queryFilter[attributeName];
-                    refresh();
+
+                    AppActions.refresh();
                 },
             name: function(){
                     return attributeName;
@@ -535,11 +544,13 @@ var ImageGrid = React.createClass({
         });
 
     },
-
+    handleRefresh: function(){
+        console.log('refresh')
+    },  
     
     render: function(){
         return(
-            <div id="imageGrid"></div>
+            <div id="imageGrid" ></div>
         );
     }
 })
@@ -652,12 +663,18 @@ var Dashboard = React.createClass({
       getInitialState: function(){
         return {interactiveFilters: null, visualization: null, filter: null};
       },
+      handleRefresh: function(filteredData){
+        this.setState({currData: filteredData})
+      },
+      onFilter: function(){
+
+      },
       render: function(){
         return (
           <div>
-            <InteractiveFilters config={this.state.interactiveFilters}>
+            <InteractiveFilters onFilter={this.onFilter} config={this.state.interactiveFilters}>
             </InteractiveFilters>
-            <Visualizations config ={this.state.visualization}>
+            <Visualizations config ={this.state.visualization} onRefresh={this.handleRefresh} currData={this.state.currData}>
             </Visualizations>
           </div>
         );
