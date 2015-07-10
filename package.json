@@ -14,7 +14,10 @@
     "jade": "*",
     "json2csv": "^2.3.0",
     "react": "^0.13.3",
-    "should": "^6.0.3"
+    "should": "^6.0.3",
+    "node-jsx": "^0.11.0",
+    "reflux": "^0.1.13",
+    "serve-favicon": "~2.1.3"
   },
   "description": "We propose an environment for visualizing and exploring TCIA data . We leverage TCIA's REST API to programmatically query and download data. We propose methods to create a new search interface to the data as an alternate way to explore the contents of TCIA, create dynamic dashboards that can be extended to support the exploration of TCIA data using Javascript libraries like crossfilter and dc.js. This method is extendible to support data from other remote archives.",
   "main": "app.js",
@@ -23,7 +26,14 @@
     "example": "examples",
     "test": "test"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.0.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-nodemon": "^0.3.0",
+    "grunt-react": "^0.12.2",
+    "react-tools": "^0.11.2"
+  },
   "repository": {
     "type": "git",
     "url": "https://lastlegion@bitbucket.org/BMI/interactive-data-exporation.git"
