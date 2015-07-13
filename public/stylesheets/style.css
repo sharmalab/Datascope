@@ -87,7 +87,7 @@ body {
 
 #interactiveFiltersPanel{
   overflow-y: scroll;
-  height: 600px;
+  height: 100vh;
 }
 
 /* Sidebar navigation */
@@ -224,3 +224,22 @@ table#dataTable{
 
 #heat{
   margin: 0px 30px 0 0;
+}
+
+#imageGridPagination{
+  padding: 20px;
+}
+#imageGridPagination .next{
+  position: absolute;
+  right: 20px ;
+}
+#imageGridPagination .prev{
+}
+/*React transitions*/
+.imageGridImages-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+.imageGridImages-enter.imageGridImages-enter-active {
+  opacity: 1;
+}
