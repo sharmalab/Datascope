@@ -5,7 +5,7 @@ var dataTable;
 var AppActions = require("./actions/AppActions.jsx");
 var AppStore = require("./stores/AppStore.jsx");
 var Reflux = require('reflux');
-
+var addons = require("react/addons");
 var InteractiveFilters = require("./components/InteractiveFilters.jsx");
 var Visualizations = require("./components/Visualizations.jsx");
 
@@ -57,7 +57,6 @@ var Dashboard = React.createClass({
         },
       componentWillMount: function(){
         //console.log(this.unsubscribe)
-        console.log("this whole thing")
         if(this.unsubscribe)
             this.unsubscribe();
       },
