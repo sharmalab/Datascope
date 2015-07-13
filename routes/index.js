@@ -60,7 +60,7 @@ var _handleFilterRequest = function(req,res,next) {
   //console.log(visualization.getVisualizationType())
 
   //if(visualization.getVisualizationType() == "imageGrid"){
-    console.log(dimensions["imageGrid"].top(100))
+    //console.log(dimensions["imageGrid"].top(100))
     results["imageGrid"] = {values:(dimensions["imageGrid"].top(100)),
       active:all.value(),
       size: size
@@ -80,6 +80,31 @@ var _handleFilterRequest = function(req,res,next) {
 
   res.writeHead(200, { 'content-type': 'application/json' });
   res.end((JSON.stringify(results)))
+}
+
+var _imageGridNext = function(req, res, next){
+  var dimensions = interactiveFilters.getDimensions(),
+    groups = interactiveFilters.getGroups(),
+    filteringAttributes = dataDescription.getFilteringAttributes(),
+    state = req.param("state") ? JSON.parse(req.param("state")) : 1,
+    results = {};
+    imageGridData = dimensions["imageGrid"].top(Infinity);
+
+
+  var state = req.query.state;
+  var length = req.query.length || 100;
+  var finalState = Math.floor(imageGridData.length/length);
+
+  var start = state*length;
+  results["imageGrid"] = {
+    "values": imageGridData.slice(start, start+length),
+    state: state,
+    finalState: finalState
+  };
+  console.log(results)
+  console.log(imageGridData.length)
+  res.writeHead(200, {'content-type': 'application/json'});
+  res.end(JSON.stringify(results));
 }
 
 var _tableNext = function(req, res, next){
@@ -105,7 +130,7 @@ var _tableNext = function(req, res, next){
     active: all.value(),
     state: state,
     draw: req.query.draw,
-    recordsTotal: 372,
+    recordsTotal: 372,      //FIX THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!
     recordsFiltered: DATA_ARRAY.length
   }
   res.writeHead(200, {'content-type': 'application/json'});
@@ -190,6 +215,7 @@ exports.index = function(req, res){
 };
 exports.handleFilterRequest = _handleFilterRequest;
 exports.tableNext = _tableNext;
+exports.imageGridNext = _imageGridNext;
 exports.save = _save;
 
 exports.index3 = function(req,res){
