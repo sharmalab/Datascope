@@ -5,7 +5,6 @@ var dataTable;
 var AppActions = require("./actions/AppActions.jsx");
 var AppStore = require("./stores/AppStore.jsx");
 var Reflux = require('reflux');
-var addons = require("react/addons");
 var InteractiveFilters = require("./components/InteractiveFilters.jsx");
 var Visualizations = require("./components/Visualizations.jsx");
 
@@ -44,7 +43,8 @@ var Dashboard = React.createClass({
                         self.setState({
                             interactiveFilters: interactiveFilters,
                             visualization: visualization,
-                            currData: filteredData
+                            currData: filteredData,
+                            debug: 0
                         });
                         self.listenTo(AppStore, self.onFilter);
                         dc.renderAll();
@@ -64,17 +64,18 @@ var Dashboard = React.createClass({
         return {interactiveFilters: null, visualization: null, filter: null};
       },
       handleRefresh: function(filteredData){
-        this.setState({currData: filteredData})
+
+        this.setState({currData: filteredData});
       },
       onFilter: function(){
 
-
-
-        this.setState({currData: AppStore.getData()});
+        var data = AppStore.getData();
+        var debug=this.state.debug+1;
+        this.setState({currData: data, debug:debug});
+        console.log("state is set")
         dc.renderAll();
-        if(dataTable.ajax){  
-            dataTable.ajax.reload(); //jquery datatable fix
-        }
+        console.log(DataTable);
+
 
       },
       render: function(){
@@ -82,7 +83,7 @@ var Dashboard = React.createClass({
           <div>
             <InteractiveFilters onFilter={this.onFilter} config={this.state.interactiveFilters} currData={this.state.currData}>
             </InteractiveFilters>
-            <Visualizations config ={this.state.visualization} onRefresh={this.handleRefresh} currData={this.state.currData}>
+            <Visualizations config ={this.state.visualization} onRefresh={this.handleRefresh} debug={this.state.debug} currData={this.state.currData}>
             </Visualizations>
           </div>
         );
