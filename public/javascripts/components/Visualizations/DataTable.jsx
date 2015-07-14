@@ -33,6 +33,11 @@ var DataTable = React.createClass({
             });   
   
 
+    }, 
+    componentWillReceiveProps: function(){
+        if(dataTable.ajax){  
+            dataTable.ajax.reload(); //jquery datatable fix
+        }
     },
     render: function(){
         var tableAttribtes = [];
