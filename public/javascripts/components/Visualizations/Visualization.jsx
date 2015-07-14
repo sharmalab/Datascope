@@ -25,7 +25,7 @@ var Visualization = React.createClass({
                 );
             case "imageGrid":
                 return(
-                    <ImageGrid config={this.props.config} currData = {this.props.currData} />
+                    <ImageGrid config={this.props.config} debug={this.props.debug} currData = {this.props.currData} />
                 );
             default:
                 return(
