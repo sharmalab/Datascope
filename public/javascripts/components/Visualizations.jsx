@@ -14,7 +14,7 @@ var Visualizations = React.createClass({
                 count++;   
                 return(
                     <TabPane tab={visualization.type} eventKey={count}>
-                        <Visualization config ={visualization} currData={self.props.currData}  />
+                        <Visualization config ={visualization} debug={self.props.debug} currData={self.props.currData}  />
                     </TabPane>
                 );            
             });
