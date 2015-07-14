@@ -931,7 +931,6 @@ var dataTable;
 var AppActions = require("./actions/AppActions.jsx");
 var AppStore = require("./stores/AppStore.jsx");
 var Reflux = require('reflux');
-
 var InteractiveFilters = require("./components/InteractiveFilters.jsx");
 var Visualizations = require("./components/Visualizations.jsx");
 
@@ -970,7 +969,8 @@ var Dashboard = React.createClass({displayName: "Dashboard",
                         self.setState({
                             interactiveFilters: interactiveFilters,
                             visualization: visualization,
-                            currData: filteredData
+                            currData: filteredData,
+                            debug: 0
                         });
                         self.listenTo(AppStore, self.onFilter);
                         dc.renderAll();
@@ -983,7 +983,6 @@ var Dashboard = React.createClass({displayName: "Dashboard",
         },
       componentWillMount: function(){
         //console.log(this.unsubscribe)
-        console.log("this whole thing")
         if(this.unsubscribe)
             this.unsubscribe();
       },
@@ -991,17 +990,17 @@ var Dashboard = React.createClass({displayName: "Dashboard",
         return {interactiveFilters: null, visualization: null, filter: null};
       },
       handleRefresh: function(filteredData){
-        this.setState({currData: filteredData})
+
+        this.setState({currData: filteredData});
       },
       onFilter: function(){
 
-
-
-        this.setState({currData: AppStore.getData()});
+        var data = AppStore.getData();
+        var debug=this.state.debug+1;
+        this.setState({currData: data, debug:debug});
+        console.log("state is set")
         dc.renderAll();
-        if(dataTable.ajax){  
-            dataTable.ajax.reload(); //jquery datatable fix
-        }
+
 
       },
       render: function(){
@@ -1009,7 +1008,7 @@ var Dashboard = React.createClass({displayName: "Dashboard",
           React.createElement("div", null, 
             React.createElement(InteractiveFilters, {onFilter: this.onFilter, config: this.state.interactiveFilters, currData: this.state.currData}
             ), 
-            React.createElement(Visualizations, {config: this.state.visualization, onRefresh: this.handleRefresh, currData: this.state.currData}
+            React.createElement(Visualizations, {config: this.state.visualization, onRefresh: this.handleRefresh, debug: this.state.debug, currData: this.state.currData}
             )
           )
         );
@@ -1285,7 +1284,7 @@ var Visualizations = React.createClass({displayName: "Visualizations",
                 count++;   
                 return(
                     React.createElement(TabPane, {tab: visualization.type, eventKey: count}, 
-                        React.createElement(Visualization, {config: visualization, currData: self.props.currData})
+                        React.createElement(Visualization, {config: visualization, debug: self.props.debug, currData: self.props.currData})
                     )
                 );            
             });
@@ -1458,6 +1457,11 @@ var DataTable = React.createClass({displayName: "DataTable",
             });   
   
 
+    }, 
+    componentWillReceiveProps: function(){
+        if(dataTable.ajax){  
+            dataTable.ajax.reload(); //jquery datatable fix
+        }
     },
     render: function(){
         var tableAttribtes = [];
@@ -1685,129 +1689,146 @@ var HeatMap = React.createClass({displayName: "HeatMap",
 module.exports = HeatMap;
 },{}],22:[function(require,module,exports){
 
+
 var ImageGrid = React.createClass({displayName: "ImageGrid",
-    componentDidMount: function(){
+    getInitialState: function(){
+        var self =this;
+        var currData = this.props.currData;
+        self.setState({gridState: 0, currData: currData, images: currData})
+
+        return {
+            gridState: 0,
+            currData: currData,
+
+        }
+    },
+    componentWillReceiveProps: function(){
+        var self =this;
+        var currData = this.props.currData;
+        var paginate = this.props.currData["imageGrid"].paginate;
+        console.log(currData);
+        console.log("reciveing props woot")
+        self.setState({gridState: 0, currData: currData, images: currData, paginate: paginate});
+
+    },
+    onPrev: function(e){
         var self = this;
-        var $visualization = d3.select("#imageGrid");
+        e.preventDefault();
+        var gridState = this.state.gridState;
+        gridState--;
 
-        $activeRecords = $visualization.append("div")
-            .attr("id", "activeRecords");
-            /*
-        $activeRecords.append("div")
-            .attr("id", "nActive")
-            .text(filteredData["imageGrid"]);
-        $activeRecords.append("div")
-            .attr("id", "nSize")
-            .text(" of "+filteredData["imageGrid"]["size"] + " selected")
-            */  
+        $.get("/imageGrid/next?state="+gridState, function(data){
 
+            self.setState({
+                gridState: gridState,
+                images: data
+            });
+        });
 
-        var $grid = $visualization.append("table")
-                        .attr("id", "grid");
-        var $tbody = $grid.append("tbody");
+    }, 
+    onNext: function(e){
+        var self = this;
+        e.preventDefault();
+        var gridState = this.state.gridState;
+        gridState++;
+        $.get("/imageGrid/next?state="+gridState, function(data){
 
-        //var rawData = filteredData["visualization"];
-        var rawData = [];
-        //var filteredData = AppStore.getData();
-        console.log("grid...")
-        console.log(self.props);
-        var filteredData = self.props.currData;
-
-        for(var a in filteredData["imageGrid"]){
-            var d = filteredData["imageGrid"][a];
-            for(var obj in d){
-                var o = d[obj];
-                var i = o["image"];
-                rawData.push(i);
-            }
-        }
-        var gridData = [];
-        while(rawData.length){
-            gridData.push(rawData.splice(0,8));
-        }
-
-        var rows = $tbody.selectAll("tr")
-        .data(gridData)
-        .enter()
-        .append("tr")
-        var cells = rows.selectAll("td")
-        .style({"width": "40px"})
-        .data(function(d) {
-            return d3.values(d);
-        })
-        .enter()
-        .append("td")
-        .html(function(d) {
-            var img = "<img style='border: 1px solid #fff' width='100' src='"+d+"' />"
-            return img;
+            self.setState({
+                gridState: gridState,
+                images: data
+            });
         });
 
     },
-    componentDidUpdate: function(){
-        var self = this;
-        var $visualization = d3.select("#imageGrid");
-        $visualization.html("")
-        $activeRecords = $visualization.append("div")
-            .attr("id", "activeRecords");
-            /*
-        $activeRecords.append("div")
-            .attr("id", "nActive")
-            .text(filteredData["imageGrid"]);
-        $activeRecords.append("div")
-            .attr("id", "nSize")
-            .text(" of "+filteredData["imageGrid"]["size"] + " selected")
-            */  
 
-
-        var $grid = $visualization.append("table")
-                        .attr("id", "grid");
-        var $tbody = $grid.append("tbody");
-
-        //var rawData = filteredData["visualization"];
-        var rawData = [];
-        //var filteredData = AppStore.getData();
-        console.log("grid...")
-        console.log(self.props);
-        var filteredData = self.props.currData;
-
-        for(var a in filteredData["imageGrid"]){
-            var d = filteredData["imageGrid"][a];
-            for(var obj in d){
-                var o = d[obj];
-                var i = o["image"];
-                rawData.push(i);
-            }
-        }
-        var gridData = [];
-        while(rawData.length){
-            gridData.push(rawData.splice(0,8));
-        }
-
-        var rows = $tbody.selectAll("tr")
-        .data(gridData)
-        .enter()
-        .append("tr")
-        var cells = rows.selectAll("td")
-        .style({"width": "40px"})
-        .data(function(d) {
-            return d3.values(d);
-        })
-        .enter()
-        .append("td")
-        .html(function(d) {
-            var img = "<img style='border: 1px solid #fff' width='100' src='"+d+"' />"
-            return img;
-        });
-    },  
-    
     render: function(){
-        return(
-            React.createElement("div", {id: "imageGrid"})
-        );
+        var self = this;
+
+        console.log('rendering imageGrid')
+        console.log(this.props.debug)
+        var self =this;
+        var currData = this.state.currData;
+        //var data = this.state.images;
+        console.log(currData)
+        var images = currData["imageGrid"]["values"];
+        var finalState = currData["imageGrid"]["finalState"];
+        var gridState = this.state.gridState;   
+        var paginate = this.state.paginate;
+        console.log(currData);
+        console.log(this.state.gridState)
+        var Img = images.map(function(d){
+            var image = d["image"];
+
+            return (
+                
+
+                    React.createElement("img", {src: image, width: "60px", height: "60px", style: {margin: "2px"}})
+        
+            );
+
+
+        });
+        if(paginate == true){
+            if(gridState == 0){
+                return(
+
+                    React.createElement("div", {id: "imageGrid"}, 
+                        React.createElement("div", {id: "imageGridImages"}, 
+                                Img
+                        ), 
+                       React.createElement("div", {id: "imageGridPagination"}, 
+                            React.createElement("a", {href: "#", className: "next", onClick: this.onNext}, "Next")
+                        )
+                    )
+
+                );           
+            } else if(gridState == finalState) {
+
+                return(
+                    React.createElement("div", {id: "imageGrid"}, 
+                        React.createElement("div", {id: "imageGridImages"}, 
+                                Img
+                        ), 
+                       React.createElement("div", {id: "imageGridPagination"}, 
+                            React.createElement("a", {href: "#", className: "prev", onClick: this.onPrev}, "Prev")
+                        )
+                    )
+                );
+            } else {
+                return(
+                    React.createElement("div", {id: "imageGrid"}, 
+                        React.createElement("div", {id: "imageGridImages"}, 
+                                Img
+                        ), 
+                       React.createElement("div", {id: "imageGridPagination"}, 
+                            React.createElement("a", {href: "#", className: "prev", onClick: this.onPrev}, "Prev"), 
+                            React.createElement("a", {href: "#", className: "next", onClick: this.onNext}, "Next")
+                        )
+                    )
+                );
+            }
+
+        } else {
+            return(
+
+                React.createElement("div", {id: "imageGrid"}, 
+                    React.createElement("div", {id: "imageGridImages"}, 
+                            Img
+                    )
+
+                )
+
+            );     
+
+        }
+
+
     }
 });
 
 module.exports = ImageGrid;
+
+
 
 },{}],23:[function(require,module,exports){
 var DataTable = require("./DataTable.jsx"),
@@ -1837,7 +1858,7 @@ var Visualization = React.createClass({displayName: "Visualization",
                 );
             case "imageGrid":
                 return(
-                    React.createElement(ImageGrid, {config: this.props.config, currData: this.props.currData})
+                    React.createElement(ImageGrid, {config: this.props.config, debug: this.props.debug, currData: this.props.currData})
                 );
             default:
                 return(
