@@ -61,9 +61,18 @@ var _handleFilterRequest = function(req,res,next) {
 
   //if(visualization.getVisualizationType() == "imageGrid"){
     //console.log(dimensions["imageGrid"].top(100))
+    var imageGridDataLength = (dimensions["imageGrid"].top(Infinity)).length;
+    var paginate = true;
+    var finalState = Math.floor(imageGridDataLength/100);
+    if(imageGridDataLength < 100){
+      paginate = false;
+    }
     results["imageGrid"] = {values:(dimensions["imageGrid"].top(100)),
       active:all.value(),
-      size: size
+      size: size,
+      state: Math.floor(imageGridDataLength/100),
+      paginate: paginate,
+      finalState: finalState
     }
 
   //}
@@ -94,15 +103,18 @@ var _imageGridNext = function(req, res, next){
   var state = req.query.state;
   var length = req.query.length || 100;
   var finalState = Math.floor(imageGridData.length/length);
-
+  var paginate = true;
+  if(imageGridData.length < length){
+    paginate = false;
+  }
   var start = state*length;
   results["imageGrid"] = {
     "values": imageGridData.slice(start, start+length),
     state: state,
-    finalState: finalState
+    finalState: finalState,
+    paginate: paginate
   };
-  console.log(results)
-  console.log(imageGridData.length)
+  
   res.writeHead(200, {'content-type': 'application/json'});
   res.end(JSON.stringify(results));
 }
