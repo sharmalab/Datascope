@@ -74,7 +74,6 @@ var Dashboard = React.createClass({
         this.setState({currData: data, debug:debug});
         console.log("state is set")
         dc.renderAll();
-        console.log(DataTable);
 
 
       },
