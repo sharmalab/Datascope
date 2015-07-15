@@ -8,14 +8,15 @@ var Reflux = require('reflux');
 var InteractiveFilters = require("./components/InteractiveFilters.jsx");
 var Visualizations = require("./components/Visualizations.jsx");
 
+var Loader = require('react-loader');
+
 
 var Dashboard = React.createClass({
-        mixins: [Reflux.connect(AppStore,"currData")], // will set up listenTo call and then do this.setState("messages",data)
-        //mixins: [Reflux.connect(A,"messages")], // will set up listenTo call and then do this.setState("messages",data)
+        mixins: [Reflux.connect(AppStore,"currData")], // will set up listenTo call and then do this.setState("currData",data)
         componentDidMount: function(){      
             var self=this;    
 
-            self.unsubscribe = AppStore.listen(self.onFilter);
+            //self.unsubscribe = AppStore.listen(self.onFilter);
 
             d3.json("config/interactiveFilters.json", function(err, data) {
 
@@ -33,56 +34,53 @@ var Dashboard = React.createClass({
                     visualization = data;   
                     AppActions.refresh(queryFilter); //Initial refresh
                     filteredData = AppStore.getData();
-
-                    
+                    //Do the initial filtering 
                     d3.json("/data?filter={}", function(d) {
                         filteredData = d;
-                    
-                        //console.log(filteredData);
 
                         self.setState({
                             interactiveFilters: interactiveFilters,
                             visualization: visualization,
                             currData: filteredData,
+                            loaded: true,
                             debug: 0
                         });
-                        self.listenTo(AppStore, self.onFilter);
+                        
                         dc.renderAll();
-                    }.bind(self));
+                    });
                     
-
+                    
                 });
 
             });
         },
       componentWillMount: function(){
-        //console.log(this.unsubscribe)
-        if(this.unsubscribe)
-            this.unsubscribe();
+
       },
       getInitialState: function(){
-        return {interactiveFilters: null, visualization: null, filter: null};
-      },
-      handleRefresh: function(filteredData){
-
-        this.setState({currData: filteredData});
+        return {interactiveFilters: null, visualization: null, filter: null, loaded: false};
       },
       onFilter: function(){
 
         var data = AppStore.getData();
         var debug=this.state.debug+1;
-        this.setState({currData: data, debug:debug});
+        this.setState({currData: data});
         console.log("state is set")
         dc.renderAll();
 
-
       },
       render: function(){
+        var currData = this.state.currData;
+          //interactiveFiltersData = currData.interactiveFilters,
+          //visualizationData = currData.visualization;
+          console.log(this.state.loaded)
         return (
           <div>
+ 
+
             <InteractiveFilters onFilter={this.onFilter} config={this.state.interactiveFilters} currData={this.state.currData}>
             </InteractiveFilters>
-            <Visualizations config ={this.state.visualization} onRefresh={this.handleRefresh} debug={this.state.debug} currData={this.state.currData}>
+            <Visualizations config ={this.state.visualization} debug={this.state.debug} currData={this.state.currData}>
             </Visualizations>
           </div>
         );
