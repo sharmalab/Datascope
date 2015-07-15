@@ -10,6 +10,8 @@ var interactiveFilters = require("../modules/interactiveFilters"),
 var TABLE_STATE = 0;
 
 
+var CURRENTDATA = {};
+
 
 //
 //#### handleFilterRequest(request, response, next)
@@ -56,35 +58,28 @@ var _handleFilterRequest = function(req,res,next) {
   });
   Object.keys(groups).forEach(function(key) {
       results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value}
-  })
+  });
+
+  CURRENTDATA = dimensions["imageGrid"].top(Infinity);
+
+  //Image Grid stuff
+  console.log(typeof(CURRENTDATA["values"]));
+  //console.log(CURRENTDATA)
   //console.log(visualization.getVisualizationType())
 
   //if(visualization.getVisualizationType() == "imageGrid"){
     //console.log(dimensions["imageGrid"].top(100))
-    var imageGridDataLength = (dimensions["imageGrid"].top(Infinity)).length;
-    var paginate = true;
-    var finalState = Math.floor(imageGridDataLength/100);
-    if(imageGridDataLength < 100){
-      paginate = false;
-    }
-    results["imageGrid"] = {values:(dimensions["imageGrid"].top(100)),
+  var reqLength = 100;
+  var paginate = true;
+  if(CURRENTDATA.length < reqLength)
+    paginate = false;
+  results["imageGrid"] = {
+    values: CURRENTDATA.slice(0,100),
       active:all.value(),
       size: size,
-      state: Math.floor(imageGridDataLength/100),
+      state: Math.floor(reqLength/100),
       paginate: paginate,
-      finalState: finalState
-    }
-
-  //}
-
-  if(visualization.getVisualizationType() == "dataTable"){
-    TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
-    results["table_data"] = {
-      data:TABLE_DATA.slice(0,100),
-      active: all.value(),
-      state: TABLE_STATE,
-      size: size
-    }
+      finalState: 3
   }
 
   res.writeHead(200, { 'content-type': 'application/json' });
@@ -127,18 +122,22 @@ var _tableNext = function(req, res, next){
     results = {};
     TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
  
-  
-  var DATA_ARRAY = [];
-  for(var i in TABLE_DATA){
-    var row = Object.keys(TABLE_DATA[i]).map(function(k) { return TABLE_DATA[i][k] });
-    DATA_ARRAY.push(row);
-  }
-
   //var reqParams = iDisplayLength, iDisplayStart
   var start = req.query.start;
   var length = req.query.length;
+  var TABLE_DATA = TABLE_DATA.slice(start, start+length)
+  var DATA_ARRAY = [];
+  for(var i in TABLE_DATA){
+    //var row = Object.keys(TABLE_DATA[i]).map(function(k) { return TABLE_DATA[i][k] });
+    var row = [];
+    for(var j in TABLE_DATA[i]){
+      row.push(TABLE_DATA[i][j])
+    }
+    DATA_ARRAY.push(row);
+  }
+
   results = {
-    data: DATA_ARRAY.slice(start,start +length),
+    data: DATA_ARRAY,
     active: all.value(),
     state: state,
     draw: req.query.draw,
