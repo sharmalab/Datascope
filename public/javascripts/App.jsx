@@ -65,7 +65,6 @@ var Dashboard = React.createClass({
         var data = AppStore.getData();
         var debug=this.state.debug+1;
         this.setState({currData: data});
-        console.log("state is set")
         dc.renderAll();
 
       },
