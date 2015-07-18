@@ -121,7 +121,7 @@ var _tableNext = function(req, res, next){
     state = req.param("state") ? JSON.parse(req.param("state")) : 1,
     results = {};
     TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
- 
+    var len = TABLE_DATA.length;
   //var reqParams = iDisplayLength, iDisplayStart
   var start = req.query.start;
   var length = req.query.length;
@@ -135,6 +135,7 @@ var _tableNext = function(req, res, next){
     }
     DATA_ARRAY.push(row);
   }
+  console.log(TABLE_DATA.length)
 
   results = {
     data: DATA_ARRAY,
@@ -142,7 +143,7 @@ var _tableNext = function(req, res, next){
     state: state,
     draw: req.query.draw,
     recordsTotal: 372,      //FIX THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    recordsFiltered: DATA_ARRAY.length
+    recordsFiltered: len
   }
   res.writeHead(200, {'content-type': 'application/json'});
   res.end(JSON.stringify(results));

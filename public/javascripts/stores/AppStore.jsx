@@ -7,11 +7,9 @@ var _currentData = {};
 var AppStore = Reflux.createStore({
 
 	init: function(){
-		console.log("sdfasdf");
 		this.listenTo(AppActions.refresh, this.onRefresh);
 	},
 	onRefresh: function(queryFilter){
-		console.log("refreshing.....");
 		var filteredData = {};
 		var that = this;
 	    if(JSON.stringify(queryFilter)) {
