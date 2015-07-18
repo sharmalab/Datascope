@@ -2,7 +2,9 @@ var queryFilter = {};
 var AppActions = require("../actions/AppActions.jsx");
 
 var ChartAddons = React.createClass({
-
+    getInitialState: function(){
+        return {elasticY: true};
+    },
     filter: function(e){
         var self = this;
         var c = self.props.chart;
@@ -20,19 +22,57 @@ var ChartAddons = React.createClass({
     handleEnd: function(event){
         this.setState({end: event.target.value});
     },
+    handleElasticY: function(event){
+        var c = this.props.chart;
+        console.log("handle checkbox..")
+        console.log((this.state.elasticY));
+
+
+        if(this.state.elasticY == true){
+
+            c.elasticY(false);
+
+        } else {
+            //Elastic axis
+            c.elasticY(true);
+        }
+
+
+        //c.elasticY(false);
+        c.filterAll();
+        dc.renderAll();
+        this.setState({elasticY: !this.state.elasticY});
+
+    },
     render: function(){
         var visType = this.props.config.visualization.visType;
         
         switch(visType){
             case  "barChart":
                 return(
+                    <div>
                     <div className="chartAddons">
-                        <input type="text" onChange={this.handleBeg} id={"filterBeg"+this.props.config.name}/>
+                        <label>
+                        Range:
+                        <input type="text" onChange={this.handleBeg} onKeyDown={this.filter} id={"filterBeg"+this.props.config.name}/>
                         -            
                         <input type="text" onChange={this.handleEnd} onKeyDown={this.filter} id={"filterEnd"+this.props.config.name}/>
-             
+                        </label>
                     </div>
-                );           
+                    <div className="chartAddons">
+                        <label>
+                        ElasticY: 
+                        <input type="checkbox"  onChange={this.handleElasticY}  checked={this.state.elasticY}/>
+                        </label>
+                    </div>
+                    </div>
+                );  
+            case "rowChart":
+                return(
+                    <div className="chartAddons">
+                        <input type="checkbox" onChange={this.handleCheck}/>
+                    </div>
+                );
             default:
                 return(
                     <div></div>
@@ -139,14 +179,14 @@ var FilteringAttribute = React.createClass({
                 break;
             case "barChart":
                 c = dc.barChart(divId);
-                c.width(250)
+                c.width(240)
                     .height(190).dimension(self.state.dimension)
                     .group(self.state.group)
                     .x(d3.scale.linear().domain(domain))
                     .elasticY(true)
                     .elasticX(true)        
                     .renderLabel(true)
-
+                    .margins({left: 35, top: 10, bottom: 20, right: 10})
                     c.filterHandler(function(dimension, filter){
 
                         var begin = $("#filterBeg"+dimension.name());
