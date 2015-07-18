@@ -21290,7 +21290,6 @@ var Dashboard = React.createClass({displayName: "Dashboard",
         var data = AppStore.getData();
         var debug=this.state.debug+1;
         this.setState({currData: data});
-        console.log("state is set")
         dc.renderAll();
 
       },
@@ -21328,7 +21327,9 @@ var queryFilter = {};
 var AppActions = require("../actions/AppActions.jsx");
 
 var ChartAddons = React.createClass({displayName: "ChartAddons",
-
+    getInitialState: function(){
+        return {elasticY: true};
+    },
     filter: function(e){
         var self = this;
         var c = self.props.chart;
@@ -21346,19 +21347,57 @@ var ChartAddons = React.createClass({displayName: "ChartAddons",
     handleEnd: function(event){
         this.setState({end: event.target.value});
     },
+    handleElasticY: function(event){
+        var c = this.props.chart;
+        console.log("handle checkbox..")
+        console.log((this.state.elasticY));
+
+
+        if(this.state.elasticY == true){
+
+            c.elasticY(false);
+
+        } else {
+            //Elastic axis
+            c.elasticY(true);
+        }
+
+
+        //c.elasticY(false);
+        c.filterAll();
+        dc.renderAll();
+        this.setState({elasticY: !this.state.elasticY});
+
+    },
     render: function(){
         var visType = this.props.config.visualization.visType;
         
         switch(visType){
             case  "barChart":
                 return(
+                    React.createElement("div", null, 
                     React.createElement("div", {className: "chartAddons"}, 
+                        React.createElement("label", null, 
+                        "Range:", 
                         React.createElement("input", {type: "text", onChange: this.handleBeg, onKeyDown: this.filter, id: "filterBeg"+this.props.config.name}), 
                         "-",             
                         React.createElement("input", {type: "text", onChange: this.handleEnd, onKeyDown: this.filter, id: "filterEnd"+this.props.config.name})
-             
+                        )
+                    ), 
+                    React.createElement("div", {className: "chartAddons"}, 
+                        React.createElement("label", null, 
+                        "ElasticY:",  
+                        React.createElement("input", {type: "checkbox", onChange: this.handleElasticY, checked: this.state.elasticY})
+                        )
                     )
-                );           
+                    )
+                );  
+            case "rowChart":
+                return(
+                    React.createElement("div", {className: "chartAddons"}, 
+                        React.createElement("input", {type: "checkbox", onChange: this.handleCheck})
+                    )
+                );
             default:
                 return(
                     React.createElement("div", null)
@@ -21465,14 +21504,14 @@ var FilteringAttribute = React.createClass({displayName: "FilteringAttribute",
                 break;
             case "barChart":
                 c = dc.barChart(divId);
-                c.width(250)
+                c.width(240)
                     .height(190).dimension(self.state.dimension)
                     .group(self.state.group)
                     .x(d3.scale.linear().domain(domain))
                     .elasticY(true)
                     .elasticX(true)        
                     .renderLabel(true)
-
+                    .margins({left: 35, top: 10, bottom: 20, right: 10})
                     c.filterHandler(function(dimension, filter){
 
                         var begin = $("#filterBeg"+dimension.name());
@@ -22127,11 +22166,9 @@ var _currentData = {};
 var AppStore = Reflux.createStore({
 
 	init: function(){
-		console.log("sdfasdf");
 		this.listenTo(AppActions.refresh, this.onRefresh);
 	},
 	onRefresh: function(queryFilter){
-		console.log("refreshing.....");
 		var filteredData = {};
 		var that = this;
 	    if(JSON.stringify(queryFilter)) {
