@@ -243,3 +243,12 @@ table#dataTable{
 .imageGridImages-enter.imageGridImages-enter-active {
   opacity: 1;
 }
+
+.chartAddons{
+  margin: 2px;
+//  float: right;
+}
+.chartAddons input{
+  width: 40px;
+  display: inline;
+}

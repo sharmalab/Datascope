@@ -1,4 +1,4 @@
-
+[
 
 {
     "type": "dataTable",
@@ -30,3 +30,4 @@
     "heading": "Data table",
     "subheading": "Using synthetic data"
 }
+]
