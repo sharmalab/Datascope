@@ -21237,11 +21237,11 @@ var Loader = require('react-loader');
 
 
 var Dashboard = React.createClass({displayName: "Dashboard",
-        mixins: [Reflux.connect(AppStore,"currData")], // will set up listenTo call and then do this.setState("currData",data)
+        //mixins: [Reflux.connect(AppStore,"currData")], // will set up listenTo call and then do this.setState("currData",data)
         componentDidMount: function(){      
             var self=this;    
 
-            //self.unsubscribe = AppStore.listen(self.onFilter);
+            self.unsubscribe = AppStore.listen(self.onFilter);
 
             d3.json("config/interactiveFilters.json", function(err, data) {
 
@@ -21290,7 +21290,6 @@ var Dashboard = React.createClass({displayName: "Dashboard",
         var data = AppStore.getData();
         var debug=this.state.debug+1;
         this.setState({currData: data});
-        console.log("state is set")
         dc.renderAll();
 
       },
@@ -21301,8 +21300,6 @@ var Dashboard = React.createClass({displayName: "Dashboard",
           console.log(this.state.loaded)
         return (
           React.createElement("div", null, 
- 
-
             React.createElement(InteractiveFilters, {onFilter: this.onFilter, config: this.state.interactiveFilters, currData: this.state.currData}
             ), 
             React.createElement(Visualizations, {config: this.state.visualization, debug: this.state.debug, currData: this.state.currData}
@@ -21328,6 +21325,89 @@ module.exports = AppActions;
 },{"reflux":167}],174:[function(require,module,exports){
 var queryFilter = {};
 var AppActions = require("../actions/AppActions.jsx");
+
+var ChartAddons = React.createClass({displayName: "ChartAddons",
+    getInitialState: function(){
+        return {elasticY: true};
+    },
+    filter: function(e){
+        var self = this;
+        var c = self.props.chart;
+        if(e.keyCode == 13){
+            console.log(this.props.chart);
+            var f = [self.state.beg, self.state.end];
+            c.filterAll();
+            c.filter(f);
+        }
+
+    },
+    handleBeg: function(event){
+        this.setState({beg: event.target.value});
+    },
+    handleEnd: function(event){
+        this.setState({end: event.target.value});
+    },
+    handleElasticY: function(event){
+        var c = this.props.chart;
+        console.log("handle checkbox..")
+        console.log((this.state.elasticY));
+
+
+        if(this.state.elasticY == true){
+
+            c.elasticY(false);
+
+        } else {
+            //Elastic axis
+            c.elasticY(true);
+        }
+
+
+        //c.elasticY(false);
+        c.filterAll();
+        dc.renderAll();
+        this.setState({elasticY: !this.state.elasticY});
+
+    },
+    render: function(){
+        var visType = this.props.config.visualization.visType;
+        
+        switch(visType){
+            case  "barChart":
+                return(
+                    React.createElement("div", null, 
+                    React.createElement("div", {className: "chartAddons"}, 
+                        React.createElement("label", null, 
+                        "Range:", 
+                        React.createElement("input", {type: "text", onChange: this.handleBeg, onKeyDown: this.filter, id: "filterBeg"+this.props.config.name}), 
+                        "-",             
+                        React.createElement("input", {type: "text", onChange: this.handleEnd, onKeyDown: this.filter, id: "filterEnd"+this.props.config.name})
+                        )
+                    ), 
+                    React.createElement("div", {className: "chartAddons"}, 
+                        React.createElement("label", null, 
+                        "ElasticY:",  
+                        React.createElement("input", {type: "checkbox", onChange: this.handleElasticY, checked: this.state.elasticY})
+                        )
+                    )
+                    )
+                );  
+            case "rowChart":
+                return(
+                    React.createElement("div", {className: "chartAddons"}, 
+                        React.createElement("input", {type: "checkbox", onChange: this.handleCheck})
+                    )
+                );
+            default:
+                return(
+                    React.createElement("div", null)
+                );
+        }
+
+    }
+})
+
+
 var FilteringAttribute = React.createClass({displayName: "FilteringAttribute",
     componentWillMount: function(){
      //Initialize crossfilter dimensions and groups before rendering
@@ -21404,11 +21484,11 @@ var FilteringAttribute = React.createClass({displayName: "FilteringAttribute",
         var divId = "#dc-"+this.props.config.name;
 
         var domain = this.props.config.domain || [0,100];
-
+        var c = {};
         //Render according to chart-type
         switch(visType){
             case "pieChart":
-                var c   = dc.pieChart(divId);
+                c   = dc.pieChart(divId);
                 c.width(250)
                 .height(190).dimension(self.state.dimension)
                 .group(self.state.group)
@@ -21423,15 +21503,15 @@ var FilteringAttribute = React.createClass({displayName: "FilteringAttribute",
                 });
                 break;
             case "barChart":
-                var c = dc.barChart(divId);
-                c.width(250)
+                c = dc.barChart(divId);
+                c.width(240)
                     .height(190).dimension(self.state.dimension)
                     .group(self.state.group)
                     .x(d3.scale.linear().domain(domain))
                     .elasticY(true)
                     .elasticX(true)        
                     .renderLabel(true)
-
+                    .margins({left: 35, top: 10, bottom: 20, right: 10})
                     c.filterHandler(function(dimension, filter){
 
                         var begin = $("#filterBeg"+dimension.name());
@@ -21444,9 +21524,15 @@ var FilteringAttribute = React.createClass({displayName: "FilteringAttribute",
                         dimension.filter(filter);
                         return filter;
                     });
+                //Put reset
+                //$("#"+(self.prop.config.name)+"-note").html("<button></button>")
+
+                //Put filtering form
+
+
                 break;
             case "rowChart":
-                var c = dc.rowChart(divId);
+                c = dc.rowChart(divId);
                 c.width(250)
                 .height(190)
                 .dimension(self.state.dimension)
@@ -21462,21 +21548,31 @@ var FilteringAttribute = React.createClass({displayName: "FilteringAttribute",
                     return filters;
                 })     
         }
+        this.setState({chart: c});
     },    
+    onReset: function(e){
 
+        //e.preventDefault();
+        var c  = this.state.chart;
+        console.log("Reset")
+        c.filterAll();
+        //dc.renderAll();
+    },
     render: function(){
+        var self = this;
         var divId = "dc-"+this.props.config.name;
         if(this.props.full == true){
             return (
                 React.createElement("div", {className: "col-md-3"}, 
                     React.createElement("div", {className: "chart-wrapper"}, 
                         React.createElement("div", {className: "chart-title"}, 
-                          this.props.config.name
+                            this.props.config.name
+
                         ), 
                         React.createElement("div", {className: "chart-stage"}, 
                             React.createElement("div", {id: divId}, " ")
                         ), 
-                        React.createElement("div", {className: "chart-notes"}, 
+                        React.createElement("div", {className: "chart-notes", id: self.props.config.name +  "-note"}, 
                           "Full view"
                         )
                     )
@@ -21487,13 +21583,15 @@ var FilteringAttribute = React.createClass({displayName: "FilteringAttribute",
                 React.createElement("div", {className: "col-md-12", onClick: this.fullView}, 
                     React.createElement("div", {className: "chart-wrapper"}, 
                         React.createElement("div", {className: "chart-title"}, 
-                          this.props.config.name
+                            this.props.config.name
                         ), 
                         React.createElement("div", {className: "chart-stage"}, 
                             React.createElement("div", {id: divId}, " ")
                         ), 
                         React.createElement("div", {className: "chart-notes"}, 
-                          "Additional description here"
+                            React.createElement("button", {onClick: this.onReset}, "Reset"), 
+                            React.createElement(ChartAddons, {config: this.props.config, data: this.state.currData, chart: this.state.chart})
+
                         )
                     )
                 )
@@ -21775,116 +21873,6 @@ var DataTable = React.createClass({displayName: "DataTable",
 module.exports = DataTable;
 
 
-
-var BubbleChart = React.createClass({displayName: "BubbleChart",
-    componentWillMount: function(){
-     //Initialize crossfilter dimensions and groups before rendering
-
-        var attributeName = this.props.config.name;
-        var dim = {
-            filter: function(f) {
-                if(f) {
-                        queryFilter[attributeName] = f;
-                        refresh()
-                } else {
-                      if(queryFilter[attributeName]){
-                        delete queryFilter[attributeName];
-                        refresh()
-                      } else {
-                        return;
-                      } 
-                    }
-            },
-            filterAll: function() {
-                    delete queryFilter[attributeName];
-                    refresh();
-            },
-            name: function(){
-                    return attributeName;
-            }
-       
-        };
-        var group = {
-                all: function() {
-                    return filteredData[attributeName].values;
-                },
-                order: function() {
-                    return groups[attributeName];
-                },
-                top: function() {
-                    return filteredData[attributeName].values;
-                }
- 
-        };
-
-        this.setState({dimension: dim, group: group});
-    },
-    componentDidMount: function(){
-        var config = this.props.config;
-
-        var visualAttributes = this.props.config.attributes;
-        var xAttr;
-        var yAttr;
-        var rAttr;
-        var colorAttr;
-        for (var i=0; i<visualAttributes.length; i++) {
-            attribute = visualAttributes[i];
-
-            if(attribute.type == "x"){
-                xAttr = attribute.name;
-            }
-            if(attribute.type == "y"){
-                yAttr = attribute.name;
-            }
-            if(attribute.type == "r"){
-                rAttr = attribute.name;
-            }
-            if(attribute.type == "color"){
-                colorAttr = attribute.name;
-            }    
-        }
-        visBubbleChart = dc.bubbleChart("#vis");
-
-        visBubbleChart.width(900)
-            .height(400)
-            .dimension(dimensions["visualization"])
-            .group(groups["visualization"])
-            .maxBubbleRelativeSize(0.4)       
-            .margins({top: 50, right: 50, bottom: 30, left: 40})
-            .colors(colorbrewer.RdYlGn[9]) // (optional) define color function or array for bubbles
-            .colorAccessor(function(d){
-                return d.value[colorAttr];
-            })
-            .radiusValueAccessor(function(d){
-                return d.value[rAttr]/100000;
-            })
-            .keyAccessor(function(d){
-                return d.value[xAttr];
-            })
-            .valueAccessor(function(d){
-                return d.value[yAttr];
-            })
-            .x(d3.scale.linear().domain([0, 100]))
-            .y(d3.scale.linear().domain([0, 10]))
-            .r(d3.scale.linear().domain([0, 10]))
-            .elasticY(true)
-            .elasticX(true)
-            .yAxisPadding(100)
-            .xAxisPadding(500)
-            .renderHorizontalGridLines(true) // (optional) render horizontal grid lines, :default=false
-            .renderVerticalGridLines(true) // (optional) render vertical grid lines, :default=false
-
-
-        },
-    render: function(){
-        return(
-            React.createElement("div", {id: "vis"}
-
-            )
-        )
-    }
-
-});
 
 },{}],179:[function(require,module,exports){
 
@@ -22178,11 +22166,9 @@ var _currentData = {};
 var AppStore = Reflux.createStore({
 
 	init: function(){
-		console.log("sdfasdf");
 		this.listenTo(AppActions.refresh, this.onRefresh);
 	},
 	onRefresh: function(queryFilter){
-		console.log("refreshing.....");
 		var filteredData = {};
 		var that = this;
 	    if(JSON.stringify(queryFilter)) {
