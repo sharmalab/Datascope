@@ -12,11 +12,11 @@ var Loader = require('react-loader');
 
 
 var Dashboard = React.createClass({
-        mixins: [Reflux.connect(AppStore,"currData")], // will set up listenTo call and then do this.setState("currData",data)
+        //mixins: [Reflux.connect(AppStore,"currData")], // will set up listenTo call and then do this.setState("currData",data)
         componentDidMount: function(){      
             var self=this;    
 
-            //self.unsubscribe = AppStore.listen(self.onFilter);
+            self.unsubscribe = AppStore.listen(self.onFilter);
 
             d3.json("config/interactiveFilters.json", function(err, data) {
 
@@ -65,7 +65,6 @@ var Dashboard = React.createClass({
         var data = AppStore.getData();
         var debug=this.state.debug+1;
         this.setState({currData: data});
-        console.log("state is set")
         dc.renderAll();
 
       },
@@ -76,8 +75,6 @@ var Dashboard = React.createClass({
           console.log(this.state.loaded)
         return (
           <div>
- 
-
             <InteractiveFilters onFilter={this.onFilter} config={this.state.interactiveFilters} currData={this.state.currData}>
             </InteractiveFilters>
             <Visualizations config ={this.state.visualization} debug={this.state.debug} currData={this.state.currData}>
