@@ -36,16 +36,16 @@ var HeatMap = React.createClass({
         var group = {
             all: function() {
 
-                return self.props.currData["heatMapGroup"].values;
-                //return filteredData["heatMapGroup"].values;
+                return self.props.currData["heatMap"].values;
+                //return filteredData["heatMap"].values;
             },
             order: function() {
-                return groups["heatMapGroup"];
+                return groups["heatMap"];
             },
             top: function() {
 
-                return self.props.currData["heatMapGroup"].values;
-                //return filteredData["heatMapGroup"].values;
+                return self.props.currData["heatMap"].values;
+                //return filteredData["heatMap"].values;
             }
         };
 
