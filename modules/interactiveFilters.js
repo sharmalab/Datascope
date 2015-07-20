@@ -3,7 +3,7 @@ var Validator = require('jsonschema').Validator;
 var schemaValidator = new Validator();
 var fs = require("fs");
 var dataDescription = require("./dataDescription");
-
+//var visualization = require("./visualization");
 var crossfilter = require("crossfilter")
 
 var interactiveFilters = (function(){
@@ -70,7 +70,7 @@ var interactiveFilters = (function(){
           group = dimension.group()
           groups[filteringAttribute["name"]] = group;
         }
-
+        /*
         var xAttr = "AgeatInitialDiagnosis";
         var yAttr = "KarnofskyScore";
         dimensions["imageGrid"] = ndx.dimension(function(d){
@@ -94,6 +94,13 @@ var interactiveFilters = (function(){
     return {
         init: _init,
         applyCrossfilter: _applyCrossfilter,
+        addDimension: function(name,body){
+          dimensions[name] = body;
+
+        },
+        addGroup: function(name, body){
+          groups[name] = body;
+        },
         getDimensions: function(){
             return dimensions;
         },
