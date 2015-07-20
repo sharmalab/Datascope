@@ -4,31 +4,54 @@ var schemaValidator = new Validator();
 var fs = require("fs");
 
 
-
+var interactiveFilters = require("./interactiveFilters");
 
 var visualization = (function(){
 
 
     var visualizationConfig = {},
+        ndx = {},
+        visualizations = [] //array containing information about all the visualizations
         visualizationConfigPath = "public/config/visualization.json";
 
 
-    var imageGridFilters = function (){
+    var imageGridFilters = function (ndx, visualization){
       var dimension;
       for(var attr in visualization.attributes){
         var attribute = visualization.attributes[attr];
         if(attribute.type == "image"){  
           dimension = attribute.name;
-          dimensions["imageGrid"] = ndx.dimension(function(d){
+          dimension = ndx.dimension(function(d){
             return d[attribute.name];        
           });
         }
 
       }
-      groups["visualization"] = dimensions["visualization"].group();
+
+      interactiveFilters.addDimension("imageGrid", dimension);
+      interactiveFilters.addGroup("imageGrid", dimension.group());
     }
 
+    var heatMapFilters = function(ndx, visualization){
+      var xAttr, yAttr;
+      for(var attr in visualization.attributes){
+        var attribute = visualization.attributes[attr];
+        console.log(attribute)
+        if(attribute.type == "x"){  
+          xAttr = attribute.name;
+        } else if(attribute.type == "y"){
+          yAttr = attribute.name;
+        }
+      }
+      console.log(xAttr)
+      var dimension = ndx.dimension(function(d) {
 
+        return ([+d[xAttr]*1, +d[yAttr]*1]);
+      });
+      var group = dimension.group();
+      interactiveFilters.addDimension("heatMap", dimension);
+      interactiveFilters.addGroup("heatMap", dimension.group());
+    }
     var bubbleChartFilters = function(){
         var xAttr;
         var yAttr;
@@ -82,34 +105,53 @@ var visualization = (function(){
         );  
     };
 
-    var _visualizationFilters = function(){
-
-        var visualizationType = visualization.type;
-        switch(visualizationType){
-            case "bubbleChart":
-                bubbleChartFilters();
-          break;
-            case "imageGrid":
-                imageGridFilters();
-          break;
-        }
-
-    };
-
 
     var _loadConfig = function(path) {
         visualizationConfigPath = path || visualizationConfigPath;
         visualizationConfig = fs.readFileSync(visualizationConfigPath);
         visualizationConfig = JSON.parse(visualizationConfig);
+        return visualizationConfig;
     };
 
     var _init = function(path){
-        _loadConfig(path);
+
+        var config  = _loadConfig(path);
+        visualizations = [];
+        for (var i in config) {
+          visualizations.push(config[i]);
+
+        }
+
+        //_visualizationFilters();
+        return config;
+    }
+
+    var _applyCrossfilter = function(){
+
+      var ndx = interactiveFilters.getndx();
+      //console.log(ndx);
+
+      for(var i in visualizations){
+        var vis = visualizations[i];
+
+        switch(vis.type){
+          case "imageGrid":
+            imageGridFilters(ndx,vis);
+            break;
+          case "heatMap":
+            heatMapFilters(ndx,vis);
+            break;
+        }
+
+
+      }
+
+
     }
 
     return{
         init: _init,
-        visualizationFilters: _visualizationFilters,
+        applyCrossfilter: _applyCrossfilter,
         getVisualizationType: function(){
             return visualizationConfig.type;
         }
