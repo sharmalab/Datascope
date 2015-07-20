@@ -19,8 +19,9 @@ var dataSource = (function(){
     
  
     _init = function (){
-        for(var i in dataSourcesConfig){
-          source = dataSourcesConfig[i];
+        dataSources = [];
+        for(var i in dataSourcesConfig["joinSources"]){
+          source = dataSourcesConfig["joinSources"][i];
           dataSources.push(source);
           /*
           for(var j in source.attributes){
@@ -28,7 +29,6 @@ var dataSource = (function(){
             attributes[attribute] = true;
           }
           */
-          //console.log(dataSources)
         }
         return dataSources;
 
@@ -55,15 +55,14 @@ var dataSource = (function(){
                     };
                     return lds;
                 }();
-                keys.push(dataSources[i].key);
+                //keys.push(dataSources[i].key);
                 loadFunctionArray.push(source);
             }
-
+            keys.push(dataSourcesConfig["joinKey"]);
             async.parallel(loadFunctionArray, function(err, results){
                 //Results is an array of arrays of data from each source
                 
                 var merged = _merge(results);
-                
                 callback(merged);
             });
 
@@ -89,7 +88,6 @@ var dataSource = (function(){
         return merged;
     };
     var _merge = function(results){
-            console.log(results.length)
             if(results.length == 1){
                 return results;
             } else if(results.length == 2){
@@ -136,7 +134,8 @@ var dataSource = (function(){
         loadDataSourceConfig: _loadDataSourceConfig,
         init: function(path){
             _loadDataSourceConfig(path);
-            _init();
+            var sources = _init();
+            return sources;
         },
         getAttributes: function(){
             return attributes;
