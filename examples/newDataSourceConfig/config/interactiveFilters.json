@@ -1,0 +1,31 @@
+[
+    {
+        "name": "A",
+        "order": 3, 
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },    
+    {
+        "name": "B",
+        "order": 3, 
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },    
+    {
+        "name": "C",
+        "order": 3, 
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },   
+    {
+        "name": "D",
+        "order": 3, 
+        "visualization": {
+            "visType": "pieChart"
+        }
+    }
+        
+]
