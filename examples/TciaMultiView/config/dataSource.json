@@ -1,0 +1,11 @@
+[
+	{
+		"name": "source1",
+		"type": "csv",
+		"options":{
+            "path": "data/TCIA2img.csv"
+		},
+		"attributes": ["CancerType","BCRPatientUIDFromPathology","BCRPatientUIDFromClinical","BCRSlideUID","PatientBarcode","SampleBarcode","SlideBarcode","ImageFileName","SectionLocation","TumorCells","Necrosis","StromalCells", "NormalCells","TumorNuclei","KarnofskyScore", "AgeatInitialDiagnosis"],
+        "key": ["BCRSlideUID"]
+	}
+]
