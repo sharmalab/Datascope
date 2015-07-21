@@ -1,0 +1,28 @@
+
+[
+    {
+        "name": "A",
+        "datatype": "integer",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "sourceJoin"
+    },    
+    {
+        "name": "B",
+        "datatype": "string",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "sourceJoin"
+    },    
+    {
+        "name": "C",
+        "datatype": "string",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "sourceJoin"
+    },   
+    {
+        "name": "D",
+        "datatype": "integer",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "sourceJoin"
+    }
+        
+]
