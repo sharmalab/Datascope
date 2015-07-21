@@ -1,0 +1,13 @@
+{
+    "joinName": "sourceJoin",
+    "joinKey": ["A"],
+    "joinSources": [
+        {
+            "name": "clinical",
+                "type": "json",
+                "options":{
+                        "path": "examples/newDataSourceConfig/data/dataMerged.json"
+                }
+        }
+    ]
+}
