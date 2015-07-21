@@ -6,7 +6,7 @@ var interactiveFilters = require("../modules/interactiveFilters"),
 var ndx, dimension, group;
 var _heatInit = function(req, res){
       ndx = interactiveFilters.getndx();
-      console.log(ndx)
+      //console.log(ndx)
       xAttr = "AgeatInitialDiagnosis";
       yAttr = "KarnofskyScore";
 
