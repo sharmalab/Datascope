@@ -201,7 +201,7 @@ var _save = function(req, res, next){
   //console.log(attributes)
   */
 }
-
+/*
 var _heatInit = function(){
       var ndx = interactiveFilters.getndx();
       var dimension;
@@ -213,7 +213,7 @@ var _heatInit = function(){
       });
       var group = dimension.group(); 
 }
-
+*/
 var _heat = function(req, res){
 
       var results = {visualization: {values:group.all(),top:group.top(1)[0].value}};
