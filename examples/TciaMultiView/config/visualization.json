@@ -1,0 +1,71 @@
+[
+
+    {
+        "type": "dataTable",
+        "attributes":[
+        
+        {"name": "CancerType"},{"name": "BCRPatientUIDFromPathology"},
+        {"name": "BCRPatientUIDFromClinical"},{"name": "BCRSlideUID"},{"name": "PatientBarcode"},
+        {"name": "SampleBarcode"},{"name": "SlideBarcode"},{"name": "ImageFileName"},{"name": "SectionLocation"},
+            {
+                "name": "StromalCells"
+            },
+            {
+                "name": "NormalCells"
+            },
+            {
+                "name": "TumorNuclei"
+            },
+            {
+                "name": "KarnofskyScore"
+            },
+            {
+                "name": "AgeatInitialDiagnosis"
+            }, {
+                "name":"HistologicDiagnosis"
+            },{
+                "name": "Laterality"
+            }, {
+                "name":"TumorSite"
+            },{
+                "name": "SupratentorialLocalization"
+            }, {
+                "name":"Gender"
+            }, {
+                "name":"Race"
+            }
+        ],
+        "heading": "TCGA",
+        "subheading": ""
+    },
+
+    {
+        "type": "imageGrid",
+        "attributes":[
+            {
+                "name": "image",
+                "type": "image"
+            }
+        ],
+        "heading": "Bubble Chart",
+        "subheading": "Using synthetic data"
+    }, 
+    {
+
+        "type": "heatMap",
+        "attributes":[
+
+            {
+                "name": "AgeatInitialDiagnosis",
+                "type": "x"
+            },
+            {
+                "name": "KarnofskyScore",
+                "type": "y"
+            }
+        ],
+        "heading": "Heat Map",
+        "subheading": "AgeatInitialDiagnosis vs KarnofskyScore"
+    }
+
+]
