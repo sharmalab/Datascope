@@ -1,0 +1,14 @@
+[
+
+{
+    "type": "dataTable",
+    "attributes":[
+        {"name": "A"},
+        {"name": "B"},
+        {"name": "C"},
+        {"name": "D"}
+    ],
+    "heading": "TCGA",
+    "subheading": ""
+}
+]
