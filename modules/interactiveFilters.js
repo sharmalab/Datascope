@@ -38,7 +38,7 @@ var interactiveFilters = (function(){
     var _getFilterConfig = function(attributeName){
       for(var i in interactiveFiltersConfig){
         var filterConfig = interactiveFiltersConfig[i];
-        if(filterConfig.name == attributeName){
+        if(filterConfig[ATTRIBUTENAME] == attributeName){
           return filterConfig;
         }
       }
@@ -72,7 +72,7 @@ var interactiveFilters = (function(){
               return Math.round(d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
             });
           } else if(filteringAttribute["datatype"] == "integer"){
-            console.log(binFactor)
+            //console.log(binFactor)
             dimension = ndx.dimension(function(d){
               return Math.round(d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
             })
