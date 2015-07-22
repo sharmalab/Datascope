@@ -1,13 +1,14 @@
 {
-    "joinName": "sourceJoin",
+    "dataSourceAlias": "singleSource",
     "joinKey": ["A"],
-    "joinSources": [
-        {
-            "name": "clinical",
-                "type": "json",
-                "options":{
-                        "path": "examples/newDataSourceConfig/data/dataMerged.json"
-                }
+    "dataSources": [
+            {
+            "sourceName": "smerged",
+            "sourceType": "json",
+            "options":{
+                "path": "examples/newDataSourceConfig/data/dataMerged.json"
+            },
+            "dataAttributes": ["A","B","C", "D"]
         }
     ]
 }
