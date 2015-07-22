@@ -2,7 +2,7 @@
 [
     {
         "attributeName": "A",
-        "datatype": "integer",
+        "datatype": "enum",
         "attributeType": ["visual", "filtering"],
         "dataSourceAlias": "sourceJoin"
     },    
@@ -14,13 +14,13 @@
     },    
     {
         "attributeName": "C",
-        "datatype": "string",
+        "datatype": "enum",
         "attributeType": ["visual", "filtering"],
         "dataSourceAlias": "sourceJoin"
     },   
     {
         "attributeName": "D",
-        "datatype": "integer",
+        "datatype": "enum",
         "attributeType": ["visual", "filtering"],
         "dataSourceAlias": "sourceJoin"
     }
