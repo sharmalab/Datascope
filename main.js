@@ -70,10 +70,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 function init(callback){
   dataSource.init();
-  dataDescription.init();
+
+  var ds = dataDescription.init();
   interactiveFilters.init();
   visualization.init();
+
   dataSource.loadData(function(data){
+
     interactiveFilters.applyCrossfilter(data);
     visualization.applyCrossfilter();
     visualizationRoutes.heatInit();
