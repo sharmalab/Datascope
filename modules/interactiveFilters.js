@@ -17,6 +17,8 @@ var interactiveFilters = (function(){
       ndx,
       filter = {};
 
+    var ATTRIBUTENAME = "attributeName";
+
     var filteringAttributes = dataDescription.getFilteringAttributes();
 
 
@@ -33,7 +35,14 @@ var interactiveFilters = (function(){
         _loadConfig(path);
     }
 
-
+    var _getFilterConfig = function(attributeName){
+      for(var i in interactiveFiltersConfig){
+        var filterConfig = interactiveFiltersConfig[i];
+        if(filterConfig.name == attributeName){
+          return filterConfig;
+        }
+      }
+    }
 
     //
     //#### applyCrossfilter()
@@ -48,27 +57,35 @@ var interactiveFilters = (function(){
         for(var attr in filteringAttributes){
 
           var filteringAttribute = filteringAttributes[attr];
+
+          var fconfig = _getFilterConfig(filteringAttribute.attributeName);
+
+          if(fconfig)
+            var binFactor = fconfig["visualization"]["binFactor"] || 1; 
           //Create a crossfilter dimension on this attribute
           var dimension = {}
           if(filteringAttribute["datatype"] == "float"){
             dimension = ndx.dimension(function(d){
               //set binning parameter here
-              return Math.round(d[filteringAttribute["name"]]*10)/10;
+              var binFactor = fconfig["visualization"]["binFactor"] || 10; 
+
+              return Math.round(d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
             });
           } else if(filteringAttribute["datatype"] == "integer"){
+            console.log(binFactor)
             dimension = ndx.dimension(function(d){
-              return parseInt(d[filteringAttribute["name"]]);
+              return Math.round(d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
             })
           } else {
             dimension = ndx.dimension(function(d){
-              return d[filteringAttribute["name"]];
+              return d[filteringAttribute[ATTRIBUTENAME]];
             });
           }
 
-          dimensions[filteringAttribute["name"]] = dimension;
+          dimensions[filteringAttribute[ATTRIBUTENAME]] = dimension;
 
           group = dimension.group()
-          groups[filteringAttribute["name"]] = group;
+          groups[filteringAttribute[ATTRIBUTENAME]] = group;
         }
         /*
         var xAttr = "AgeatInitialDiagnosis";
