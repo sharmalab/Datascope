@@ -12,7 +12,7 @@ var DataTable = React.createClass({
             for(var i in self.props.config.attributes){
                 columns[count] = {};
                 //columns[count]["data"] = self.props.config.attributes[i].name;
-                columns[count]["title"] = self.props.config.attributes[i].label || self.props.config.attributes[i].name;
+                columns[count]["title"] = self.props.config.attributes[i].label || self.props.config.attributes[i].attributeName;
                 columns[count]["bSearchable"]= false;
                 columns[count]["bSortable"] =false ;
                 count++;

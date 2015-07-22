@@ -24,9 +24,13 @@ var ChartAddons = React.createClass({
     },
     handleElasticY: function(event){
         var c = this.props.chart;
-        console.log("handle checkbox..")
-        console.log((this.state.elasticY));
+        console.log("handle checkbox..");
+        //console.log((this.state.elasticY));
+        var queryFilterBackup = queryFilter;
+        //c.elasticY(true);
+        //AppActions.refresh({});
 
+        	console.log(queryFilter);
 
         if(this.state.elasticY == true){
 
@@ -36,7 +40,7 @@ var ChartAddons = React.createClass({
             //Elastic axis
             c.elasticY(true);
         }
-
+        //AppActions.refresh(queryFilter);
 
         //c.elasticY(false);
         c.filterAll();
@@ -248,7 +252,9 @@ var FilteringAttribute = React.createClass({
                             <div  id={divId}> </div>
                         </div>
                         <div className="chart-notes" id={self.props.config.name +  "-note"}>
-                          Full view
+                            <button onClick={this.onReset}>Reset</button>
+                            <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart}/>
+
                         </div>
                     </div>
                 </div>
