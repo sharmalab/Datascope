@@ -1,12 +1,12 @@
 [
 
 {
-    "type": "dataTable",
+    "visualizationType": "dataTable",
     "attributes":[
-        {"name": "A"},
-        {"name": "B"},
-        {"name": "C"},
-        {"name": "D"}
+        {"attributeName": "A"},
+        {"attributeName": "B"},
+        {"attributeName": "C"},
+        {"attributeName": "D"}
     ],
     "heading": "Dummy data",
     "subheading": ""
