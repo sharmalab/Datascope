@@ -155,7 +155,7 @@ var visualization = (function(){
 
           for(var i in visualizations){
             var visualization = visualizations[i];
-            if(visualization.visualizationType = visualizationType){
+            if(visualization.visualizationType == visualizationType){
 
               return visualization.attributes;
 
@@ -164,6 +164,17 @@ var visualization = (function(){
         },
         getVisualizationType: function(){
             return visualizationConfig.type;
+        }, 
+        hasVisualization: function(visualizationType){
+          for(var i in visualizations){
+            var visualization = visualizations[i];
+            if(visualization.visualizationType == visualizationType){
+
+              return true;
+            }
+
+          }
+          return false;
         }
     }
 })();

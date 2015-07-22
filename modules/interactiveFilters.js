@@ -84,10 +84,12 @@ var interactiveFilters = (function(){
 
           dimensions[filteringAttribute[ATTRIBUTENAME]] = dimension;
 
-          group = dimension.group()
+          group = dimension.group();
+          //console.log(filteringAttribute[ATTRIBUTENAME])
           groups[filteringAttribute[ATTRIBUTENAME]] = group;
         }
         /*
+
         var xAttr = "AgeatInitialDiagnosis";
         var yAttr = "KarnofskyScore";
         dimensions["imageGrid"] = ndx.dimension(function(d){
