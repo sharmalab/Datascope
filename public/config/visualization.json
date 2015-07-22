@@ -1,49 +1,21 @@
 [
 
     {
-        "type": "dataTable",
+        "visualizationType": "dataTable",
         "attributes":[
         
-        {"name": "CancerType"},{"name": "BCRPatientUIDFromPathology"},
-        {"name": "BCRPatientUIDFromClinical"},{"name": "BCRSlideUID"},{"name": "PatientBarcode"},
-        {"name": "SampleBarcode"},{"name": "SlideBarcode"},{"name": "ImageFileName"},{"name": "SectionLocation"},
-            {
-                "name": "StromalCells"
-            },
-            {
-                "name": "NormalCells"
-            },
-            {
-                "name": "TumorNuclei"
-            },
-            {
-                "name": "KarnofskyScore"
-            },
-            {
-                "name": "AgeatInitialDiagnosis"
-            }, {
-                "name":"HistologicDiagnosis"
-            },{
-                "name": "Laterality"
-            }, {
-                "name":"TumorSite"
-            },{
-                "name": "SupratentorialLocalization"
-            }, {
-                "name":"Gender"
-            }, {
-                "name":"Race"
-            }
+        {"attributeName": "CancerType"},
+        {"attributeName": "BCRPatientUIDFromClinical"},{"attributeName": "BCRSlideUID"},{"attributeName": "BCRPatientUIDFromPathology"}
         ],
         "heading": "TCGA",
         "subheading": ""
     },
 
     {
-        "type": "imageGrid",
+        "visualizationType": "imageGrid",
         "attributes":[
             {
-                "name": "image",
+                "attributeName": "image",
                 "type": "image"
             }
         ],
@@ -52,15 +24,15 @@
     }, 
     {
 
-        "type": "heatMap",
+        "visualizationType": "heatMap",
         "attributes":[
 
             {
-                "name": "AgeatInitialDiagnosis",
+                "attributeName": "AgeatInitialDiagnosis",
                 "type": "x"
             },
             {
-                "name": "KarnofskyScore",
+                "attributeName": "KarnofskyScore",
                 "type": "y"
             }
         ],
