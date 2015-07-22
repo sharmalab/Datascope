@@ -4,6 +4,7 @@
  */
 
 var interactiveFilters = require("../modules/interactiveFilters"),
+    dataSource      = require("../modules/dataSource"),
     dataDescription = require("../modules/dataDescription"),
     visualization = require("../modules/visualization"),
     json2csv = require("json2csv");
@@ -63,6 +64,7 @@ var _handleFilterRequest = function(req,res,next) {
       results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value}
   });
 
+  if(visualization.hasVisualization("imageGrid")){
   CURRENTDATA = dimensions["imageGrid"].top(Infinity);
 
   //Image Grid stuff
@@ -84,6 +86,10 @@ var _handleFilterRequest = function(req,res,next) {
       paginate: paginate,
       finalState: 3
   }
+
+
+  }
+
 
   res.writeHead(200, { 'content-type': 'application/json' });
   res.end((JSON.stringify(results)))
@@ -156,7 +162,7 @@ var _tableNext = function(req, res, next){
     active: all.value(),
     state: state,
     draw: req.query.draw,
-    recordsTotal: 372,      //FIX THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    recordsTotal: dataSource.getTotalRecords(),      //FIX THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!
     recordsFiltered: len
   }
   res.writeHead(200, {'content-type': 'application/json'});
