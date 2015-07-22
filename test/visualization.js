@@ -12,10 +12,5 @@ describe("visualization", function() {
 
       var vconfig = visualization.init("./examples/newDataSourceConfig/config/visualization.json");
 
-      it("dataTable test", function(done){
-        
-      });
-      
-
     });
 });
