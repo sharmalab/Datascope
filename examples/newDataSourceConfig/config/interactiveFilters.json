@@ -1,28 +1,24 @@
 [
     {
-        "name": "A",
-        "order": 3, 
+        "attributeName": "A",
         "visualization": {
             "visType": "rowChart"
         }
     },    
     {
-        "name": "B",
-        "order": 3, 
+        "attributeName": "B",
         "visualization": {
             "visType": "pieChart"
         }
     },    
     {
-        "name": "C",
-        "order": 3, 
+        "attributeName": "C",
         "visualization": {
             "visType": "pieChart"
         }
     },   
     {
-        "name": "D",
-        "order": 3, 
+        "attributeName": "D",
         "visualization": {
             "visType": "pieChart"
         }
