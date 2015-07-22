@@ -41,6 +41,7 @@ var dataDescription = (function(){
               visualAttributes.push(attribute);
           }
         }
+        return(path);
     }
 
     return {
