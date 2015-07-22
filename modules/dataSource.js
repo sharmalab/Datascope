@@ -22,6 +22,8 @@ var dataSource = (function(){
         attributes = {},
         dataSourceSchema,
         validation,
+        totalRecordsSize = 0,
+        DATA = {},
         keys = [];
 
 
@@ -109,7 +111,7 @@ var dataSource = (function(){
                 //Results is an array of arrays of data from each source
                 
                 var merged = _merge(results);
-
+                var count=0;
                 for(var i in merged){
                 	var row = merged[i];
                 	//console.log(row)
@@ -122,9 +124,11 @@ var dataSource = (function(){
                 			delete row[attr];
                 		}
                 	}
-                	merged[i] = row
+                	merged[i] = row;
+                    count++;
                 	//console.log(row)
                 }
+                totalRecordsSize = count;
                 callback(merged);
             });
 
@@ -181,7 +185,7 @@ var dataSource = (function(){
         else {
             loadData(dataSources[0], function(data){
 
-
+                var count=0;
                 for(var i in data){
                 	var row = data[i];
 
@@ -193,9 +197,10 @@ var dataSource = (function(){
                 		}
                 	}
                 	data[i] = row
+                    count++;
                 	//console.log(row)
                 }
-
+                totalRecordsSize = count;
                 callback(data);
             });
                  
@@ -221,6 +226,10 @@ var dataSource = (function(){
         validate: function(){
             dataSourceSchema = JSON.parse(fs.readFileSync("./schemas/dataSourceSchema.json"));
             validation = schemaValidator.validate(dataSourceConfig, dataSourceSchema);
+        },
+        getTotalRecords: function(){
+            //console.log(totalRecordsSize)
+            return totalRecordsSize;
         },
         loadData: _loadData
     };
