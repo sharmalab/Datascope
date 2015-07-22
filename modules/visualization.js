@@ -20,9 +20,9 @@ var visualization = (function(){
       for(var attr in visualization.attributes){
         var attribute = visualization.attributes[attr];
         if(attribute.type == "image"){  
-          dimension = attribute.name;
+          dimension = attribute.attributeName;
           dimension = ndx.dimension(function(d){
-            return d[attribute.name];        
+            return d[attribute.attributeName];        
           });
         }
 
@@ -36,14 +36,12 @@ var visualization = (function(){
       var xAttr, yAttr;
       for(var attr in visualization.attributes){
         var attribute = visualization.attributes[attr];
-        console.log(attribute)
         if(attribute.type == "x"){  
-          xAttr = attribute.name;
+          xAttr = attribute.attributeName;
         } else if(attribute.type == "y"){
-          yAttr = attribute.name;
+          yAttr = attribute.attributeName;
         }
       }
-      console.log(xAttr)
       var dimension = ndx.dimension(function(d) {
 
         return ([+d[xAttr]*1, +d[yAttr]*1]);
@@ -134,7 +132,7 @@ var visualization = (function(){
       for(var i in visualizations){
         var vis = visualizations[i];
 
-        switch(vis.type){
+        switch(vis.visualizationType){
           case "imageGrid":
             imageGridFilters(ndx,vis);
             break;
@@ -152,6 +150,18 @@ var visualization = (function(){
     return{
         init: _init,
         applyCrossfilter: _applyCrossfilter,
+        //Returns an array of attributes corresponding to the visualization
+        getAttributes: function(visualizationType){
+
+          for(var i in visualizations){
+            var visualization = visualizations[i];
+            if(visualization.visualizationType = visualizationType){
+
+              return visualization.attributes;
+
+            }
+          }
+        },
         getVisualizationType: function(){
             return visualizationConfig.type;
         }
