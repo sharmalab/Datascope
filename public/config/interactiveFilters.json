@@ -1,91 +1,89 @@
 [
     {
         "attributeName": "SectionLocation",
-        "order": 3, 
+    
         "visualization": {
             "visType": "rowChart"
         }
     },    
     {
         "attributeName": "TumorCells",
-        "order": 3, 
+
         "visualization": {
             "visType": "pieChart"
         }
     },    
     {
         "attributeName": "Necrosis",
-        "order": 3, 
+    
         "visualization": {
             "visType": "pieChart"
         }
     },   
     {
         "attributeName": "NormalCells",
-        "order": 3, 
+    
         "visualization": {
             "visType": "pieChart"
         }
     },  
     {
         "attributeName": "TumorNuclei",
-        "order": 3, 
+    
         "visualization": {
             "visType": "pieChart"
         }
     },
     {
         "attributeName": "KarnofskyScore",
-        "order": 3, 
+    
         "visualization": {
             "visType": "barChart"
         }
     },
     {
         "attributeName": "AgeatInitialDiagnosis",
-        "order": 3, 
+    
         "visualization": {
             "visType": "barChart"
         }
     },        
     {
         "attributeName": "HistologicDiagnosis",
-        "order": 5,
+    
         "visualization": {
             "visType": "rowChart"
         }
     },
     {
         "attributeName": "Laterality",
-        "order": 6,
+
         "visualization": {
             "visType": "rowChart"
         }
     },  
     {
         "attributeName": "TumorSite",
-        "order": 6,
+
         "visualization": {
             "visType": "rowChart"
         }
     },  
     {
         "attributeName": "SupratentorialLocalization",
-        "order": 6,
+
         "visualization": {
             "visType": "rowChart"
         }
     },  
     {
         "attributeName": "Gender",
-        "order": 6,
         "visualization": {
             "visType": "rowChart"
         }
     },  
     {
         "attributeName": "Race",
-        "order": 6,
         "visualization": {
             "visType": "rowChart"
         }
