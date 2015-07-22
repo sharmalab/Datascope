@@ -1,6 +1,40 @@
 var Visualization = require("./Visualizations/Visualization.jsx")
 var TabbedArea      = ReactBootstrap.TabbedArea,
-    TabPane         = ReactBootstrap.TabPane;
+    TabPane         = ReactBootstrap.TabPane,
+    Glyphicon       = ReactBootstrap.Glyphicon,
+    Modal = require('react-modal'),
+
+    Button          = ReactBootstrap.Button;
+
+
+
+    
+
+var OptionsBar = React.createClass({
+  getInitialState(){
+
+
+    return { showModal: false };
+  },
+
+  close(){
+    this.setState({ showModal: false });
+  },
+
+  open(){
+    this.setState({ showModal: true });
+  },
+    render: function(){
+
+        var self = this;
+        return(
+            <div id="OptionsBar" lassName='modal-container'>
+                    <Button bsStyle='success' title="Download data" onClick={this.open}> Download</Button>
+
+            </div>
+        );
+    }
+})
 
 var Visualizations = React.createClass({
     render: function(){
@@ -13,7 +47,7 @@ var Visualizations = React.createClass({
 
                 count++;   
                 return(
-                    <TabPane tab={visualization.type} eventKey={count}>
+                    <TabPane tab={visualization.visualizationType} eventKey={count}>
                         <Visualization config ={visualization} debug={self.props.debug} currData={self.props.currData}  />
                     </TabPane>
                 );            
@@ -21,6 +55,7 @@ var Visualizations = React.createClass({
 
             return(
                 <div id="visualization" className="col-sm-9">
+                    <OptionsBar />
                     <TabbedArea defaultActiveKey={1}>
                         {visualizations}
                     </TabbedArea>
