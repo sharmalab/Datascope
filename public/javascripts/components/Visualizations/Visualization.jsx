@@ -5,7 +5,7 @@ var DataTable = require("./DataTable.jsx"),
 
 var Visualization = React.createClass({
     render: function(){
-        var visType = this.props.config.type;
+        var visType = this.props.config.visualizationType;
         var self = this;
 
         switch(visType) {
