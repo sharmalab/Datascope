@@ -1,0 +1,43 @@
+[
+
+    {
+        "visualizationType": "dataTable",
+        "attributes":[
+        
+        {"attributeName": "CancerType"},
+        {"attributeName": "BCRPatientUIDFromClinical"},{"attributeName": "BCRSlideUID"},{"attributeName": "BCRPatientUIDFromPathology"}
+        ],
+        "heading": "TCGA",
+        "subheading": ""
+    },
+
+    {
+        "visualizationType": "imageGrid",
+        "attributes":[
+            {
+                "attributeName": "image",
+                "type": "image"
+            }
+        ],
+        "heading": "Bubble Chart",
+        "subheading": "Using synthetic data"
+    }, 
+    {
+
+        "visualizationType": "heatMap",
+        "attributes":[
+
+            {
+                "attributeName": "AgeatInitialDiagnosis",
+                "type": "x"
+            },
+            {
+                "attributeName": "KarnofskyScore",
+                "type": "y"
+            }
+        ],
+        "heading": "Heat Map",
+        "subheading": "AgeatInitialDiagnosis vs KarnofskyScore"
+    }
+
+]
