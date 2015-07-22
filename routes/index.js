@@ -38,7 +38,9 @@ var _handleFilterRequest = function(req,res,next) {
     if (filter[dim]) {
       //array
       if(filter[dim].length > 1){
+        //console.log("len > 1")
         if(dataDescription.getDataType(dim) == "enum"){
+          //console.log("enum")
 
           dimensions[dim].filterFunction(function(d){
             return filter[dim].indexOf(d) >= 0; 
@@ -57,13 +59,14 @@ var _handleFilterRequest = function(req,res,next) {
     }
   });
   Object.keys(groups).forEach(function(key) {
+    //console.log(key)
       results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value}
   });
 
   CURRENTDATA = dimensions["imageGrid"].top(Infinity);
 
   //Image Grid stuff
-  console.log(typeof(CURRENTDATA["values"]));
+  //console.log(typeof(CURRENTDATA["values"]));
   //console.log(CURRENTDATA)
   //console.log(visualization.getVisualizationType())
 
@@ -120,7 +123,10 @@ var _tableNext = function(req, res, next){
     filteringAttributes = dataDescription.getFilteringAttributes(),
     state = req.param("state") ? JSON.parse(req.param("state")) : 1,
     results = {};
-    TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
+    TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+    var dataTableAttributes = visualization.getAttributes("dataTable");
+
+
     var len = TABLE_DATA.length;
   //var reqParams = iDisplayLength, iDisplayStart
   var start = req.query.start;
@@ -130,12 +136,20 @@ var _tableNext = function(req, res, next){
   for(var i in TABLE_DATA){
     //var row = Object.keys(TABLE_DATA[i]).map(function(k) { return TABLE_DATA[i][k] });
     var row = [];
+    for(var j in dataTableAttributes){
+      var attrName = dataTableAttributes[j]["attributeName"];
+      row.push(TABLE_DATA[i][attrName]);
+    }
+    /*
+
     for(var j in TABLE_DATA[i]){
+      //console.log(j)
+
       row.push(TABLE_DATA[i][j])
     }
+    */
     DATA_ARRAY.push(row);
   }
-  console.log(TABLE_DATA.length)
 
   results = {
     data: DATA_ARRAY,
@@ -154,6 +168,7 @@ var _save = function(req, res, next){
   var dimensions = interactiveFilters.getDimensions();
   var groups = interactiveFilters.getGroups();
   var filteringAttributes = dataDescription.getFilteringAttributes();
+
 
 
   var requiredAttributes = req.param("attributes") ? JSON.parse(req.param("attributes")) : {};
