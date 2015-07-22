@@ -2,9 +2,16 @@
 var Validator = require('jsonschema').Validator;
 var schemaValidator = new Validator();
 var fs = require("fs");
-var loadDataSource = require("./loadDataSource");
+//var loadDataSource = require("./loadDataSource");
 var async = require("async");
 var extend = require("extend");
+
+ var anyToJSON = require("anytojson");
+
+
+
+
+
 var dataSource = (function(){
     var dataSourceConfig = {},
         dataSources = [],
@@ -16,19 +23,56 @@ var dataSource = (function(){
         dataSourceSchema,
         validation,
         keys = [];
+
+
+    var DATASOURCEALIAS = "dataSourceAlias",
+    	JOINKEY = "joinKey",
+    	DATASOURCES = "dataSources",
+    	DATAATTRIBUTES = "dataAttributes";
     
- 
+	//#### loadData()
+	//Loads data using the type and path specified in ```public/config/dataSource.json```.
+	//Currently supports
+	// * JSON
+	// * CSV
+	// * REST JSON
+	// * REST CSV
+	// * ODBC
+	//
+	//The system can be extended to support more types using ```loadDataSources.js```
+	function loadData(dataSource, processData)
+	{
+
+
+	    var type=  dataSource.sourceType;
+	    var options = dataSource.options;
+	    if(type== "json"){
+	      anyToJSON.json(options, processData);
+	    } else if(type == "csv") {
+	      anyToJSON.csv(options, processData);
+	    } else if(type == "rest/json") {
+	      anyToJSON.restJson(options, processData);
+	    } else if (type == "rest/csv"){
+	      anyToJSON.restCsv(options, processData);
+	    } else if (type == "odbc") {
+	      anyToJSON.odbc(options, processData);
+	    }
+
+	}
+	//### _init()
+	//Returns an array of dataSources
     _init = function (){
         dataSources = [];
-        for(var i in dataSourcesConfig["joinSources"]){
-          source = dataSourcesConfig["joinSources"][i];
+        for(var i in dataSourcesConfig[DATASOURCES]){
+          source = dataSourcesConfig[DATASOURCES][i];
           dataSources.push(source);
-          /*
-          for(var j in source.attributes){
-            attribute = source.attributes[j];
+         
+          for(var j in source["dataAttributes"]){
+          	
+            attribute = source["dataAttributes"][j];
             attributes[attribute] = true;
           }
-          */
+          
         }
         return dataSources;
 
@@ -42,27 +86,45 @@ var dataSource = (function(){
 
     _loadDataSources = function(dataSources, callback){
         var loadFunctionArray = [];
-        //console.log(callback);
+
         if(dataSources.length > 1){
             for(var i=0; i < dataSources.length; i++) {
                 var source = function(){
                     var dataSourceConfig = dataSources[i];
-
+                    //Callback function definition
                     var lds = function(cb) {
-                        loadDataSource(dataSourceConfig, function(data){
+                        loadData(dataSourceConfig, function(data){
+
                             cb(null, data);
                         });
                     };
                     return lds;
                 }();
-                //keys.push(dataSources[i].key);
                 loadFunctionArray.push(source);
             }
             keys.push(dataSourcesConfig["joinKey"]);
             async.parallel(loadFunctionArray, function(err, results){
+
+
                 //Results is an array of arrays of data from each source
                 
                 var merged = _merge(results);
+
+                for(var i in merged){
+                	var row = merged[i];
+                	//console.log(row)
+
+                	for(var attr in row){
+                		//console.log(attr)
+                		flag = false;
+                		var x = attributes[attr]
+                		if(x === undefined){
+                			delete row[attr];
+                		}
+                	}
+                	merged[i] = row
+                	//console.log(row)
+                }
                 callback(merged);
             });
 
@@ -117,7 +179,23 @@ var dataSource = (function(){
             _loadDataSources(dataSources, callback);    
         }
         else {
-            loadDataSource(dataSources[0], function(data){
+            loadData(dataSources[0], function(data){
+
+
+                for(var i in data){
+                	var row = data[i];
+
+                	for(var attr in row){
+                		flag = false;
+                		var x = attributes[attr]
+                		if(x === undefined){
+                			delete row[attr]	
+                		}
+                	}
+                	data[i] = row
+                	//console.log(row)
+                }
+
                 callback(data);
             });
                  
