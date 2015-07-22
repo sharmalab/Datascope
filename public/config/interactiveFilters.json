@@ -1,90 +1,90 @@
 [
     {
-        "name": "SectionLocation",
+        "attributeName": "SectionLocation",
         "order": 3, 
         "visualization": {
             "visType": "rowChart"
         }
     },    
     {
-        "name": "TumorCells",
+        "attributeName": "TumorCells",
         "order": 3, 
         "visualization": {
             "visType": "pieChart"
         }
     },    
     {
-        "name": "Necrosis",
+        "attributeName": "Necrosis",
         "order": 3, 
         "visualization": {
             "visType": "pieChart"
         }
     },   
     {
-        "name": "NormalCells",
+        "attributeName": "NormalCells",
         "order": 3, 
         "visualization": {
             "visType": "pieChart"
         }
     },  
     {
-        "name": "TumorNuclei",
+        "attributeName": "TumorNuclei",
         "order": 3, 
         "visualization": {
             "visType": "pieChart"
         }
     },
     {
-        "name": "KarnofskyScore",
+        "attributeName": "KarnofskyScore",
         "order": 3, 
         "visualization": {
             "visType": "barChart"
         }
     },
     {
-        "name": "AgeatInitialDiagnosis",
+        "attributeName": "AgeatInitialDiagnosis",
         "order": 3, 
         "visualization": {
             "visType": "barChart"
         }
     },        
     {
-        "name": "HistologicDiagnosis",
+        "attributeName": "HistologicDiagnosis",
         "order": 5,
         "visualization": {
             "visType": "rowChart"
         }
     },
     {
-        "name": "Laterality",
+        "attributeName": "Laterality",
         "order": 6,
         "visualization": {
             "visType": "rowChart"
         }
     },  
     {
-        "name": "TumorSite",
+        "attributeName": "TumorSite",
         "order": 6,
         "visualization": {
             "visType": "rowChart"
         }
     },  
     {
-        "name": "SupratentorialLocalization",
+        "attributeName": "SupratentorialLocalization",
         "order": 6,
         "visualization": {
             "visType": "rowChart"
         }
     },  
     {
-        "name": "Gender",
+        "attributeName": "Gender",
         "order": 6,
         "visualization": {
             "visType": "rowChart"
         }
     },  
     {
-        "name": "Race",
+        "attributeName": "Race",
         "order": 6,
         "visualization": {
             "visType": "rowChart"
