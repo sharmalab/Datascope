@@ -252,3 +252,17 @@ table#dataTable{
   width: 40px;
   display: inline;
 }
+
+
+//React Modals
+
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
+
+#OptionsBar button{
+  float:right;
+}
