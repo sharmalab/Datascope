@@ -1,77 +1,66 @@
 [
     {
         "attributeName": "SectionLocation",
-    
         "visualization": {
             "visType": "rowChart"
         }
     },    
     {
         "attributeName": "TumorCells",
-
         "visualization": {
             "visType": "pieChart"
         }
     },    
     {
         "attributeName": "Necrosis",
-    
         "visualization": {
             "visType": "pieChart"
         }
     },   
     {
         "attributeName": "NormalCells",
-    
         "visualization": {
             "visType": "pieChart"
         }
     },  
     {
         "attributeName": "TumorNuclei",
-    
         "visualization": {
             "visType": "pieChart"
         }
     },
     {
         "attributeName": "KarnofskyScore",
-    
         "visualization": {
             "visType": "barChart"
         }
     },
     {
         "attributeName": "AgeatInitialDiagnosis",
-    
         "visualization": {
             "visType": "barChart"
         }
     },        
     {
         "attributeName": "HistologicDiagnosis",
-    
         "visualization": {
             "visType": "rowChart"
         }
     },
     {
         "attributeName": "Laterality",
-
         "visualization": {
             "visType": "rowChart"
         }
     },  
     {
         "attributeName": "TumorSite",
-
         "visualization": {
             "visType": "rowChart"
         }
     },  
     {
         "attributeName": "SupratentorialLocalization",
-
         "visualization": {
             "visType": "rowChart"
         }
