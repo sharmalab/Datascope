@@ -1,28 +1,28 @@
 
 [
     {
-        "name": "A",
+        "attributeName": "A",
         "datatype": "integer",
         "attributeType": ["visual", "filtering"],
-        "dataProvider": "sourceJoin"
+        "dataSourceAlias": "sourceJoin"
     },    
     {
-        "name": "B",
-        "datatype": "string",
-        "attributeType": ["visual", "filtering"],
-        "dataProvider": "sourceJoin"
+        "attributeName": "B",
+        "datatype": "enum",
+        "attributeType": ["filtering"],
+        "dataSourceAlias": "sourceJoin"
     },    
     {
-        "name": "C",
+        "attributeName": "C",
         "datatype": "string",
         "attributeType": ["visual", "filtering"],
-        "dataProvider": "sourceJoin"
+        "dataSourceAlias": "sourceJoin"
     },   
     {
-        "name": "D",
+        "attributeName": "D",
         "datatype": "integer",
         "attributeType": ["visual", "filtering"],
-        "dataProvider": "sourceJoin"
+        "dataSourceAlias": "sourceJoin"
     }
         
 ]

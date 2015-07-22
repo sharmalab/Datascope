@@ -1,20 +1,23 @@
 {
-    "joinName": "sourceJoin",
+    "dataSourceAlias": "sourceJoin",
     "joinKey": ["A"],
-    "joinSources": [
+    "dataSources": [
         {
-            "name": "s1",
-                "type": "csv",
-                "options":{
-                        "path": "examples/newDataSourceConfig/data/data1.csv"
-                }
+            "sourceName": "s1",
+            "sourceType": "csv",
+            "options":{
+                "path": "examples/newDataSourceConfig/data/data1.csv"
+            },
+            "dataAttributes": ["A", "B", "C"]
+            
         },
         {
-            "name": "s2",
-                "type": "csv",
-                "options":{
-                        "path": "examples/newDataSourceConfig/data/data2.csv"
-                }
+            "sourceName": "s2",
+            "sourceType": "csv",
+            "options":{
+                "path": "examples/newDataSourceConfig/data/data2.csv"
+            },
+            "dataAttributes": ["A", "D"]
         }
     ]
 }
