@@ -4,66 +4,38 @@ var http = require("http");
 var request = require("superagent");
 var expect = require("expect.js");
 
-var dataDescription = require("../modules/dataDescription");
 
 describe("dataDescription", function() {
+        it("should return filteringAttributes and visualAttributes", function(done){
 
-    describe("init", function() {
-
-
-        it("Reads the config files and processes it", function() {
-            dataDescription.init("./examples/titanicTable/config/dataDescription.json");
-            var expectedVisual = [ { name: 'PassengerId',
-              datatype: 'integer',
-              dataProvider: 'source1',
-              attributeType: [ 'visual' ] },
-            { name: 'Survived',
-              datatype: 'integer',
-              dataProvider: 'source1',
-              attributeType: [ 'filtering', 'visual' ] },
-            { name: 'Pclass',
-              datatype: 'integer',
-              dataProvider: 'source1',
-              attributeType: [ 'visual', 'filtering' ] },
-            { name: 'Name',
-              datatype: 'string',
-              attributeType: [ 'visual', 'filtering' ],
-              dataProvider: 'source1' },
-            { name: 'Sex',
-              datatype: 'string',
-              attributeType: [ 'visual', 'filtering' ],
-              dataProvider: 'source1' },
-            { name: 'Age',
-              datatype: 'integer',
-              attributeType: [ 'visual', 'filtering' ],
-              dataProvider: 'source1' } 
-            ];
-            var expectedFiltering = [ { name: 'Survived',
-              datatype: 'integer',
-              dataProvider: 'source1',
-              attributeType: [ 'filtering', 'visual' ] },
-            { name: 'Pclass',
-              datatype: 'integer',
-              dataProvider: 'source1',
-              attributeType: [ 'visual', 'filtering' ] },
-            { name: 'Name',
-              datatype: 'string',
-              attributeType: [ 'visual', 'filtering' ],
-              dataProvider: 'source1' },
-            { name: 'Sex',
-              datatype: 'string',
-              attributeType: [ 'visual', 'filtering' ],
-              dataProvider: 'source1' },
-            { name: 'Age',
-              datatype: 'integer',
-              attributeType: [ 'visual', 'filtering' ],
-              dataProvider: 'source1' }
-            ];
+        var dataSource = require("../modules/dataSource");
+        var dataDescription = require("../modules/dataDescription");
+        var ds = dataSource.init("./examples/newDataSourceConfig/config/dataSource.json");
+        var dd = dataDescription.init("./examples/newDataSourceConfig/config/dataDescription.json")
+        //console.log(ds)
+        dataSource.loadData(function(data){
+          //console.log(data)
+          var filteringAttributes = dataDescription.getFilteringAttributes();
+          var filteringAttributesTruth = ["A","B","C","D"];
+          var farray = [];
+          for(var i in filteringAttributes){
+            var filteringAttribute = filteringAttributes[i]["attributeName"];
+            farray.push(filteringAttribute);
+          }
 
 
-            (JSON.stringify(dataDescription.getVisualAttributes())).should.be.exactly(JSON.stringify(expectedVisual));
-            (JSON.stringify(dataDescription.getFilteringAttributes())).should.be.exactly(JSON.stringify(expectedFiltering));
-            (dataDescription.getDataType("Sex")).should.be.exactly("string");
-        }); 
-    }); 
+          var visualAttributes = dataDescription.getVisualAttributes();
+          var visualAttributesTruth = ["A","C", "D"];
+          var varray = [];
+
+          for(var i in visualAttributes){
+            var visualAttribute = visualAttributes[i]["attributeName"];
+            varray.push(visualAttribute);
+          }
+
+          (farray).should.be.eql(filteringAttributesTruth);
+          (varray).should.be.eql(visualAttributesTruth);
+          done()
+        });
+      });
 });
