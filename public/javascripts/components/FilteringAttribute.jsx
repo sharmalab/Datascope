@@ -58,9 +58,9 @@ var ChartAddons = React.createClass({
                     <div className="chartAddons">
                         <label>
                         Range:
-                        <input type="text" onChange={this.handleBeg} onKeyDown={this.filter} id={"filterBeg"+this.props.config.name}/>
+                        <input type="text" onChange={this.handleBeg} onKeyDown={this.filter} id={"filterBeg"+this.props.config.attributeName}/>
                         -            
-                        <input type="text" onChange={this.handleEnd} onKeyDown={this.filter} id={"filterEnd"+this.props.config.name}/>
+                        <input type="text" onChange={this.handleEnd} onKeyDown={this.filter} id={"filterEnd"+this.props.config.attributeName}/>
                         </label>
                     </div>
                     <div className="chartAddons">
@@ -91,7 +91,7 @@ var FilteringAttribute = React.createClass({
     componentWillMount: function(){
      //Initialize crossfilter dimensions and groups before rendering
         var self = this;
-        var attributeName = this.props.config.name;
+        var attributeName = this.props.config.attributeName;
         var dim = {
             filter: function(f) {
                 if(f) {
@@ -160,7 +160,7 @@ var FilteringAttribute = React.createClass({
 
         var self = this;
         var visType = this.props.config.visualization.visType;
-        var divId = "#dc-"+this.props.config.name;
+        var divId = "#dc-"+this.props.config.attributeName;
 
         var domain = this.props.config.domain || [0,100];
         var c = {};
@@ -239,19 +239,19 @@ var FilteringAttribute = React.createClass({
     },
     render: function(){
         var self = this;
-        var divId = "dc-"+this.props.config.name;
+        var divId = "dc-"+this.props.config.attributeName;
         if(this.props.full == true){
             return (
                 <div className="col-md-3">
                     <div className="chart-wrapper">
                         <div className="chart-title">
-                            {this.props.config.name}
+                            {self.props.config.attributeName}
 
                         </div>
                         <div className="chart-stage">
                             <div  id={divId}> </div>
                         </div>
-                        <div className="chart-notes" id={self.props.config.name +  "-note"}>
+                        <div className="chart-notes" id={self.props.config.attributeName +  "-note"}>
                             <button onClick={this.onReset}>Reset</button>
                             <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart}/>
 
@@ -264,7 +264,7 @@ var FilteringAttribute = React.createClass({
                 <div className="col-md-12" onClick={this.fullView}>
                     <div className="chart-wrapper">
                         <div className="chart-title">
-                            {this.props.config.name}
+                            {self.props.config.attributeName}
                         </div>
                         <div className="chart-stage">
                             <div  id={divId}> </div>
