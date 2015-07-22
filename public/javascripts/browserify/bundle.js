@@ -21961,9 +21961,9 @@ var ChartAddons = React.createClass({displayName: "ChartAddons",
                     React.createElement("div", {className: "chartAddons"}, 
                         React.createElement("label", null, 
                         "Range:", 
-                        React.createElement("input", {type: "text", onChange: this.handleBeg, onKeyDown: this.filter, id: "filterBeg"+this.props.config.name}), 
+                        React.createElement("input", {type: "text", onChange: this.handleBeg, onKeyDown: this.filter, id: "filterBeg"+this.props.config.attributeName}), 
                         "-",             
-                        React.createElement("input", {type: "text", onChange: this.handleEnd, onKeyDown: this.filter, id: "filterEnd"+this.props.config.name})
+                        React.createElement("input", {type: "text", onChange: this.handleEnd, onKeyDown: this.filter, id: "filterEnd"+this.props.config.attributeName})
                         )
                     ), 
                     React.createElement("div", {className: "chartAddons"}, 
@@ -21994,7 +21994,7 @@ var FilteringAttribute = React.createClass({displayName: "FilteringAttribute",
     componentWillMount: function(){
      //Initialize crossfilter dimensions and groups before rendering
         var self = this;
-        var attributeName = this.props.config.name;
+        var attributeName = this.props.config.attributeName;
         var dim = {
             filter: function(f) {
                 if(f) {
@@ -22063,7 +22063,7 @@ var FilteringAttribute = React.createClass({displayName: "FilteringAttribute",
 
         var self = this;
         var visType = this.props.config.visualization.visType;
-        var divId = "#dc-"+this.props.config.name;
+        var divId = "#dc-"+this.props.config.attributeName;
 
         var domain = this.props.config.domain || [0,100];
         var c = {};
@@ -22142,19 +22142,19 @@ var FilteringAttribute = React.createClass({displayName: "FilteringAttribute",
     },
     render: function(){
         var self = this;
-        var divId = "dc-"+this.props.config.name;
+        var divId = "dc-"+this.props.config.attributeName;
         if(this.props.full == true){
             return (
                 React.createElement("div", {className: "col-md-3"}, 
                     React.createElement("div", {className: "chart-wrapper"}, 
                         React.createElement("div", {className: "chart-title"}, 
-                            this.props.config.name
+                            self.props.config.attributeName
 
                         ), 
                         React.createElement("div", {className: "chart-stage"}, 
                             React.createElement("div", {id: divId}, " ")
                         ), 
-                        React.createElement("div", {className: "chart-notes", id: self.props.config.name +  "-note"}, 
+                        React.createElement("div", {className: "chart-notes", id: self.props.config.attributeName +  "-note"}, 
                             React.createElement("button", {onClick: this.onReset}, "Reset"), 
                             React.createElement(ChartAddons, {config: this.props.config, data: this.state.currData, chart: this.state.chart})
 
@@ -22167,7 +22167,7 @@ var FilteringAttribute = React.createClass({displayName: "FilteringAttribute",
                 React.createElement("div", {className: "col-md-12", onClick: this.fullView}, 
                     React.createElement("div", {className: "chart-wrapper"}, 
                         React.createElement("div", {className: "chart-title"}, 
-                            this.props.config.name
+                            self.props.config.attributeName
                         ), 
                         React.createElement("div", {className: "chart-stage"}, 
                             React.createElement("div", {id: divId}, " ")
