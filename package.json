@@ -5,7 +5,6 @@
   "scripts": {
     "start": "node app.js",
     "test": "node_modules/.bin/mocha "
-   
   },
   "dependencies": {
     "anytojson": "^2.0.4",
