@@ -38,6 +38,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-nodemon": "^0.3.0",
     "grunt-react": "^0.12.2",
+    "mocha": "^2.2.5",
     "react-tools": "^0.11.2",
     "superagent": "^1.2.0"
   },
