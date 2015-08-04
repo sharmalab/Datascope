@@ -21925,6 +21925,7 @@ var ChartAddons = React.createClass({displayName: "ChartAddons",
     handleEnd: function(event){
         this.setState({end: event.target.value});
     },
+
     handleElasticX: function(event){
         var c = this.props.chart;
         console.log("handle checkbox..");
@@ -22003,11 +22004,13 @@ var ChartAddons = React.createClass({displayName: "ChartAddons",
             case "rowChart":
                 return(
                     React.createElement("div", {className: "chartAddons"}, 
+
                         React.createElement("label", null, 
                         "ElasticX:", 
                         React.createElement("input", {type: "checkbox", onChange: this.handleElasticX, checked: this.state.elasticX})
-                        )
-                    )
+                        ), 
+                       React.createElement("input", {type: "checkbox", onChange: this.handleCheck})
+                   )
                 );
             default:
                 return(
@@ -22214,6 +22217,7 @@ var FilteringAttribute = React.createClass({displayName: "FilteringAttribute",
     }
 });
 module.exports = FilteringAttribute;
+
 },{"../actions/AppActions.jsx":183}],185:[function(require,module,exports){
 var AppActions = require("../actions/AppActions.jsx");
 
