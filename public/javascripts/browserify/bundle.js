@@ -22008,8 +22008,7 @@ var ChartAddons = React.createClass({displayName: "ChartAddons",
                         React.createElement("label", null, 
                         "ElasticX:", 
                         React.createElement("input", {type: "checkbox", onChange: this.handleElasticX, checked: this.state.elasticX})
-                        ), 
-                       React.createElement("input", {type: "checkbox", onChange: this.handleCheck})
+                        )
                    )
                 );
             default:
