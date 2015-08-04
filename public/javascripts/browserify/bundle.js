@@ -21906,7 +21906,7 @@ var AppActions = require("../actions/AppActions.jsx");
 
 var ChartAddons = React.createClass({displayName: "ChartAddons",
     getInitialState: function(){
-        return {elasticY: true};
+        return {elasticY: true, elasticX: true};
     },
     filter: function(e){
         var self = this;
@@ -21925,6 +21925,32 @@ var ChartAddons = React.createClass({displayName: "ChartAddons",
     handleEnd: function(event){
         this.setState({end: event.target.value});
     },
+    handleElasticX: function(event){
+        var c = this.props.chart;
+        console.log("handle checkbox..");
+        //console.log((this.state.elasticY));
+        var queryFilterBackup = queryFilter;
+        //c.elasticY(true);
+        //AppActions.refresh({});
+
+            console.log(queryFilter);
+
+        if(this.state.elasticX == true){
+
+            c.elasticX(false);
+
+        } else {
+            //Elastic axis
+            c.elasticX(true);
+        }
+        //AppActions.refresh(queryFilter);
+
+        //c.elasticY(false);
+        c.filterAll();
+        dc.renderAll();
+        this.setState({elasticX: !this.state.elasticX});
+
+    },        
     handleElasticY: function(event){
         var c = this.props.chart;
         console.log("handle checkbox..");
@@ -21977,7 +22003,10 @@ var ChartAddons = React.createClass({displayName: "ChartAddons",
             case "rowChart":
                 return(
                     React.createElement("div", {className: "chartAddons"}, 
-                        React.createElement("input", {type: "checkbox", onChange: this.handleCheck})
+                        React.createElement("label", null, 
+                        "ElasticX:", 
+                        React.createElement("input", {type: "checkbox", onChange: this.handleElasticX, checked: this.state.elasticX})
+                        )
                     )
                 );
             default:
