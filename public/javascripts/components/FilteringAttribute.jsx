@@ -22,6 +22,7 @@ var ChartAddons = React.createClass({
     handleEnd: function(event){
         this.setState({end: event.target.value});
     },
+
     handleElasticX: function(event){
         var c = this.props.chart;
         console.log("handle checkbox..");
@@ -100,11 +101,13 @@ var ChartAddons = React.createClass({
             case "rowChart":
                 return(
                     <div className="chartAddons">
+
                         <label> 
                         ElasticX:
                         <input type="checkbox" onChange={this.handleElasticX} checked={this.state.elasticX}/>
                         </label>
-                    </div>
+                       <input type="checkbox" onChange={this.handleCheck}/>
+                   </div>
                 );
             default:
                 return(
