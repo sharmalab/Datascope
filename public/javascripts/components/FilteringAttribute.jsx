@@ -106,7 +106,6 @@ var ChartAddons = React.createClass({
                         ElasticX:
                         <input type="checkbox" onChange={this.handleElasticX} checked={this.state.elasticX}/>
                         </label>
-                       <input type="checkbox" onChange={this.handleCheck}/>
                    </div>
                 );
             default:
