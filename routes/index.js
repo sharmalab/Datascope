@@ -179,7 +179,7 @@ var _save = function(req, res, next){
 
   var requiredAttributes = req.param("attributes") ? JSON.parse(req.param("attributes")) : {};
   
-  requiredAttributes = requiredAttributes["list"]
+  requiredAttributes = requiredAttributes["list"];
   type = requiredAttributes["type"] || "csv"; 
   var results = {}
   TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
