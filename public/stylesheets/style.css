@@ -12,6 +12,7 @@ body{
 
 #header{
   background: #556270;
+  margin-bottom: 120px
 }
 #header a{
   color: #ffeeef;
@@ -256,12 +257,6 @@ table#dataTable{
 
 //React Modals
 
-.modal-container {
-  position: relative;
-}
-.modal-container .modal, .modal-container .modal-backdrop {
-  position: absolute;
-}
 
 #OptionsBar button{
   float:right;

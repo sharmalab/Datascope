@@ -165,15 +165,7 @@ var dataSource = (function(){
                 results = results.push(m2);
                 _merge(results)
             }
-            /*
-            var merged = results.map(function(data, id){
 
-                if(id < results.length-1){
-                    return _mergetwo(results[id], results[id+1]);
-                }
-            });
-            merged = merged.filter(function(n){ return n !== undefined }); 
-            */
             return merged[0];
     };
 

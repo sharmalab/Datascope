@@ -2,8 +2,8 @@ var Visualization = require("./Visualizations/Visualization.jsx")
 var TabbedArea      = ReactBootstrap.TabbedArea,
     TabPane         = ReactBootstrap.TabPane,
     Glyphicon       = ReactBootstrap.Glyphicon,
-    Modal = require('react-modal'),
-
+    Modal = ReactBootstrap.Modal,
+    Input           = ReactBootstrap.Input,
     Button          = ReactBootstrap.Button;
 
 
@@ -27,14 +27,47 @@ var OptionsBar = React.createClass({
     render: function(){
 
         var self = this;
+        console.log(self.state.showModal);
+        console.log(this.props.currData);
+        var attributes = [];
+
+        for(var i in this.props.currData){
+            attributes.push(i)
+        }
+
+        var url = "/save?attributes={list:"+(attributes)+"}"
+
+        var Attributes = attributes.map(function(d){
+            return(
+                <input type="checkbox" value="{d}">{d}</input>
+            )
+        })
         return(
-            <div id="OptionsBar" lassName='modal-container'>
-                    <Button bsStyle='success' title="Download data" onClick={this.open}> Download</Button>
+            <div>
+            <div id="OptionsBar" className='modal-container'>
+                <Button bsStyle='success' title="Download data" onClick={this.open}> Download</Button>
+            </div>
+            {
+
+                this.state.showModal ?
+                    <Modal show={false} onHide={this.close}>
+                            <h1>Download data</h1>
+                            
+                            {Attributes}
+                            
+                            <br />
+                            <a href={url}><Button>Download</Button></a>
+                            <Button onClick={this.close}>Close</Button>
+
+                    </Modal>
+                :
+                    <div />
+            }
 
             </div>
         );
     }
-})
+});
 
 var Visualizations = React.createClass({
     render: function(){
@@ -55,7 +88,7 @@ var Visualizations = React.createClass({
 
             return(
                 <div id="visualization" className="col-sm-9">
-                    <OptionsBar />
+                    <OptionsBar currData={self.props.currData} />
                     <TabbedArea defaultActiveKey={1}>
                         {visualizations}
                     </TabbedArea>
