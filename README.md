@@ -5,9 +5,11 @@ We propose an environment for visualizing and exploring TCIA data . We leverage 
 ### Quick start guide ###
 
 ##### Installation
+
 * Install Node.js
 * Clone the repository
 * Run ```npm install```
+* 
 ##### Running
 * Modify the files present in ```public/config``` to fit your needs:
     * dataSource.json (Refer to [dataSource.json documentation](https://bitbucket.org/BMI/interactive-data-exporation/wiki/dataSource.json))
