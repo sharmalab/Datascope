@@ -8,7 +8,12 @@ var extend = require("extend");
 
  var anyToJSON = require("anytojson");
 
-
+var FILETYPES = {
+  "CSVFILE": "csvFile",
+  "JSONFILE": "jsonFile",
+  "CSVREST": "csvREST",
+  "JSONREST": "jsonREST"
+}
 
 
 
@@ -31,7 +36,7 @@ var dataSource = (function(){
     	JOINKEY = "joinKey",
     	DATASOURCES = "dataSources",
     	DATAATTRIBUTES = "dataAttributes";
-    
+
 	//#### loadData()
 	//Loads data using the type and path specified in ```public/config/dataSource.json```.
 	//Currently supports
@@ -48,13 +53,13 @@ var dataSource = (function(){
 
 	    var type=  dataSource.sourceType;
 	    var options = dataSource.options;
-	    if(type== "json"){
+	    if(type== FILETYPES.JSONFILE){
 	      anyToJSON.json(options, processData);
-	    } else if(type == "csv") {
+	    } else if(type == FILETYPES.CSVFILE) {
 	      anyToJSON.csv(options, processData);
-	    } else if(type == "rest/json") {
+	    } else if(type == FILETYPES.JSONREST) {
 	      anyToJSON.restJson(options, processData);
-	    } else if (type == "rest/csv"){
+	    } else if (type == FILETYPES.CSVREST){
 	      anyToJSON.restCsv(options, processData);
 	    } else if (type == "odbc") {
 	      anyToJSON.odbc(options, processData);
@@ -68,13 +73,13 @@ var dataSource = (function(){
         for(var i in dataSourcesConfig[DATASOURCES]){
           source = dataSourcesConfig[DATASOURCES][i];
           dataSources.push(source);
-         
+
           for(var j in source["dataAttributes"]){
-          	
+
             attribute = source["dataAttributes"][j];
             attributes[attribute] = true;
           }
-          
+
         }
         return dataSources;
 
@@ -82,7 +87,7 @@ var dataSource = (function(){
     _loadDataSourceConfig = function (path){
         dataSourceConfigPath = path || dataSourceConfigPath;
         dataSourcesConfig = fs.readFileSync(dataSourceConfigPath);
-        dataSourcesConfig = JSON.parse(dataSourcesConfig);   
+        dataSourcesConfig = JSON.parse(dataSourcesConfig);
         return dataSourcesConfig;
     };
 
@@ -109,7 +114,7 @@ var dataSource = (function(){
 
 
                 //Results is an array of arrays of data from each source
-                
+
                 var merged = _merge(results);
                 var count=0;
                 for(var i in merged){
@@ -171,8 +176,9 @@ var dataSource = (function(){
 
     var _loadData = function(callback){
         //Load data from sources
+        console.log("...")
         if(dataSources.length > 1){
-            _loadDataSources(dataSources, callback);    
+            _loadDataSources(dataSources, callback);
         }
         else {
             loadData(dataSources[0], function(data){
@@ -185,7 +191,7 @@ var dataSource = (function(){
                 		flag = false;
                 		var x = attributes[attr]
                 		if(x === undefined){
-                			delete row[attr]	
+                			delete row[attr]
                 		}
                 	}
                 	data[i] = row
@@ -195,7 +201,7 @@ var dataSource = (function(){
                 totalRecordsSize = count;
                 callback(data);
             });
-                 
+
         }
         //Merge them
         //_mergeDataSources(dataSources);
