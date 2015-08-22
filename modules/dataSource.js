@@ -126,7 +126,7 @@ var dataSource = (function(){
                 		flag = false;
                 		var x = attributes[attr]
                 		if(x === undefined){
-                			delete row[attr];
+                			//delete row[attr];
                 		}
                 	}
                 	merged[i] = row;
@@ -191,7 +191,7 @@ var dataSource = (function(){
                 		flag = false;
                 		var x = attributes[attr]
                 		if(x === undefined){
-                			delete row[attr]
+                			//delete row[attr]
                 		}
                 	}
                 	data[i] = row
