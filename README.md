@@ -9,7 +9,7 @@ We propose an environment for visualizing and exploring TCIA data . We leverage 
 * Install Node.js
 * Clone the repository
 * Run ```npm install```
-* 
+
 ##### Running
 
 * Modify the files present in ```public/config``` to fit your needs:
