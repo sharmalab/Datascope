@@ -7,7 +7,7 @@ var DataTable = React.createClass({
 
 
 
-            var columns = [];   
+            var columns = [];
             var count=0;
             for(var i in self.props.config.attributes){
                 columns[count] = {};
@@ -17,11 +17,11 @@ var DataTable = React.createClass({
                 columns[count]["bSortable"] =false ;
                 count++;
             }
-            dataTable = $('#vis').DataTable({
+            var dataTable = $('#vis').DataTable({
                 bSort: false,
                 bFilter: false,
                 aoColumns: columns,
-               
+
                 "ajax": "dataTable/next",
                 "processing": true,
                 "serverSide": true,
@@ -30,19 +30,19 @@ var DataTable = React.createClass({
                  "pageLength": 100,
                 columns: columns
 
-            });   
-  
+            });
 
-    }, 
+
+    },
     componentWillReceiveProps: function(){
-        if(dataTable.ajax){  
+        if(dataTable.ajax){
             dataTable.ajax.reload(); //jquery datatable fix
         }
     },
     render: function(){
         var tableAttribtes = [];
 
-         
+
             return(
                 <table id="vis" className="display">
 
@@ -52,5 +52,3 @@ var DataTable = React.createClass({
 });
 
 module.exports = DataTable;
-
-

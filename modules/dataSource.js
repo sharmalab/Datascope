@@ -150,7 +150,7 @@ var dataSource = (function(){
                 var row2 = data2[j];
                 if(row1[keys[0]] == row2[keys[0]]){
                     var rowM = extend({}, row1, row2);
-                        merged.push(rowM);
+                    merged.push(rowM);
                 }
             }
         }
