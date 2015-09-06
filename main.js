@@ -74,8 +74,9 @@ function init(callback){
   var ds = dataDescription.init();
   interactiveFilters.init();
   visualization.init();
-
+  console.log("........");
   dataSource.loadData(function(data){
+    //console.log(data);
     interactiveFilters.applyCrossfilter(data);
     visualization.applyCrossfilter();
     visualizationRoutes.heatInit();
