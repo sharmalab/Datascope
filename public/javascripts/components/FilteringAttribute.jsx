@@ -48,7 +48,7 @@ var ChartAddons = React.createClass({
         dc.renderAll();
         this.setState({elasticX: !this.state.elasticX});
 
-    },        
+    },
     handleElasticY: function(event){
         var c = this.props.chart;
         console.log("handle checkbox..");
@@ -77,7 +77,7 @@ var ChartAddons = React.createClass({
     },
     render: function(){
         var visType = this.props.config.visualization.visType;
-        
+
         switch(visType){
             case  "barChart":
                 return(
@@ -86,23 +86,23 @@ var ChartAddons = React.createClass({
                         <label>
                         Range:
                         <input type="text" onChange={this.handleBeg} onKeyDown={this.filter} id={"filterBeg"+this.props.config.attributeName}/>
-                        -            
+                        -
                         <input type="text" onChange={this.handleEnd} onKeyDown={this.filter} id={"filterEnd"+this.props.config.attributeName}/>
                         </label>
                     </div>
                     <div className="chartAddons">
                         <label>
-                        ElasticY: 
+                        ElasticY:
                         <input type="checkbox"  onChange={this.handleElasticY}  checked={this.state.elasticY}/>
                         </label>
                     </div>
                     </div>
-                );  
+                );
             case "rowChart":
                 return(
                     <div className="chartAddons">
 
-                        <label> 
+                        <label>
                         ElasticX:
                         <input type="checkbox" onChange={this.handleElasticX} checked={this.state.elasticX}/>
                         </label>
@@ -139,7 +139,7 @@ var FilteringAttribute = React.createClass({
                         AppActions.refresh(queryFilter);
                       } else {
                         return;
-                      } 
+                      }
                     }
                 },
             filterAll: function() {
@@ -150,7 +150,7 @@ var FilteringAttribute = React.createClass({
             name: function(){
                     return attributeName;
                 }
-       
+
         };
         var group = {
                 all: function() {
@@ -159,9 +159,9 @@ var FilteringAttribute = React.createClass({
                     return self.props.currData[attributeName].values;
                     /*
                     if(AppStore.getData()[attributeName]){
-                        return AppStore.getData()[attributeName].values;   
+                        return AppStore.getData()[attributeName].values;
                     }
-                    
+
                     return filteredData[attributeName].values;
                     */
                 },
@@ -172,20 +172,20 @@ var FilteringAttribute = React.createClass({
                     return self.props.currData[attributeName].values;
                     /*
                     if(AppStore.getData()[attributeName]){
-                        return AppStore.getData()[attributeName].values;   
+                        return AppStore.getData()[attributeName].values;
                     }
-                    
+
                     //console.log(AppStore.getData())
                     //return AppStore.getData()[attributeName].values;
                     return filteredData[attributeName].values;
                     */
                 }
- 
+
         };
 
         this.setState({dimension: dim, group: group});
 
-    
+
     },
     componentDidMount: function(){
 
@@ -194,6 +194,7 @@ var FilteringAttribute = React.createClass({
         var divId = "#dc-"+this.props.config.attributeName;
 
         var domain = this.props.config.domain || [0,100];
+        var domain = [0,100]
         var c = {};
         //Render according to chart-type
         switch(visType){
@@ -219,7 +220,7 @@ var FilteringAttribute = React.createClass({
                     .group(self.state.group)
                     .x(d3.scale.linear().domain(domain))
                     .elasticY(true)
-                    .elasticX(true)        
+                    .elasticX(true)
                     .renderLabel(true)
                     .margins({left: 35, top: 10, bottom: 20, right: 10})
                     c.filterHandler(function(dimension, filter){
@@ -256,10 +257,10 @@ var FilteringAttribute = React.createClass({
                     else
                         dimension.filter(null);
                     return filters;
-                })     
+                })
         }
         this.setState({chart: c});
-    },    
+    },
     onReset: function(e){
 
         //e.preventDefault();
