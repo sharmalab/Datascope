@@ -1,11 +1,13 @@
 var AppActions = require("../actions/AppActions.jsx");
 
+var React = require("react");
+var ReactBootstrap = require("react-bootstrap");
 var    Button          = ReactBootstrap.Button;
 //Require app components
 var FilteringAttribute = require("./FilteringAttribute.jsx");
 var InteractiveFilters = React.createClass({      
     getInitialState: function(){
-
+        console.log("Rendering interactive filters");
         return {full:false};
     },
     fullView: function(){
@@ -22,12 +24,15 @@ var InteractiveFilters = React.createClass({
     },
     render: function(){
         var filteringAttributes;
-
+        console.log("....");
+        console.log(this.props.config);
         var self = this;
+        var key = 0;
         if(this.props.config){
             filteringAttributes = this.props.config.map(function(filteringAttribute){
+                key++;
                 return (
-                    <FilteringAttribute config={filteringAttribute} currData={self.props.currData} full={self.state.full}/>
+                    <FilteringAttribute key={key} config={filteringAttribute} currData={self.props.currData} full={self.state.full}/>
                 );
             })    
         } else {

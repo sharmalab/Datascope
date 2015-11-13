@@ -1,4 +1,4 @@
-
+var React = require("react");
 var HeatMap = React.createClass({
     getInitialState: function(){
         return({dimension: null, group: null})
