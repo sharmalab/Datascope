@@ -2,6 +2,9 @@
 var filteredData = {};
 var queryFilter = {};
 var dataTable;
+
+var React = require("react");
+var ReactDOM = require("react-dom");
 var AppActions = require("./actions/AppActions.jsx");
 var AppStore = require("./stores/AppStore.jsx");
 var Reflux = require('reflux');
@@ -86,4 +89,4 @@ var Dashboard = React.createClass({
 });
 
 
-React.render(<Dashboard />, document.getElementById("main"))
+ReactDOM.render(<Dashboard />, document.getElementById("main"))

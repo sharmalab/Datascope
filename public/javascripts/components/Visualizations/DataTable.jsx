@@ -1,4 +1,4 @@
-
+var React = require("react");
 var DataTable = React.createClass({
     componentDidMount: function(){
 
@@ -17,11 +17,10 @@ var DataTable = React.createClass({
                 columns[count]["bSortable"] =false ;
                 count++;
             }
-            var dataTable = $('#vis').DataTable({
+            dataTable = $('#vis').DataTable({
                 bSort: false,
                 bFilter: false,
                 aoColumns: columns,
-
                 "ajax": "dataTable/next",
                 "processing": true,
                 "serverSide": true,
@@ -31,7 +30,10 @@ var DataTable = React.createClass({
                 columns: columns
 
             });
-
+            $("#vis tbody").on("click", "tr", function(){
+                var url = self.props.config.url || "http://imaging.cci.emory.edu/phone/";
+                window.open(url); 
+            });
 
     },
     componentWillReceiveProps: function(){
@@ -45,7 +47,7 @@ var DataTable = React.createClass({
 
             return(
                 <table id="vis" className="display">
-
+                    
                 </table>
             );
     }

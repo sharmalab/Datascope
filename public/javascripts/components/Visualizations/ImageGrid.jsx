@@ -1,4 +1,4 @@
-
+var React = require("react");
 
 var ImageGrid = React.createClass({
     getInitialState: function(){

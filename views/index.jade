@@ -1,16 +1,15 @@
 extends layout
 
 block content
-	div(class='navbar navbar-inverse navbar-fixed-top' id='header' role='navigation')
-		.container-fluid
-			.navbar-header
-				a.navbar-brand(href='#') Demo Visualisation
-	div(class='container-fluid')
-		div(class='row')
-			div(id='main')
-
-		
-
-	//script(src='javascripts/visualizations.js', type='text/javascript')
-	script(src='javascripts/visualizationHelpers/jquery.dataTables.min.js', type='text/javascript')
-	script(src='javascripts/browserify/bundle.js', type='text/jsx')
+    div(class='navbar navbar-inverse navbar-fixed-top' id='header' role='navigation')
+        .container-fluid
+            .navbar-header
+                a.navbar-brand(href='#') Demo Visualisation
+    div(class='container-fluid')
+        div(class='row')
+            div(id='main')
+    //script(src='javascripts/visualizations.js', type='text/javascript')
+    script.
+        console.log("Hello")
+    script(src='javascripts/visualizationHelpers/jquery.dataTables.min.js', type='text/javascript')
+    script(src='javascripts/browserify/bundle.js', type='text/javascript')

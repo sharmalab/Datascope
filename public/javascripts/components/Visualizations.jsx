@@ -1,6 +1,10 @@
-var Visualization = require("./Visualizations/Visualization.jsx")
-var TabbedArea      = ReactBootstrap.TabbedArea,
-    TabPane         = ReactBootstrap.TabPane,
+
+var Visualization = require("./Visualizations/Visualization.jsx");
+var React = require("react");
+var ReactBootstrap = require("react-bootstrap");
+
+var Tabs      = ReactBootstrap.Tabs,
+    Tab         = ReactBootstrap.Tab,
     Glyphicon       = ReactBootstrap.Glyphicon,
     Modal = ReactBootstrap.Modal,
     Input           = ReactBootstrap.Input,
@@ -11,19 +15,19 @@ var TabbedArea      = ReactBootstrap.TabbedArea,
     
 
 var OptionsBar = React.createClass({
-  getInitialState(){
+    getInitialState: function(){
 
-
+    console.log('woot');
     return { showModal: false };
-  },
+    },
 
-  close(){
+    close: function(){
     this.setState({ showModal: false });
-  },
+    },
 
-  open(){
+    open: function(){
     this.setState({ showModal: true });
-  },
+    },
     render: function(){
 
         var self = this;
@@ -71,27 +75,29 @@ var OptionsBar = React.createClass({
 
 var Visualizations = React.createClass({
     render: function(){
+        console.log("Visualizaitons");
         var self  = this;
 
         if(this.props.config){
-
+        
             var count=0;
             var visualizations = this.props.config.map(function(visualization){
-
+                console.log(visualization);
+                //console.log(TabPane);
                 count++;   
                 return(
-                    <TabPane tab={visualization.visualizationType} eventKey={count}>
+                    <Tab title={visualization.visualizationType} eventKey={count}>
                         <Visualization config ={visualization} debug={self.props.debug} currData={self.props.currData}  />
-                    </TabPane>
+                    </Tab>
                 );            
             });
 
             return(
                 <div id="visualization" className="col-sm-9">
                     <OptionsBar currData={self.props.currData} />
-                    <TabbedArea defaultActiveKey={1}>
+                    <Tabs defaultActiveKey={1}>
                         {visualizations}
-                    </TabbedArea>
+                    </Tabs>
                 </div>
             );
 
