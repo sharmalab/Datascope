@@ -4,7 +4,7 @@ var schemaValidator = new Validator();
 var fs = require("fs");
 var dataDescription = require("./dataDescription");
 //var visualization = require("./visualization");
-var crossfilter = require("crossfilter")
+var crossfilter = require("crossfilter");
 
 var interactiveFilters = (function(){
 
@@ -33,7 +33,7 @@ var interactiveFilters = (function(){
 
     var _init = function(path){
         _loadConfig(path);
-    }
+    };
 
     var _getFilterConfig = function(attributeName){
       for(var i in interactiveFiltersConfig){
@@ -42,7 +42,7 @@ var interactiveFilters = (function(){
           return filterConfig;
         }
       }
-    }
+    };
 
     //
     //#### applyCrossfilter()
@@ -61,17 +61,17 @@ var interactiveFilters = (function(){
           var fconfig = _getFilterConfig(filteringAttribute.attributeName);
 
           if(fconfig)
-            var binFactor = fconfig["visualization"]["binFactor"] || 1; 
+            var binFactor = fconfig.visualization.binFactor || 1; 
           //Create a crossfilter dimension on this attribute
-          var dimension = {}
-          if(filteringAttribute["datatype"] == "float"){
+          var dimension = {};
+          if(filteringAttribute.datatype  === "float"){
             dimension = ndx.dimension(function(d){
               //set binning parameter here
-              var binFactor = fconfig["visualization"]["binFactor"] || 10; 
+              var binFactor = fconfig.visualization.binFactor || 10; 
 
               return Math.round(d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
             });
-          } else if(filteringAttribute["datatype"] == "integer"){
+          } else if(filteringAttribute.datatype == "integer"){
             //console.log(binFactor)
             dimension = ndx.dimension(function(d){
               return Math.round(d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
