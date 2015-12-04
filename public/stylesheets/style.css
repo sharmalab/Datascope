@@ -76,7 +76,7 @@ body {
     z-index: 1000;
     padding: 20px 12px;
 
-   width: 330px;
+    width: 330px;
 
     display: block;
     overflow-x: hidden;
@@ -88,7 +88,9 @@ body {
 
 #interactiveFiltersPanel{
   overflow-y: scroll;
+  background: hsl(211,3%,94%);
   height: 100vh;
+  padding-top: 12x;
 }
 
 /* Sidebar navigation */
@@ -112,7 +114,7 @@ body {
  */
 
 .main {
-  padding: 20px;
+  //padding: 20px;
 }
 .main .page-header {
   margin-top: 0;
@@ -174,8 +176,11 @@ a.panel-reset {
   color: #333;
 }
 table#dataTable{
-
+  font-size: 11px;
   overflow-x: scroll;
+}
+#vis{
+    font-size: 11px;
 }
 #dataTableNav{
   text-align: center;
@@ -184,6 +189,11 @@ table#dataTable{
 
   padding: 12px;
 }
+//Font size for datatable
+.dataTables_scrollBody{
+    font-size: 11px;
+}
+
 #activeRecords div{
   display: inline;
 
@@ -194,7 +204,7 @@ table#dataTable{
 }
 
 #main{
-  padding: 15px;
+ // padding: 15px;
 }
 
 .nav-tabs > li, .nav-pills > li {
@@ -212,6 +222,10 @@ table#dataTable{
 }
 #vis_info, #vis_paginate{
   font-size: small;
+}
+
+#visualization{
+    padding-top: 12px;
 }
 
 #interactiveFiltersPanelSlider{
