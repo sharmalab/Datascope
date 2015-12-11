@@ -5,7 +5,7 @@ var fs = require("fs");
 var dataDescription = require("./dataDescription");
 //var visualization = require("./visualization");
 var crossfilter = require("crossfilter");
-
+  
 var interactiveFilters = (function(){
 
     //Crossfilter specific
@@ -16,7 +16,7 @@ var interactiveFilters = (function(){
       groups = {},
       ndx,
       filter = {};
-
+      
     var ATTRIBUTENAME = "attributeName";
 
     var filteringAttributes = dataDescription.getFilteringAttributes();
@@ -75,7 +75,7 @@ var interactiveFilters = (function(){
             //console.log(binFactor)
             dimension = ndx.dimension(function(d){
               return Math.round(d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
-            })
+            });
           } else {
             dimension = ndx.dimension(function(d){
               return d[filteringAttribute[ATTRIBUTENAME]];
@@ -83,14 +83,24 @@ var interactiveFilters = (function(){
           }
 
           dimensions[filteringAttribute[ATTRIBUTENAME]] = dimension;
-
+        
           group = dimension.group();
           //console.log(filteringAttribute[ATTRIBUTENAME])
           groups[filteringAttribute[ATTRIBUTENAME]] = group;
+
+          dimensions["ageCancerDim"] = ndx.dimension(function(d){
+            return [+d.age_at_initial_pathologic_diagnosis, +d.person_neoplasm_cancer_status];
+          });
+          groups["ageCancerGroup"] = dimensions["ageCancerDim"].group().reduceSum(function(d){
+            return 1;
+          });
+          /*groups["ageCancerDim"] = ndx.dimension(function(d){
+            return [+d.age_at_initial_pathologic_diagnosis, +d.person_neoplasm_cancer_status];
+          });*/
         }
         /*
 
-        var xAttr = "AgeatInitialDiagnosis";
+        var xAttr = "AgeatInitialDiagnosis";i
         var yAttr = "KarnofskyScore";
         dimensions["imageGrid"] = ndx.dimension(function(d){
           return d.image;
@@ -106,9 +116,9 @@ var interactiveFilters = (function(){
         });
         groups["imageGrid"] = dimensions["imageGrid"].group();
         */
-        size = ndx.size(),
+        var size = ndx.size(),
         all = ndx.groupAll();
-    }
+    };
 
     return {
         init: _init,
@@ -129,7 +139,7 @@ var interactiveFilters = (function(){
         getndx: function(){
             return ndx;
         }
-    }
+    };
 
 })();
  
