@@ -1,4 +1,4 @@
-var AppActions = require("../actions/AppActions.jsx");
+//var AppActions = require("../actions/AppActions.jsx");
 
 var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
@@ -36,7 +36,7 @@ var InteractiveFilters = React.createClass({
                 );
             });
         } else {
-            filteringAttribute = <div></div>
+           // filteringAttribute = <div></div>;
         }
         if(this.state.full){
             return(
