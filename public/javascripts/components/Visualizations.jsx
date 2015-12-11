@@ -5,9 +5,7 @@ var ReactBootstrap = require("react-bootstrap");
 
 var Tabs      = ReactBootstrap.Tabs,
     Tab         = ReactBootstrap.Tab,
-    Glyphicon       = ReactBootstrap.Glyphicon,
     Modal = ReactBootstrap.Modal,
-    Input           = ReactBootstrap.Input,
     Button          = ReactBootstrap.Button;
 
 
@@ -17,16 +15,16 @@ var Tabs      = ReactBootstrap.Tabs,
 var OptionsBar = React.createClass({
     getInitialState: function(){
 
-    console.log('woot');
-    return { showModal: false };
+        console.log("woot");
+        return { showModal: false };
     },
 
     close: function(){
-    this.setState({ showModal: false });
+        this.setState({ showModal: false });
     },
 
     open: function(){
-    this.setState({ showModal: true });
+        this.setState({ showModal: true });
     },
     render: function(){
 
@@ -36,20 +34,20 @@ var OptionsBar = React.createClass({
         var attributes = [];
 
         for(var i in this.props.currData){
-            attributes.push(i)
+            attributes.push(i);
         }
 
-        var url = "/save?attributes={list:"+(attributes)+"}"
+        var url = "/save?attributes={list:"+(attributes)+"}";
 
         var Attributes = attributes.map(function(d){
             return(
                 <input type="checkbox" value="{d}">{d}</input>
-            )
-        })
+            );
+        });
         return(
             <div>
-            <div id="OptionsBar" className='modal-container'>
-                <Button bsStyle='success' title="Download data" onClick={this.open}> Download</Button>
+            <div id="OptionsBar" className="modal-container">
+                <Button bsStyle="success" title="Download data" onClick={this.open}> Download</Button>
             </div>
             {
 
@@ -93,7 +91,7 @@ var Visualizations = React.createClass({
             });
 
             return(
-                <div id="visualization" className="col-sm-9">
+                <div id="visualization" className="col-sm-7 col-md-8 col-lg-8">
                     <OptionsBar currData={self.props.currData} />
                     <Tabs defaultActiveKey={1}>
                         {visualizations}

@@ -32,9 +32,9 @@ var InteractiveFilters = React.createClass({
             filteringAttributes = this.props.config.map(function(filteringAttribute){
                 key++;
                 return (
-                    <FilteringAttribute key={key} config={filteringAttribute} currData={self.props.currData} full={self.state.full}/>
+                    <FilteringAttribute key={key} config={filteringAttribute} currData={self.props.currData} full={self.state.full} />
                 );
-            })    
+            });
         } else {
             filteringAttribute = <div></div>
         }
@@ -50,7 +50,7 @@ var InteractiveFilters = React.createClass({
 
         } else {
             return(
-                <div  className="col-sm-5 col-md-4 col-lg-3 fixed" id="interactiveFiltersPanel" >
+                <div  className="col-sm-5 col-md-4 col-lg-4 fixed" id="interactiveFiltersPanel" >
                     <h4> Filtering Attributes</h4>
                      <Button onClick={this.fullView}  id="interactiveFiltersPanelSlider" bsSize="xsmall"> &raquo; </Button>
 
