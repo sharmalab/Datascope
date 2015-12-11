@@ -17,9 +17,12 @@ body{
 #header a{
   color: #ffeeef;
 }
+/*
 #header a:hover{
-  color: #ffffff;z
+  color: #ffffff;
 }
+*/
+
 footer {
   padding: 2em 0 1em 0;
   font-size: 12px;

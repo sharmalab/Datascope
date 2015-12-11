@@ -12,7 +12,7 @@ var InteractiveFilters = React.createClass({
     },
     fullView: function(){
         if(this.state.full){
-            if(this.state.full == false)
+            if(this.state.full === false)
                 this.setState({full: true});
             else
                 this.setState({full: false});
@@ -50,7 +50,7 @@ var InteractiveFilters = React.createClass({
 
         } else {
             return(
-                <div  className="col-sm-3 fixed" id="interactiveFiltersPanel" >
+                <div  className="col-sm-5 col-md-4 col-lg-3 fixed" id="interactiveFiltersPanel" >
                     <h4> Filtering Attributes</h4>
                      <Button onClick={this.fullView}  id="interactiveFiltersPanelSlider" bsSize="xsmall"> &raquo; </Button>
 
