@@ -33,7 +33,7 @@ var ChartAddons = React.createClass({
 
             console.log(queryFilter);
 
-        if(this.state.elasticX == true){
+        if(this.state.elasticX === true){
 
             c.elasticX(false);
 
@@ -59,7 +59,7 @@ var ChartAddons = React.createClass({
 
         	console.log(queryFilter);
 
-        if(this.state.elasticY == true){
+        if(this.state.elasticY === true){
 
             c.elasticY(false);
 
@@ -123,33 +123,33 @@ var FilteringAttribute = React.createClass({
      //Initialize crossfilter dimensions and groups before rendering
         var self = this;
         var attributeName = this.props.config.attributeName;
+
         var dim = {
             filter: function(f) {
-                if(f) {
-                        queryFilter[attributeName] = f;
+              console.log(f);
+              if(f) {
+
+                queryFilter[attributeName] = f;
                         //refresh()
-
-                        AppActions.refresh(queryFilter);
+                AppActions.refresh(queryFilter);
+              } else {
+                if(queryFilter[attributeName]){
+                  delete queryFilter[attributeName];
+                  //here would call the update action
+                  //refresh();
+                  AppActions.refresh(queryFilter);
                 } else {
-                      if(queryFilter[attributeName]){
-                        delete queryFilter[attributeName];
-
-                        //here would call the update action
-                        //refresh();
-                        AppActions.refresh(queryFilter);
-                      } else {
-                        return;
-                      }
-                    }
-                },
-            filterAll: function() {
-                    delete queryFilter[attributeName];
-
-                    AppActions.refresh(queryFilter);
-                },
-            name: function(){
-                    return attributeName;
+                  return {};
                 }
+              }
+            },
+            filterAll: function() {
+              delete queryFilter[attributeName];
+              AppActions.refresh(queryFilter);
+            },
+            name: function(){
+              return attributeName;
+            }
 
         };
         var group = {
@@ -183,6 +183,42 @@ var FilteringAttribute = React.createClass({
 
         };
 
+
+        if(attributeName == "ageCancer"){
+          dim = {
+            filter: function(f){
+              console.log("filtering");
+              console.log(arguments.toString());
+            },
+            filterAll: function(){
+             
+            },
+            name: function(){
+              return "ageCancer";
+            },
+            filterFunction: function(){
+              //arguments[0]();
+              //console.log(arguments[0].toString());                
+              AppActions.refresh({});
+            }
+          };
+          group = {
+            all: function(){
+              //console.log(self.props.currData);
+              //console.log("......grouop...");
+              console.log(self.props.currData["ageCancerGroup"].values);
+              return self.props.currData["ageCancerGroup"].values;
+            },
+            order: function(){
+              return groups["ageCancerGroup"];
+            },
+            top: function(){
+              //console.log(".............");
+              return self.props.currData["ageCancerGroup"].values;
+            }
+          };
+        }
+
         this.setState({dimension: dim, group: group});
 
 
@@ -196,6 +232,9 @@ var FilteringAttribute = React.createClass({
         var domain = this.props.config.domain || [0,100];
         var domain = [0,100]
         var c = {};
+        
+        console.log(this.props.config);
+
         //Render according to chart-type
         switch(visType){
             case "pieChart":
@@ -213,12 +252,29 @@ var FilteringAttribute = React.createClass({
                   return filters;
                 });
                 break;
+            case "scatterPlot":
+                console.log("scatterPlot");
+                console.log(self.state);
+                console.log(self.state["group"].all());
+                console.log(self.state);
+                
+                c = dc.scatterPlot(divId);
+                c.width(240)
+                .height(240)
+                .dimension(self.state.dimension)
+                .group(self.state.group)
+                .x(d3.scale.linear().domain([20,100]))
+                .yAxisLabel("cancer status")
+                .xAxisLabel("age");
+                
+                break;
             case "barChart":
                 c = dc.barChart(divId);
                 c.width(240)
                     .height(190).dimension(self.state.dimension)
                     .group(self.state.group)
                     .x(d3.scale.linear().domain(domain))
+                    .xUnits(function(){return 10})
                     .elasticY(true)
                     .elasticX(true)
                     .renderLabel(true)
@@ -272,6 +328,7 @@ var FilteringAttribute = React.createClass({
     render: function(){
         var self = this;
         var divId = "dc-"+this.props.config.attributeName;
+        //console.log(this.props.currData);
         if(this.props.full == true){
             return (
                 <div className="col-md-3">
