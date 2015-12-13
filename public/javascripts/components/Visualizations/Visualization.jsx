@@ -35,7 +35,7 @@ var Visualization = React.createClass({
             //break;
         case "SPLOM": 
             return(
-                <Splom config={this.props.config} />
+                <Splom config={this.props.config} currData={this.props.currData}/>
             );
         default:
             return(
