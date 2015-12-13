@@ -21,11 +21,14 @@ var visualization = (function(){
                 var xAttr = attributes[i].attributeName;
                 var yAttr = attributes[j].attributeName;
                 var dimension = ndx.dimension(function(d){
-                    return( [ +d.xAttr, +d.yAttr ]);
+                    return( [ +d[xAttr], +d[yAttr] ]);
                 });
                 var group = dimension.group();
+                console.log(xAttr);
                 interactiveFilters.addDimension(xAttr + "-"+ yAttr, dimension);
                 interactiveFilters.addGroup(xAttr + "-" + yAttr, group);
+
+
             }
         }
         
@@ -156,7 +159,8 @@ var visualization = (function(){
             case "heatMap":
                 heatMapFilters(ndx,vis);
                 break;
-            case "splom":
+            case "SPLOM":
+                console.log("SPLOM");
                 splomFilters(ndx,vis);
                 break;
             }
