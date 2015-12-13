@@ -278,3 +278,15 @@ table#dataTable{
 #OptionsBar button{
   float:right;
 }
+
+
+/* 
+ * SPLOM
+ */
+.splom-grid-col{
+    display: inline-block;
+    width: 220px;
+    background: #ccc;
+    margin: 2px;
+    height: 220px;
+}
