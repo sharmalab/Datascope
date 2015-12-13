@@ -1,7 +1,7 @@
 var React = require("react");
 var HeatMap = React.createClass({
     getInitialState: function(){
-        return({dimension: null, group: null})
+        return({dimension: null, group: null});
     },
     componentWillMount: function(){
 
@@ -11,26 +11,27 @@ var HeatMap = React.createClass({
 
     componentDidMount: function(){
         var self = this;
+        var queryFilter = {};
         var dim = {
             filter: function(f) {
                 if(f) {
-                        queryFilter[attributeName] = f;
-                        refresh();
+                    queryFilter[attributeName] = f;
+                    refresh();
                 } else {
-                      if(queryFilter[attributeName]){
+                    if(queryFilter[attributeName]){
                         delete queryFilter[attributeName];
-                        refresh()
-                      } else {
+                        refresh();
+                    } else {
                         return;
-                      } 
-                    }
+                    } 
+                }
             },
             filterAll: function() {
-                    delete queryFilter[attributeName];
-                    refresh();
+                delete queryFilter[attributeName];
+                refresh();
             },
             name: function(){
-                    return attributeName;
+                return attributeName;
             }
         };
         var group = {
@@ -49,10 +50,11 @@ var HeatMap = React.createClass({
             }
         };
 
-        var config = self.props.config.attributes;
+        var config = self.props.config.attributes;      
+        var xAttr, yAttr;
         for (var i=0; i<config.length; i++) {
 
-            attribute = config  [i];
+            var attribute = config  [i];
             if(attribute.type == "x"){
                 xAttr = attribute.name;
             }
@@ -60,7 +62,7 @@ var HeatMap = React.createClass({
                 yAttr = attribute.name;
             }    
         }       
-        console.log(dim) 
+        //console.log(dim) 
 
         var heat = dc.heatMap("#heatVis");
         heat.width(45 * 20 + 20)
@@ -77,7 +79,7 @@ var HeatMap = React.createClass({
         .colors(["#ffffff","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"])
         .calculateColorDomain(); 
         //heat.render()  
-        console.log(heat)
+        //console.log(heat)
 
     },
     render: function(){
