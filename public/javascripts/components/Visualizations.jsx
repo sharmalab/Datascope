@@ -15,7 +15,7 @@ var Tabs      = ReactBootstrap.Tabs,
 var OptionsBar = React.createClass({
     getInitialState: function(){
 
-        console.log("woot");
+        //console.log("woot");
         return { showModal: false };
     },
 
@@ -28,9 +28,9 @@ var OptionsBar = React.createClass({
     },
     render: function(){
 
-        var self = this;
-        console.log(self.state.showModal);
-        console.log(this.props.currData);
+        //var self = this;
+        //console.log(self.state.showModal);
+        //console.log(this.props.currData);
         var attributes = [];
 
         for(var i in this.props.currData){
@@ -73,14 +73,14 @@ var OptionsBar = React.createClass({
 
 var Visualizations = React.createClass({
     render: function(){
-        console.log("Visualizaitons");
+        //console.log("Visualizaitons");
         var self  = this;
 
         if(this.props.config){
         
             var count=0;
             var visualizations = this.props.config.map(function(visualization){
-                console.log(visualization);
+                //console.log(visualization);
                 //console.log(TabPane);
                 count++;   
                 return(
