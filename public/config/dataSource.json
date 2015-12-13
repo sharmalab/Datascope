@@ -1,1 +1,1 @@
-{"dataSourceAlias":"","dataSources":[{"sourceName":"S1","sourceType":"csvFile","options":{"path":"data/joinedData.csv"}}]}
+{"dataSourceAlias":"","dataSources":[{"sourceName":"RadPath","sourceType":"csvFile","options":{"path":"data/RadPath.csv"}}]}
