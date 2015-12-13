@@ -8,7 +8,8 @@ We propose an environment for visualizing and exploring TCIA data . We leverage 
 
 * Install Node.js
 * Clone the repository
-* Run ```npm install```
+* Run ``` npm install```
+* Run ```grunt browserify ```
 
 ##### Running
 
