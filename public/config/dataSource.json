@@ -1,1 +1,1 @@
-{"dataSourceAlias":"","dataSources":[{"sourceName":"N","sourceType":"csvFile","options":{"path":"data/TCIA2.csv"}}]}
+{"dataSourceAlias":"","dataSources":[{"sourceName":"S1","sourceType":"csvFile","options":{"path":"data/joinedData.csv"}}]}
