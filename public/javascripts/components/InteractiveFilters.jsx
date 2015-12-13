@@ -7,7 +7,7 @@ var    Button          = ReactBootstrap.Button;
 var FilteringAttribute = require("./FilteringAttribute.jsx");
 var InteractiveFilters = React.createClass({      
     getInitialState: function(){
-        console.log("Rendering interactive filters");
+        //console.log("Rendering interactive filters");
         return {full:false};
     },
     fullView: function(){
@@ -24,8 +24,8 @@ var InteractiveFilters = React.createClass({
     },
     render: function(){
         var filteringAttributes;
-        console.log("....");
-        console.log(this.props.config);
+        //console.log("....");
+        //console.log(this.props.config);
         var self = this;
         var key = 0;
         if(this.props.config){

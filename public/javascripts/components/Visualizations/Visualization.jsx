@@ -8,8 +8,8 @@ var Visualization = React.createClass({
     render: function(){
         var visType = this.props.config.visualizationType;
         //var self = this;
-        console.log("Visualization");
-        console.log(visType);
+        //console.log("Visualization");
+        //console.log(visType);
         
         switch(visType) {
         
