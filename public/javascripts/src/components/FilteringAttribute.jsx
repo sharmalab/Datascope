@@ -1,3 +1,7 @@
+/* global d3 */
+/* global $ */
+/* global dc */
+
 var queryFilter = {};
 var AppActions = require("../actions/AppActions.jsx");
 var React = require("react");
@@ -23,15 +27,14 @@ var ChartAddons = React.createClass({
         this.setState({end: event.target.value});
     },
 
-    handleElasticX: function(event){
+    handleElasticX: function(){
         var c = this.props.chart;
         console.log("handle checkbox..");
         //console.log((this.state.elasticY));
-        var queryFilterBackup = queryFilter;
+        //var queryFilterBackup = queryFilter;
         //c.elasticY(true);
         //AppActions.refresh({});
-
-            console.log(queryFilter);
+        console.log(queryFilter);
 
         if(this.state.elasticX === true){
 
@@ -49,15 +52,15 @@ var ChartAddons = React.createClass({
         this.setState({elasticX: !this.state.elasticX});
 
     },
-    handleElasticY: function(event){
+    handleElasticY: function(){
         var c = this.props.chart;
         console.log("handle checkbox..");
         //console.log((this.state.elasticY));
-        var queryFilterBackup = queryFilter;
+        //var queryFilterBackup = queryFilter;
         //c.elasticY(true);
         //AppActions.refresh({});
 
-        	console.log(queryFilter);
+        console.log(queryFilter);
 
         if(this.state.elasticY === true){
 
@@ -79,8 +82,8 @@ var ChartAddons = React.createClass({
         var visType = this.props.config.visualization.visType;
 
         switch(visType){
-            case  "barChart":
-                return(
+        case  "barChart":
+            return(
                     <div>
                     <div className="chartAddons">
                         <label>
@@ -98,8 +101,8 @@ var ChartAddons = React.createClass({
                     </div>
                     </div>
                 );
-            case "rowChart":
-                return(
+        case "rowChart":
+            return(
                     <div className="chartAddons">
 
                         <label>
@@ -108,14 +111,14 @@ var ChartAddons = React.createClass({
                         </label>
                    </div>
                 );
-            default:
-                return(
+        default:
+            return(
                     <div></div>
                 );
         }
 
     }
-})
+});
 
 
 var FilteringAttribute = React.createClass({
@@ -126,97 +129,97 @@ var FilteringAttribute = React.createClass({
 
         var dim = {
             filter: function(f) {
-              console.log(f);
-              if(f) {
+                console.log(f);
+                if(f) {
 
-                queryFilter[attributeName] = f;
+                    queryFilter[attributeName] = f;
                         //refresh()
-                AppActions.refresh(queryFilter);
-              } else {
-                if(queryFilter[attributeName]){
-                  delete queryFilter[attributeName];
-                  //here would call the update action
-                  //refresh();
-                  AppActions.refresh(queryFilter);
+                    AppActions.refresh(queryFilter);
                 } else {
-                  return {};
+                    if(queryFilter[attributeName]){
+                        delete queryFilter[attributeName];
+                    //here would call the update action
+                    //refresh();
+                        AppActions.refresh(queryFilter);
+                    } else {
+                        return {};
+                    }
                 }
-              }
             },
             filterAll: function() {
-              delete queryFilter[attributeName];
-              AppActions.refresh(queryFilter);
+                delete queryFilter[attributeName];
+                AppActions.refresh(queryFilter);
             },
             name: function(){
-              return attributeName;
+                return attributeName;
             }
 
         };
         var group = {
-                all: function() {
-                    //console.log(AppStore.getData())
-                    //return self.props.currData;
-                    return self.props.currData[attributeName].values;
-                    /*
-                    if(AppStore.getData()[attributeName]){
-                        return AppStore.getData()[attributeName].values;
-                    }
-
-                    return filteredData[attributeName].values;
-                    */
-                },
-                order: function() {
-                    return groups[attributeName];
-                },
-                top: function() {
-                    return self.props.currData[attributeName].values;
-                    /*
-                    if(AppStore.getData()[attributeName]){
-                        return AppStore.getData()[attributeName].values;
-                    }
-
-                    //console.log(AppStore.getData())
-                    //return AppStore.getData()[attributeName].values;
-                    return filteredData[attributeName].values;
-                    */
+            all: function() {
+                //console.log(AppStore.getData())
+                //return self.props.currData;
+                return self.props.currData[attributeName].values;
+                /*
+                if(AppStore.getData()[attributeName]){
+                    return AppStore.getData()[attributeName].values;
                 }
+
+                return filteredData[attributeName].values;
+                */
+            },
+            order: function() {
+                //return groups[attributeName];
+            },
+            top: function() {
+                return self.props.currData[attributeName].values;
+                /*
+                if(AppStore.getData()[attributeName]){
+                    return AppStore.getData()[attributeName].values;
+                }
+
+                //console.log(AppStore.getData())
+                //return AppStore.getData()[attributeName].values;
+                return filteredData[attributeName].values;
+                */
+            }
 
         };
 
 
         if(attributeName == "ageCancer"){
-          dim = {
-            filter: function(f){
-              console.log("filtering");
-              console.log(arguments.toString());
-            },
-            filterAll: function(){
-             
-            },
-            name: function(){
-              return "ageCancer";
-            },
-            filterFunction: function(){
-              //arguments[0]();
-              //console.log(arguments[0].toString());                
-              AppActions.refresh({});
-            }
-          };
-          group = {
-            all: function(){
-              //console.log(self.props.currData);
-              //console.log("......grouop...");
-              console.log(self.props.currData["ageCancerGroup"].values);
-              return self.props.currData["ageCancerGroup"].values;
-            },
-            order: function(){
-              return groups["ageCancerGroup"];
-            },
-            top: function(){
-              //console.log(".............");
-              return self.props.currData["ageCancerGroup"].values;
-            }
-          };
+            dim = {
+                filter: function(f){
+                    console.log("filtering", f);
+                    console.log(arguments.toString());
+                },
+                filterAll: function(){
+                 
+                },
+                name: function(){
+                    return "ageCancer";
+                },
+                filterFunction: function(){
+                  //arguments[0]();
+                  //console.log(arguments[0].toString());                
+                    AppActions.refresh({});
+                }
+            };
+            group = {
+                all: function(){
+                  //console.log(self.props.currData);
+                  //console.log("......grouop...");
+                    console.log(self.props.currData["ageCancerGroup"].values);
+                    return self.props.currData["ageCancerGroup"].values;
+                },
+                order: function(){
+                    //return groups["ageCancerGroup"];
+                },
+                top: function(){
+                    //console.log(".............");
+                    return self.props.currData["ageCancerGroup"].values;
+                }
+            };
         }
 
         this.setState({dimension: dim, group: group});
@@ -230,98 +233,98 @@ var FilteringAttribute = React.createClass({
         var divId = "#dc-"+this.props.config.attributeName;
 
         var domain = this.props.config.domain || [0,100];
-        var domain = [0,100]
+        //var domain = [0,100];
         var c = {};
         
         console.log(this.props.config);
 
         //Render according to chart-type
         switch(visType){
-            case "pieChart":
-                c   = dc.pieChart(divId);
-                c.width(250)
+        case "pieChart":
+            c   = dc.pieChart(divId);
+            c.width(250)
+            .height(190).dimension(self.state.dimension)
+            .group(self.state.group)
+            .radius(90)
+            .renderLabel(true);
+            c.filterHandler(function(dimension, filters){
+                if(filters)
+                    dimension.filter(filters);
+                else
+                    dimension.filter(null);
+                return filters;
+            });
+            break;
+        case "scatterPlot":
+            console.log("scatterPlot");
+            console.log(self.state);
+            console.log(self.state["group"].all());
+            console.log(self.state);
+            
+            c = dc.scatterPlot(divId);
+            c.width(240)
+            .height(240)
+            .dimension(self.state.dimension)
+            .group(self.state.group)
+            .x(d3.scale.linear().domain([20,100]))
+            .yAxisLabel("cancer status")
+            .xAxisLabel("age");
+            
+            break;
+        case "barChart":
+            c = dc.barChart(divId);
+            c.width(240)
                 .height(190).dimension(self.state.dimension)
                 .group(self.state.group)
-                .radius(90)
-                .renderLabel(true);
-                c.filterHandler(function(dimension, filters){
-                  if(filters)
-                    dimension.filter(filters);
-                  else
-                    dimension.filter(null);
-                  return filters;
-                });
-                break;
-            case "scatterPlot":
-                console.log("scatterPlot");
-                console.log(self.state);
-                console.log(self.state["group"].all());
-                console.log(self.state);
-                
-                c = dc.scatterPlot(divId);
-                c.width(240)
-                .height(240)
-                .dimension(self.state.dimension)
-                .group(self.state.group)
-                .x(d3.scale.linear().domain([20,100]))
-                .yAxisLabel("cancer status")
-                .xAxisLabel("age");
-                
-                break;
-            case "barChart":
-                c = dc.barChart(divId);
-                c.width(240)
-                    .height(190).dimension(self.state.dimension)
-                    .group(self.state.group)
-                    .x(d3.scale.linear().domain(domain))
-                    .xUnits(function(){return 10})
-                    .elasticY(true)
-                    .elasticX(true)
-                    .renderLabel(true)
-                    .margins({left: 35, top: 10, bottom: 20, right: 10})
-                    c.filterHandler(function(dimension, filter){
-
-                        var begin = $("#filterBeg"+dimension.name());
-                        var end = $("#filterEnd"+dimension.name());
-                        if(filter.length > 0 && filter.length!=2){
-                           filter = filter[0]
-                        }
-                        begin.val(filter[0]);
-                        end.val(filter[1]);
-                        dimension.filter(filter);
-                        return filter;
-                    });
-                //Put reset
-                //$("#"+(self.prop.config.name)+"-note").html("<button></button>")
-
-                //Put filtering form
-
-
-                break;
-            case "rowChart":
-                c = dc.rowChart(divId);
-                c.width(250)
-                .height(190)
-                .dimension(self.state.dimension)
-                .group(self.state.group)
-                .renderLabel(true)
+                .x(d3.scale.linear().domain(domain))
+                .xUnits(function(){return 10;})
+                .elasticY(true)
                 .elasticX(true)
-                .margins({top: 10, right: 20, bottom: 20, left: 20});
-                c.filterHandler(function(dimension, filters){
-                    if(filters)
-                        dimension.filter(filters);
-                    else
-                        dimension.filter(null);
-                    return filters;
-                })
+                .renderLabel(true)
+                .margins({left: 35, top: 10, bottom: 20, right: 10});
+            c.filterHandler(function(dimension, filter){
+
+                var begin = $("#filterBeg"+dimension.name());
+                var end = $("#filterEnd"+dimension.name());
+                if(filter.length > 0 && filter.length!=2){
+                    filter = filter[0];
+                }
+                begin.val(filter[0]);
+                end.val(filter[1]);
+                dimension.filter(filter);
+                return filter;
+            });
+            //Put reset
+            //$("#"+(self.prop.config.name)+"-note").html("<button></button>")
+
+            //Put filtering form
+
+
+            break;
+        case "rowChart":
+            c = dc.rowChart(divId);
+            c.width(250)
+            .height(190)
+            .dimension(self.state.dimension)
+            .group(self.state.group)
+            .renderLabel(true)
+            .elasticX(true)
+            .margins({top: 10, right: 20, bottom: 20, left: 20});
+            c.filterHandler(function(dimension, filters){
+                if(filters)
+                    dimension.filter(filters);
+                else
+                    dimension.filter(null);
+                return filters;
+            });
         }
         this.setState({chart: c});
     },
-    onReset: function(e){
+    onReset: function(){
 
         //e.preventDefault();
         var c  = this.state.chart;
-        console.log("Reset")
+        console.log("Reset");
         c.filterAll();
         //dc.renderAll();
     },
@@ -347,7 +350,7 @@ var FilteringAttribute = React.createClass({
                         </div>
                     </div>
                 </div>
-            )
+            );
         } else {
             return (
                 <div className="col-md-12" onClick={this.fullView}>
