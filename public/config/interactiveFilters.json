@@ -1,1 +1,20 @@
-[{"attributeName":"group","visualization":{"visType":"barChart"}},{"attributeName":"Radiology","visualization":{"visType":"rowChart"}},{"attributeName":"Pathology","visualization":{"visType":"rowChart"}}]
+[
+    {
+        "attributeName": "group",
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },
+    {
+        "attributeName": "Radiology",
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },
+    {
+        "attributeName": "Pathology",
+        "visualization": {
+            "visType": "rowChart"
+        }
+    }
+]
