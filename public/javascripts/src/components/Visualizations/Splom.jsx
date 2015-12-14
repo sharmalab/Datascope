@@ -1,21 +1,29 @@
 /* global dc */
 /* global d3 */
+/* global queryFilter */
 
 var React = require("react");
+var AppActions = require("../../actions/AppActions.jsx");
+
 
 var SplomGrid = React.createClass({
     componentDidMount: function(){
         var self = this;
         var attributes = this.props.config.attributes;       
-        console.log(self.props.currData);
+        //console.log(self.props.currData);
         
         //var chart = attributes.
         for(var i=0; i<attributes.length; i++){
             var combinedAttribute = attributes[i].attributeName + "-" + attributes[i].attributeName;
             var dim = {
-                filter: function(){
-                    
-                },
+                filter: function(f){
+                    var attr = attributes[i].attributeName;
+                    return function(f){
+                        //console.log(f);
+                        queryFilter[attr] = f;
+                        AppActions.refresh(queryFilter);
+                    };
+                }(),
                 filterAll: function(){
 
                 },
@@ -27,7 +35,7 @@ var SplomGrid = React.createClass({
                 all: function(){
                     var attr = attributes[i].attributeName;
                     return function(){                        
-                        console.log(attr);
+                        //console.log(attr);
                         return self.props.currData[attr].values;
                     };
                 }(),
@@ -42,17 +50,29 @@ var SplomGrid = React.createClass({
                 .dimension(dim)
                 .group(group)
                 .x(d3.scale.linear().domain([0,100]));
- 
+            chart.filterHandler(function(dimension, filter){
+                //console.log(dimension);
+                //var begin = $("#filterBeg"+dimension.name());
+                //var end = $("#filterEnd"+dimension.name());
+                if(filter.length > 0 && filter.length!=2){
+                    filter = filter[0];
+                }
+                //begin.val(filter[0]);
+                //end.val(filter[1]);
+                dimension.filter(filter);
+                return filter;
+            });
 
         }
+
         for(var i=0; i<attributes.length; i++) {
             var attribute_row = attributes[i];
             for(var j=i+1; j< attributes.length; j++) {
                 var attribute_col = attributes[j];
-                console.log(attribute_row, attribute_col);
+                //console.log(attribute_row, attribute_col);
                 var combinedAttribute = attribute_row.attributeName + "-" + attribute_col.attributeName;
-                console.log(combinedAttribute);
-                
+                //console.log(combinedAttribute);
+            
                 var dim = {
                     filter: function(f){
                         console.log(f);
@@ -61,14 +81,17 @@ var SplomGrid = React.createClass({
 
                     },
                     name: function(){ 
-                    }   
+                    },
+                    filterFunction: function(f){
+                        f();
+                    } 
                 };
 
                 var group = {
                     all: function(){
                         var attr = combinedAttribute;
                         return function(){                        
-                            console.log(attr);
+                            //console.log(attr);
                             return self.props.currData[attr].values;
                         };
                     }(),
@@ -83,25 +106,40 @@ var SplomGrid = React.createClass({
                     .dimension(dim)
                     .group(group)
                     .x(d3.scale.linear().domain([0,100]));
-                chart.filterHandler(function(dimension, filters){
-                    console.log(filters);
-                    if (filters.length === 0) {
-                        dimension.filter(null);
-                    } else {
-                        dimension.filterFunction(function (d) {
-                            for (var i = 0; i < filters.length; i++) {
-                                var filter = filters[i];
-                                if (filter.isFiltered && filter.isFiltered(d)) {
-                                    return true;
-                                } else if (filter <= d && filter >= d) {
-                                    return true;
+                chart.filterHandler(function(){
+                    var dimension = dim;
+                    var attr = combinedAttribute;
+                    return function(d, filters){
+                        console.log(d);
+                        console.log(filters);
+                        console.log(dimension); 
+                        //console.log(filters);
+                        if (filters.length === 0) {
+                            return null;
+                            dimension.filter(null);
+                        } else {
+                            dimension.filterFunction(function (d) {
+                                //console.log(filters);
+                                queryFilter[attr] = {
+                                    filters: filters,
+                                    type: "2d"
+                                };
+
+                                AppActions.refresh(queryFilter);
+                                for (var i = 0; i < filters.length; i++) {
+                                    var filter = filters[i];
+                                    if (filter.isFiltered && filter.isFiltered(d)) {
+                                        return true;
+                                    } else if (filter <= d && filter >= d) {
+                                        return true;
+                                    }
                                 }
-                            }
-                            return false;
-                        });
-                    }
-                    return filters;
-                }); 
+                                return false;
+                            });
+                        }
+                        return filters;
+                    };
+                }()); 
                 /*
                 var combinedAttribute = attribute_row.attributeName + "-" + attribute_col.attributeName;
                 console.log(combinedAttribute);
@@ -200,7 +238,7 @@ var Splom = React.createClass({
     render: function(){
         var self = this;
         //var attributes = this.props.config.attributes;
-        console.log(self.props.currData);
+        //console.log(self.props.currData);
         return(
             <div className="splom display" id="">
                 <h4>SPLOM</h4>
