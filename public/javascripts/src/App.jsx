@@ -1,8 +1,11 @@
 /* global d3 */
 /* global dc */
 
+//Global
+queryFilter = {};
+
 var filteredData = {};
-var queryFilter = {};
+
 //var dataTable;
 
 var React = require("react");

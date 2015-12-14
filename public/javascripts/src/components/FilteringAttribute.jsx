@@ -2,7 +2,7 @@
 /* global $ */
 /* global dc */
 
-var queryFilter = {};
+//var queryFilter = {};
 var AppActions = require("../actions/AppActions.jsx");
 var React = require("react");
 var ChartAddons = React.createClass({
