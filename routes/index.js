@@ -14,11 +14,17 @@ var interactiveFilters = require("../modules/interactiveFilters"),
 var CURRENTDATA = {};
 
 
+/*
+var RangedTwoDimensionalFilter = function(filter){
+
+};
+*/
+
 //
 //#### handleFilterRequest(request, response, next)
 //Is fired on GET "/data" request. Performs filtering using the filtering information provided in the GET parameter:    ```filter```    
 //
-var _handleFilterRequest = function(req,res, next) {
+var _handleFilterRequest = function(req,res) {
     var dimensions = interactiveFilters.getDimensions();
     var groups = interactiveFilters.getGroups();
     //var filteringAttributes = dataDescription.getFilteringAttributes();
@@ -41,23 +47,56 @@ var _handleFilterRequest = function(req,res, next) {
     Object.keys(dimensions).forEach(function (dim) {
 
         if (filter[dim]) {
-            //array
-            if(filter[dim].length > 1){
-                //console.log("len > 1")
-                if(dataDescription.getDataType(dim) == "enum"){
-                    //console.log("enum")
 
-                    dimensions[dim].filterFunction(function(d){
-                        return filter[dim].indexOf(d) >= 0; 
-                    });
+            if(filter[dim].type){
+                console.log(dim);
+                console.log(filter[dim].filters);
+                dimensions[dim].filterFunction(function(d){
+                    console.log(d); 
+                    var f = filter[dim].filters[0];
+					//var filters=  filter[dim].filters;
+					//var filter = filters[0];
+                    var fromBottomLeft;
+
+                    if(f[0] instanceof Array) {
+                        fromBottomLeft = [
+							[Math.min(f[0][0], f[1][0]), Math.min(f[0][1], f[1][1])],
+							[Math.max(f[0][0], f[1][0]), Math.max(f[0][1], f[1][1])]			
+                        ];
+                    } else {
+                        fromBottomLeft = [[filter[0], -Infinity], [filter[1], Infinity]];
+                    }
+					
+					
+                    var x = d[0];
+                    var y = d[1];
+                    console.log(fromBottomLeft);
+                    console.log(x >= fromBottomLeft[0][0] && x < fromBottomLeft[1][0] && y >= fromBottomLeft[0][1] && y < fromBottomLeft[1][1]);
+                    return x >= fromBottomLeft[0][0] && x < fromBottomLeft[1][0] && y >= fromBottomLeft[0][1] && y < fromBottomLeft[1][1];
+                    //console.log(d);
+                });
+                //continue;
+            }
+            else
+            {
+                //array
+                if(filter[dim].length > 1){
+                    //console.log("len > 1")
+                    if(dataDescription.getDataType(dim) == "enum"){
+                        //console.log("enum")
+
+                        dimensions[dim].filterFunction(function(d){
+                            return filter[dim].indexOf(d) >= 0; 
+                        });
+                    }
+                    else{
+                        dimensions[dim].filterRange(filter[dim]);
+                    }
+
+                } else {
+
+                    dimensions[dim].filter(filter[dim][0]);
                 }
-                else{
-                    dimensions[dim].filterRange(filter[dim]);
-                }
-
-            } else {
-
-                dimensions[dim].filter(filter[dim][0]);
             }
         } else {
             dimensions[dim].filterAll(null);
