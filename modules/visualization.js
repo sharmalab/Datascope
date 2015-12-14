@@ -31,6 +31,15 @@ var visualization = (function(){
 
             }
         }
+        for(var i=0; i< attributes.length; i++){
+            var attribute = attributes[i].attributeName;
+            var dimension = ndx.dimension(function(d){
+                return d[attribute];
+            });
+            var group=  dimension.group();
+            interactiveFilters.addDimension(attribute, dimension);
+            interactiveFilters.addGroup(attribute, group);
+        }
         
     };
     var imageGridFilters = function (ndx, visualization){
