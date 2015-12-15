@@ -80,7 +80,7 @@ var ChartAddons = React.createClass({
     },
     render: function(){
         var visType = this.props.config.visualization.visType;
-
+       
         switch(visType){
         case  "barChart":
             return(
@@ -231,8 +231,9 @@ var FilteringAttribute = React.createClass({
         var self = this;
         var visType = this.props.config.visualization.visType;
         var divId = "#dc-"+this.props.config.attributeName;
-
+        
         var domain = this.props.config.domain || [0,100];
+        var height = this.props.config.visualization.height || 190;
         //var domain = [0,100];
         var c = {};
         
@@ -304,7 +305,7 @@ var FilteringAttribute = React.createClass({
         case "rowChart":
             c = dc.rowChart(divId);
             c.width(250)
-            .height(190)
+            .height(height)
             .dimension(self.state.dimension)
             .group(self.state.group)
             .renderLabel(true)
