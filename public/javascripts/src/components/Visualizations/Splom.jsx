@@ -20,10 +20,10 @@ var SplomGrid = React.createClass({
             var dim = {
                 filter: function(){
                     var attr = attributes[i].attributeName;
-                    console.log("weeeey");
+                    //console.log("weeeey");
                     return function(f){
                         //console.log(f);
-                        console.log("wooooooot");
+                        //console.log("wooooooot");
                         queryFilter[attr] = f;
                         AppActions.refresh(queryFilter);
                     };
@@ -104,7 +104,7 @@ var SplomGrid = React.createClass({
                         var attr = combinedAttribute;
                         return function(f){
                             
-                            console.log(f);
+                            //console.log(f);
                             queryFilter[attr] = [];
                             AppActions.refresh(queryFilter);
                         };
@@ -145,13 +145,13 @@ var SplomGrid = React.createClass({
                     var dimension = dim;
                     var attr = combinedAttribute;
                     return function(d, filters){
-                        console.log(d);
-                        console.log(filters);
-                        console.log(dimension); 
+                        //console.log(d);
+                        //console.log(filters);
+                        //console.log(dimension); 
                         //console.log(filters);
                         if (filters.length === 0) {
                             //return null;
-                            console.log("0000000000");
+                            //console.log("0000000000");
                             dimension.filter([]);
                             return null;
                         } else if (filters.length === 1 && !filters[0].isFiltered) {
@@ -195,7 +195,7 @@ var SplomGrid = React.createClass({
                     var xAxisLabels = attribute_row.labels;
                     chart.xAxis().tickFormat(function(){
                         var axisLabels = xAxisLabels;
-                        console.log(axisLabels);
+                        //console.log(axisLabels);
                         return function(v){
                             //console.log(v);
                             //console.log(ERCategories[v]);
@@ -208,7 +208,7 @@ var SplomGrid = React.createClass({
                     var yAxisLabels = attribute_col.labels;
                     chart.yAxis().tickFormat(function(){
                         var axisLabels = yAxisLabels;
-                        console.log(axisLabels);
+                        //console.log(axisLabels);
                         return function(v){
                             //console.log(v);
                             //console.log(ERCategories[v]);
@@ -266,7 +266,7 @@ var SplomGrid = React.createClass({
         var attributes = this.props.config.attributes;
         var attributes2 = this.props.config.attributes;
         var rows = attributes.map(function(attribute){
-            console.log(attribute.attributeName);
+            //console.log(attribute.attributeName);
             
             return <div className="row"><SplomRow config={self.props.config} rowId={attribute.attributeName} /></div>;
         });
@@ -277,18 +277,45 @@ var SplomGrid = React.createClass({
 });
 
 
+var SplomBox = React.createClass({
+    render: function(){
+        var rowId = this.props.rowId;
+        var colId = this.props.colId;
+        console.log(rowId + colId); 
+        return (
+            <div className="splom-grid-box" >
+                <div id={rowId + "-" + colId}>
+                    {colId}
+                </div>
+            </div>
+        );
+    }
+});
+
 var SplomRow = React.createClass({
     render: function(){
         var attributes = this.props.config.attributes;
         var rowId = this.props.rowId;
+        var cols = [];
+        for(var i in attributes){
+            //console.log(i);
+            var colId = attributes[i].attributeName; 
+            var box = <SplomBox rowId={rowId} colId={colId} />;
+            cols.push(box);
+        }
+        /*
         var col = attributes.map(function(attribute) {
-            console.log(attribute);
+            /* 
+           console.log(attribute);
             return(
-                <div className="splom-grid-col" id={rowId + "-" + attribute.attributeName}></div>
+                <div className="splom-grid-col" id={rowId + "-" + attribute.attributeName}> {rowId} + "-" + {attribute.attributeName} </div>
 
             );
+        
+            return <SplomBox rowId={rowId} colId={attribute.attributeName} />;
         });
-        return <div>{col}</div>;
+        */
+        return <div>{cols}</div>;
     }
 });
 
