@@ -4,6 +4,8 @@
 //Global
 queryFilter = {};
 
+//dc.constants.EVENT_DELAY = 300;
+
 var filteredData = {};
 
 //var dataTable;
