@@ -14,6 +14,8 @@ var SplomGrid = React.createClass({
         
         //var chart = attributes.
         for(var i=0; i<attributes.length; i++){
+            var attribute_row = attributes[i];
+            var attribute_col = attributes[i];
             var combinedAttribute = attributes[i].attributeName + "-" + attributes[i].attributeName;
             var dim = {
                 filter: function(){
@@ -45,13 +47,18 @@ var SplomGrid = React.createClass({
 
                 }
             };
+            var domain = [0,100];
+            if(attribute_row.domain){
+                domain = attribute_row.domain;
+            }
+
 
             var chart = dc.barChart("#"+combinedAttribute);
             chart.width(220)
                 .height(200)
                 .dimension(dim)
                 .group(group)
-                .x(d3.scale.linear().domain([0,100]));
+                .x(d3.scale.linear().domain(domain));
             chart.filterHandler(function(dimension, filter){
                 //console.log(dimension);
                 //var begin = $("#filterBeg"+dimension.name());
@@ -64,6 +71,23 @@ var SplomGrid = React.createClass({
                 dimension.filter(filter);
                 return filter;
             });
+            
+            if(attribute_row.labels){
+                var xAxisLabels = attribute_row.labels;
+                chart.xAxis().tickFormat(function(v){
+                    //console.log(v);
+                    //console.log(ERCategories[v]);
+                    return xAxisLabels[v];
+                });
+            }
+            /*
+            if(attribute_col.labels){    
+                var yAxisLabels = attribute_col.labels;
+                chart.yAxis().tickFormat(function(v){
+                    return yAxisLabels[v];
+                }); 
+            }
+            */
 
         }
 
@@ -106,12 +130,17 @@ var SplomGrid = React.createClass({
                     order: function(){
                     }
                 };
+                var domain = [0,100]
+                if(attribute_row.domain){
+                    domain = attribute_row.domain
+                }
+
                 var chart = dc.scatterPlot("#"+combinedAttribute);
                 chart.width(220)
                     .height(200)
                     .dimension(dim)
                     .group(group)
-                    .x(d3.scale.linear().domain([0,100]));
+                    .x(d3.scale.linear().domain(domain));
                 chart.filterHandler(function(){
                     var dimension = dim;
                     var attr = combinedAttribute;
@@ -122,8 +151,15 @@ var SplomGrid = React.createClass({
                         //console.log(filters);
                         if (filters.length === 0) {
                             //return null;
+                            console.log("0000000000");
                             dimension.filter([]);
                             return null;
+                        } else if (filters.length === 1 && !filters[0].isFiltered) {
+                            // single value and not a function-based filter
+                            dimension.filterExact(filters[0]);
+                        } else if (filters.length === 1 && filters[0].filterType === 'RangedFilter') {
+                            // single range-based filter
+                            dimension.filterRange(filters[0]);
                         } else {
                             dimension.filterFunction(function (d) {
                                 //console.log(filters);
@@ -154,9 +190,33 @@ var SplomGrid = React.createClass({
                 chart.hiddenSize(hiddenSize);
                 chart.hiddenOpacity(0.8);
                 chart.hiddenColor("grey");
+                
+                if(attribute_row.labels){
+                    var xAxisLabels = attribute_row.labels;
+                    chart.xAxis().tickFormat(function(){
+                        var axisLabels = xAxisLabels;
+                        console.log(axisLabels);
+                        return function(v){
+                            //console.log(v);
+                            //console.log(ERCategories[v]);
+                            return axisLabels[v];
+                        };
+                    }());
+                }
+                if(attribute_col.labels){   
 
-
-                /*
+                    var yAxisLabels = attribute_col.labels;
+                    chart.yAxis().tickFormat(function(){
+                        var axisLabels = yAxisLabels;
+                        console.log(axisLabels);
+                        return function(v){
+                            //console.log(v);
+                            //console.log(ERCategories[v]);
+                            return axisLabels[v];
+                        };
+                    }());
+                }
+                            /*
                 var combinedAttribute = attribute_row.attributeName + "-" + attribute_col.attributeName;
                 console.log(combinedAttribute);
             
@@ -200,29 +260,38 @@ var SplomGrid = React.createClass({
                 */
             }
         }
- 
     },
-
     render: function(){
+        var self = this;
         var attributes = this.props.config.attributes;
         var attributes2 = this.props.config.attributes;
         var rows = attributes.map(function(attribute){
-     
-            var row = attributes2.map(function(attribute_col){
-                return(
-                        <div className="splom-grid-col" id={attribute.attributeName + "-" + attribute_col.attributeName}> {attribute.attributeName + " " +attribute_col.attributeName} </div>
-                );
-            });
-        
-
-            return <div className="row">{row}</div>;
+            console.log(attribute.attributeName);
+            
+            return <div className="row"><SplomRow config={self.props.config} rowId={attribute.attributeName} /></div>;
         });
-
         return (
                 <div>{rows}</div>
         );
     }
 });
+
+
+var SplomRow = React.createClass({
+    render: function(){
+        var attributes = this.props.config.attributes;
+        var rowId = this.props.rowId;
+        var col = attributes.map(function(attribute) {
+            console.log(attribute);
+            return(
+                <div className="splom-grid-col" id={rowId + "-" + attribute.attributeName}></div>
+
+            );
+        });
+        return <div>{col}</div>;
+    }
+});
+
 
 var GenericSplom = React.createClass({
    /* 
