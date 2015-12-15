@@ -2,7 +2,8 @@
     {
         "attributeName": "group",
         "visualization": {
-            "visType": "rowChart"
+            "visType": "rowChart",
+            "height": 500
         }
     },
     {
