@@ -286,7 +286,8 @@ table#dataTable{
 .splom-grid-col{
     display: inline-block;
     width: 220px;
-    background: #ccc;
+    background: #fff;
+    border: 1px solid #ccc;
     margin: 2px;
     height: 220px;
 }
