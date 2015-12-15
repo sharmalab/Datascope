@@ -291,3 +291,13 @@ table#dataTable{
     margin: 2px;
     height: 220px;
 }
+.splom-grid-box div{
+    float: left;
+}
+.splom-grid-box{
+    display: inline-block;
+    width: 220px;
+    height: 220px;
+    border: 1px solid #ccc;
+    margin: 2px;
+}
