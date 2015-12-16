@@ -65,7 +65,7 @@ body {
 
 /* Hide for mobile, show later */
 .sidebar {
-  display: block;
+  
 }
 @media (min-width: 768px) {
   .sidebar {
@@ -178,13 +178,23 @@ a.panel-reset {
 .inactive{
   color: #333;
 }
+
+/*
 table#dataTable{
   font-size: 11px;
   overflow-x: scroll;
 }
 #vis{
-    font-size: 11px;
+//    font-size: 11px;
+//    margin: 0 auto;
 }
+*/
+
+.visualizationArea{
+    margin: 4px auto;
+    width: 700px;
+}
+
 #dataTableNav{
   text-align: center;
 }
@@ -229,6 +239,7 @@ table#dataTable{
 
 #visualization{
     padding-top: 12px;
+    margin: 0 auto;
 }
 
 #interactiveFiltersPanelSlider{
@@ -283,6 +294,9 @@ table#dataTable{
 /* 
  * SPLOM
  */
+.splom{
+    padding-left: 40px;
+}
 .splom-grid-col{
     display: inline-block;
     width: 220px;
@@ -293,11 +307,21 @@ table#dataTable{
 }
 .splom-grid-box div{
     float: left;
+    padding-top: 10px;
+    padding-left 4px;
 }
 .splom-grid-box{
     display: inline-block;
     width: 220px;
     height: 220px;
     border: 1px solid #ccc;
-    margin: 2px;
+    margin: 1px;
+}
+#splom-title div{
+    width: 220px;
+    font-size: 11px;
+    display: inline-block;
+    float: left;
+    padding-left: 4px;
+    border: 1px solid #ccc;
 }
