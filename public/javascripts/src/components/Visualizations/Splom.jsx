@@ -57,8 +57,14 @@ var SplomGrid = React.createClass({
             chart.width(220)
                 .height(200)
                 .dimension(dim)
-                .group(group)
-                .x(d3.scale.linear().domain(domain));
+                .elasticY(true)
+                .group(group);
+            if(attribute_row.continous ){
+                chart.x(d3.scale.linear().domain(domain));
+            } else {
+                chart.x(d3.scale.ordinal());
+                chart.xUnits(dc.units.ordinal);
+            }
             chart.filterHandler(function(dimension, filter){
                 //console.log(dimension);
                 //var begin = $("#filterBeg"+dimension.name());
@@ -137,7 +143,7 @@ var SplomGrid = React.createClass({
 
                 var chart = dc.scatterPlot("#"+combinedAttribute);
                 chart.width(220)
-                    .height(200)
+                    .height(210)
                     .dimension(dim)
                     .group(group)
                     .x(d3.scale.linear().domain(domain));
@@ -190,7 +196,13 @@ var SplomGrid = React.createClass({
                 chart.hiddenSize(hiddenSize);
                 chart.hiddenOpacity(0.8);
                 chart.hiddenColor("grey");
-                
+                chart.clipPadding(10);
+                /*
+                chart.renderlet(function(chart) {
+                    chart.svg().select('.chart-body').attr('clip-path', null)
+                });               
+                */
+ 
                 if(attribute_row.labels){
                     var xAxisLabels = attribute_row.labels;
                     chart.xAxis().tickFormat(function(){
@@ -215,6 +227,10 @@ var SplomGrid = React.createClass({
                             return axisLabels[v];
                         };
                     }());
+                    if(attribute_col.domain){
+                        //chart.y(d3.scale.linear().domain([attribute_col.domain]));  //Fix clipping
+                    }
+                    //chart.
                 }
                             /*
                 var combinedAttribute = attribute_row.attributeName + "-" + attribute_col.attributeName;
@@ -265,11 +281,13 @@ var SplomGrid = React.createClass({
         var self = this;
         var attributes = this.props.config.attributes;
         var attributes2 = this.props.config.attributes;
+        //var row
         var rows = attributes.map(function(attribute){
             //console.log(attribute.attributeName);
             
             return <div className="row"><SplomRow config={self.props.config} rowId={attribute.attributeName} /></div>;
         });
+        rows.push(<SplomHeader />);
         return (
                 <div>{rows}</div>
         );
@@ -281,11 +299,10 @@ var SplomBox = React.createClass({
     render: function(){
         var rowId = this.props.rowId;
         var colId = this.props.colId;
-        console.log(rowId + colId); 
+        //console.log(rowId + colId); 
         return (
             <div className="splom-grid-box" >
                 <div id={rowId + "-" + colId}>
-                    {colId}
                 </div>
             </div>
         );
@@ -319,6 +336,16 @@ var SplomRow = React.createClass({
     }
 });
 
+var SplomHeader = React.createClass({
+    render: function(){
+        var attributes = this.props.config.attributes;
+        var titles = attributes.map(function(attribute){
+            var titleBox = <div class="splom-grid-title">{attribute.attributeName}</div>
+            return titleBox;
+        });
+        return( <div id="splom-title">{titles}</div>);
+    }
+});
 
 var GenericSplom = React.createClass({
    /* 
@@ -338,7 +365,8 @@ var GenericSplom = React.createClass({
         */
         return(
 
-            <div> 
+            <div>
+
                 <SplomGrid config = {self.props.config} currData={self.props.currData}/>
             </div>
         );
