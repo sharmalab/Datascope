@@ -15,6 +15,13 @@
     {
         "attributeName": "Pathology",
         "visualization": {
+            "visType": "rowChart",
+            "height": 130
+        }
+    },
+    {
+        "attributeName": "person_neoplasm_cancer_status",
+        "visualization": {
             "visType": "rowChart"
         }
     }
