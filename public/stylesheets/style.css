@@ -319,9 +319,32 @@ table#dataTable{
 }
 #splom-title div{
     width: 220px;
-    font-size: 11px;
+    font-size: 12px;
+    height: 40px;
     display: inline-block;
     float: left;
     padding-left: 4px;
     border: 1px solid #ccc;
+    margin: 1px;
+    text-align: center;
+}
+div#splom-spacer{
+    width: 8px;
+    transform: none;
+    padding: 0;
+    border: 0;
+}
+
+.splom-title{
+//    margin: 2px;
+}
+.splom-side-title{
+    display: inline-block;
+    float: left;
+    height: 220px;
+    width: 10px;
+ //   padding-left: 140px;
+ transform: rotate(90deg);
+
+    transform-origin: left top 0;
 }
