@@ -3380,8 +3380,8 @@ dc.coordinateGridMixin = function (_chart) {
         if (!arguments.length) {
             return _chart._filter();
         }
-        console.log("ye wala filter");
-        console.log(_);
+        //console.log("ye wala filter");
+        //console.log(_);
         _chart._filter(_);
 
         if (_) {
@@ -6832,7 +6832,7 @@ dc.compositeChart = function (parent, chartGroup) {
     });
 
     _chart._brushing = function () {
-
+        console.log("which brushing is this?");
     };
     _chart._brushend = function() {
         var extent = _chart.extendBrush();
@@ -8987,20 +8987,43 @@ dc.scatterPlot = function (parent, chartGroup) {
 
     _chart._brushing = function () {
         var extent = _chart.extendBrush();
-
+        console.log(extent);
         _chart.redrawBrush(_chart.g());
-        
-    };
-    _chart._brushend = function() {
-        var extent = _chart.extendBrush();
-
-        _chart.redrawBrush(_chart.g());
-        
         if (_chart.brushIsEmpty(extent)) {
             dc.events.trigger(function () {
                 _chart.filter(null);
                 _chart.redrawGroup();
             });
+
+            resizeFiltered(false);
+        }
+       
+    };
+    _chart._disableMouseZoom = function() {
+        /*
+        console.log("here");
+        if (_chart.brushIsEmpty(extent)) {
+            dc.events.trigger(function () {
+                _chart.filter(null);
+                _chart.redrawGroup();
+            });
+
+            resizeFiltered(false);
+        }
+        */
+
+    };
+    _chart._brushend = function() {
+        var extent = _chart.extendBrush();
+        console.log(extent);
+        _chart.redrawBrush(_chart.g());
+        console.log(_chart.brushIsEmpty(extent)); 
+        if (_chart.brushIsEmpty(extent)) {
+            _chart.filter(null);
+            dc.events.trigger(function () {
+                _chart.filter(null);
+                _chart.redrawGroup();
+            }, dc.constants.EVENT_DELAY);
 
             resizeFiltered(false);
 
