@@ -123,8 +123,8 @@ var _handleFilterRequest = function(req,res) {
             paginate = false;
         results["imageGrid"] = {
             values: CURRENTDATA.slice(0,100),
-            active: all.value(),
-            size: size,
+            active: 100,
+            size: 100,
             state: Math.floor(reqLength/100),
             paginate: paginate,
             finalState: 3
