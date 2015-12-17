@@ -1,23 +1,24 @@
+/* global $ */
 var React = require("react");
 
 var ImageGrid = React.createClass({
     getInitialState: function(){
         var self =this;
         var currData = this.props.currData;
-        self.setState({gridState: 0, currData: currData, images: currData})
+        self.setState({gridState: 0, currData: currData, images: currData});
 
         return {
             gridState: 0,
-            currData: currData,
+            currData: currData
 
-        }
+        };
     },
     componentWillReceiveProps: function(){
         var self =this;
         var currData = this.props.currData;
         var paginate = this.props.currData["imageGrid"].paginate;
-        console.log(currData);
-        console.log("reciveing props woot")
+        //console.log(currData);
+        //console.log("reciveing props woot");
         self.setState({gridState: 0, currData: currData, images: currData, paginate: paginate});
 
     },
@@ -54,18 +55,19 @@ var ImageGrid = React.createClass({
     render: function(){
         var self = this;
 
-        console.log('rendering imageGrid')
-        console.log(this.props.debug)
-        var self =this;
-        var currData = this.state.currData;
+        //console.log("rendering imageGrid");
+        //console.log(this.props.debug);
+        //var self =this;
+        var currData = this.props.currData;
+        //var currData = this.state.currData;
         //var data = this.state.images;
-        console.log(currData)
+        console.log(currData["imageGrid"]["values"].length);
         var images = currData["imageGrid"]["values"];
         var finalState = currData["imageGrid"]["finalState"];
         var gridState = this.state.gridState;   
         var paginate = this.state.paginate;
-        console.log(currData);
-        console.log(this.state.gridState)
+        //console.log(currData);
+        //console.log(this.state.gridState)
         var Img = images.map(function(d){
             var image = d["Image"];
             var URL=  image.substring(95, 95+ ("TCGA-A1-AOSD").length);

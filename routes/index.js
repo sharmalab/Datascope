@@ -49,10 +49,10 @@ var _handleFilterRequest = function(req,res) {
         if (filter[dim]) {
 
             if(filter[dim].type){
-                console.log(dim);
-                console.log(filter[dim].filters);
+                //console.log(dim);
+                //console.log(filter[dim].filters);
                 dimensions[dim].filterFunction(function(d){
-                    console.log(d); 
+                    //console.log(d); 
                     var f = filter[dim].filters[0];
 					//var filters=  filter[dim].filters;
 					//var filter = filters[0];
@@ -70,8 +70,8 @@ var _handleFilterRequest = function(req,res) {
 					
                     var x = d[0];
                     var y = d[1];
-                    console.log(fromBottomLeft);
-                    console.log(x >= fromBottomLeft[0][0] && x < fromBottomLeft[1][0] && y >= fromBottomLeft[0][1] && y < fromBottomLeft[1][1]);
+                    //console.log(fromBottomLeft);
+                    //console.log(x >= fromBottomLeft[0][0] && x < fromBottomLeft[1][0] && y >= fromBottomLeft[0][1] && y < fromBottomLeft[1][1]);
                     return x >= fromBottomLeft[0][0] && x < fromBottomLeft[1][0] && y >= fromBottomLeft[0][1] && y < fromBottomLeft[1][1];
                     //console.log(d);
                 });
@@ -108,8 +108,13 @@ var _handleFilterRequest = function(req,res) {
     });
 
     if(visualization.hasVisualization("imageGrid")){
-        CURRENTDATA = dimensions["imageGrid"].top(Infinity);
+        //CURRENTDATA = dimensions["imageGrid"].top(Infinity);
+        //
+        var filteringAttributes = dataDescription.getFilteringAttributes(),
+        CURRENTDATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
 
+        //CURRENTDATA = dimensions["group"].top(Infinity);
+        console.log("imageGrid");
         //Image Grid stuff
         //console.log(typeof(CURRENTDATA["values"]));
         //console.log(CURRENTDATA)
@@ -117,6 +122,7 @@ var _handleFilterRequest = function(req,res) {
 
         //if(visualization.getVisualizationType() == "imageGrid"){
             //console.log(dimensions["imageGrid"].top(100))
+        console.log(CURRENTDATA.length);
         var reqLength = 100;
         var paginate = true;
         if(CURRENTDATA.length < reqLength)
