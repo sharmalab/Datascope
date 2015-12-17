@@ -1,5 +1,6 @@
 body{
   padding-top:70px;
+  overflow-y: hidden;
 }
 
 #filtering_attributes{
@@ -11,11 +12,11 @@ body{
 }
 
 #header{
-  background: #556270;
-  margin-bottom: 120px
+  background:#607D8B;
+  margin-bottom: 10px
 }
 #header a{
-  color: #ffeeef;
+  color: #fff;
 }
 /*
 #header a:hover{
@@ -31,11 +32,18 @@ footer {
   min-height: 400px;
   padding: 30px;
 }
+/*
 .chart{
   position: relative;
   top: 10px;
   left: 40px;
 }
+*/
+
+
+
+
+
 
 
 
@@ -55,7 +63,7 @@ body {
 
 .sub-header {
   padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  //border-bottom: 1px solid #eee;
 }
 
 
@@ -192,9 +200,10 @@ table#dataTable{
 
 .visualizationArea{
     margin: 4px auto;
-    width: 700px;
+    width: 750px;
     overflow-y: scroll;
     height: 100vh;
+    padding-bottom: 120px;
 }
 
 #dataTableNav{
@@ -245,7 +254,7 @@ table#dataTable{
 }
 
 #interactiveFiltersPanelSlider{
-
+    
   float: right;
   margin: 4px;
   z-index: 10000;
@@ -350,3 +359,63 @@ div#splom-spacer{
 
     transform-origin: left top 0;
 }
+
+
+
+
+/* Filtering Attributes */
+
+.chart-stage{
+    background: #455A64;
+}
+.chart-title, .chart-wrapper .chart-notes{
+   background: #607D8B;
+   color: #fff;
+}
+.chart-wrapper .chart-title{
+    color: #fff;
+    border: 0;
+}
+.chart-wrapper{
+    border: 0;
+}
+.chartAddons{
+    font-size:10.5px;
+    color: #ddd;
+}   
+.chart-notes{
+    border:0;
+    text-align: left;
+    font-weight: normal;
+    font-size: 10px;
+}
+button{
+    color: #ddd;
+//    background: #03A9F4;
+    background:  rgba(69, 90, 100, 0.84);
+//    box-shadow: 2px 2px 2px grey;
+    border: 0;
+}
+.chart-wrapper .chart-notes{
+    border: 0;
+    background:  rgba(69, 90, 100, 0.84);
+}
+
+
+.side{
+    max-width: 400px;
+}
+
+#interactiveFiltersPanel{
+    background: #CFD8DC;
+    color: #212121;
+//    max-width: 400px;
+    padding-bottom: 60px;
+    text-align: center;
+}
+#interactiveFiltersPanel h4{
+//    font-family: Roboto, Futura, Arial, Verdana;
+font-size: 16.5;
+}
+
+
