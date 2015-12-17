@@ -1,1 +1,2 @@
-{"dataSourceAlias":"","dataSources":[{"sourceName":"RadPath","sourceType":"csvFile","options":{"path":"data/RadPath.csv"}}]}
+{"dataSourceAlias":"","dataSources":[{"sourceName":"RadPath","sourceType":"csvFile","options":{"path":"data/RadPath_withImage.csv"}}]}
+
