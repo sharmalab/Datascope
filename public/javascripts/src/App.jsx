@@ -47,9 +47,9 @@ var Dashboard = React.createClass({
                 AppActions.refresh(queryFilter); //Initial refresh
                 filteredData = AppStore.getData();
                 //Do the initial filtering 
-                d3.json("/data?filter={}", function(d) {
+                d3.json("/data/?filter={}", function(d) {
                     filteredData = d;
-
+                    //console.log(filteredData);
                     self.setState({
                         interactiveFilters: interactiveFilters,
                         visualization: visualization,
@@ -84,7 +84,7 @@ var Dashboard = React.createClass({
         //var currData = this.state.currData;
           //interactiveFiltersData = currData.interactiveFilters,
           //visualizationData = currData.visualization;
-        console.log(this.state.loaded);
+        //console.log(this.state.loaded);
         return (
           <div>
             <InteractiveFilters onFilter={this.onFilter} config={this.state.interactiveFilters} currData={this.state.currData}>
