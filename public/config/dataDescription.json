@@ -74,5 +74,11 @@
         "attributeType": [
             "visual"
         ]
+    },
+    {
+        "attributeName": "Image",
+        "attributeType": [
+            "visual"
+        ]
     }
 ]
