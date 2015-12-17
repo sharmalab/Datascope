@@ -93,7 +93,7 @@ var Visualizations = React.createClass({
             });
 
             return(
-                <div id="visualization" className="col-sm-7 col-md-8 col-lg-8">
+                <div id="visualization" className="col-sm-7 col-md-7 col-lg-8">
                     <OptionsBar currData={self.props.currData} />
                     <Tabs defaultActiveKey={1}>
                         {visualizations}

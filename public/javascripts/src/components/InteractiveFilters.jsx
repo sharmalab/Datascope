@@ -50,7 +50,7 @@ var InteractiveFilters = React.createClass({
 
         } else {
             return(
-                <div  className="col-sm-5 col-md-4 col-lg-4 fixed" id="interactiveFiltersPanel" >
+                <div  className="col-sm-5 col-md55 col-lg-4 fixed side" id="interactiveFiltersPanel"  >
                     <h4> Filtering Attributes</h4>
                      <Button onClick={this.fullView}  id="interactiveFiltersPanelSlider" bsSize="xsmall"> &raquo; </Button>
 
