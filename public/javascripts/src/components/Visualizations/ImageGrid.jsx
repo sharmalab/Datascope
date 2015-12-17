@@ -67,13 +67,15 @@ var ImageGrid = React.createClass({
         console.log(currData);
         console.log(this.state.gridState)
         var Img = images.map(function(d){
-            var image = d["image"];
-
+            var image = d["Image"];
+            var URL=  image.substring(95, 95+ ("TCGA-A1-AOSD").length);
             return (
-                
+                    <span>
+                    <a href={"http://imaging.cci.emory.edu/phone/camicroscope/osdCamicroscope.php?tissueId=" + URL} target="_blank"> 
 
-                    <img src={image} width="60px" height="60px" style={{margin: "2px"}}/>
-        
+                    <img src={image} width="200px" height="75px" style={{margin: "2px"}}/>
+                    </a>
+                    </span>
             );
 
 

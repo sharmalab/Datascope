@@ -193,6 +193,8 @@ table#dataTable{
 .visualizationArea{
     margin: 4px auto;
     width: 700px;
+    overflow-y: scroll;
+    height: 100vh;
 }
 
 #dataTableNav{
