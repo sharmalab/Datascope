@@ -5,6 +5,9 @@
 //var queryFilter = {};
 var AppActions = require("../actions/AppActions.jsx");
 var React = require("react");
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+
+
 var ChartAddons = React.createClass({
     getInitialState: function(){
         return {elasticY: true, elasticX: true};
@@ -122,6 +125,9 @@ var ChartAddons = React.createClass({
 
 
 var FilteringAttribute = React.createClass({
+    getInitialState: function() {
+        return {showChart: true};
+    },
     componentWillMount: function(){
      //Initialize crossfilter dimensions and groups before rendering
         var self = this;
@@ -329,16 +335,25 @@ var FilteringAttribute = React.createClass({
         c.filterAll();
         //dc.renderAll();
     },
+    showChart: function() {
+        var self = this;
+        console.log("show!");
+        var showChart = self.state.showChart;
+        self.setState({showChart: !showChart});
+    },
     render: function(){
         var self = this;
         var divId = "dc-"+this.props.config.attributeName;
+        var showChart = self.state.showChart ? {display: "inherit"} : {display: "none"};
+        console.log(showChart);
         //console.log(this.props.currData);
         if(this.props.full == true){
             return (
                 <div className="col-md-3">
+               
                     <div className="chart-wrapper">
                         <div className="chart-title">
-                            {self.props.config.attributeName}
+                            <a href="#"  onClick={self.showChart}> {self.props.config.attributeName}</a>
 
                         </div>
                         <div className="chart-stage">
@@ -350,23 +365,29 @@ var FilteringAttribute = React.createClass({
 
                         </div>
                     </div>
+              
                 </div>
             );
         } else {
             return (
                 <div className="col-md-12" onClick={this.fullView}>
                     <div className="chart-wrapper">
-                        <div className="chart-title">
+                        <div className="chart-title" onClick={self.showChart} >
                             {self.props.config.attributeName}
                         </div>
-                        <div className="chart-stage">
-                            <div  id={divId}> </div>
-                        </div>
-                        <div className="chart-notes">
-                            <button onClick={this.onReset}>Reset</button>
-                            <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart}/>
+                        <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                        <div style={showChart} key={divId}>
+                            <div className="chart-stage">
+                                <div  id={divId}> </div>
+                            </div>
+                            <div className="chart-notes">
+                                <button onClick={this.onReset}>Reset</button>
+                                <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart}/>
 
+                            </div>
                         </div>
+                        </ReactCSSTransitionGroup>
+
                     </div>
                 </div>
             );
