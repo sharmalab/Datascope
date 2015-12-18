@@ -8989,6 +8989,7 @@ dc.scatterPlot = function (parent, chartGroup) {
         var extent = _chart.extendBrush();
         console.log(extent);
         _chart.redrawBrush(_chart.g());
+        /*
         if (_chart.brushIsEmpty(extent)) {
             dc.events.trigger(function () {
                 _chart.filter(null);
@@ -8997,6 +8998,7 @@ dc.scatterPlot = function (parent, chartGroup) {
 
             resizeFiltered(false);
         }
+        */
        
     };
     _chart._disableMouseZoom = function() {

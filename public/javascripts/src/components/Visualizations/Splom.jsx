@@ -31,6 +31,13 @@ var SplomGrid = React.createClass({
                 filterAll: function(){
 
                 },
+                some: function () {
+                    var attr = attributes[i].attributeName;
+                    return function(f) {
+                        queryFilter[attr] = f;
+                        AppActions.refresh(queryFilter);
+                    }
+                },
                 name: function(){
                 }
             };
