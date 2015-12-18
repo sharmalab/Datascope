@@ -42,7 +42,7 @@ footer {
 
 
 .navbar-options{
-    padding-right: 20px;
+
 }
 
 
@@ -355,11 +355,13 @@ div#splom-spacer{
     display: inline-block;
     float: left;
     height: 220px;
+    font-size: 12px;
     width: 10px;
+    word-wrap: break-word;
  //   padding-left: 140px;
- transform: rotate(90deg);
+// transform: rotate(90deg);
 
-    transform-origin: left top 0;
+ //   transform-origin: left top 0;
 }
 
 
