@@ -88,11 +88,7 @@ var Dashboard = React.createClass({
         return (
           <div>
             <NavBar />
-            <div className='navbar navbar-inverse navbar-fixed-top' id='header' role='navigation'>
-                <div className='navbar-header'>
-                    <div className="navbar-brand">Data Explorer</div>
-                </div>
-            </div>
+
             <InteractiveFilters onFilter={this.onFilter} config={this.state.interactiveFilters} currData={this.state.currData}>
             </InteractiveFilters>
             <Visualizations config ={this.state.visualization} debug={this.state.debug} currData={this.state.currData}>
