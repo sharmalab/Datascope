@@ -17,7 +17,7 @@ var AppStore = require("./stores/AppStore.jsx");
 //var Reflux = require('reflux');
 var InteractiveFilters = require("./components/InteractiveFilters.jsx");
 var Visualizations = require("./components/Visualizations.jsx");
-
+var NavBar = require("./components/Navbar.jsx");
 //var Loader = require('react-loader');
 
 var interactiveFilters = {},
@@ -87,6 +87,12 @@ var Dashboard = React.createClass({
         //console.log(this.state.loaded);
         return (
           <div>
+            <NavBar />
+            <div className='navbar navbar-inverse navbar-fixed-top' id='header' role='navigation'>
+                <div className='navbar-header'>
+                    <div className="navbar-brand">Data Explorer</div>
+                </div>
+            </div>
             <InteractiveFilters onFilter={this.onFilter} config={this.state.interactiveFilters} currData={this.state.currData}>
             </InteractiveFilters>
             <Visualizations config ={this.state.visualization} debug={this.state.debug} currData={this.state.currData}>
