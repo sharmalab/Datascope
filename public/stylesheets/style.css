@@ -269,6 +269,10 @@ table#dataTable{
 #heat{
   margin: 0px 30px 0 0;
 }
+#imageGrid{
+    width: 93%;
+    margin: 0 auto;
+}
 
 #imageGridPagination{
   padding: 20px;
@@ -379,10 +383,14 @@ div#splom-spacer{
 .chart-title, .chart-wrapper .chart-notes{
    background: #607D8B;
    color: #fff;
+
 }
 .chart-wrapper .chart-title{
     color: #fff;
     border: 0;
+   text-align: left;
+    text-transform: capitalize;
+   font-size: 15.5px;
 }
 .chart-wrapper{
     border: 0;
@@ -433,4 +441,10 @@ img {
   transition: opacity 2s ease-in-out;
   animation: 3s ease-in 1s 2 reverse both paused slidein;
 
+}
+
+#filteringAttributeTitle{
+    padding-top: 17px;
+    font-size: 17px;
+    
 }
