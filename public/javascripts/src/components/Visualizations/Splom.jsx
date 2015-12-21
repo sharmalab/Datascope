@@ -66,12 +66,15 @@ var SplomGrid = React.createClass({
                 .dimension(dim)
                 .elasticY(true)
                 .group(group);
+            /*
             if(attribute_row.continous ){
                 chart.x(d3.scale.linear().domain(domain));
             } else {
                 chart.x(d3.scale.ordinal());
                 chart.xUnits(dc.units.ordinal);
             }
+            */
+            chart.x(d3.scale.linear().domain(domain));
             chart.filterHandler(function(dimension, filter){
                 //console.log(dimension);
                 //var begin = $("#filterBeg"+dimension.name());
@@ -84,6 +87,7 @@ var SplomGrid = React.createClass({
                 dimension.filter(filter);
                 return filter;
             });
+            chart.hasFilterHandler(function(){});
             
             if(attribute_row.labels){
                 var xAxisLabels = attribute_row.labels;
