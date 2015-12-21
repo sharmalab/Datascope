@@ -1,11 +1,12 @@
 /* global d3 */
 /* global $ */
 /* global dc */
+/* global queryFilter */
 
 //var queryFilter = {};
 var AppActions = require("../actions/AppActions.jsx");
 var React = require("react");
-var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+
 
 
 var ChartAddons = React.createClass({
@@ -344,10 +345,11 @@ var FilteringAttribute = React.createClass({
     render: function(){
         var self = this;
         var divId = "dc-"+this.props.config.attributeName;
-        var showChart = self.state.showChart ? {display: "inherit"} : {display: "none"};
+        var showChart = self.state.showChart ? {display: "block"} : {display: "none"};
         console.log(showChart);
         //console.log(this.props.currData);
-        if(this.props.full == true){
+        if(this.props.full === true){
+            console.log("FULL!");
             return (
                 <div className="col-md-3">
                
@@ -356,13 +358,15 @@ var FilteringAttribute = React.createClass({
                             <a href="#"  onClick={self.showChart}> {self.props.config.attributeName}</a>
 
                         </div>
-                        <div className="chart-stage">
-                            <div  id={divId}> </div>
-                        </div>
-                        <div className="chart-notes" id={self.props.config.attributeName +  "-note"}>
-                            <button onClick={this.onReset}>Reset</button>
-                            <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart}/>
+                        <div>
+                            <div className="chart-stage">
+                                <div  id={divId}> </div>
+                            </div>
+                            <div className="chart-notes" id={self.props.config.attributeName +  "-note"}>
+                                <button onClick={this.onReset}>Reset</button>
+                                <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart}/>
 
+                            </div>
                         </div>
                     </div>
               
@@ -375,8 +379,8 @@ var FilteringAttribute = React.createClass({
                         <div className="chart-title" onClick={self.showChart} >
                             {self.props.config.attributeName}
                         </div>
-                        <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                        <div style={showChart} key={divId}>
+                       
+                        <div style={showChart}>
                             <div className="chart-stage">
                                 <div  id={divId}> </div>
                             </div>
@@ -386,7 +390,7 @@ var FilteringAttribute = React.createClass({
 
                             </div>
                         </div>
-                        </ReactCSSTransitionGroup>
+ 
 
                     </div>
                 </div>
