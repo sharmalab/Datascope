@@ -24,8 +24,8 @@ var DataTable = React.createClass({
                 "ajax": "dataTable/next",
                 "processing": true,
                 "serverSide": true,
-                "scrollY": 420,
-                "scrollX": true,
+                //"scrollY": 420,
+                //"scrollX": "100%",
                  "pageLength": 100,
                 columns: columns
 

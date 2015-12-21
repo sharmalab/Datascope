@@ -194,15 +194,17 @@ table#dataTable{
   font-size: 11px;
   overflow-x: scroll;
 }
+*/
 #vis{
-//    font-size: 11px;
-//    margin: 0 auto;
+    font-size: 11px;
+    margin: 0 auto;
 }
+/*
 */
 
 .visualizationArea{
     margin: 4px auto;
-    width: 750px;
+
     overflow-y: scroll;
     height: 100vh;
     padding-bottom: 120px;
@@ -309,6 +311,8 @@ table#dataTable{
  */
 .splom{
     padding-left: 40px;
+    width: 700px;
+    margin: 0 auto;
 }
 .splom-grid-col{
     display: inline-block;
