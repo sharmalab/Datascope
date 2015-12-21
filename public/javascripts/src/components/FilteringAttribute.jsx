@@ -355,7 +355,7 @@ var FilteringAttribute = React.createClass({
                
                     <div className="chart-wrapper">
                         <div className="chart-title">
-                            <a href="#"  onClick={self.showChart}> {self.props.config.attributeName}</a>
+                            {self.props.config.attributeName}
 
                         </div>
                         <div>
