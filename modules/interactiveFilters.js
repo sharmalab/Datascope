@@ -13,10 +13,10 @@ var interactiveFilters = (function(){
     // - **groups** stores an array of groups.
     // - **ndx** is the crossfilter object.
     var dimensions = {},
-      groups = {},
-      ndx,
-      filter = {};
-      
+        groups = {},
+        ndx,
+        filter = {};
+
     var ATTRIBUTENAME = "attributeName";
 
     var filteringAttributes = dataDescription.getFilteringAttributes();
@@ -36,12 +36,12 @@ var interactiveFilters = (function(){
     };
 
     var _getFilterConfig = function(attributeName){
-      for(var i in interactiveFiltersConfig){
-        var filterConfig = interactiveFiltersConfig[i];
-        if(filterConfig[ATTRIBUTENAME] == attributeName){
-          return filterConfig;
+        for(var i in interactiveFiltersConfig){
+            var filterConfig = interactiveFiltersConfig[i];
+            if(filterConfig[ATTRIBUTENAME] == attributeName){
+                return filterConfig;
+            }
         }
-      }
     };
 
     //
@@ -53,82 +53,71 @@ var interactiveFilters = (function(){
 
         
         ndx = crossfilter(data);
-
+        console.log(data[1]);
+        console.log("Applyingggg");
         for(var attr in filteringAttributes){
 
-          var filteringAttribute = filteringAttributes[attr];
+            var filteringAttribute = filteringAttributes[attr];
+            //console.log(filteringAttribute.datatype);
+            
+            var fconfig = _getFilterConfig(filteringAttribute.attributeName);
+            console.log(fconfig);
+            if(fconfig){
+                var binFactor = fconfig.visualization.binFactor || 1; 
+                //Create a crossfilter dimension on this attribute
+                var dimension = {};
+                console.log(".....");
+                if(filteringAttribute.datatype  === "float"){
+                    dimension = ndx.dimension(function(d){
+                        //set binning parameter here
+                        var binFactor = fconfig.visualization.binFactor || 10; 
 
-          var fconfig = _getFilterConfig(filteringAttribute.attributeName);
+                        return Math.round(+d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
+                    });
+                } else if(filteringAttribute.datatype === "integer"){
+                    //console.log(binFactor)
+                    dimension = ndx.dimension(function(d){
+                        //console.log(d);
+                        //console.log(d[5]);
+                        //console.log(d[filteringAttribute[ATTRIBUTENAME]]);
+                        //console.log(+d[filteringAttribute[ATTRIBUTENAME]]);
+                        return +d[filteringAttribute[ATTRIBUTENAME]];
+                    });
+                    /*
+                    dimension = ndx.dimension(function(d){
+                        return Math.round(+d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
+                    });
+                    */
+                } else {
+                    console.log("here");
+                    dimension = ndx.dimension(function(d){
+                        return d[filteringAttribute[ATTRIBUTENAME]];
+                    });
+                }
 
-          if(fconfig)
-            var binFactor = fconfig.visualization.binFactor || 1; 
-          //Create a crossfilter dimension on this attribute
-          var dimension = {};
-          if(filteringAttribute.datatype  === "float"){
-            dimension = ndx.dimension(function(d){
-              //set binning parameter here
-              var binFactor = fconfig.visualization.binFactor || 10; 
-
-              return Math.round(d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
-            });
-          } else if(filteringAttribute.datatype == "integer"){
-            //console.log(binFactor)
-            dimension = ndx.dimension(function(d){
-              return Math.round(d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
-            });
-          } else {
-            dimension = ndx.dimension(function(d){
-              return d[filteringAttribute[ATTRIBUTENAME]];
-            });
-          }
-
-          dimensions[filteringAttribute[ATTRIBUTENAME]] = dimension;
-        
-          group = dimension.group();
-          //console.log(filteringAttribute[ATTRIBUTENAME])
-          groups[filteringAttribute[ATTRIBUTENAME]] = group;
-
-          dimensions["ageCancerDim"] = ndx.dimension(function(d){
-            return [+d.age_at_initial_pathologic_diagnosis, +d.person_neoplasm_cancer_status];
-          });
-          groups["ageCancerGroup"] = dimensions["ageCancerDim"].group().reduceSum(function(d){
-            return 1;
-          });
-          /*groups["ageCancerDim"] = ndx.dimension(function(d){
-            return [+d.age_at_initial_pathologic_diagnosis, +d.person_neoplasm_cancer_status];
-          });*/
+                dimensions[filteringAttribute[ATTRIBUTENAME]] = dimension;
+            
+                var group = dimension.group();
+                //console.log(filteringAttribute[ATTRIBUTENAME])
+                groups[filteringAttribute[ATTRIBUTENAME]] = group;
+            }
         }
+        console.log("here");
         /*
-
-        var xAttr = "AgeatInitialDiagnosis";i
-        var yAttr = "KarnofskyScore";
-        dimensions["imageGrid"] = ndx.dimension(function(d){
-          return d.image;
-        });
-        //groups["imageGrid"] = dimensions["imageGrid"].group();
-        dimensions["heatMapDim"] = ndx.dimension(function(d){
-          return ([+d[xAttr]*1, +d[yAttr]*1]);
-        });
-        groups["heatMapGroup"] = dimensions["heatMapDim"].group();
-        /*
-        dimensions["imageGrid"] = ndx.dimension(function(d){
-          return d["image"];        
-        });
-        groups["imageGrid"] = dimensions["imageGrid"].group();
-        */
         var size = ndx.size(),
-        all = ndx.groupAll();
+            all = ndx.groupAll();
+        */
     };
 
     return {
         init: _init,
         applyCrossfilter: _applyCrossfilter,
         addDimension: function(name,body){
-          dimensions[name] = body;
+            dimensions[name] = body;
 
         },
         addGroup: function(name, body){
-          groups[name] = body;
+            groups[name] = body;
         },
         getDimensions: function(){
             return dimensions;
