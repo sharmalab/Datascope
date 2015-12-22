@@ -58,9 +58,9 @@ var dataSource = (function(){
 	    } else if(type == FILETYPES.CSVFILE) {
 	      anyToJSON.csv(options, processData);
 	    } else if(type == FILETYPES.JSONREST) {
-	      anyToJSON.restJson(options, processData);
+	      anyToJSON.restJSON(options, processData);
 	    } else if (type == FILETYPES.CSVREST){
-	      anyToJSON.restCsv(options, processData);
+	      anyToJSON.restCSV(options, processData);
 	    } else if (type == "odbc") {
 	      anyToJSON.odbc(options, processData);
 	    }
