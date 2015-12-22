@@ -451,3 +451,17 @@ img {
 .navbar-right{
     padding-right: 30px;
 }
+
+.chart-title-icons{
+    display: inline-block;
+    float: right;
+
+}
+.chart-title-icons svg{
+    opacity: 0.6;
+}
+
+.chart-title-icons svg:hover{
+ //   fill: #fff;
+ opacity: 1;
+}
