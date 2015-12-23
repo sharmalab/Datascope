@@ -8987,8 +8987,11 @@ dc.scatterPlot = function (parent, chartGroup) {
 
     _chart._brushing = function () {
         var extent = _chart.extendBrush();
-        console.log(extent);
+        //console.log(extent);
         _chart.redrawBrush(_chart.g());
+        //resizeFiltered(false);
+        //console.log(_chart.brushIsEmpty(extent));
+
         /*
         if (_chart.brushIsEmpty(extent)) {
             dc.events.trigger(function () {
@@ -9001,6 +9004,8 @@ dc.scatterPlot = function (parent, chartGroup) {
         */
        
     };
+    var chartBeginExtent = {};
+    var chartEndExtent = {};
     _chart._disableMouseZoom = function() {
         /*
         console.log("here");
@@ -9013,14 +9018,23 @@ dc.scatterPlot = function (parent, chartGroup) {
             resizeFiltered(false);
         }
         */
+        chartBeginExtent = _chart.brush().extent();
+        //console.log(_chart.brush().extent());
+        //console.log("begggggiinn");
 
     };
     _chart._brushend = function() {
+
         var extent = _chart.extendBrush();
-        console.log(extent);
+        var chartEndExtent = extent;
+        //console.log(extent);
+        
+        //console.log(chartBeginExtent);
+        //console.log(chartEndExtent);
+
         _chart.redrawBrush(_chart.g());
-        console.log(_chart.brushIsEmpty(extent)); 
-        if (_chart.brushIsEmpty(extent)) {
+        //console.log(_chart.brushIsEmpty(extent)); 
+        if (chartBeginExtent.toString() === chartEndExtent.toString()) {
             _chart.filter(null);
             dc.events.trigger(function () {
                 _chart.filter(null);
