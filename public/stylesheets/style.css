@@ -4,7 +4,6 @@ body{
 }
 
 #filtering_attributes{
-  font-size: 120%;
   padding: 0 30px 30px 30px;
 }
 #filtering_attributes button{
@@ -365,7 +364,27 @@ div#splom-spacer{
     height: 220px;
     font-size: 12px;
     width: 10px;
-    word-wrap: break-word;
+    display: inline-block;
+    white-space: nowrap;
+    /* this is for shity "non IE" browsers
+       that dosn't support writing-mode */
+    -webkit-transform: translate(1.1em,2em) rotate(270deg);
+       -moz-transform: translate(1.1em,0) rotate(270deg);
+         -o-transform: translate(1.1em,0) rotate(270deg);
+            transform: translate(-0.4em,4em) rotate(270deg);
+    -webkit-transform-origin: 0 0;
+       -moz-transform-origin: 0 0;
+         -o-transform-origin: 0 0;
+            transform-origin: 0 0;
+   /* IE9+ */
+   -ms-transform: none;
+   -ms-transform-origin: none;
+   /* IE8+ */
+   -ms-writing-mode: tb-rl;
+   /* IE7 and below */
+   *writing-mode: tb-rl;
+
+//    word-wrap: break-word;
  //   padding-left: 140px;
 // transform: rotate(90deg);
 
@@ -390,10 +409,11 @@ div#splom-spacer{
     border: 0;
    text-align: left;
     text-transform: capitalize;
-   font-size: 15.5px;
+   font-size: 14px;
 }
 .chart-wrapper{
     border: 0;
+    background: #455A64;
 }
 .chartAddons{
     font-size:10.5px;
@@ -414,7 +434,7 @@ button{
 }
 .chart-wrapper .chart-notes{
     border: 0;
-    background:  rgba(69, 90, 100, 0.84);
+    background: #62737B;
 }
 
 
@@ -464,4 +484,14 @@ img {
 .chart-title-icons svg:hover{
  //   fill: #fff;
  opacity: 1;
+}
+#interactiveFiltersPanel{
+    color: #212121;
+}
+#interactiveFiltersPanel .dc-chart .axis text{
+    fill: #73838A;
+}
+
+#interactiveFiltersPanel .dc-chart .axis path, #interactiveFiltersPanel .axis line{
+    stroke: #73838A;   
 }
