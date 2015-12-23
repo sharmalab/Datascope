@@ -69,13 +69,20 @@ var SplomGrid = React.createClass({
             /*
             if(attribute_row.continous ){
                 chart.x(d3.scale.linear().domain(domain));
+                chart.xUnits();
             } else {
                 chart.x(d3.scale.ordinal());
                 chart.xUnits(dc.units.ordinal);
             }
             */
+            
             chart.x(d3.scale.linear().domain(domain));
+            chart.xUnits(function(start,end){
+                return ((+end)-(+start));
+            });
             chart.filterHandler(function(dimension, filter){
+                //console.log("Handling filter!");
+                //console.log(filter);
                 //console.log(dimension);
                 //var begin = $("#filterBeg"+dimension.name());
                 //var end = $("#filterEnd"+dimension.name());
@@ -399,7 +406,7 @@ var Splom = React.createClass({
         //console.log(self.props.currData);
         return(
             <div className="splom display" id="">
-                <h4>SPLOM</h4>
+              
                 <GenericSplom config={self.props.config} currData={self.props.currData} />
 
             </div>
