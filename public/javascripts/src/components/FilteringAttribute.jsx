@@ -325,6 +325,11 @@ var FilteringAttribute = React.createClass({
                     dimension.filter(null);
                 return filters;
             });
+            c.label(function(d){
+
+                return d.key + ": "+ d.value;
+            });
+            c.ordering(function(d){return +d.key});
         }
         this.setState({chart: c});
     },
