@@ -31,8 +31,8 @@ var DataTable = React.createClass({
 
             });
             $("#vis tbody").on("click", "tr", function(){
-                var url = self.props.config.url || "http://imaging.cci.emory.edu/phone/";
-                window.open(url); 
+                //var url = self.props.config.url || "http://imaging.cci.emory.edu/phone/";
+                //window.open(url); 
             });
 
     },
