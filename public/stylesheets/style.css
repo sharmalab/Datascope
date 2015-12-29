@@ -275,12 +275,14 @@ table#dataTable{
 
 #imageGridPagination{
   padding: 20px;
+  display: none;
 }
 #imageGridPagination .next{
-  position: absolute;
-  right: 20px ;
+	display: hidden;
+
 }
 #imageGridPagination .prev{
+	display: hidden;
 }
 /*React transitions*/
 .imageGridImages-enter {
@@ -314,7 +316,7 @@ table#dataTable{
  */
 .splom{
     padding-left: 40px;
-    width: 700px;
+    width: 1000px;
     margin: 0 auto;
 }
 .splom-grid-col{
@@ -494,4 +496,8 @@ img {
 
 #interactiveFiltersPanel .dc-chart .axis path, #interactiveFiltersPanel .axis line{
     stroke: #73838A;   
+}
+
+ul.nav.nav-tabs{
+	text-transform: capitalize;
 }
