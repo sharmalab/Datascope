@@ -20,42 +20,23 @@ var RangedTwoDimensionalFilter = function(filter){
 };
 */
 
-//
-//#### handleFilterRequest(request, response, next)
-//Is fired on GET "/data" request. Performs filtering using the filtering information provided in the GET parameter:    ```filter```    
-//
-var _handleFilterRequest = function(req,res) {
+
+var _filterFunction = function(filter){
     var dimensions = interactiveFilters.getDimensions();
     var groups = interactiveFilters.getGroups();
-    //var filteringAttributes = dataDescription.getFilteringAttributes();
-    var filter = {};
-    filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
-    //req.session["f"] = filter;
-    // Loop through each dimension and check if user requested a filter
 
-    // Assemble group results and and the maximum value for each group
     var results = {};
-    /*
-    var filterDim = {};
-    filterDim = {};
-    //var filterRange=[];
-    for(var key in filter){
-        filterDim = key;
-    }
-    */
-    
+
     Object.keys(dimensions).forEach(function (dim) {
 
         if (filter[dim]) {
 
             if(filter[dim].type){
-                //console.log(dim);
-                //console.log(filter[dim].filters);
                 dimensions[dim].filterFunction(function(d){
-                    //console.log(d); 
+
                     var f = filter[dim].filters[0];
-					//var filters=  filter[dim].filters;
-					//var filter = filters[0];
+
+
                     var fromBottomLeft;
 
                     if(f[0] instanceof Array) {
@@ -70,12 +51,12 @@ var _handleFilterRequest = function(req,res) {
 					
                     var x = d[0];
                     var y = d[1];
-                    //console.log(fromBottomLeft);
-                    //console.log(x >= fromBottomLeft[0][0] && x < fromBottomLeft[1][0] && y >= fromBottomLeft[0][1] && y < fromBottomLeft[1][1]);
+
+
                     return x >= fromBottomLeft[0][0] && x < fromBottomLeft[1][0] && y >= fromBottomLeft[0][1] && y < fromBottomLeft[1][1];
-                    //console.log(d);
+
                 });
-                //continue;
+
             }
             else
             {
@@ -106,42 +87,59 @@ var _handleFilterRequest = function(req,res) {
         //console.log(key)
         results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value};
     });
+    var filteringAttributes = dataDescription.getFilteringAttributes();
+    var filteredData = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
 
     if(visualization.hasVisualization("imageGrid")){
-        //CURRENTDATA = dimensions["imageGrid"].top(Infinity);
-        //
-        var filteringAttributes = dataDescription.getFilteringAttributes(),
+
+
+
         CURRENTDATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
 
-        //CURRENTDATA = dimensions["group"].top(Infinity);
-        console.log("imageGrid");
-        //Image Grid stuff
-        //console.log(typeof(CURRENTDATA["values"]));
-        //console.log(CURRENTDATA)
-        //console.log(visualization.getVisualizationType())
-
-        //if(visualization.getVisualizationType() == "imageGrid"){
-            //console.log(dimensions["imageGrid"].top(100))
         console.log(CURRENTDATA.length);
         var reqLength = 100;
         var paginate = true;
         if(CURRENTDATA.length < reqLength)
             paginate = false;
+        console.log(paginate);
         results["imageGrid"] = {
-            values: CURRENTDATA.slice(0,100),
+            values: CURRENTDATA.slice(0,500),
             active: 100,
             size: 100,
             state: Math.floor(reqLength/100),
             paginate: paginate,
-            finalState: 3
+            finalState: Math.floor(CURRENTDATA.length/reqLength)
         };
 
 
     }
 
+    return {
+        results: results,
+        filteredData: filteredData
+    };
+    //res.writeHead(200, { "content-type": "application/json" });
+    //res.end((JSON.stringify(results)));
+};
 
+//
+//#### handleFilterRequest(request, response, next)
+//Is fired on GET "/data" request. Performs filtering using the filtering information provided in the GET parameter:    ```filter```    
+//
+var _handleFilterRequest = function(req,res) {
+    var dimensions = interactiveFilters.getDimensions();
+    var groups = interactiveFilters.getGroups();
+    //var filteringAttributes = dataDescription.getFilteringAttributes();
+    var filter = {};
+    filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
+    //req.session["f"] = filter;
+    // Loop through each dimension and check if user requested a filter
+
+    // Assemble group results and and the maximum value for each group
+    var results = {};
+    results = _filterFunction(filter);
     res.writeHead(200, { "content-type": "application/json" });
-    res.end((JSON.stringify(results)));
+    res.end((JSON.stringify(results.results)));
 };
 
 var _imageGridNext = function(req, res, next){
@@ -225,26 +223,42 @@ var _save = function(req, res, next){
     var groups = interactiveFilters.getGroups();
     var filteringAttributes = dataDescription.getFilteringAttributes();
 
-
-
-    var requiredAttributes = req.param("attributes") ? JSON.parse(req.param("attributes")) : {};
     
+    var filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
+
+    console.log(filter);
+    var result = _filterFunction(filter);
+    var filteredData = result.filteredData;
+    res.writeHead(200, {"content-type": "application/json"});
+    res.end(JSON.stringify(filteredData));
+
+
+
+    /*
+    var requiredAttributes = req.param("attributes") ? JSON.parse(req.param("attributes")) : {};
+    var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+    if(requiredAttributes){
+        console.log(typeof TABLE_DATA);
+        res.writeHead(200, {"content-type": "application/json"});
+        res.end(JSON.stringify(TABLE_DATA));
+        return;
+    } 
     requiredAttributes = requiredAttributes["list"];
-    type = requiredAttributes["type"] || "csv"; 
-    var results = {}
-    TABLE_DATA = dimensions[filteringAttributes[0]["name"]].top(Infinity);
+    var type = requiredAttributes["type"] || "csv"; 
+    var results = {};
+
     
     if(type == "json"){
         res.writeHead(200,{"content-type": "application/json"});
         var EXPORT_DATA = [];
-        for(i in TABLE_DATA){
+        for(var i in TABLE_DATA){
             var row = TABLE_DATA[i];
-            EXPORT_DATA.push({})
-            for(j in row){
-                for(k in requiredAttributes["list"]){
+            EXPORT_DATA.push({});
+            for(var j in row){
+                for(var k in requiredAttributes["list"]){
                     if(j == requiredAttributes["list"][k]){
 
-                        col = row[j];
+                        //var col = row[j];
                         EXPORT_DATA[i][j] = row[j];
                     }
                 }
@@ -290,7 +304,7 @@ var _heat = function(req, res){
     var results = {visualization: {values: group.all(),top: group.top(1)[0].value}};
 
     res.writeHead(200, {"content-type": "application/json" });
-    res.end((JSON.stringify(results)));
+    res.end((JSON.stringify(results.re)));
 };
 
 exports.index = function(req, res){
