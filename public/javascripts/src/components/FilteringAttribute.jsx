@@ -7,7 +7,7 @@
 var AppActions = require("../actions/AppActions.jsx");
 var React = require("react");
 
-
+var Masonry = require('react-masonry-component')(React);
 
 var ChartAddons = React.createClass({
     getInitialState: function(){
@@ -326,10 +326,20 @@ var FilteringAttribute = React.createClass({
                 return filters;
             });
             c.label(function(d){
-
-                return d.key + ": "+ d.value;
+                return d.key + " ("+ d.value + ")";
             });
-            c.ordering(function(d){return +d.key});
+            c.ordering(function(d){return +d.key;});
+			/*
+			c.renderlet(function(chart){
+				var bars = chart.selectAll("rect").each(function(d){barsData.push(d);});
+				var gLabels = d3.select(bars).append('g').attr('id', '
+				for(var i =bars[0].length -1; i>=0; i==){
+						
+				}
+
+
+			});
+			*/
         }
         this.setState({chart: c});
     },
@@ -347,6 +357,17 @@ var FilteringAttribute = React.createClass({
         var showChart = self.state.showChart;
         self.setState({showChart: !showChart});
     },
+    isFilterActive: function(){
+        var dim = this.props.config.attributeName;
+        var filters = queryFilter;
+        console.log("Filters");
+        for(var i in filters){
+            console.log(i);
+            if(dim == i)
+                return true;
+        }
+        return false;
+    },
     render: function(){
         var self = this;
         var divId = "dc-"+this.props.config.attributeName;
@@ -354,6 +375,10 @@ var FilteringAttribute = React.createClass({
 
         var iconHeight = "20px";
         var iconWidth = "20px";
+
+        var isFilterActive = this.isFilterActive();
+        console.log(isFilterActive);
+        var filterFillColor = isFilterActive ? "#fff": "#000";
 
         //console.log(showChart);
         //console.log(this.props.currData);
@@ -365,13 +390,26 @@ var FilteringAttribute = React.createClass({
                     <div className="chart-wrapper">
                         <div className="chart-title">
                             {self.props.config.attributeName}
+							<div className="chart-title-icons">
+                                { isFilterActive ?
+                                <svg style={{width:iconWidth,height:iconHeight }} viewBox="0 0 24 24" onClick={self.onReset}>
+                                    <path fill={filterFillColor} d="M14.73,20.83L17.58,18L14.73,15.17L16.15,13.76L19,16.57L21.8,13.76L23.22,15.17L20.41,18L23.22,20.83L21.8,22.24L19,19.4L16.15,22.24L14.73,20.83M2,2H20V2H20V4H19.92L14,9.92V22.91L8,16.91V9.91L2.09,4H2V2M10,16.08L12,18.08V9H12.09L17.09,4H4.92L9.92,9H10V16.08Z">
+                                        <title>Remove filter</title>
+                                    </path>
+                                </svg>
+                                :
+                                    <div />
+                                }
+
+
+							</div>
                         </div>
                         <div>
                             <div className="chart-stage">
                                 <div  id={divId}> </div>
                             </div>
                             <div className="chart-notes" id={self.props.config.attributeName +  "-note"}>
-                                <button onClick={this.onReset}>Reset</button>
+
                                 <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart}/>
 
                             </div>
@@ -387,16 +425,30 @@ var FilteringAttribute = React.createClass({
                         <div className="chart-title" >
                             {self.props.config.attributeName}
                             <div className="chart-title-icons">
+                            { isFilterActive ?
+
                                 <svg style={{width:iconWidth,height:iconHeight }} viewBox="0 0 24 24" onClick={self.onReset}>
-                                    <path fill="#fff" d="M14.73,20.83L17.58,18L14.73,15.17L16.15,13.76L19,16.57L21.8,13.76L23.22,15.17L20.41,18L23.22,20.83L21.8,22.24L19,19.4L16.15,22.24L14.73,20.83M2,2H20V2H20V4H19.92L14,9.92V22.91L8,16.91V9.91L2.09,4H2V2M10,16.08L12,18.08V9H12.09L17.09,4H4.92L9.92,9H10V16.08Z">
+                                    <path fill={filterFillColor} d="M14.73,20.83L17.58,18L14.73,15.17L16.15,13.76L19,16.57L21.8,13.76L23.22,15.17L20.41,18L23.22,20.83L21.8,22.24L19,19.4L16.15,22.24L14.73,20.83M2,2H20V2H20V4H19.92L14,9.92V22.91L8,16.91V9.91L2.09,4H2V2M10,16.08L12,18.08V9H12.09L17.09,4H4.92L9.92,9H10V16.08Z">
                                         <title>Remove filter</title>
                                     </path>
                                 </svg>
+                                :
+                                <div />
+                            }
+								{ self.state.showChart ?
                                 <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showChart} >
                                     <path fill="#fff" d="M20,14H4V10H20">
                                         <title>Hide attribute</title>
                                     </path>
                                 </svg>
+								:
+									<svg style={{width: iconWidth, height: iconHeight}} onClick={self.showChart} viewBox="0 0 24 24">
+										<path fill="#fff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
+											<title> Show attribute</title>
+										</path>
+											
+									</svg>
+								}
                             </div>
                         </div>
                        
@@ -405,9 +457,7 @@ var FilteringAttribute = React.createClass({
                                 <div  id={divId}> </div>
                             </div>
                             <div className="chart-notes">
-
                                 <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart}/>
-
                             </div>
                         </div>
  
