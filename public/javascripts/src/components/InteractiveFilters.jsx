@@ -5,6 +5,9 @@ var ReactBootstrap = require("react-bootstrap");
 var    Button          = ReactBootstrap.Button;
 //Require app components
 var FilteringAttribute = require("./FilteringAttribute.jsx");
+
+var Masonry = require("react-masonry-component")(React);
+
 var InteractiveFilters = React.createClass({      
     getInitialState: function(){
         //console.log("Rendering interactive filters");
@@ -22,6 +25,9 @@ var InteractiveFilters = React.createClass({
             this.setState({full:true});   
         }
     },
+    toggleShow: function(){
+        this.setState({toggle: true});
+    },
     render: function(){
         var filteringAttributes;
         //console.log("....");
@@ -32,7 +38,7 @@ var InteractiveFilters = React.createClass({
             filteringAttributes = this.props.config.map(function(filteringAttribute){
                 key++;
                 return (
-                    <FilteringAttribute key={key} config={filteringAttribute} currData={self.props.currData} full={self.state.full} />
+                    <FilteringAttribute key={key} onToggleShow={self.toggleShow.bind(self)} config={filteringAttribute} currData={self.props.currData} full={self.state.full} />
                 );
             });
         } else {
@@ -43,8 +49,9 @@ var InteractiveFilters = React.createClass({
                 <div  className="col-sm-12 fixed" id="interactiveFiltersPanel">
                     <p id="filteringAttributeTitle"> Filtering Attributes</p>
                      <Button onClick={this.fullView} id="interactiveFiltersPanelSlider" bsSize="xsmall"> &laquo; </Button>
-
-                    <div>{filteringAttributes}</div>
+                    <Masonry className={"filteringFullView"} elementType={"div"} options={{itemSelector: ".grid-item"}} >
+                        <div>{filteringAttributes}</div>
+                    </Masonry>
                 </div>
             );   
 
@@ -52,9 +59,11 @@ var InteractiveFilters = React.createClass({
             return(
                 <div  className="col-sm-5 col-md5 col-lg-4 fixed side" id="interactiveFiltersPanel"  >
                     <p id="filteringAttributeTitle"> Filtering Attributes </p>
-                     <Button onClick={this.fullView}  id="interactiveFiltersPanelSlider" bsSize="xsmall"> &raquo; </Button>
+                     <Button title="Full view" onClick={this.fullView}  id="interactiveFiltersPanelSlider" bsSize="xsmall"> &raquo; </Button>
+                    <Masonry className={"filteringFullView"} elementType={"div"} options={{itemSelector: ".grid-item", isFitWidth: true}}>
+                        <div>{filteringAttributes}</div>
+                    </Masonry>
 
-                    <div>{filteringAttributes}</div>
                 </div>
             );            
         }
