@@ -7,8 +7,7 @@ var NavBar = React.createClass({
         
         var self = this;
         var filter = queryFilter;
-        console.log("queryFilter");
-        console.log(filter);
+
         return(
             <div className='navbar navbar-inverse navbar-fixed-top' id='header' role='navigation'>
                 <div className='navbar-header'>
