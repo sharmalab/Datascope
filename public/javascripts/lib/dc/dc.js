@@ -1,3 +1,9 @@
+/*eslint quotes: 0*/
+/*eslint indent: 0*/
+/*global d3*/
+/*global crossfilter*/
+
+
 /*!
  *  dc 2.1.0-dev
  *  http://dc-js.github.io/dc.js/
@@ -3453,7 +3459,7 @@ dc.coordinateGridMixin = function (_chart) {
 
     _chart._brushing = function () {
         var extent = _chart.extendBrush();
-        console.log("brushing...");
+        //console.log("brushing...");
         _chart.redrawBrush(_g, false);
 
     };
@@ -6832,7 +6838,7 @@ dc.compositeChart = function (parent, chartGroup) {
     });
 
     _chart._brushing = function () {
-        console.log("which brushing is this?");
+        //console.log("which brushing is this?");
     };
     _chart._brushend = function() {
         var extent = _chart.extendBrush();
@@ -8232,6 +8238,7 @@ dc.rowChart = function (parent, chartGroup) {
                     .text(function (d) {
                         return _chart.title()(d);
                     });
+			
             dc.transition(titlelab, _chart.transitionDuration())
                 .attr('transform', translateX);
         }
@@ -8723,7 +8730,7 @@ dc.scatterPlot = function (parent, chartGroup) {
     };
 
     var _symbolSize = 3;
-    var _highlightedSize = 5;
+    var _highlightedSize = 8;
     var _hiddenSize = 0;
     var _hiddenOpacity = 0;
     var _symbolOpacity = 1;
@@ -8733,11 +8740,13 @@ dc.scatterPlot = function (parent, chartGroup) {
         if (!_existenceAccessor(d)) {
             return Math.pow(_hiddenSize, 2);
         } else if (this.filtered) {
+			//console.log("filtered!");
             return Math.pow(_highlightedSize, 2);
         } else {
             return Math.pow(_symbolSize, 2);
         }
     });
+
 
     dc.override(_chart, '_filter', function (filter) {
         if (!arguments.length) {
@@ -8767,7 +8776,24 @@ dc.scatterPlot = function (parent, chartGroup) {
             .attr('fill', function(d){
               //console.log(_existenceAccessor(d));
               //return _chart.getColor(d);
-              return _existenceAccessor(d) ? _chart.getColor(d) : _hiddenColor;
+
+				if (!_existenceAccessor(d)) {
+				
+					return _hiddenColor;
+					//return Math.pow(_hiddenSize, 2);
+				} else if (this.filtered) {
+				
+					return "black";	
+					//return "gray";
+					//return _chart.getColor(d);
+					//return Math.pow(_highlightedSize, 2);
+				} else {
+			
+					return _chart.getColor(d);
+					//return _chart.getColor(d);
+					//return Math.pow(_symbolSize, 2);
+				}
+//              return _existenceAccessor(d) ? _chart.getColor(d) : _hiddenColor;
             })
             .attr('transform', _locator)
             .attr('d', _symbol);

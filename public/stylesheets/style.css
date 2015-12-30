@@ -342,7 +342,7 @@ table#dataTable{
 #splom-title div{
     width: 220px;
     font-size: 12px;
-    height: 40px;
+    height: auto;
     display: inline-block;
     float: left;
     padding-left: 4px;
@@ -397,9 +397,12 @@ div#splom-spacer{
 
 
 /* Filtering Attributes */
-
-.chart-stage{
+.chart-wrapper{
+    width: 300px;
+}
+.chart-wrapper .chart-stage{
     background: #455A64;
+    padding: 4px 24px;
 }
 .chart-title, .chart-wrapper .chart-notes{
    background: #607D8B;
@@ -441,7 +444,7 @@ button{
 
 
 .side{
-    max-width: 400px;
+    max-width: 350px;
 }
 
 #interactiveFiltersPanel{
@@ -500,4 +503,8 @@ img {
 
 ul.nav.nav-tabs{
 	text-transform: capitalize;
+}
+
+.grid-item{
+    margin: 0px auto;
 }
