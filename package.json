@@ -19,6 +19,7 @@
     "node-jsx": "^0.11.0",
     "react": "^0.14.2",
     "react-bootstrap": "^0.27.3",
+    "react-masonry-component": "^2.0.0",
     "react-modal": "^0.3.0",
     "reflux": "^0.1.13",
     "serve-favicon": "~2.1.3",
