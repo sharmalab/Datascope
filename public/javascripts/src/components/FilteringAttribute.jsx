@@ -7,7 +7,8 @@
 var AppActions = require("../actions/AppActions.jsx");
 var React = require("react");
 
-var Masonry = require('react-masonry-component')(React);
+var Masonry = require("masonry-layout");
+
 
 var ChartAddons = React.createClass({
     getInitialState: function(){
@@ -17,7 +18,7 @@ var ChartAddons = React.createClass({
         var self = this;
         var c = self.props.chart;
         if(e.keyCode == 13){
-            console.log(this.props.chart);
+            //console.log(this.props.chart);
             var f = [self.state.beg, self.state.end];
             c.filterAll();
             c.filter(f);
@@ -33,12 +34,12 @@ var ChartAddons = React.createClass({
 
     handleElasticX: function(){
         var c = this.props.chart;
-        console.log("handle checkbox..");
+        //console.log("handle checkbox..");
         //console.log((this.state.elasticY));
         //var queryFilterBackup = queryFilter;
         //c.elasticY(true);
         //AppActions.refresh({});
-        console.log(queryFilter);
+        //console.log(queryFilter);
 
         if(this.state.elasticX === true){
 
@@ -58,13 +59,13 @@ var ChartAddons = React.createClass({
     },
     handleElasticY: function(){
         var c = this.props.chart;
-        console.log("handle checkbox..");
+        //console.log("handle checkbox..");
         //console.log((this.state.elasticY));
         //var queryFilterBackup = queryFilter;
         //c.elasticY(true);
         //AppActions.refresh({});
 
-        console.log(queryFilter);
+        //console.log(queryFilter);
 
         if(this.state.elasticY === true){
 
@@ -136,7 +137,7 @@ var FilteringAttribute = React.createClass({
 
         var dim = {
             filter: function(f) {
-                console.log(f);
+                //console.log(f);
                 if(f) {
 
                     queryFilter[attributeName] = f;
@@ -197,8 +198,8 @@ var FilteringAttribute = React.createClass({
         if(attributeName == "ageCancer"){
             dim = {
                 filter: function(f){
-                    console.log("filtering", f);
-                    console.log(arguments.toString());
+                    //console.log("filtering", f);
+                    //console.log(arguments.toString());
                 },
                 filterAll: function(){
                  
@@ -244,7 +245,7 @@ var FilteringAttribute = React.createClass({
         //var domain = [0,100];
         var c = {};
         
-        console.log(this.props.config);
+        //console.log(this.props.config);
 
         //Render according to chart-type
         switch(visType){
@@ -264,10 +265,10 @@ var FilteringAttribute = React.createClass({
             });
             break;
         case "scatterPlot":
-            console.log("scatterPlot");
-            console.log(self.state);
-            console.log(self.state["group"].all());
-            console.log(self.state);
+            //console.log("scatterPlot");
+            //console.log(self.state);
+            //console.log(self.state["group"].all());
+            //console.log(self.state);
             
             c = dc.scatterPlot(divId);
             c.width(240)
@@ -347,7 +348,7 @@ var FilteringAttribute = React.createClass({
 
         //e.preventDefault();
         var c  = this.state.chart;
-        console.log("Reset");
+        //console.log("Reset");
         c.filterAll();
         //dc.renderAll();
     },
@@ -355,14 +356,15 @@ var FilteringAttribute = React.createClass({
         var self = this;
         console.log("show!");
         var showChart = self.state.showChart;
+        this.props.onToggleShow();
         self.setState({showChart: !showChart});
     },
     isFilterActive: function(){
         var dim = this.props.config.attributeName;
         var filters = queryFilter;
-        console.log("Filters");
+        //console.log("Filters");
         for(var i in filters){
-            console.log(i);
+            //console.log(i);
             if(dim == i)
                 return true;
         }
@@ -377,7 +379,7 @@ var FilteringAttribute = React.createClass({
         var iconWidth = "20px";
 
         var isFilterActive = this.isFilterActive();
-        console.log(isFilterActive);
+        //console.log(isFilterActive);
         var filterFillColor = isFilterActive ? "#fff": "#000";
 
         //console.log(showChart);
@@ -385,7 +387,7 @@ var FilteringAttribute = React.createClass({
         if(this.props.full === true){
             console.log("FULL!");
             return (
-                <div className="col-md-3">
+                <div className="grid-item" style={{"margin": 10}} key={self.props.config.attributeName}>
                
                     <div className="chart-wrapper">
                         <div className="chart-title">
@@ -420,7 +422,7 @@ var FilteringAttribute = React.createClass({
             );
         } else {
             return (
-                <div className="col-md-12" onClick={this.fullView}>
+                <div className="grid-item" onClick={this.fullView} key={self.props.config.attributeName}>
                     <div className="chart-wrapper">
                         <div className="chart-title" >
                             {self.props.config.attributeName}
