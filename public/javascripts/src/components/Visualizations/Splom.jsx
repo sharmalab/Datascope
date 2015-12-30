@@ -50,7 +50,7 @@ var SplomGrid = React.createClass({
                 all: function(){
                     var attr = attributes[i].attributeName;
                     return function(){                        
-                        //console.log(attr);
+                       
                         return self.props.currData[attr].values;
                     };
                 }(),
@@ -91,9 +91,9 @@ var SplomGrid = React.createClass({
 			*/
             chart.filterHandler(function(dimension, filter){
                 /*
-                console.log("Handling filter!");
-                console.log(dimension.name());
-                console.log(filter);
+                
+               
+              
                 //console.log(filter);
                 //console.log(dimension);
                 //var begin = $("#filterBeg"+dimension.name());
@@ -129,8 +129,8 @@ var SplomGrid = React.createClass({
                 //return filter;
                 */
 
-                console.log(dimension.name());
-                console.log(filter);
+                
+               
 
                 if(filter.length > 0){
 
@@ -147,7 +147,7 @@ var SplomGrid = React.createClass({
                             filter_arr.push(+filter[i]);
                         }
                         dimension.filter(filter);
-                        console.log(filter_arr);
+                        
                         return filter;
                     }
                 } else {
@@ -169,7 +169,7 @@ var SplomGrid = React.createClass({
                 });
 
 
-                console.log(xAxisLabels);
+
                 chart.xAxis().tickFormat(function(){
 
                     var xAxisLabels = attribute_row.labels;
@@ -182,9 +182,9 @@ var SplomGrid = React.createClass({
                         return +xAxisLabels[+v];
                         */
                         //return v.key;
-                        console.log(v);
-                        console.log(xAxisLabels)
-                        console.log(xAxisLabels[v]);
+               
+              
+             
                         return xAxisLabels[(+v)];
                     }
                 }());
@@ -224,9 +224,14 @@ var SplomGrid = React.createClass({
                     },
                     name: function(){ 
                     },
-                    filterFunction: function(f){
-                        f();
-                    } 
+                    filterFunction: function(){
+                        var attr = combinedAttribute;
+                        console.log("woot");
+                        return function(f){
+                            var data = self.props.currData[attr];
+                            f(data);
+                        };
+                    }() 
                 };
                 var group = {
                     all: function(){
@@ -253,12 +258,43 @@ var SplomGrid = React.createClass({
                 chart.filterHandler(function(){
                     var dimension = dim;
                     var attr = combinedAttribute;
-            
+            		
                     return function(d, filters){
                        
-
+					
+                        console.log(filters); 
+                        if(filters.length){
+                            if(filters[0].filterType === "RangedTwoDimensionalFilter"){
+                                dimension.filterFunction(function(d){
+                                    console.log(d);
+                                    return function(d){
+                                        console.log(d);
+                                        queryFilter[attr] = {
+                                            filters: filters,
+                                            type: "2d"
+                                        };
                     
-                   
+                                        AppActions.refresh(queryFilter);
+
+                                        for (var i = 0; i < filters.length; i++) {
+                                            var filter = filters[i];
+                                            console.log(filter);
+                                            console.log("heeeereeee!!!!");
+                                            console.log(filter.isFiltered(d));
+                                            if (filter.isFiltered && filter.isFiltered(d)) {
+                                                return true;
+                                            } else if (filter <= d && filter >= d) {
+                                                return true;
+                                            }
+                                        }
+                                        return false;
+                                        
+                                    };
+                                }());
+                            }
+                        }
+                        /* 
+                         *
                         if (filters.length === 0) {
                             //return null;
                             console.log("zeoo!"); 
@@ -277,10 +313,14 @@ var SplomGrid = React.createClass({
                                     filters: filters,
                                     type: "2d"
                                 };
-
+			
                                 AppActions.refresh(queryFilter);
+									
                                 for (var i = 0; i < filters.length; i++) {
                                     var filter = filters[i];
+                                    console.log(filter);
+									console.log("heeeereeee!!!!");
+                                    console.log(filter.isFiltered(d));
                                     if (filter.isFiltered && filter.isFiltered(d)) {
                                         return true;
                                     } else if (filter <= d && filter >= d) {
@@ -288,13 +328,17 @@ var SplomGrid = React.createClass({
                                     }
                                 }
                                 return false;
+								
                             });
                         }
-                        return filters;
+                        //return filters;
+					    */
                     };
+				
                 }());
                 var symbolSize = 5;
                 var hiddenSize = 5;
+                
                 chart.symbolSize(symbolSize);
                 chart.symbolOpacity(0.7);
                 chart.hiddenSize(hiddenSize);
@@ -302,6 +346,7 @@ var SplomGrid = React.createClass({
 				chart.highlightedSize(6);
                 chart.hiddenColor("grey");
                 chart.clipPadding(10);
+                
                 /*
                 chart.renderlet(function(chart) {
                     chart.svg().select('.chart-body').attr('clip-path', null)
