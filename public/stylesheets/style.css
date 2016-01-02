@@ -508,3 +508,14 @@ ul.nav.nav-tabs{
 .grid-item{
     margin: 0px auto;
 }
+
+#imageGridImages{
+    padding-top: 14px;
+}
+.imageGridItem img{
+    margin: 9px;
+    box-shadow: 0 0 11px gray;
+}
+.imageGridItem img:hover{
+    box-shadow: 0 0 11px black;
+}
