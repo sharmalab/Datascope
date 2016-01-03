@@ -7,7 +7,7 @@
 var AppActions = require("../actions/AppActions.jsx");
 var React = require("react");
 
-var Masonry = require("masonry-layout");
+
 
 
 var ChartAddons = React.createClass({
@@ -83,9 +83,42 @@ var ChartAddons = React.createClass({
         this.setState({elasticY: !this.state.elasticY});
 
     },
+    handleInvertSelection: function(event) {
+        console.log(this.props.config.attributeName);
+        var attributeName = this.props.config.attributeName;
+        var c = this.props.chart;
+        var availableFilters = (this.props.data[attributeName].values);
+        var currentFilter = queryFilter[attributeName];
+        console.log("current filter");
+        console.log(currentFilter);
+        var invertedFilter = [];
+        for(var i in availableFilters){
+            var filter = availableFilters[i].key;
+            var flag = true;
+            for(var j in currentFilter){
+                if(filter === currentFilter[j])
+                    flag = false;
+            }
+            if(flag)
+                invertedFilter.push(filter);
+            /*
+            //console.log(filter.key +" " + currentFilter);
+            if(currentFilter != filter.key){
+                //console.log('false');
+                invertedFilter.push(filter.key)
+            }
+            */
+        }
+        console.log(invertedFilter);
+        c.filter(null);
+        c.filter(invertedFilter);
+        ////c.filter({invert: invertedFilter});
+        console.log("filtered! woot");
+    },
     render: function(){
         var visType = this.props.config.visualization.visType;
-       
+        var isFilterActive = this.props.isFilterActive; 
+        console.log(isFilterActive);
         switch(visType){
         case  "barChart":
             return(
@@ -114,6 +147,14 @@ var ChartAddons = React.createClass({
                         ElasticX:
                         <input type="checkbox" onChange={this.handleElasticX} checked={this.state.elasticX}/>
                         </label>
+                        <br />
+                        {isFilterActive ?
+                        
+                        <button onClick={this.handleInvertSelection}>Invert Selection</button>
+                        :
+                            <div />
+                        }
+                        
                    </div>
                 );
         default:
@@ -320,6 +361,26 @@ var FilteringAttribute = React.createClass({
             .elasticX(true)
             .margins({top: 10, right: 20, bottom: 20, left: 20});
             c.filterHandler(function(dimension, filters){
+                console.log(filters);
+                var invert = false;
+                var invertedFilters = [];
+                for(var i in filters){
+                    console.log(i);
+                    if(filters[i].invert){
+                        invert = true;
+                        invertedFilters = filters[i].invert;
+                        console.log("inverting");
+                    }
+                }
+                if(invert){
+                    console.log("here");
+                    dimension.filter(invertedFilters);
+                    return invertedFilters;
+                }
+                
+                console.log(filters);
+                if(typeof filters[0] === "object")
+                    filters = filters[0];
                 if(filters)
                     dimension.filter(filters);
                 else
@@ -412,7 +473,7 @@ var FilteringAttribute = React.createClass({
                             </div>
                             <div className="chart-notes" id={self.props.config.attributeName +  "-note"}>
 
-                                <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart}/>
+                                <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart} isFilterActive={isFilterActive}/>
 
                             </div>
                         </div>
@@ -459,7 +520,7 @@ var FilteringAttribute = React.createClass({
                                 <div  id={divId}> </div>
                             </div>
                             <div className="chart-notes">
-                                <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart}/>
+                                <ChartAddons config={this.props.config} data={this.props.currData} chart={this.state.chart} isFilterActive={isFilterActive}/>
                             </div>
                         </div>
  
