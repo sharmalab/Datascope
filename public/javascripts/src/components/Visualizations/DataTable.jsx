@@ -26,8 +26,10 @@ var DataTable = React.createClass({
                 "serverSide": true,
                 //"scrollY": 420,
                 //"scrollX": "100%",
-                 "pageLength": 100,
-                columns: columns
+                "pageLength": 100,
+                columns: columns,
+                fixedHeader: true,
+                responsive: true
 
             });
             $("#vis tbody").on("click", "tr", function(){
