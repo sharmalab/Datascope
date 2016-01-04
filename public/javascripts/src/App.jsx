@@ -47,7 +47,7 @@ var Dashboard = React.createClass({
                 AppActions.refresh(queryFilter); //Initial refresh
                 filteredData = AppStore.getData();
                 //Do the initial filtering 
-                d3.json("/data/?filter={}", function(d) {
+                d3.json("data/?filter={}", function(d) {
                     filteredData = d;
                     //console.log(filteredData);
                     self.setState({
