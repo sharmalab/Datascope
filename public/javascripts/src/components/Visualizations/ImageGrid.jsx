@@ -1,6 +1,6 @@
 /* global $ */
 var React = require("react");
-var AbsoluteGrid = require("react-absolute-grid");
+
 
 var ImageGridItem = React.createClass({
     render: function() {
