@@ -2,7 +2,7 @@
 /* global dc */
 
 //Global
-queryFilter = {};
+ queryFilter = {};
 
 //dc.constants.EVENT_DELAY = 300;
 
