@@ -10,6 +10,7 @@ var express = require("express"),
     rest = require("./routes/rest"),
     visualizationRoutes = require("./routes/visualizations"),
     //http = require("http"),
+    compress = require('compression')(),
     path = require("path");
     //assert = require("assert"),
     //crossfilter = require("./crossfilter").crossfilter,
@@ -52,7 +53,7 @@ app.use(express.favicon());
 app.use(express.logger("dev"));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-
+app.use(compress);
 app.use(express.cookieParser("S3CRE7"));
 app.use(express.cookieSession());
 app.use(app.router);
