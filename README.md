@@ -18,7 +18,7 @@ We propose an environment for visualizing and exploring TCIA data . We leverage 
     * dataDescription.json (Refer to [dataDescription.json documentation](https://bitbucket.org/BMI/interactive-data-exporation/wiki/dataDescription.json))
     * interactiveFilters.json (Refer to [interactiveFilters.json documentation](https://bitbucket.org/BMI/interactive-data-exporation/wiki/interactiveFilters.json))
     * visualization.json (Refer to [visualization.json documentation](https://bitbucket.org/BMI/interactive-data-exporation/wiki/visualization.json))
-
+    * dashboard.json (For dashboard settings)
 
 * Run ```node app.js```
 * Goto ```http://localhost:3000``` from your favorite browser.
