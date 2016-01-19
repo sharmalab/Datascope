@@ -323,12 +323,13 @@ var FilteringAttribute = React.createClass({
             break;
         case "barChart":
             c = dc.barChart(divId);
+            var binFactor = self.props.config.visualization.binFactor;
             c.width(260)
                 .height(200).dimension(self.state.dimension)
                 .group(self.state.group)
                 .x(d3.scale.linear().domain(domain))
-          
-                //.xUnits(function(){return 10;})
+                //.xUnits(dc.units.fp.precision((1/binFactor)))
+                .xUnits(function(){return binFactor*3;})
                 .elasticY(true)
                 .elasticX(true);
             c.renderlet(function(chart){

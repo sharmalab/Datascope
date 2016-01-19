@@ -70,10 +70,10 @@ var SplomGrid = React.createClass({
                 .dimension(dim)
                 .elasticY(true)
                 .group(group);
-        
+                  
             if(attribute_row.continous ){
                 chart.x(d3.scale.linear().domain(domain));
-                chart.xUnits();
+                chart.xUnits(function(){return 20;});
             } else {
                 chart.x(d3.scale.ordinal());
                 chart.xUnits(dc.units.ordinal);
