@@ -323,15 +323,20 @@ var FilteringAttribute = React.createClass({
             break;
         case "barChart":
             c = dc.barChart(divId);
-            c.width(240)
-                .height(190).dimension(self.state.dimension)
+            c.width(260)
+                .height(200).dimension(self.state.dimension)
                 .group(self.state.group)
                 .x(d3.scale.linear().domain(domain))
-                .xUnits(function(){return 10;})
+          
+                //.xUnits(function(){return 10;})
                 .elasticY(true)
-                .elasticX(true)
-                .renderLabel(true)
-                .margins({left: 35, top: 10, bottom: 20, right: 10});
+                .elasticX(true);
+
+                c.select("g.axis.y")
+                    .attr("transform", "translate(71, 0)");
+
+                //.renderLabel(true)
+                //.margins({left: 35, top: 10, bottom: 20, right: 10});
             c.filterHandler(function(dimension, filter){
 
                 var begin = $("#filterBeg"+dimension.name());
