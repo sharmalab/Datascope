@@ -87,6 +87,7 @@ var interactiveFilters = (function(){
                         if(d[filteringAttribute[ATTRIBUTENAME]]) 
                             return Math.round(+d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
                         else{
+                            return null;
 
                         }
                         
