@@ -23,8 +23,9 @@ var visualization = (function(){
                 var dimension = ndx.dimension(function(d){
                     return( [ +d[xAttr], +d[yAttr] ]);
                 });
+               
                 var group = dimension.group();
-                console.log(xAttr);
+                //console.log(xAttr);
                 interactiveFilters.addDimension(xAttr + "-"+ yAttr, dimension);
                 interactiveFilters.addGroup(xAttr + "-" + yAttr, group);
 
@@ -36,7 +37,16 @@ var visualization = (function(){
             var dimension = ndx.dimension(function(d){
                 return d[attribute];
             });
-            var group=  dimension.group();
+            var group = {};
+            var binFactor = attributes[i].binFactor;
+            //console.log(binFactor)
+            if(binFactor){
+                group = dimension.group(function(d){
+                    return Math.floor(d/binFactor)*binFactor;
+                })
+            } else {
+                group=  dimension.group();
+            }
             interactiveFilters.addDimension(attribute, dimension);
             interactiveFilters.addGroup(attribute, group);
         }

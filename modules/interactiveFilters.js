@@ -77,16 +77,17 @@ var interactiveFilters = (function(){
                           
                     });
                 } else if(filteringAttribute.datatype === "integer"){
-                    console.log(binFactor);
+                   
                     dimension = ndx.dimension(function(d){
                         //console.log(d);
                         //console.log(d[5]);
                         //console.log(d[filteringAttribute[ATTRIBUTENAME]]);
                         //console.log(+d[filteringAttribute[ATTRIBUTENAME]])
-                        binFactor = 1;
+                        //binFactor = 1;
                         if(d[filteringAttribute[ATTRIBUTENAME]]) 
-                            return Math.round(+d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
+                            return Math.round(+d[filteringAttribute[ATTRIBUTENAME]]);
                         else{
+                            //console.log("null");
                             return null;
 
                         }
@@ -99,19 +100,34 @@ var interactiveFilters = (function(){
                     });
                     */
                 } else {
-                    console.log("here");
+               
                     dimension = ndx.dimension(function(d){
                         return d[filteringAttribute[ATTRIBUTENAME]];
                     });
                 }
 
                 dimensions[filteringAttribute[ATTRIBUTENAME]] = dimension;
-                console.log(binFactor);
+
                 var group = {};
-                if(binFactor === 10){
+                if(binFactor != 1){
                     //group = dimension.group(function(d){ return Math.floor( +d[filteringAttribute[ ATTRIBUTENAME ] ] * binFactor);
                     //})
-                    group = dimension.group();
+                    binwidth = 1/binFactor;
+                    //console.log("binnning!");
+                    
+                    group = dimension.group(function(d){
+                        //console.log(Math.floor(+d/binwidth));
+                        //console.log(d)
+                        if(d)
+                            return (Math.floor(+d/binFactor)*binFactor);
+                        else{
+                           
+                            return null;
+                        }
+                        //return +d[filteringAttribute[ATTRIBUTENAME]]; 
+                    });
+                    
+                    //group = dimension.group();
                 } else {
                     group = dimension.group();
                 }
