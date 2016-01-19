@@ -53,20 +53,20 @@ var interactiveFilters = (function(){
 
         
         ndx = crossfilter(data);
-        console.log(data[1]);
-        console.log("Applyingggg");
+       
+      
         for(var attr in filteringAttributes){
 
             var filteringAttribute = filteringAttributes[attr];
             //console.log(filteringAttribute.datatype);
             
             var fconfig = _getFilterConfig(filteringAttribute.attributeName);
-            console.log(fconfig);
+           
             if(fconfig){
                 var binFactor = fconfig.visualization.binFactor || 1; 
                 //Create a crossfilter dimension on this attribute
                 var dimension = {};
-                console.log(".....");
+               
                 if(filteringAttribute.datatype  === "float"){
                     dimension = ndx.dimension(function(d){
                         //set binning parameter here
@@ -75,13 +75,14 @@ var interactiveFilters = (function(){
                         return Math.round(+d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
                     });
                 } else if(filteringAttribute.datatype === "integer"){
-                    //console.log(binFactor)
+                    console.log(binFactor);
                     dimension = ndx.dimension(function(d){
                         //console.log(d);
                         //console.log(d[5]);
                         //console.log(d[filteringAttribute[ATTRIBUTENAME]]);
                         //console.log(+d[filteringAttribute[ATTRIBUTENAME]]);
-                        return +d[filteringAttribute[ATTRIBUTENAME]];
+
+                        return Math.round(+d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
                     });
                     /*
                     dimension = ndx.dimension(function(d){
@@ -96,13 +97,19 @@ var interactiveFilters = (function(){
                 }
 
                 dimensions[filteringAttribute[ATTRIBUTENAME]] = dimension;
-            
-                var group = dimension.group();
+                console.log(binFactor);
+                var group = {};
+                if(binFactor === 100){
+                    group = dimension.group(function(d){ return Math.floor( +d[filteringAttribute[ ATTRIBUTENAME ] ] * binFactor);
+                    });
+                } else {
+                    group = dimension.group();
+                }
                 //console.log(filteringAttribute[ATTRIBUTENAME])
                 groups[filteringAttribute[ATTRIBUTENAME]] = group;
             }
         }
-        console.log("here");
+
         /*
         var size = ndx.size(),
             all = ndx.groupAll();

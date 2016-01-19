@@ -6,8 +6,8 @@
 var interactiveFilters = require("../modules/interactiveFilters"),
     dataSource          = require("../modules/dataSource"),
     dataDescription     = require("../modules/dataDescription"),
-    visualization       = require("../modules/visualization"),
-    json2csv            = require("json2csv");
+    visualization       = require("../modules/visualization");
+
 //var TABLE_STATE = 0;
 
 
@@ -127,8 +127,8 @@ var _filterFunction = function(filter){
 //Is fired on GET "/data" request. Performs filtering using the filtering information provided in the GET parameter:    ```filter```    
 //
 var _handleFilterRequest = function(req,res) {
-    var dimensions = interactiveFilters.getDimensions();
-    var groups = interactiveFilters.getGroups();
+
+
     //var filteringAttributes = dataDescription.getFilteringAttributes();
     var filter = {};
     filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
@@ -142,7 +142,7 @@ var _handleFilterRequest = function(req,res) {
     res.end((JSON.stringify(results.results)));
 };
 
-var _imageGridNext = function(req, res, next){
+var _imageGridNext = function(req, res){
     var dimensions = interactiveFilters.getDimensions(),
         //groups = interactiveFilters.getGroups(),
         //filteringAttributes = dataDescription.getFilteringAttributes(),
@@ -170,21 +170,21 @@ var _imageGridNext = function(req, res, next){
     res.end(JSON.stringify(results));
 };
 
-var _tableNext = function(req, res, next){
+var _tableNext = function(req, res){
     var dimensions = interactiveFilters.getDimensions(),
-        groups = interactiveFilters.getGroups(),
+
         filteringAttributes = dataDescription.getFilteringAttributes(),
         state = req.param("state") ? JSON.parse(req.param("state")) : 1,
         results = {};
-        TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
-        var dataTableAttributes = visualization.getAttributes("dataTable");
+    var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+    var dataTableAttributes = visualization.getAttributes("dataTable");
 
 
-        var len = TABLE_DATA.length;
+    var len = TABLE_DATA.length;
     //var reqParams = iDisplayLength, iDisplayStart
     var start = req.query.start;
     var length = req.query.length;
-    var TABLE_DATA = TABLE_DATA.slice(start, start+length);
+    TABLE_DATA = TABLE_DATA.slice(start, start+length);
     var DATA_ARRAY = [];
     for(var i in TABLE_DATA){
         //var row = Object.keys(TABLE_DATA[i]).map(function(k) { return TABLE_DATA[i][k] });
@@ -217,11 +217,11 @@ var _tableNext = function(req, res, next){
     res.end(JSON.stringify(results));
 };
 
-var _save = function(req, res, next){
+var _save = function(req, res){
 
-    var dimensions = interactiveFilters.getDimensions();
-    var groups = interactiveFilters.getGroups();
-    var filteringAttributes = dataDescription.getFilteringAttributes();
+
+
+
 
     
     var filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
@@ -299,6 +299,7 @@ var _heatInit = function(){
             var group = dimension.group(); 
 }
 */
+/*
 var _heat = function(req, res){
 
     var results = {visualization: {values: group.all(),top: group.top(1)[0].value}};
@@ -306,13 +307,15 @@ var _heat = function(req, res){
     res.writeHead(200, {"content-type": "application/json" });
     res.end((JSON.stringify(results.re)));
 };
+*/
 
 exports.index = function(req, res){
-        res.render("index", { title: "Express" });
+    res.render("index", { title: "Express" });
 };
+
 exports.handleFilterRequest = _handleFilterRequest;
 exports.tableNext = _tableNext;
 exports.imageGridNext = _imageGridNext;
 exports.save = _save;
 
-exports.heat = _heat;
+//exports.heat = _heat;
