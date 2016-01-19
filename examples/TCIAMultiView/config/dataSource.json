@@ -1,0 +1,15 @@
+
+{
+    "dataSourceAlias": "sourceJoin",
+    "joinKey": ["BCRSlideUID"],
+    "dataSources":[
+        {
+            "sourceName": "source1",
+            "sourceType": "csv",
+            "options":{
+                "path": "data/TCIA2img.csv"
+            },
+            "dataAttributes": ["CancerType","BCRPatientUIDFromPathology","BCRPatientUIDFromClinical","HistologicDiagnosis","BCRSlideUID","PatientBarcode","SampleBarcode","SlideBarcode", "Laterality", "Race", "Gender","TumorSite","ImageFileName","SectionLocation","TumorCells","Necrosis","StromalCells", "NormalCells","TumorNuclei","KarnofskyScore","SupratentorialLocalization", "LastContact","AgeatInitialDiagnosis", "image"]        
+        }
+    ]
+}

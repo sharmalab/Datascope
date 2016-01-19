@@ -1,0 +1,34 @@
+[
+
+    {
+        "name": "gender",
+        "order": 4,
+        "visualization": {
+            "visType": "pieChart"
+        },
+        "filter": ["male", "female"]
+    },
+    {
+        "name": "age",
+        "order": 1,
+        "visualization":{
+            "visType": "barChart"
+
+        },
+        "filter": [23,30]
+    },
+    {
+        "name": "Ai",
+        "order": 2,
+        "visualization": {
+            "visType": "barChart"
+        },
+        "label": "AttriI"
+    },
+    {
+        "name": "Di",
+        "visualization": {
+            "visType": "rowChart"
+        }
+    }
+]

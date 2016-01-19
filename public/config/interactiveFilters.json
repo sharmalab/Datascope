@@ -1,0 +1,34 @@
+[
+    {
+        "attributeName": "Sex",
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },
+    {
+        "attributeName": "Survived",
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },
+    {
+        "attributeName": "Fare",
+        "visualization": {
+            "visType": "barChart"
+        }
+    },
+    {
+        "attributeName": "Age",
+        "visualization": {
+            "visType": "barChart",
+            "binFactor": 10 
+        }
+    },
+
+    {
+        "attributeName": "Pclass",
+        "visualization": {
+            "visType": "rowChart"
+        }
+    }
+]

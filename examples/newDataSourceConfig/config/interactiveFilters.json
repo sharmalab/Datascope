@@ -1,0 +1,27 @@
+[
+    {
+        "attributeName": "A",
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },    
+    {
+        "attributeName": "B",
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },    
+    {
+        "attributeName": "C",
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },   
+    {
+        "attributeName": "D",
+        "visualization": {
+            "visType": "pieChart"
+        }
+    }
+        
+]
