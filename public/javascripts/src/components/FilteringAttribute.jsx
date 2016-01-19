@@ -118,7 +118,7 @@ var ChartAddons = React.createClass({
     render: function(){
         var visType = this.props.config.visualization.visType;
         var isFilterActive = this.props.isFilterActive; 
-        console.log(isFilterActive);
+        //console.log(isFilterActive);
         switch(visType){
         case  "barChart":
             return(
@@ -331,9 +331,10 @@ var FilteringAttribute = React.createClass({
                 //.xUnits(function(){return 10;})
                 .elasticY(true)
                 .elasticX(true);
-
-                c.select("g.axis.y")
-                    .attr("transform", "translate(71, 0)");
+            c.renderlet(function(chart){
+                chart.selectAll("g.x text")
+                    .attr("transform", "translate(-10,10) rotate(315)");
+            });
 
                 //.renderLabel(true)
                 //.margins({left: 35, top: 10, bottom: 20, right: 10});

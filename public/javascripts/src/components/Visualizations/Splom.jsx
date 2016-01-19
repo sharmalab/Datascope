@@ -226,7 +226,7 @@ var SplomGrid = React.createClass({
                     },
                     filterFunction: function(){
                         var attr = combinedAttribute;
-                        console.log("woot");
+                       
                         return function(f){
                             var data = self.props.currData[attr];
                             f(data);
@@ -261,7 +261,7 @@ var SplomGrid = React.createClass({
                     return function(d, filters){                        
                         if (filters.length === 0) {
                             //return null;
-                            console.log("zeoo!"); 
+
                             dimension.filter([]);
                             return null;
                         } else if (filters.length === 1 && !filters[0].isFiltered) {
@@ -282,9 +282,7 @@ var SplomGrid = React.createClass({
 									
                                 for (var i = 0; i < filters.length; i++) {
                                     var filter = filters[i];
-                                    console.log(filter);
-									console.log("heeeereeee!!!!");
-                                    console.log(filter.isFiltered(d));
+
                                     if (filter.isFiltered && filter.isFiltered(d)) {
                                         return true;
                                     } else if (filter <= d && filter >= d) {
