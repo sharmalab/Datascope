@@ -1,0 +1,8 @@
+node_modules/
+*.swp
+*.swo
+*.DS_Store
+*.log
+*.bak
+*.back
+bundle.js

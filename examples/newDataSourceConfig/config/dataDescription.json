@@ -1,0 +1,28 @@
+
+[
+    {
+        "attributeName": "A",
+        "datatype": "enum",
+        "attributeType": ["visual", "filtering"],
+        "dataSourceAlias": "sourceJoin"
+    },    
+    {
+        "attributeName": "B",
+        "datatype": "enum",
+        "attributeType": ["filtering"],
+        "dataSourceAlias": "sourceJoin"
+    },    
+    {
+        "attributeName": "C",
+        "datatype": "enum",
+        "attributeType": ["visual", "filtering"],
+        "dataSourceAlias": "sourceJoin"
+    },   
+    {
+        "attributeName": "D",
+        "datatype": "enum",
+        "attributeType": ["visual", "filtering"],
+        "dataSourceAlias": "sourceJoin"
+    }
+        
+]
