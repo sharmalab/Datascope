@@ -14,7 +14,8 @@
     {
         "attributeName": "Fare",
         "visualization": {
-            "visType": "barChart"
+            "visType": "barChart",
+            "binFactor": 10
         }
     },
     {
