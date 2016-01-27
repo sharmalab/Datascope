@@ -329,7 +329,8 @@ var FilteringAttribute = React.createClass({
                 .group(self.state.group)
                 .x(d3.scale.linear().domain(domain))
                 //.xUnits(dc.units.fp.precision((1/binFactor)))
-                .xUnits(function(){return binFactor*3;})
+                .xUnits(function() {return 30})
+                //.xUnits(function(){return 500*(1/binFactor)})
                 .elasticY(true)
                 .elasticX(true);
             c.renderlet(function(chart){

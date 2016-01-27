@@ -71,9 +71,9 @@ var interactiveFilters = (function(){
                     dimension = ndx.dimension(function(d){
                         //set binning parameter here
                         var binFactor = fconfig.visualization.binFactor || 10; 
-                        if(d[filteringAttribute[ATTRIBUTENAME]] != "") 
-                            return Math.round(+d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
-                        else{}
+                        if(d[filteringAttribute[ATTRIBUTENAME]]) 
+                            return d[filteringAttribute[ATTRIBUTENAME]];
+                        else{ return null;}
                           
                     });
                 } else if(filteringAttribute.datatype === "integer"){
@@ -84,9 +84,13 @@ var interactiveFilters = (function(){
                         //console.log(d[filteringAttribute[ATTRIBUTENAME]]);
                         //console.log(+d[filteringAttribute[ATTRIBUTENAME]])
                         //binFactor = 1;
-                        if(d[filteringAttribute[ATTRIBUTENAME]]) 
-                            return Math.round(+d[filteringAttribute[ATTRIBUTENAME]]);
+                        if(d[filteringAttribute[ATTRIBUTENAME]]) {
+
+                            return (+d[filteringAttribute[ATTRIBUTENAME]]);
+                        } 
                         else{
+                            //console.log(d)
+                            //console.log(d);
                             //console.log("null");
                             return null;
 
@@ -118,15 +122,21 @@ var interactiveFilters = (function(){
                     group = dimension.group(function(d){
                         //console.log(Math.floor(+d/binwidth));
                         //console.log(d)
-                        if(d)
-                            return (Math.floor(+d/binFactor)*binFactor);
+                        if(d){
+                            var binned = Math.floor(+d/binFactor)*binFactor;
+                            //console.log(binned);
+                            if(binned == 0)
+                                return 0.000001;
+                            else
+                                return (Math.floor(+d/binFactor)*binFactor);
+                        }
                         else{
-                           
+
                             return null;
                         }
                         //return +d[filteringAttribute[ATTRIBUTENAME]]; 
                     });
-                    
+                    //console.log(group.all()); 
                     //group = dimension.group();
                 } else {
                     group = dimension.group();
