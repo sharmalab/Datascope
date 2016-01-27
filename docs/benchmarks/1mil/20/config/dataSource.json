@@ -1,0 +1,33 @@
+[
+	{
+		"name": "source1",
+		"type": "json",
+		"options":{
+			"path": "data/1mil/20.json"
+		},
+		
+		"attributes": [
+		"id", 
+		"guid", 
+		"name", 
+		"age", 
+		"gender",
+		"registered",
+		"isActive",
+		"Ai", 
+		"Bi", 
+		"Ci", 
+		"Di", 
+		"Eb", 
+		"Ff", 
+		"Gf", 
+		"Hf",
+		"Ji",
+		"Ki",
+		"Li",
+		"Ms",
+		"Ns",
+		"Oi"
+		]
+	}
+]

@@ -1,0 +1,521 @@
+body{
+  padding-top:70px;
+  overflow-y: hidden;
+}
+
+#filtering_attributes{
+  padding: 0 30px 30px 30px;
+}
+#filtering_attributes button{
+  padding: 14px 22px;
+}
+
+#header{
+  background:#607D8B;
+  margin-bottom: 10px
+}
+#header a{
+  color: #fff;
+}
+/*
+#header a:hover{
+  color: #ffffff;
+}
+*/
+
+footer {
+  padding: 2em 0 1em 0;
+  font-size: 12px;
+}
+.modal-content{
+  min-height: 400px;
+  padding: 30px;
+}
+/*
+.chart{
+  position: relative;
+  top: 10px;
+  left: 40px;
+}
+*/
+
+
+.navbar-options{
+
+}
+
+
+
+
+
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  //border-bottom: 1px solid #eee;
+}
+
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  
+}
+@media (min-width: 768px) {
+  .sidebar {
+
+    
+    position: fixed;
+
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 20px 12px;
+
+    width: 330px;
+
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+#interactiveFiltersPanel{
+  overflow-y: scroll;
+  background: hsl(211,3%,94%);
+  height: 100vh;
+  padding-top: 12x;
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a {
+  color: #fff;
+  background-color: #428bca;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+  //padding: 20px;
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+
+.thumb-chart{
+  cursor: pointer;
+}
+.thumb-panel-body{
+  
+}
+.panel-heading-right{
+  float: right;
+  display: inline;
+  width: 100px;
+  position: relative;
+  top: -4px;
+}
+.panel-heading-right input{
+  border: 1px solid #ccc;
+  width: 25px;
+  height: 25px;
+  margin:  4px;
+  float: left;
+  padding: 1px;
+  color: #aaa;
+  font-size: 11px;
+}
+a.panel-reset {
+  color: #333;
+}
+.panel-reset{
+  float: right;
+  margin-top: 2px;
+}
+
+.inactive{
+  color: #333;
+}
+
+/*
+table#dataTable{
+  font-size: 11px;
+  overflow-x: scroll;
+}
+*/
+#vis{
+    font-size: 11px;
+    margin: 0 auto;
+}
+/*
+*/
+
+.visualizationArea{
+    margin: 4px auto;
+
+    overflow-y: scroll;
+    height: 100vh;
+    padding-bottom: 120px;
+}
+
+#dataTableNav{
+  text-align: center;
+}
+#dataTableNav a{
+
+  padding: 12px;
+}
+//Font size for datatable
+.dataTables_scrollBody{
+    font-size: 11px;
+}
+
+#activeRecords div{
+  display: inline;
+
+}
+#activeRecords{
+  float: right;
+  font-size: 12px;
+}
+
+#main{
+ // padding: 15px;
+}
+
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+     zoom:1; /* hasLayout ie7 trigger */
+}
+
+.nav-tabs, .nav-pills {
+    text-align:center;
+}
+#vis_wrapper{
+  padding: 10px;
+}
+#vis_info, #vis_paginate{
+  font-size: small;
+}
+
+#visualization{
+    padding-top: 12px;
+    margin: 0 auto;
+}
+
+#interactiveFiltersPanelSlider{
+    
+  float: right;
+  margin: 4px;
+  z-index: 10000;
+  margin: 10px;
+  margin-top: -29px;
+}
+
+#heat{
+  margin: 0px 30px 0 0;
+}
+#imageGrid{
+    width: 93%;
+    margin: 0 auto;
+}
+
+#imageGridPagination{
+  padding: 20px;
+  display: none;
+}
+#imageGridPagination .next{
+	display: hidden;
+
+}
+#imageGridPagination .prev{
+	display: hidden;
+}
+/*React transitions*/
+.imageGridImages-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+.imageGridImages-enter.imageGridImages-enter-active {
+  opacity: 1;
+}
+
+.chartAddons{
+  margin: 2px;
+//  float: right;
+}
+.chartAddons input{
+  width: 40px;
+  display: inline;
+}
+
+
+//React Modals
+
+
+#OptionsBar button{
+  float:right;
+}
+
+
+/* 
+ * SPLOM
+ */
+.splom{
+    padding-left: 40px;
+    width: 1000px;
+    margin: 0 auto;
+}
+.splom-grid-col{
+    display: inline-block;
+    width: 220px;
+    background: #fff;
+    border: 1px solid #ccc;
+    margin: 2px;
+    height: 220px;
+}
+.splom-grid-box div{
+    float: left;
+    padding-top: 10px;
+    padding-left 4px;
+}
+.splom-grid-box{
+    display: inline-block;
+    width: 220px;
+    height: 220px;
+    border: 1px solid #ccc;
+    margin: 1px;
+}
+#splom-title div{
+    width: 220px;
+    font-size: 12px;
+    height: auto;
+    display: inline-block;
+    float: left;
+    padding-left: 4px;
+    border: 1px solid #ccc;
+    margin: 1px;
+    text-align: center;
+}
+div#splom-spacer{
+    width: 8px;
+    transform: none;
+    padding: 0;
+    border: 0;
+}
+
+.splom-title{
+//    margin: 2px;
+}
+.splom-side-title{
+    display: inline-block;
+    float: left;
+    height: 220px;
+    font-size: 12px;
+    width: 10px;
+    display: inline-block;
+    white-space: nowrap;
+    /* this is for shity "non IE" browsers
+       that dosn't support writing-mode */
+    -webkit-transform: translate(1.1em,2em) rotate(270deg);
+       -moz-transform: translate(1.1em,0) rotate(270deg);
+         -o-transform: translate(1.1em,0) rotate(270deg);
+            transform: translate(-0.4em,4em) rotate(270deg);
+    -webkit-transform-origin: 0 0;
+       -moz-transform-origin: 0 0;
+         -o-transform-origin: 0 0;
+            transform-origin: 0 0;
+   /* IE9+ */
+   -ms-transform: none;
+   -ms-transform-origin: none;
+   /* IE8+ */
+   -ms-writing-mode: tb-rl;
+   /* IE7 and below */
+   *writing-mode: tb-rl;
+
+//    word-wrap: break-word;
+ //   padding-left: 140px;
+// transform: rotate(90deg);
+
+ //   transform-origin: left top 0;
+}
+
+
+
+
+/* Filtering Attributes */
+.chart-wrapper{
+    width: 300px;
+}
+.chart-wrapper .chart-stage{
+    background: #455A64;
+    padding: 4px 24px;
+}
+.chart-title, .chart-wrapper .chart-notes{
+   background: #607D8B;
+   color: #fff;
+
+}
+.chart-wrapper .chart-title{
+    color: #fff;
+    border: 0;
+   text-align: left;
+    text-transform: capitalize;
+   font-size: 14px;
+}
+.chart-wrapper{
+    border: 0;
+    background: #455A64;
+}
+.chartAddons{
+    font-size:10.5px;
+    color: #ddd;
+}   
+.chart-notes{
+    border:0;
+    text-align: left;
+    font-weight: normal;
+    font-size: 10px;
+}
+button{
+    color: #ddd;
+//    background: #03A9F4;
+    background:  rgba(69, 90, 100, 0.84);
+//    box-shadow: 2px 2px 2px grey;
+    border: 0;
+}
+.chart-wrapper .chart-notes{
+    border: 0;
+    background: #62737B;
+}
+
+
+.side{
+    max-width: 350px;
+}
+
+#interactiveFiltersPanel{
+    background: #CFD8DC;
+    color: #212121;
+//    max-width: 400px;
+    padding-bottom: 60px;
+    text-align: center;
+}
+#interactiveFiltersPanel h4{
+//    font-family: Roboto, Futura, Arial, Verdana;
+font-size: 16.5;
+}
+
+img {
+  -webkit-transition: opacity 3s ease-in-out;
+  -moz-transition: opacity 2s ease-in-out;
+  -o-transition: opacity 2s ease-in-out;
+  transition: opacity 2s ease-in-out;
+  animation: 3s ease-in 1s 2 reverse both paused slidein;
+
+}
+
+#filteringAttributeTitle{
+    padding-top: 17px;
+    font-size: 17px;
+    
+}
+.navbar-right{
+    padding-right: 30px;
+}
+
+.chart-title-icons{
+    display: inline-block;
+    float: right;
+
+}
+.chart-title-icons svg{
+    opacity: 0.6;
+}
+
+.chart-title-icons svg:hover{
+ //   fill: #fff;
+ opacity: 1;
+}
+#interactiveFiltersPanel{
+    color: #212121;
+}
+#interactiveFiltersPanel .dc-chart .axis text{
+    fill: #73838A;
+}
+
+#interactiveFiltersPanel .dc-chart .axis path, #interactiveFiltersPanel .axis line{
+    stroke: #73838A;   
+}
+
+ul.nav.nav-tabs{
+	text-transform: capitalize;
+}
+
+.grid-item{
+    margin: 0px auto;
+}
+
+#imageGridImages{
+    padding-top: 14px;
+}
+.imageGridItem img{
+    margin: 9px;
+    box-shadow: 0 0 11px gray;
+}
+.imageGridItem img:hover{
+    box-shadow: 0 0 11px black;
+}

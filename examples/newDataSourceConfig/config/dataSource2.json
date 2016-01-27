@@ -1,0 +1,14 @@
+{
+    "dataSourceAlias": "singleSource",
+    "joinKey": ["A"],
+    "dataSources": [
+            {
+            "sourceName": "smerged",
+            "sourceType": "json",
+            "options":{
+                "path": "examples/newDataSourceConfig/data/dataMerged.json"
+            },
+            "dataAttributes": ["A","B","C", "D"]
+        }
+    ]
+}
