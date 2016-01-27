@@ -1,0 +1,10 @@
+node_modules/
+*.swp
+*.swo
+*.DS_Store
+*.log
+*.bak
+*.back
+public/config/*
+data/*
+bundle.js

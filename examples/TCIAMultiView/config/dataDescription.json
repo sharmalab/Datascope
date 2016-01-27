@@ -1,0 +1,95 @@
+[ {
+        "attributeName": "SectionLocation",
+        "datatype": "enum",
+        "dataProvider": "source1",
+        "attributeType": ["visual", "filtering"]
+    },{
+        "attributeName": "TumorCells",
+        "datatype": "integer",
+        "dataProvider": "source1",
+        "attributeType": ["visual", "filtering"]
+    },{
+        "attributeName": "Necrosis",
+        "datatype": "integer",
+        "dataProvider": "source1",
+        "attributeType": ["visual", "filtering"]
+    },
+    {
+        "attributeName": "StromalCells",
+        "datatype": "integer",
+        "dataProvider": "source1",
+        "attributeType": ["visual"]
+    },
+    {
+        "attributeName":"NormalCells",
+        "datatype": "integer",
+        "dataProvider": "source1",
+        "attributeType": ["filtering", "visual"]
+    },
+    {
+        "attributeName": "TumorNuclei",
+        "datatype": "integer",
+        "dataProvider": "source1",
+        "attributeType": ["visual", "filtering"]
+    },
+    {
+        "attributeName": "KarnofskyScore",
+        "datatype": "integer",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "source1"
+    },
+    {
+        "attributeName": "AgeatInitialDiagnosis",
+        "datatype": "integer",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "source1"
+    }, 
+    {
+        "attributeName": "HistologicDiagnosis",
+        "datatype": "enum", 
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "source1"
+    },    
+    {
+        "attributeName": "TumorSite",
+        "datatype": "enum", 
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "source1"
+    },
+    {
+        "attributeName": "Gender",
+        "datatype": "enum",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "source1"
+    },
+    {
+        "attributeName": "Laterality",
+        "datatype": "enum",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "source1"
+    },
+    {
+        "attributeName": "Race",
+        "datatype": "string",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "source1"
+    },
+    {
+        "attributeName": "AgeatInitialDiagnosis",
+        "datatype": "integer",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "source1"
+    },
+    {
+        "attributeName": "SupratentorialLocalization",
+        "datatype": "enum",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "source1"
+    },
+    {
+        "attributeName": "LastContact",
+        "datatype": "enum",
+        "attributeType": ["visual", "filtering"],
+        "dataProvider": "source1"
+    }
+]
