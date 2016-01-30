@@ -1,8 +1,8 @@
 /* global d3 */
 /* global dc */
-
+/* global queryFilter */
 //Global
- queryFilter = {};
+queryFilter = {};
 
 //dc.constants.EVENT_DELAY = 300;
 
@@ -73,10 +73,12 @@ var Dashboard = React.createClass({
         return {interactiveFilters: null, visualization: null, filter: null, loaded: false};
     },
     onFilter: function(){
-
+        this.setState({loading: true});
+        
         var data = AppStore.getData();
         //var debug=this.state.debug+1;
-        this.setState({currData: data});
+        console.log("filterrrrrrrrrr");
+        this.setState({currData: data, loading: false});
         dc.renderAll();
 
     },
@@ -85,10 +87,16 @@ var Dashboard = React.createClass({
           //interactiveFiltersData = currData.interactiveFilters,
           //visualizationData = currData.visualization;
         //console.log(this.state.loaded);
+        var loading =  this.state.loading;
+        console.log(loading);
         return (
           <div>
             <NavBar />
-
+            { loading ?
+                <h1 id="loadingMessage"> Loading </h1>
+            :
+                <div />
+            }
             <InteractiveFilters onFilter={this.onFilter} config={this.state.interactiveFilters} currData={this.state.currData}>
             </InteractiveFilters>
             <Visualizations config ={this.state.visualization} debug={this.state.debug} currData={this.state.currData}>
