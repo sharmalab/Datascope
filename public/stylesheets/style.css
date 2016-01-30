@@ -1,6 +1,14 @@
 body{
   padding-top:70px;
   overflow-y: hidden;
+
+}
+#loadingMessage{
+    position: absolute;
+    top: 100;
+    left: 100;
+    z-index: 100;
+    background: #ccc;
 }
 
 #filtering_attributes{
@@ -16,6 +24,7 @@ body{
 }
 #header a{
   color: #fff;
+  font-weight: 700;
 }
 /*
 #header a:hover{
@@ -475,6 +484,9 @@ img {
 }
 .navbar-right{
     padding-right: 30px;
+}
+.navbar-brand{
+    font-weight: 800;
 }
 
 .chart-title-icons{
