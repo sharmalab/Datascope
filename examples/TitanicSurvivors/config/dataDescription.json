@@ -1,0 +1,92 @@
+[
+    {
+        "attributeName": "Sex",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    },
+    {
+        "attributeName": "Ticket",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "integer"
+    },
+    {
+        "attributeName": "Fare",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "integer"
+    },
+    {
+        "attributeName": "Cabin",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    },
+    {
+        "attributeName": "Age",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "integer"
+    },
+    {
+        "attributeName": "Survived",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    },
+    {
+        "attributeName": "PassengerId",
+        "attributeType": [
+            "visual"
+        ]
+    },
+    {
+        "attributeName": "Pclass",
+        "attributeType": [
+            "visual"
+        ]
+    },
+    {
+        "attributeName": "Name",
+        "attributeType": [
+            "visual"
+        ]
+    },
+    {
+        "attributeName": "SibSp",
+        "attributeType": [
+            "visual"
+        ]
+    },
+    {
+        "attributeName": "Parch",
+        "attributeType": [
+            "visual"
+        ]
+    },
+    {
+        "attributeName": "Embarked",
+        "attributeType": [
+            "visual"
+        ]
+    }
+]

@@ -1,0 +1,1 @@
+{"dataSourceAlias":"","dataSources":[{"sourceName":"Titanic","sourceType":"jsonFile","options":{"path":"data/titanicClean.json"}}]}
