@@ -33,8 +33,8 @@ var DataTable = React.createClass({
                 "pageLength": 100,
                 columns: columns,
                 fixedHeader: true,
-                responsive: true
-
+                responsive: true,
+                "searching":true
             });
                 var url = self.props.config.url;
 
