@@ -100,7 +100,7 @@ body {
     width: 330px;
 
     display: block;
-    overflow-x: hidden;
+    //overflow-x: visible;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
@@ -109,6 +109,7 @@ body {
 
 #interactiveFiltersPanel{
   overflow-y: scroll;
+  overflow-x: visible;
   background: hsl(211,3%,94%);
   height: 100vh;
   padding-top: 12x;
@@ -211,7 +212,7 @@ table#dataTable{
 */
 
 .visualizationArea{
-    margin: 4px auto;
+    //margin: 4px auto;
 
     overflow-y: scroll;
     height: 100vh;
@@ -227,7 +228,12 @@ table#dataTable{
 }
 //Font size for datatable
 .dataTables_scrollBody{
+    border: 1px solid #333;
     font-size: 11px;
+
+}
+tr{
+    cursor: pointer;
 }
 
 #activeRecords div{
@@ -266,12 +272,18 @@ table#dataTable{
 }
 
 #interactiveFiltersPanelSlider{
-    
+  position: relative;  
+  left: 18px;
+  padding: 5px 10px ;
+  background: #FF4081;
+  color: #fff;
+  margin: 0;
+  top: 4px;
+  //box-shadow: 5px 5px 5px grey;
   float: right;
-  margin: 4px;
-  z-index: 10000;
-  margin: 10px;
-  margin-top: -29px;
+  //top: 100px;
+  //left: 320px;
+  z-index:1000;
 }
 
 #heat{
@@ -477,6 +489,10 @@ img {
 
 }
 
+.filteringAttributesList{
+    margin-top: 40px;
+}
+
 #filteringAttributeTitle{
     padding-top: 17px;
     font-size: 17px;
@@ -530,4 +546,8 @@ ul.nav.nav-tabs{
 }
 .imageGridItem img:hover{
     box-shadow: 0 0 11px black;
+}
+
+.interactiveFiltersList{
+    padding-top: 30px;
 }
