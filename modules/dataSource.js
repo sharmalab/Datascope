@@ -118,9 +118,7 @@ var dataSource = (function(){
                 var merged = _merge(results);
                 var count=0;
                 for(var i in merged){
-                	var row = merged[i];
-                	//console.log(row)
-
+                    var row = merged[i];
                 	for(var attr in row){
                 		//console.log(attr)
                 		flag = false;
@@ -176,7 +174,7 @@ var dataSource = (function(){
 
     var _loadData = function(callback){
         //Load data from sources
-        console.log("...")
+        //console.log("...")
         if(dataSources.length > 1){
             _loadDataSources(dataSources, callback);
         }
