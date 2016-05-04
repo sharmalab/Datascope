@@ -181,26 +181,25 @@ var _tableNext = function(req, res){
 
 
     var len = TABLE_DATA.length;
-    //var reqParams = iDisplayLength, iDisplayStart
-    var start = req.query.start;
-    var length = req.query.length;
+
+    var start = 1*req.query.start;
+    var length = 1*req.query.length;
+
+    console.log(start);
+    console.log(length);
+    var end = start+length;
+    console.log(end);
     TABLE_DATA = TABLE_DATA.slice(start, start+length);
+    console.log(TABLE_DATA.length);
     var DATA_ARRAY = [];
     for(var i in TABLE_DATA){
-        //var row = Object.keys(TABLE_DATA[i]).map(function(k) { return TABLE_DATA[i][k] });
+
         var row = [];
         for(var j in dataTableAttributes){
             var attrName = dataTableAttributes[j]["attributeName"];
             row.push(TABLE_DATA[i][attrName]);
         }
-        /*
 
-        for(var j in TABLE_DATA[i]){
-            //console.log(j)
-
-            row.push(TABLE_DATA[i][j])
-        }
-        */
         DATA_ARRAY.push(row);
     }
     var all = {};
@@ -210,7 +209,7 @@ var _tableNext = function(req, res){
         active: all.value(),
         state: state,
         draw: req.query.draw,
-        recordsTotal: dataSource.getTotalRecords(),          //FIX THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        recordsTotal: dataSource.getTotalRecords(),         
         recordsFiltered: len
     };
     res.writeHead(200, {"content-type": "application/json"});
