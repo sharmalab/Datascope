@@ -308,10 +308,22 @@ var _heat = function(req, res){
 };
 */
 
+var _populationInfo = function(req, res, next){
+    var filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
+
+    console.log(filter);
+    var result = _filterFunction(filter);
+    var filteredData = result.filteredData;
+    var filteredLength = filteredData.length;
+    var originalLength = dataSource.getTotalRecords();
+
+    return res.json({"Current": filteredLength, "Total": originalLength});
+}
+
 exports.index = function(req, res){
     res.render("index", { title: "Express" });
 };
-
+exports.populationInfo = _populationInfo;
 exports.handleFilterRequest = _handleFilterRequest;
 exports.tableNext = _tableNext;
 exports.imageGridNext = _imageGridNext;

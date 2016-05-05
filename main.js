@@ -111,6 +111,7 @@ function handleState(req, res, next){
 
 // Listen for filtering requests on ```/data```
 app.use("/data",routes.handleFilterRequest);
+app.use("/populationInfo", routes.populationInfo);
 app.use("/dataTable/next", routes.tableNext);
 app.use("/state",  handleState);
 app.use("/save", routes.save);
