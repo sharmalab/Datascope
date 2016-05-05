@@ -3,6 +3,8 @@ var Visualization = require("./Visualizations/Visualization.jsx");
 var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
 
+var Summary = require("./Visualizations/Summary.jsx");
+
 var Tabs      = ReactBootstrap.Tabs,
     Tab         = ReactBootstrap.Tab,
     Modal = ReactBootstrap.Modal,
@@ -93,11 +95,16 @@ var Visualizations = React.createClass({
             });
 
             return(
-                <div id="visualization" className="col-sm-7 col-md-7 col-lg-8">
-                   
-                    <Tabs defaultActiveKey={1}>
-                        {visualizations}
-                    </Tabs>
+                <div>
+                    <div id="summary">
+                        <Summary />
+                    </div>
+                    <div id="visualization" className="col-sm-9 col-md-9 col-lg-8">
+                       
+                        <Tabs defaultActiveKey={1}>
+                            {visualizations}
+                        </Tabs>
+                    </div>
                 </div>
             );
 

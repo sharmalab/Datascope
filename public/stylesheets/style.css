@@ -211,12 +211,20 @@ table#dataTable{
 /*
 */
 
+
+#totalChart{
+    height: 25px;
+    width: 300px;
+    background: #ccc;
+    border: 1px solid #333;
+}
+
 .visualizationArea{
-    //margin: 4px auto;
+    margin: 4px auto;
 
     overflow-y: scroll;
-    height: 100vh;
-    padding-bottom: 120px;
+    height: 80vh;
+    padding-bottom: 50px;
 }
 
 #dataTableNav{
@@ -267,7 +275,7 @@ tr{
 }
 
 #visualization{
-    padding-top: 12px;
+    //padding-top: 12px;
     margin: 0 auto;
 }
 
@@ -517,6 +525,7 @@ img {
 .chart-title-icons svg:hover{
  //   fill: #fff;
  opacity: 1;
+ cursor: pointer;
 }
 #interactiveFiltersPanel{
     color: #212121;
@@ -550,4 +559,72 @@ ul.nav.nav-tabs{
 
 .interactiveFiltersList{
     padding-top: 30px;
+}
+
+
+
+
+/*Summary*/
+#summary{
+   //background: #333;
+   // height: 100px;
+   padding: 10px;
+  // padding-left: 200px;
+  text-align: center;
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
+
+}
+.summaryPopulation{
+    height: 25px;
+    width: 500px;
+    //padding: 12px;
+    //z-index: 2000;
+    display: inline-block;
+    //background: steelblue;
+    color: #fff;
+    //padding-top: 3px;
+    //border: 1px solid #333;  
+    font-size: 12px;
+    background: #455A64;
+}
+.summaryPopulation div{
+    
+    //z-index:10;
+    //display: inline-block;
+    background: red;
+    height: 25px;
+    position: relative;
+    top: -17px;
+    //padding-top: 3px;
+    
+}
+.summaryFull{
+
+}
+
+.filterSummary{
+    display: inline-block;
+    background: #eee;
+    border-radius: 3px;
+    font-size: 12px;
+    width: 160px;
+    padding: 3px;
+    border: 1px solid #ddd;
+}
+.filterSummary:hover{
+    border: 1px solid #bbb;
+}
+
+.filterButton:hover{
+    color: #000;
+    cursor: pointer;
+}
+.filterName{
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+}
+.summaryPopulationLabel{
+    position: relative;
+    top: 5px;
+    z-index: 100;
 }
