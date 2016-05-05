@@ -169,7 +169,7 @@ var ChartAddons = React.createClass({
 
 var FilteringAttribute = React.createClass({
     getInitialState: function() {
-        return {showChart: true};
+        return {showChart: true, showStatistics:false};
     },
     componentWillMount: function(){
      //Initialize crossfilter dimensions and groups before rendering
@@ -178,11 +178,8 @@ var FilteringAttribute = React.createClass({
 
         var dim = {
             filter: function(f) {
-                //console.log(f);
                 if(f) {
-
                     queryFilter[attributeName] = f;
-                        //refresh()
                     AppActions.refresh(queryFilter);
                 } else {
                     if(queryFilter[attributeName]){
@@ -285,8 +282,6 @@ var FilteringAttribute = React.createClass({
         var height = this.props.config.visualization.height || 190;
         //var domain = [0,100];
         var c = {};
-        
-        //console.log(this.props.config);
 
         //Render according to chart-type
         switch(visType){
@@ -439,10 +434,23 @@ var FilteringAttribute = React.createClass({
         }
         return false;
     },
+    showStatistics: function(){
+        var self = this;
+        var showStatistics = self.state.showStatistics;
+        self.setState({showStatistics: !showStatistics})
+    },
     render: function(){
         var self = this;
         var divId = "dc-"+this.props.config.attributeName;
         var showChart = self.state.showChart ? {display: "block"} : {display: "none"};
+
+        var showStatistics = self.state.showStatistics ? {display: "block"} : {display: "none"};
+        var showVis = !self.state.showStatistics ? {display: "block"} : {display: "none"};
+
+        var noOfValues = 0;
+        self.props.currData[this.props.config.attributeName].values.map(function(value) {
+            noOfValues += value.value;
+        })
 
         var iconHeight = "20px";
         var iconWidth = "20px";
@@ -496,40 +504,60 @@ var FilteringAttribute = React.createClass({
                         <div className="chart-title" >
                             {self.props.config.attributeName}
                             <div className="chart-title-icons">
-                            { isFilterActive ?
+                                { isFilterActive ? /* delete filter */
 
-                                <svg style={{width:iconWidth,height:iconHeight }} viewBox="0 0 24 24" onClick={self.onReset}>
-                                    <path fill={filterFillColor} d="M14.73,20.83L17.58,18L14.73,15.17L16.15,13.76L19,16.57L21.8,13.76L23.22,15.17L20.41,18L23.22,20.83L21.8,22.24L19,19.4L16.15,22.24L14.73,20.83M2,2H20V2H20V4H19.92L14,9.92V22.91L8,16.91V9.91L2.09,4H2V2M10,16.08L12,18.08V9H12.09L17.09,4H4.92L9.92,9H10V16.08Z">
-                                        <title>Remove filter</title>
-                                    </path>
-                                </svg>
-                                :
-                                <div />
-                            }
-								{ self.state.showChart ?
-                                <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showChart} >
-                                    <path fill="#fff" d="M20,14H4V10H20">
-                                        <title>Hide attribute</title>
-                                    </path>
-                                </svg>
-								:
-									<svg style={{width: iconWidth, height: iconHeight}} onClick={self.showChart} viewBox="0 0 24 24">
-										<path fill="#fff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
-											<title> Show attribute</title>
-										</path>
-											
-									</svg>
-								}
+                                    <svg style={{width:iconWidth,height:iconHeight }} viewBox="0 0 24 24" onClick={self.onReset}>
+                                        <path fill={filterFillColor} d="M14.73,20.83L17.58,18L14.73,15.17L16.15,13.76L19,16.57L21.8,13.76L23.22,15.17L20.41,18L23.22,20.83L21.8,22.24L19,19.4L16.15,22.24L14.73,20.83M2,2H20V2H20V4H19.92L14,9.92V22.91L8,16.91V9.91L2.09,4H2V2M10,16.08L12,18.08V9H12.09L17.09,4H4.92L9.92,9H10V16.08Z">
+                                            <title>Remove filter</title>
+                                        </path>
+                                    </svg>
+                                    :
+                                    <div/>
+                                }
+                                { self.state.showStatistics ? /* show/hide statistics */
+                                    <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
+                                        <path fill="#fff" d="M20,14H4V10H20">
+                                            <title>Show statistics</title>
+                                        </path>
+                                    </svg>
+                                    :
+                                    <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
+                                        <path fill="#fff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
+                                            <title>Show statistics</title>
+                                        </path>
+                                    </svg>
+                                }
+                                { self.state.showChart ? /* show/hide attribute*/
+                                    <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showChart} >
+                                        <path fill="#fff" d="M20,14H4V10H20">
+                                            <title>Hide attribute</title>
+                                        </path>
+                                    </svg>
+                                    :
+                                    <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showChart} viewBox="0 0 24 24">
+                                        <path fill="#fff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
+                                            <title> Show attribute</title>
+                                        </path>
+                                    </svg>
+                                }
                             </div>
                         </div>
-                       
+
                         <div style={showChart}>
-                            <div className="chart-stage">
-                                <div  id={divId}> </div>
-                            </div>
-                            <div className="chart-notes">
-                                <ChartAddons config={this.props.config} data={this.props.currData} chart={this.state.chart} isFilterActive={isFilterActive}/>
-                            </div>
+                                <div style={showStatistics}>
+                                    <div className="chart-stage">
+                                        <p>Here you have some statistics about this attribute:</p>
+                                        <p>There are {noOfValues} values in this filter!</p>
+                                    </div>
+                                </div>
+                                <div style={showVis}>
+                                    <div className="chart-stage">
+                                        <div  id={divId}> </div>
+                                    </div>
+                                    <div className="chart-notes">
+                                        <ChartAddons config={this.props.config} data={this.props.currData} chart={this.state.chart} isFilterActive={isFilterActive}/>
+                                    </div>
+                                </div>
                         </div>
  
 
