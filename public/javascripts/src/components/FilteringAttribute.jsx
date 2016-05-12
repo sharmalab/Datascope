@@ -418,7 +418,6 @@ var FilteringAttribute = React.createClass({
     },
     showChart: function() {
         var self = this;
-        console.log("show!");
         var showChart = self.state.showChart;
         this.props.onToggleShow();
         self.setState({showChart: !showChart});
@@ -437,6 +436,7 @@ var FilteringAttribute = React.createClass({
     showStatistics: function(){
         var self = this;
         var showStatistics = self.state.showStatistics;
+        this.props.onToggleShow();
         self.setState({showStatistics: !showStatistics})
     },
     render: function(){
@@ -546,7 +546,7 @@ var FilteringAttribute = React.createClass({
                         <div style={showChart}>
                                 <div style={showStatistics}>
                                     <div className="chart-stage">
-                                        <p>Here you have some statistics about this attribute:</p>
+                                        <div className="chart-title">Attribute statistics</div>
                                         <p>There are {noOfValues} values in this filter!</p>
                                     </div>
                                 </div>
