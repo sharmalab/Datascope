@@ -169,7 +169,7 @@ var ChartAddons = React.createClass({
 
 var FilteringAttribute = React.createClass({
     getInitialState: function() {
-        return {showChart: true, showStatistics:false};
+        return {showChart: true, showStatistics:false, statistics: null};
     },
     componentWillMount: function(){
      //Initialize crossfilter dimensions and groups before rendering
@@ -436,7 +436,13 @@ var FilteringAttribute = React.createClass({
     showStatistics: function(){
         var self = this;
         var showStatistics = self.state.showStatistics;
+
         this.props.onToggleShow();
+
+        d3.json("/statistics", function(d) {
+            self.setState({statistics: d});
+        });
+
         self.setState({showStatistics: !showStatistics})
     },
     render: function(){
@@ -447,10 +453,24 @@ var FilteringAttribute = React.createClass({
         var showStatistics = self.state.showStatistics ? {display: "block"} : {display: "none"};
         var showVis = !self.state.showStatistics ? {display: "block"} : {display: "none"};
 
-        var noOfValues = 0;
+        /*var noOfValues = 0;
         self.props.currData[this.props.config.attributeName].values.map(function(value) {
             noOfValues += value.value;
-        })
+        })*/
+
+        //console.log(this.props.config.attributeName)
+        //console.log(this.state.statistics)
+
+        var attributeName = this.props.config.attributeName;
+
+        var attrStatistics;
+        if (self.state.statistics) {
+            attrStatistics =
+                this.state.statistics.filter(function (stat) {
+                    return stat.field === attributeName;
+            })[0];
+            attrStatistics = JSON.stringify(attrStatistics);
+        }
 
         var iconHeight = "20px";
         var iconWidth = "20px";
@@ -547,7 +567,7 @@ var FilteringAttribute = React.createClass({
                                 <div style={showStatistics}>
                                     <div className="chart-stage">
                                         <div className="chart-title">Attribute statistics</div>
-                                        <p>There are {noOfValues} values in this filter!</p>
+                                        <p> {attrStatistics} </p>
                                     </div>
                                 </div>
                                 <div style={showVis}>
