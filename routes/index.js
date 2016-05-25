@@ -10,6 +10,8 @@ var interactiveFilters = require("../modules/interactiveFilters"),
 
 //var TABLE_STATE = 0;
 
+ // Load datalib.
+var dl = require('datalib');
 
 var CURRENTDATA = {};
 
@@ -309,6 +311,21 @@ var _heat = function(req, res){
 };
 */
 
+var _getStatistics = function(req, res) {
+    var attr = req.param("attr");
+    var data = dataSource.getData();
+
+    var statistics;
+    if (attr) {
+        statistics = dl.summary(data, [attr]);
+    } else {
+        statistics = dl.summary(data);
+    }
+
+    res.writeHead(200, {"content-type": "application/json"});
+    res.end(JSON.stringify(statistics));
+}
+
 exports.index = function(req, res){
     res.render("index", { title: "Express" });
 };
@@ -317,5 +334,6 @@ exports.handleFilterRequest = _handleFilterRequest;
 exports.tableNext = _tableNext;
 exports.imageGridNext = _imageGridNext;
 exports.save = _save;
+exports.getStatistics = _getStatistics;
 
 //exports.heat = _heat;

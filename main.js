@@ -110,6 +110,7 @@ app.use("/state",  handleState);
 app.use("/save", routes.save);
 app.use("/heat", visualizationRoutes.heat);
 app.use("/imageGrid/next", routes.imageGridNext);
+app.use("/statistics", routes.getStatistics);
 
 // Change this to the static directory of the index.html file
 app.get("/", routes.index);
