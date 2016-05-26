@@ -469,7 +469,31 @@ var FilteringAttribute = React.createClass({
                 this.state.statistics.filter(function (stat) {
                     return stat.field === attributeName;
             })[0];
-            attrStatistics = JSON.stringify(attrStatistics);
+            //attrStatistics = JSON.stringify(attrStatistics);
+            attrStatistics = 
+                <table className="statistics">
+                <tr><th>Statistic</th><th>Value</th></tr>
+                <tr>
+                <td>Count</td>
+                <td>{attrStatistics.count}</td>
+                </tr>
+                <tr>
+                <td>Mean</td>
+                <td>{Math.round(attrStatistics.mean*100)/100}</td>
+                </tr>
+                <tr>
+                <td>Median</td>
+                <td>{Math.round(attrStatistics.median*100)/100}</td>
+                </tr>
+                <tr>
+                <td>Min</td>
+                <td>{Math.round(attrStatistics.min*100)/100}</td>
+                </tr>
+                <tr>
+                <td>Max</td>
+                <td>{Math.round(attrStatistics.max*100)/100}</td>
+                </tr>
+                </table>
         }
 
         var iconHeight = "20px";

@@ -531,3 +531,12 @@ ul.nav.nav-tabs{
 .imageGridItem img:hover{
     box-shadow: 0 0 11px black;
 }
+
+.statistics td, .statistics th {
+   border-bottom: 1px solid black;
+   text-align: left;
+   height: 30px;
+   padding: 5px;
+   color: white;
+   width: 100%;
+}
