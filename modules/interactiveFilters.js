@@ -170,7 +170,8 @@ var interactiveFilters = (function(){
         },
         getndx: function(){
             return ndx;
-        }
+        },
+        getFilterConfig: _getFilterConfig
     };
 
 })();

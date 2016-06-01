@@ -318,15 +318,27 @@ var _getStatistics = function(req, res) {
         filteringAttributes = dataDescription.getFilteringAttributes();
     var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
 
-    var statistics;
-    if (attr) {
-        statistics = dl.summary(TABLE_DATA, [attr]);
-    } else {
-        statistics = dl.summary(TABLE_DATA);
+    var statistics = interactiveFilters.getFilterConfig(attr).statistics;
+
+    var statisticsToReturn = {};
+    if (statistics) {
+        var summary = dl.summary(TABLE_DATA, [attr])[0];
+
+        if (statistics.constructor === String) {
+            if (statistics == "default") {
+                statistics = ["count", "mean", "median", "min", "max"];
+            }
+        }
+
+        if (statistics.constructor === Array) {
+            statistics.forEach(function(stat){
+                statisticsToReturn[stat] = summary[stat];
+            })
+        }
     }
 
     res.writeHead(200, {"content-type": "application/json"});
-    res.end(JSON.stringify(statistics));
+    res.end(JSON.stringify(statisticsToReturn));
 }
 
 exports.index = function(req, res){
