@@ -169,7 +169,7 @@ var ChartAddons = React.createClass({
 
 var FilteringAttribute = React.createClass({
     getInitialState: function() {
-        return {showChart: true, showStatistics:false, statistics: null};
+        return {showChart: true, showStatistics:false, statistics: {}};
     },
     componentWillMount: function(){
      //Initialize crossfilter dimensions and groups before rendering
@@ -446,8 +446,12 @@ var FilteringAttribute = React.createClass({
     },
     refreshStatistics: function(){
         var self = this;
-        d3.json("/statistics", function(d) {
-            self.setState({statistics: d});
+        var attributeName = this.props.config.attributeName;
+        var url = "/statistics?attr=" + attributeName;
+        d3.json(url, function(d) {
+            var stats = self.state.statistics;
+            stats[attributeName] = d;
+            self.setState({statistics: stats});
         });
     },
     render: function(){
@@ -462,10 +466,7 @@ var FilteringAttribute = React.createClass({
 
         var attrStatistics;
         if (self.state.showStatistics) {
-            attrStatistics =
-                this.state.statistics.filter(function (stat) {
-                    return stat.field === attributeName;
-            })[0];
+            attrStatistics = this.state.statistics[attributeName];
             //attrStatistics = JSON.stringify(attrStatistics);
             attrStatistics = 
                 <table className="statistics">
