@@ -406,6 +406,7 @@ var FilteringAttribute = React.createClass({
 			});
 			*/
         }
+
         this.setState({chart: c});
     },
     onReset: function(){
@@ -439,32 +440,28 @@ var FilteringAttribute = React.createClass({
 
         this.props.onToggleShow();
 
+        this.refreshStatistics();
+
+        self.setState({showStatistics: !showStatistics})
+    },
+    refreshStatistics: function(){
+        var self = this;
         d3.json("/statistics", function(d) {
             self.setState({statistics: d});
         });
-
-        self.setState({showStatistics: !showStatistics})
     },
     render: function(){
         var self = this;
         var divId = "dc-"+this.props.config.attributeName;
         var showChart = self.state.showChart ? {display: "block"} : {display: "none"};
 
-        var showStatistics = self.state.showStatistics ? {display: "block"} : {display: "none"};
+        var showStatisticsVis = self.state.showStatistics ? {display: "block"} : {display: "none"};
         var showVis = !self.state.showStatistics ? {display: "block"} : {display: "none"};
-
-        /*var noOfValues = 0;
-        self.props.currData[this.props.config.attributeName].values.map(function(value) {
-            noOfValues += value.value;
-        })*/
-
-        //console.log(this.props.config.attributeName)
-        //console.log(this.state.statistics)
 
         var attributeName = this.props.config.attributeName;
 
         var attrStatistics;
-        if (self.state.statistics) {
+        if (self.state.showStatistics) {
             attrStatistics =
                 this.state.statistics.filter(function (stat) {
                     return stat.field === attributeName;
@@ -588,7 +585,7 @@ var FilteringAttribute = React.createClass({
                         </div>
 
                         <div style={showChart}>
-                                <div style={showStatistics}>
+                                <div style={showStatisticsVis}>
                                     <div className="chart-stage">
                                         <div className="chart-title">Attribute statistics</div>
                                         <p> {attrStatistics} </p>

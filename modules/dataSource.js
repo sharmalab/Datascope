@@ -133,7 +133,6 @@ var dataSource = (function(){
                 	//console.log(row)
                 }
                 totalRecordsSize = count;
-                DATA = merged;
                 callback(merged);
             });
 
@@ -199,7 +198,6 @@ var dataSource = (function(){
                 	//console.log(row)
                 }
                 totalRecordsSize = count;
-                DATA = data;
                 callback(data);
             });
 
@@ -229,9 +227,6 @@ var dataSource = (function(){
         getTotalRecords: function(){
             //console.log(totalRecordsSize)
             return totalRecordsSize;
-        },
-        getData: function() {
-            return DATA;
         },
         loadData: _loadData
     };

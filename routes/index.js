@@ -313,13 +313,16 @@ var _heat = function(req, res){
 
 var _getStatistics = function(req, res) {
     var attr = req.param("attr");
-    var data = dataSource.getData();
+
+    var dimensions = interactiveFilters.getDimensions(),
+        filteringAttributes = dataDescription.getFilteringAttributes();
+    var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
 
     var statistics;
     if (attr) {
-        statistics = dl.summary(data, [attr]);
+        statistics = dl.summary(TABLE_DATA, [attr]);
     } else {
-        statistics = dl.summary(data);
+        statistics = dl.summary(TABLE_DATA);
     }
 
     res.writeHead(200, {"content-type": "application/json"});
