@@ -326,7 +326,12 @@ var _getStatistics = function(req, res) {
 
             if (statistics.constructor === String) {
                 if (statistics == "default") {
-                    statistics = ["count", "mean", "median", "min", "max"];
+                    if (summary["type"] == "number" ||
+                            summary["type"] == "integer") {
+                        statistics = ["count", "distinct", "min", "max", "mean", "median", "stdev"];
+                    } else {
+                        statistics = ["count", "distinct"];
+                    }
                 }
             }
 
