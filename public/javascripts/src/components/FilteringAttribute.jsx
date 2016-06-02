@@ -206,7 +206,6 @@ var ChartAddons = React.createClass({
 var FilteringAttribute = React.createClass({
     getInitialState: function() {
         this.statistics = {};
-        this.refreshStats = true;
         return {showChart: true, showStatistics:false};
     },
     componentWillMount: function(){
@@ -374,7 +373,6 @@ var FilteringAttribute = React.createClass({
                 //.renderLabel(true)
                 //.margins({left: 35, top: 10, bottom: 20, right: 10});
             c.filterHandler(function(dimension, filter){
-
                 var begin = $("#filterBeg"+dimension.name());
                 var end = $("#filterEnd"+dimension.name());
                 if(filter.length > 0 && filter.length!=2){
@@ -476,8 +474,10 @@ var FilteringAttribute = React.createClass({
         var self = this;
         var showStatistics = self.state.showStatistics;
 
+        this.refreshStatistics();
+
         self.setState({showStatistics: !showStatistics})
-        this.props.onToggleShow();
+        //this.props.onToggleShow();
     },
     refreshStatistics: function(){
         var self = this;
@@ -500,12 +500,6 @@ var FilteringAttribute = React.createClass({
 
         var cols = ["Statistic", "Value"], data = [];
         if (self.state.showStatistics) {
-            if (self.refreshStats) {
-                this.refreshStatistics();
-                this.refreshStats = false;
-            } else {
-                this.refreshStats = true;
-            }
             var attrStatistics = self.statistics[attributeName];
             for (var key in attrStatistics) {
                 attrStatistics[key] = Math.round(attrStatistics[key]*100)/100;
