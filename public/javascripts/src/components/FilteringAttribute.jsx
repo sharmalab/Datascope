@@ -536,20 +536,39 @@ var FilteringAttribute = React.createClass({
                                 :
                                     <div />
                                 }
-
+                                { self.state.showStatistics ? /* show/hide statistics */
+                                    <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
+                                        <path fill="#fff" d="M20,14H4V10H20">
+                                            <title>Show statistics</title>
+                                        </path>
+                                    </svg>
+                                    :
+                                    <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
+                                        <path fill="#fff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
+                                            <title>Show statistics</title>
+                                        </path>
+                                    </svg>
+                                }
 
 							</div>
                         </div>
+
                         <div>
-                            <div className="chart-stage">
-                                <div  id={divId}> </div>
+                            <div style={showStatisticsVis}>
+                                <div className="chart-stage">
+                                    <Table cols={cols} data={data}/>
+                                </div>
                             </div>
-                            <div className="chart-notes" id={self.props.config.attributeName +  "-note"}>
-
-                                <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart} isFilterActive={isFilterActive}/>
-
+                            <div style={showVis}>
+                                <div className="chart-stage">
+                                    <div  id={divId}> </div>
+                                </div>
+                                <div className="chart-notes" id={self.props.config.attributeName +  "-note"}>
+                                    <ChartAddons config={this.props.config} data={this.props.currData} chart={this.state.chart} isFilterActive={isFilterActive}/>
+                                </div>
                             </div>
                         </div>
+
                     </div>
               
                 </div>
