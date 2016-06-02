@@ -205,7 +205,9 @@ var ChartAddons = React.createClass({
 
 var FilteringAttribute = React.createClass({
     getInitialState: function() {
-        return {showChart: true, showStatistics:false, statistics: {}};
+        this.statistics = {};
+        this.refreshStats = true;
+        return {showChart: true, showStatistics:false};
     },
     componentWillMount: function(){
      //Initialize crossfilter dimensions and groups before rendering
@@ -474,20 +476,16 @@ var FilteringAttribute = React.createClass({
         var self = this;
         var showStatistics = self.state.showStatistics;
 
-        this.props.onToggleShow();
-
-        this.refreshStatistics();
-
         self.setState({showStatistics: !showStatistics})
+        this.props.onToggleShow();
     },
     refreshStatistics: function(){
         var self = this;
         var attributeName = this.props.config.attributeName;
         var url = "/statistics?attr=" + attributeName;
         d3.json(url, function(d) {
-            var stats = self.state.statistics;
-            stats[attributeName] = d;
-            self.setState({statistics: stats});
+            self.statistics[attributeName] = d;
+            self.props.onToggleShow();
         });
     },
     render: function(){
@@ -502,7 +500,13 @@ var FilteringAttribute = React.createClass({
 
         var cols = ["Statistic", "Value"], data = [];
         if (self.state.showStatistics) {
-            var attrStatistics = this.state.statistics[attributeName];
+            if (self.refreshStats) {
+                this.refreshStatistics();
+                this.refreshStats = false;
+            } else {
+                this.refreshStats = true;
+            }
+            var attrStatistics = self.statistics[attributeName];
             for (var key in attrStatistics) {
                 attrStatistics[key] = Math.round(attrStatistics[key]*100)/100;
                 data.push({"Statistic": key, "Value": attrStatistics[key]});
