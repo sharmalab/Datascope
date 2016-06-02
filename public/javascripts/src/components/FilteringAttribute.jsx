@@ -464,34 +464,13 @@ var FilteringAttribute = React.createClass({
 
         var attributeName = this.props.config.attributeName;
 
-        var attrStatistics;
+        var cols = ["Statistic", "Value"], data = [];
         if (self.state.showStatistics) {
-            attrStatistics = this.state.statistics[attributeName];
-            //attrStatistics = JSON.stringify(attrStatistics);
-            attrStatistics = 
-                <table className="statistics">
-                <tr><th>Statistic</th><th>Value</th></tr>
-                <tr>
-                <td>Count</td>
-                <td>{attrStatistics.count}</td>
-                </tr>
-                <tr>
-                <td>Mean</td>
-                <td>{Math.round(attrStatistics.mean*100)/100}</td>
-                </tr>
-                <tr>
-                <td>Median</td>
-                <td>{Math.round(attrStatistics.median*100)/100}</td>
-                </tr>
-                <tr>
-                <td>Min</td>
-                <td>{Math.round(attrStatistics.min*100)/100}</td>
-                </tr>
-                <tr>
-                <td>Max</td>
-                <td>{Math.round(attrStatistics.max*100)/100}</td>
-                </tr>
-                </table>
+            var attrStatistics = this.state.statistics[attributeName];
+            for (var key in attrStatistics) {
+                attrStatistics[key] = Math.round(attrStatistics[key]*100)/100;
+                data.push({"Statistic": key, "Value": attrStatistics[key]});
+            }
         }
 
         var iconHeight = "20px";
@@ -588,8 +567,7 @@ var FilteringAttribute = React.createClass({
                         <div style={showChart}>
                                 <div style={showStatisticsVis}>
                                     <div className="chart-stage">
-                                        <div className="chart-title">Attribute statistics</div>
-                                        <p> {attrStatistics} </p>
+                                        <Table cols={cols} data={data}/>
                                     </div>
                                 </div>
                                 <div style={showVis}>
@@ -610,4 +588,43 @@ var FilteringAttribute = React.createClass({
 
     }
 });
+
+var Table = React.createClass({
+
+    render: function() {
+        var headerComponents = this.generateHeaders(),
+            rowComponents = this.generateRows();
+
+        return (
+            <table className="statistics">
+                <thead>{headerComponents}</thead>
+                <tbody>{rowComponents}</tbody>
+            </table>
+        );
+    },
+
+    generateHeaders: function() {
+        var cols = this.props.cols;
+
+        // generate our header (th) cell components
+        return cols.map(function(colData) {
+            return <th>{colData}</th>;
+        });
+    },
+
+    generateRows: function() {
+        var cols = this.props.cols,
+            data = this.props.data;
+
+        return data.map(function(item) {
+            // handle the column data within each row
+            var cells = cols.map(function(colData) {
+
+                return <td>{item[colData]}</td>;
+            });
+            return <tr>{cells}</tr>;
+        });
+    }
+});
+
 module.exports = FilteringAttribute;

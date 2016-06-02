@@ -534,7 +534,7 @@ ul.nav.nav-tabs{
 
 .statistics td, .statistics th {
    border-bottom: 1px solid black;
-   text-align: left;
+   text-align: center;
    height: 30px;
    padding: 5px;
    color: white;
