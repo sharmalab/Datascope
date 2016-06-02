@@ -125,8 +125,8 @@ var ChartAddons = React.createClass({
         var c = this.props.chart;
         var availableFilters = (this.props.data[attributeName].values);
         var currentFilter = queryFilter[attributeName];
-        console.log("current filter");
-        console.log(currentFilter);
+        //console.log("current filter");
+        //console.log(currentFilter);
         var invertedFilter = [];
         for(var i in availableFilters){
             var filter = availableFilters[i].key;
@@ -145,11 +145,11 @@ var ChartAddons = React.createClass({
             }
             */
         }
-        console.log(invertedFilter);
+        //console.log(invertedFilter);
         c.filter(null);
         c.filter(invertedFilter);
         ////c.filter({invert: invertedFilter});
-        console.log("filtered! woot");
+        //console.log("filtered! woot");
     },
     render: function(){
         var visType = this.props.config.visualization.visType;
@@ -291,7 +291,7 @@ var FilteringAttribute = React.createClass({
                 all: function(){
                   //console.log(self.props.currData);
                   //console.log("......grouop...");
-                    console.log(self.props.currData["ageCancerGroup"].values);
+                    //console.log(self.props.currData["ageCancerGroup"].values);
                     return self.props.currData["ageCancerGroup"].values;
                 },
                 order: function(){
@@ -400,11 +400,11 @@ var FilteringAttribute = React.createClass({
             .elasticX(true)
             .margins({top: 10, right: 20, bottom: 20, left: 20});
             c.filterHandler(function(dimension, filters){
-                console.log(filters);
+                //console.log(filters);
                 var invert = false;
                 var invertedFilters = [];
                 for(var i in filters){
-                    console.log(i);
+                    //console.log(i);
                     if(filters[i].invert){
                         invert = true;
                         invertedFilters = filters[i].invert;
@@ -412,12 +412,12 @@ var FilteringAttribute = React.createClass({
                     }
                 }
                 if(invert){
-                    console.log("here");
+                    //console.log("here");
                     dimension.filter(invertedFilters);
                     return invertedFilters;
                 }
                 
-                console.log(filters);
+                //console.log(filters);
                 if(typeof filters[0] === "object")
                     filters = filters[0];
                 if(filters)
@@ -519,7 +519,7 @@ var FilteringAttribute = React.createClass({
         //console.log(showChart);
         //console.log(this.props.currData);
         if(this.props.full === true){
-            console.log("FULL!");
+            //console.log("FULL!");
             return (
                 <div className="grid-item" style={{"margin": 10}} key={self.props.config.attributeName}>
                
