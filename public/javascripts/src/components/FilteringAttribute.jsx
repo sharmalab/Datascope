@@ -6,6 +6,7 @@
 //var queryFilter = {};
 var React = require("react");
 var AppActions = require("../actions/AppActions.jsx");
+var AppStore = require("../stores/AppStore.jsx");
 var StatisticsTable = require("./StatisticsTable.jsx");
 var ChartAddons = require("./ChartAddons.jsx");
 
@@ -125,6 +126,9 @@ var FilteringAttribute = React.createClass({
         var height = this.props.config.visualization.height || 190;
         //var domain = [0,100];
         var c = {};
+
+        /* listen to the Reflux 'refresh' event for refreshing the statistics */
+        self.unsubscribe = AppStore.listen(self.onFilter);
 
         //Render according to chart-type
         switch(visType){
@@ -276,14 +280,16 @@ var FilteringAttribute = React.createClass({
         }
         return false;
     },
+    onFilter: function() {
+        if (this.state.showStatistics) {
+            this.refreshStatistics();
+        }
+    },
     showStatistics: function(){
-        var self = this;
-        var showStatistics = self.state.showStatistics;
+        var showStatistics = this.state.showStatistics;
+        this.setState({showStatistics: !showStatistics});
 
         this.refreshStatistics();
-
-        self.setState({showStatistics: !showStatistics})
-        //this.props.onToggleShow();
     },
     refreshStatistics: function(){
         var self = this;
