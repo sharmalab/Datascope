@@ -20,7 +20,7 @@ var AppStore = Reflux.createStore({
 	        }
 	        d3.json("data/?filter="+JSON.stringify(queryFilter), function (d) {
 	            filteredData = d;
-	            console.log(filteredData);
+	            //console.log(filteredData);
 	            _currentData = filteredData;
 
 	            /*
