@@ -342,7 +342,26 @@ var _getStatistics = function(req, res) {
             }
         }
     } else {
-        statisticsToReturn = dl.summary(TABLE_DATA);
+        var attr1 = req.param("attr1");
+        var attr2 = req.param("attr2");
+        if (attr1 && attr2) {
+            // Pearson product-moment correlation
+            statisticsToReturn["correlation"] = dl.cor(TABLE_DATA, attr1, attr2);
+            // Spearman rank correlation of two arrays of values
+            statisticsToReturn["rankCorrelation"] = dl.cor.rank(TABLE_DATA, attr1, attr2);
+            // distance correlation of two arrays of numbers
+            statisticsToReturn["distanceCorrelation"] = dl.cor.dist(TABLE_DATA, attr1, attr2);
+            // vector dot product of two arrays of numbers
+            statisticsToReturn["dotProduct"] = dl.dot(TABLE_DATA, attr1, attr2);
+            //vector Euclidian distance between two arrays of numbers
+            statisticsToReturn["euclidianDistance"] = dl.dist(TABLE_DATA, attr1, attr2);
+            // covariance between two arrays of numbers
+            statisticsToReturn["covariance"] = dl.covariance(TABLE_DATA, attr1, attr2);
+            // Cohen's d effect size between two arrays of numbers
+            statisticsToReturn["cohensd"] = dl.cohensd(TABLE_DATA, attr1, attr2);
+        } else {
+            statisticsToReturn = dl.summary(TABLE_DATA);
+        }
     }
 
     res.writeHead(200, {"content-type": "application/json"});
