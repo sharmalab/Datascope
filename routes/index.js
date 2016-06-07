@@ -349,8 +349,8 @@ var _getStatistics = function(req, res) {
             statisticsToReturn["correlation"] = dl.cor(TABLE_DATA, attr1, attr2);
             // Spearman rank correlation of two arrays of values
             statisticsToReturn["rankCorrelation"] = dl.cor.rank(TABLE_DATA, attr1, attr2);
-            // distance correlation of two arrays of numbers
-            statisticsToReturn["distanceCorrelation"] = dl.cor.dist(TABLE_DATA, attr1, attr2);
+            // Removed since is not working // distance correlation of two arrays of numbers
+            // statisticsToReturn["distanceCorrelation"] = dl.cor.dist(TABLE_DATA, attr1, attr2);
             // vector dot product of two arrays of numbers
             statisticsToReturn["dotProduct"] = dl.dot(TABLE_DATA, attr1, attr2);
             //vector Euclidian distance between two arrays of numbers
