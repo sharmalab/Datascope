@@ -286,10 +286,14 @@ var FilteringAttribute = React.createClass({
         }
     },
     showStatistics: function(){
-        var showStatistics = this.state.showStatistics;
-        this.setState({showStatistics: !showStatistics});
+        var showStatistics = !this.state.showStatistics;
+        this.setState({showStatistics: showStatistics});
 
-        this.refreshStatistics();
+        if (showStatistics) {
+            this.refreshStatistics();
+        } else {
+            this.props.onToggleShow();
+        }
     },
     refreshStatistics: function(){
         var self = this;
