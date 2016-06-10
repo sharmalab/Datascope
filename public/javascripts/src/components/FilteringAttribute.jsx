@@ -157,10 +157,30 @@ var ChartAddons = React.createClass({
                         
                    </div>
                 );
+        case "scatterPlot":
+            return(
+                    <div>
+                    <div className="chartAddons">
+                        <label>
+                        Range:
+                        <input type="text" onChange={this.handleBeg} onKeyDown={this.filter} id={"filterBeg"+this.props.config.attributeName}/>
+                        -
+                        <input type="text" onChange={this.handleEnd} onKeyDown={this.filter} id={"filterEnd"+this.props.config.attributeName}/>
+                        </label>
+                    </div>
+                    <div className="chartAddons">
+                        <label>
+                        ElasticY:
+                        <input type="checkbox"  onChange={this.handleElasticY}  checked={this.state.elasticY}/>
+                        </label>
+                    </div>
+                    </div>
+                );
         default:
             return(
                     <div></div>
                 );
+
         }
 
     }
@@ -306,20 +326,38 @@ var FilteringAttribute = React.createClass({
             });
             break;
         case "scatterPlot":
-            //console.log("scatterPlot");
-            //console.log(self.state);
-            //console.log(self.state["group"].all());
-            //console.log(self.state);
-            
+        console.log(self.props)
             c = dc.scatterPlot(divId);
-            c.width(240)
-            .height(240)
-            .dimension(self.state.dimension)
-            .group(self.state.group)
-            .x(d3.scale.linear().domain([20,100]))
-            .yAxisLabel("cancer status")
-            .xAxisLabel("age");
-            
+            c.width(260)
+                .height(200)
+                .dimension(self.state.dimension)
+                .group(self.state.group)
+                .x(d3.scale.linear().domain(domain))
+                .elasticY(true)
+                .elasticX(true)
+                .yAxisLabel(self.props.config.visualization.yAttribute)
+
+            c.renderlet(function(chart){
+                chart.selectAll("g.x text")
+                    .attr("transform", "translate(-10,10) rotate(315)");
+
+                chart.selectAll(".y-label")
+                    .attr("fill", "white")
+            });
+
+            c.filterHandler(function(dimension, filter) {
+
+                var begin = $("#filterBeg"+dimension.name());
+                var end = $("#filterEnd"+dimension.name());
+                if(filter.length > 0 && filter.length!=2) {
+                    filter = filter[0];
+                }
+                begin.val(filter[0]);
+                end.val(filter[1]);
+                dimension.filter(filter);
+                return filter;
+            });
+
             break;
         case "barChart":
             c = dc.barChart(divId);
