@@ -116,6 +116,13 @@ var _filterFunction = function(filter){
 
     }
 
+    if (visualization.hasVisualization("geoChoroplethMap")) {
+        results["geoChoroplethMap"] = {
+            dimension: dimensions["geoChoroplethMap"].filterExact(),
+            group: groups["geoChoroplethMap"].all()
+        };
+    }
+
     return {
         results: results,
         filteredData: filteredData

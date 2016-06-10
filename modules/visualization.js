@@ -142,6 +142,20 @@ var visualization = (function(){
         ); 
     };
 
+    var geoChoroplethMap = function(ndx, visualization) {
+        var attribute = visualization.attributeName;
+
+        var geoJsonPath = visualization.geoJson.path;
+        var geoJson = fs.readFileSync(geoJsonPath);
+        geoJson = JSON.parse(geoJson);
+
+        var dimension = ndx.dimension(function (d) {
+                return d[attribute];
+            });
+
+        interactiveFilters.addDimension(visualization.visualizationType, dimension);
+        interactiveFilters.addGroup(visualization.visualizationType, dimension.group().reduceCount());
+    }
 
     var _loadConfig = function(path) {
         visualizationConfigPath = path || visualizationConfigPath;
@@ -164,9 +178,7 @@ var visualization = (function(){
     };
 
     var _applyCrossfilter = function(){
-
         var ndx = interactiveFilters.getndx();
-      //console.log(ndx);
 
         for(var i in visualizations){
             var vis = visualizations[i];
@@ -181,6 +193,9 @@ var visualization = (function(){
             case "SPLOM":
                 console.log("SPLOM");
                 splomFilters(ndx,vis);
+                break;
+            case "geoChoroplethMap":
+                geoChoroplethMap(ndx, vis);
                 break;
             }
         }
