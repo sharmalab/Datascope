@@ -180,7 +180,7 @@ var FilteringAttribute = React.createClass({
             filter: function(f) {
                 //console.log(f);
                 if(f) {
-
+                    
                     queryFilter[attributeName] = f;
                         //refresh()
                     AppActions.refresh(queryFilter);
@@ -329,7 +329,7 @@ var FilteringAttribute = React.createClass({
                 .group(self.state.group)
                 .x(d3.scale.linear().domain(domain))
                 //.xUnits(dc.units.fp.precision((1/binFactor)))
-                .xUnits(function() {return 30})
+                //.xUnits(function() {return 30})
                 //.xUnits(function(){return 500*(1/binFactor)})
                 .elasticY(true)
                 .elasticX(true);
@@ -349,6 +349,12 @@ var FilteringAttribute = React.createClass({
                 }
                 begin.val(filter[0]);
                 end.val(filter[1]);
+                if(filter.length == 2){
+                    filter[0] = 1*(1*filter[0]).toPrecision(3);
+                    filter[1] = 1*(1*filter[1]).toPrecision(3);
+                }
+                console.log(filter.length);
+                console.log(filter);
                 dimension.filter(filter);
                 return filter;
             });
