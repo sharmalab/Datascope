@@ -4,17 +4,17 @@ var AppActions = require("../../actions/AppActions.jsx");
 
 var GeoChoroplethMap = React.createClass({
     getInitialState: function () {
-        return({dimension: null, group: null});
+        return({dimension: null, group: null, isFilterActive: false});
     },
     componentWillMount: function () {
     },
-
     componentDidMount: function () {
         var self = this;
         var attributeName = this.props.config.attributeName;
 
         var dim = {
             filter: function (f) {
+                self.changeFilterState();
                 if (f) {
                     queryFilter[attributeName] = f;
                     AppActions.refresh(queryFilter);
@@ -28,6 +28,7 @@ var GeoChoroplethMap = React.createClass({
                 }
             },
             filterExact: function (f) {
+                self.changeFilterState();
                 if (f) {
                     queryFilter[attributeName] = f;
                     AppActions.refresh(queryFilter);
@@ -41,6 +42,7 @@ var GeoChoroplethMap = React.createClass({
                 }
             },
             filterAll: function () {
+                self.changeFilterState();
                 delete queryFilter[attributeName];
                 AppActions.refresh(queryFilter);
             },
@@ -86,13 +88,34 @@ var GeoChoroplethMap = React.createClass({
             dc.renderAll();
         });
 
+        this.setState({chart: geo});
+    },
+    changeFilterState: function () {
+        var isFilterActive = !this.state.isFilterActive;
+        this.setState({isFilterActive: isFilterActive});
+    },
+    onReset: function () {
+        this.state.chart.filterAll();
+        this.changeFilterState();
     },
     render: function () {
+        var self = this;
+        var attributeName = this.props.config.attributeName;
+        var isFilterActive = this.state.isFilterActive;
         return(
             <div id="geo">
                 <h2>{this.props.config.heading}</h2>
                 <h4>{this.props.config.subheading}</h4>
-                <div id="geoVis"/>
+                <div id="geoVis">
+                    { isFilterActive ?
+                        <div>
+                            <button class="link" onClick={self.onReset}>Reset</button>
+                            <p>Current filter: {attributeName} = {queryFilter[attributeName]}</p>
+                        </div>
+                        :
+                        <div/>
+                    }
+                </div>
              </div>
         );
     }
