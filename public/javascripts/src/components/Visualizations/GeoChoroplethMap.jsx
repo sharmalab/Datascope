@@ -3,23 +3,23 @@ var React = require("react");
 var AppActions = require("../../actions/AppActions.jsx");
 
 var GeoChoroplethMap = React.createClass({
-    getInitialState: function(){
+    getInitialState: function () {
         return({dimension: null, group: null});
     },
-    componentWillMount: function(){
+    componentWillMount: function () {
     },
 
-    componentDidMount: function(){
+    componentDidMount: function () {
         var self = this;
         var attributeName = this.props.config.attributeName;
-        var visType = this.props.config.visualizationType;
+
         var dim = {
-            filter: function(f) {
-                if(f) {
+            filter: function (f) {
+                if (f) {
                     queryFilter[attributeName] = f;
                     AppActions.refresh(queryFilter);
                 } else {
-                    if(queryFilter[attributeName]){
+                    if(queryFilter[attributeName]) {
                         delete queryFilter[attributeName];
                         AppActions.refresh(queryFilter);
                     } else {
@@ -27,46 +27,43 @@ var GeoChoroplethMap = React.createClass({
                     }
                 }
             },
-            filterExact: function(f){
-                if(f) {
+            filterExact: function (f) {
+                if (f) {
                     queryFilter[attributeName] = f;
                     AppActions.refresh(queryFilter);
                 } else {
-                    if(queryFilter[attributeName]){
+                    if (queryFilter[attributeName]) {
                         delete queryFilter[attributeName];
                         AppActions.refresh(queryFilter);
                     } else {
-                        return {};geoJsonPath
+                        return {};
                     }
                 }
-                return self.props.currData[visType].dimension;
             },
-            filterAll: function() {
-                /*
+            filterAll: function () {
                 delete queryFilter[attributeName];
-                refresh();
-                */
+                AppActions.refresh(queryFilter);
             },
-            name: function(){
-                //return attributeName;
+            name: function () {
+                return attributeName;
             }
         };
         var group = {
-            all: function() {
-                return self.props.currData[visType].group;
+            all: function () {
+                return self.props.currData[attributeName].values;
             },
-            order: function() {
+            order: function () {
 
             },
-            top: function() {
-                return self.props.currData[visType].group;
+            top: function () {
+                return self.props.currData[attributeName].values;
             }
         };
 
         var geo = dc.geoChoroplethChart("#geoVis");
         
         var geoJsonPath = this.props.config.geoJson.path;
-        d3.json(geoJsonPath, function(err, geoJson) {
+        d3.json(geoJsonPath, function (err, geoJson) {
             if (err) {
                 console.log(err);
                 return;
@@ -90,17 +87,12 @@ var GeoChoroplethMap = React.createClass({
         });
 
     },
-    render: function(){
+    render: function () {
         return(
-            
             <div id="geo">
                 <h2>{this.props.config.heading}</h2>
                 <h4>{this.props.config.subheading}</h4>
-                <div id="geoVis">
-                    <div style={{"text-align": "center"}}>
-                        <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
-                    </div>
-                </div>
+                <div id="geoVis"/>
              </div>
         );
     }

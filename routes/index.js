@@ -60,24 +60,19 @@ var _filterFunction = function(filter){
                 });
 
             }
-            else
-            {
+            else {
                 //array
-                if(filter[dim].length > 1){
-                    //console.log("len > 1")
-                    if(dataDescription.getDataType(dim) == "enum"){
-                        //console.log("enum")
-
-                        dimensions[dim].filterFunction(function(d){
+                if (filter[dim].length > 1) {
+                    if (dataDescription.getDataType(dim) == "enum") {
+                        dimensions[dim].filterFunction(function(d) {
                             return filter[dim].indexOf(d) >= 0; 
                         });
                     }
-                    else{
+                    else {
                         dimensions[dim].filterRange(filter[dim]);
                     }
 
                 } else {
-
                     dimensions[dim].filter(filter[dim][0]);
                 }
             }
@@ -85,8 +80,8 @@ var _filterFunction = function(filter){
             dimensions[dim].filterAll(null);
         }
     });
+
     Object.keys(groups).forEach(function(key) {
-        //console.log(key)
         results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value};
     });
     var filteringAttributes = dataDescription.getFilteringAttributes();
@@ -94,16 +89,13 @@ var _filterFunction = function(filter){
 
     if(visualization.hasVisualization("imageGrid")){
 
-
-
         CURRENTDATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
 
-        console.log(CURRENTDATA.length);
         var reqLength = 100;
         var paginate = true;
         if(CURRENTDATA.length < reqLength)
             paginate = false;
-        console.log(paginate);
+
         results["imageGrid"] = {
             values: CURRENTDATA.slice(0,500),
             active: 100,
@@ -114,13 +106,6 @@ var _filterFunction = function(filter){
         };
 
 
-    }
-
-    if (visualization.hasVisualization("geoChoroplethMap")) {
-        results["geoChoroplethMap"] = {
-            dimension: dimensions["geoChoroplethMap"].filterExact(),
-            group: groups["geoChoroplethMap"].all()
-        };
     }
 
     return {
