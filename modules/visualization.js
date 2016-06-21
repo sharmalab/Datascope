@@ -142,6 +142,17 @@ var visualization = (function(){
         ); 
     };
 
+    var markerMap = function (ndx, visualization) {
+        var attributeName = visualization.attributeName;
+
+        var dimension = ndx.dimension(function (d) {
+                return d[attributeName];
+            });
+
+        interactiveFilters.addDimension(attributeName, dimension);
+        interactiveFilters.addGroup(attributeName, dimension.group().reduceCount());
+    }
+
     var geoChoroplethMap = function (ndx, visualization) {
         var attributeName = visualization.attributeName;
 
@@ -191,6 +202,9 @@ var visualization = (function(){
                 break;
             case "geoChoroplethMap":
                 geoChoroplethMap(ndx, vis);
+                break;
+            case "markerMap":
+                markerMap(ndx, vis);
                 break;
             }
         }
