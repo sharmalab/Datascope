@@ -1,7 +1,7 @@
 /* global d3 */
 /* global queryFilter */
 var React = require("react");
-
+var AppActions = require("../../actions/AppActions.jsx");
 var AppStore = require("../../stores/AppStore.jsx");
 var ReactBootStrap = require("react-bootstrap");
 var Glyphicon = ReactBootStrap.Glyphicon;
@@ -35,7 +35,7 @@ var summaryChart = function(data) {
 
 var Summary = React.createClass({
     getInitialState: function(){
-        return {Current: "", Total: ""};
+        return {Current: "", Total: "", showSummary: true};
     },  
     componentDidMount: function(){
         var self=this;    
@@ -61,6 +61,19 @@ var Summary = React.createClass({
     componentWillReceiveProps: function(){
 
     },
+    removeFilter: function(f){
+        console.log("removing filter");
+        //c.filterAll();
+        //remove filter from queryFilter 
+        delete queryFilter[f.filter];
+        AppActions.refresh(queryFilter);  
+
+        console.log(queryFilter);
+    },
+    hideSummary: function(){
+        var show = this.state.showSummary
+        this.setState({showSummary: !show}); 
+    },  
     render: function(){
         var self = this;
         var filters  = queryFilter;
@@ -82,7 +95,7 @@ var Summary = React.createClass({
                 <div className="filterName">{f.filter}</div>
                 <div className="filterValue">{JSON.stringify(f.value)}</div>
                 <span className="filterRemove">
-                    <Glyphicon glyph="remove" className="filterButton"/>                    
+                    <Glyphicon glyph="remove" className="filterButton" onClick={self.removeFilter.bind(self, f)} />
 
                 </span>
                 </div>;
@@ -90,23 +103,34 @@ var Summary = React.createClass({
 
         return(
             <div id="summary">
-
-                <span className="summaryPopulation">
-                        <span className="summaryPopulationLabel">
-                            {self.state.Current}/{self.state.Total} Selected
-                        </span>
+                <span className="summaryHide">
+                    <a href="#" onClick={self.hideSummary}> <Glyphicon glyph="stats" />
+                    Toggle Summary</a>
                 </span>
-                { filters_arr.length ?
 
-                    <div id="queryString">
-                        Filters
-                        <div id="queryStringQuery">
-                            {Filters}
+                <span className="summaryBody">
+                    <div>
+                    { self.state.showSummary ?
+                        <div>
+                        <span className="summaryPopulation">
+                                <span className="summaryPopulationLabel">
+                                    {self.state.Current}/{self.state.Total} Selected
+                                </span>
+                        </span>
+                           <div id="queryString">
+                                Filters
+                                <div id="queryStringQuery">
+                                    {Filters}
+                                </div>
+                            </div>
+
                         </div>
+                    :
+                            <div />
+                    }
                     </div>
-                :
-                    <div />
-                }
+
+                </span>
             </div>
         );
     }
