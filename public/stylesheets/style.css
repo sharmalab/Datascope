@@ -628,3 +628,8 @@ font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
     top: 5px;
     z-index: 100;
 }
+.summaryHide{
+    width: 30px;
+    height: 30px;
+    color: black;
+}
