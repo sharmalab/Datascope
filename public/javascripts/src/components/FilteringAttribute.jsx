@@ -4,9 +4,12 @@
 /* global queryFilter */
 
 //var queryFilter = {};
-var AppActions = require("../actions/AppActions.jsx");
 var React = require("react");
 
+var AppActions = require("../actions/AppActions.jsx");
+var AppStore = require("../stores/AppStore.jsx");
+var StatisticsTable = require("./StatisticsTable.jsx");
+var ChartAddons = require("./ChartAddons.jsx");
 
 
 
@@ -189,7 +192,8 @@ var ChartAddons = React.createClass({
 
 var FilteringAttribute = React.createClass({
     getInitialState: function() {
-        return {showChart: true};
+        this.statistics = {};
+        return {showChart: true, showStatistics:false};
     },
     componentWillMount: function(){
      //Initialize crossfilter dimensions and groups before rendering
@@ -198,11 +202,9 @@ var FilteringAttribute = React.createClass({
 
         var dim = {
             filter: function(f) {
-                //console.log(f);
                 if(f) {
-                    
+
                     queryFilter[attributeName] = f;
-                        //refresh()
                     AppActions.refresh(queryFilter);
                 } else {
                     if(queryFilter[attributeName]){
@@ -278,7 +280,7 @@ var FilteringAttribute = React.createClass({
                 all: function(){
                   //console.log(self.props.currData);
                   //console.log("......grouop...");
-                    console.log(self.props.currData["ageCancerGroup"].values);
+                    //console.log(self.props.currData["ageCancerGroup"].values);
                     return self.props.currData["ageCancerGroup"].values;
                 },
                 order: function(){
@@ -305,8 +307,9 @@ var FilteringAttribute = React.createClass({
         var height = this.props.config.visualization.height || 190;
         //var domain = [0,100];
         var c = {};
-        
-        //console.log(this.props.config);
+
+        /* listen to the Reflux 'refresh' event for refreshing the statistics */
+        self.unsubscribe = AppStore.listen(self.onFilter);
 
         //Render according to chart-type
         switch(visType){
@@ -379,7 +382,6 @@ var FilteringAttribute = React.createClass({
                 //.renderLabel(true)
                 //.margins({left: 35, top: 10, bottom: 20, right: 10});
             c.filterHandler(function(dimension, filter){
-
                 var begin = $("#filterBeg"+dimension.name());
                 var end = $("#filterEnd"+dimension.name());
                 if(filter.length > 0 && filter.length!=2){
@@ -413,11 +415,11 @@ var FilteringAttribute = React.createClass({
             .elasticX(true)
             .margins({top: 10, right: 20, bottom: 20, left: 20});
             c.filterHandler(function(dimension, filters){
-                console.log(filters);
+                //console.log(filters);
                 var invert = false;
                 var invertedFilters = [];
                 for(var i in filters){
-                    console.log(i);
+                    //console.log(i);
                     if(filters[i].invert){
                         invert = true;
                         invertedFilters = filters[i].invert;
@@ -425,12 +427,12 @@ var FilteringAttribute = React.createClass({
                     }
                 }
                 if(invert){
-                    console.log("here");
+                    //console.log("here");
                     dimension.filter(invertedFilters);
                     return invertedFilters;
                 }
                 
-                console.log(filters);
+                //console.log(filters);
                 if(typeof filters[0] === "object")
                     filters = filters[0];
                 if(filters)
@@ -455,6 +457,7 @@ var FilteringAttribute = React.createClass({
 			});
 			*/
         }
+
         this.setState({chart: c});
     },
     onReset: function(){
@@ -467,7 +470,6 @@ var FilteringAttribute = React.createClass({
     },
     showChart: function() {
         var self = this;
-        console.log("show!");
         var showChart = self.state.showChart;
         this.props.onToggleShow();
         self.setState({showChart: !showChart});
@@ -483,10 +485,48 @@ var FilteringAttribute = React.createClass({
         }
         return false;
     },
+    onFilter: function() {
+        if (this.state.showStatistics) {
+            this.refreshStatistics();
+        }
+    },
+    showStatistics: function(){
+        var showStatistics = !this.state.showStatistics;
+        this.setState({showStatistics: showStatistics});
+
+        if (showStatistics) {
+            this.refreshStatistics();
+        } else {
+            this.props.onToggleShow();
+        }
+    },
+    refreshStatistics: function(){
+        var self = this;
+        var attributeName = this.props.config.attributeName;
+        var url = "/statistics?attr=" + attributeName;
+        d3.json(url, function(d) {
+            self.statistics[attributeName] = d;
+            self.props.onToggleShow();
+        });
+    },
     render: function(){
         var self = this;
         var divId = "dc-"+this.props.config.attributeName;
         var showChart = self.state.showChart ? {display: "block"} : {display: "none"};
+
+        var showStatisticsVis = self.state.showStatistics ? {display: "block"} : {display: "none"};
+        var showVis = !self.state.showStatistics ? {display: "block"} : {display: "none"};
+
+        var attributeName = this.props.config.attributeName;
+
+        var cols = ["Statistic", "Value"], data = [];
+        if (self.state.showStatistics) {
+            var attrStatistics = self.statistics[attributeName];
+            for (var key in attrStatistics) {
+                attrStatistics[key] = Math.round(attrStatistics[key]*100)/100;
+                data.push({"Statistic": key, "Value": attrStatistics[key]});
+            }
+        }
 
         var iconHeight = "20px";
         var iconWidth = "20px";
@@ -498,7 +538,7 @@ var FilteringAttribute = React.createClass({
         //console.log(showChart);
         //console.log(this.props.currData);
         if(this.props.full === true){
-            console.log("FULL!");
+            //console.log("FULL!");
             return (
                 <div className="grid-item" style={{"margin": 10}} key={self.props.config.attributeName}>
                
@@ -515,20 +555,39 @@ var FilteringAttribute = React.createClass({
                                 :
                                     <div />
                                 }
-
+                                { self.state.showStatistics ? /* show/hide statistics */
+                                    <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
+                                        <path fill="#fff" d="M20,14H4V10H20">
+                                            <title>Show statistics</title>
+                                        </path>
+                                    </svg>
+                                    :
+                                    <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
+                                        <path fill="#fff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
+                                            <title>Show statistics</title>
+                                        </path>
+                                    </svg>
+                                }
 
 							</div>
                         </div>
+
                         <div>
-                            <div className="chart-stage">
-                                <div  id={divId}> </div>
+                            <div style={showStatisticsVis}>
+                                <div className="chart-stage">
+                                    <StatisticsTable cols={cols} data={data}/>
+                                </div>
                             </div>
-                            <div className="chart-notes" id={self.props.config.attributeName +  "-note"}>
-
-                                <ChartAddons config={this.props.config} data={this.state.currData} chart={this.state.chart} isFilterActive={isFilterActive}/>
-
+                            <div style={showVis}>
+                                <div className="chart-stage">
+                                    <div  id={divId}> </div>
+                                </div>
+                                <div className="chart-notes" id={self.props.config.attributeName +  "-note"}>
+                                    <ChartAddons config={this.props.config} data={this.props.currData} chart={this.state.chart} isFilterActive={isFilterActive}/>
+                                </div>
                             </div>
                         </div>
+
                     </div>
               
                 </div>
@@ -540,40 +599,59 @@ var FilteringAttribute = React.createClass({
                         <div className="chart-title" >
                             {self.props.config.attributeName}
                             <div className="chart-title-icons">
-                            { isFilterActive ?
+                                { isFilterActive ? /* delete filter */
 
-                                <svg style={{width:iconWidth,height:iconHeight }} viewBox="0 0 24 24" onClick={self.onReset}>
-                                    <path fill={filterFillColor} d="M14.73,20.83L17.58,18L14.73,15.17L16.15,13.76L19,16.57L21.8,13.76L23.22,15.17L20.41,18L23.22,20.83L21.8,22.24L19,19.4L16.15,22.24L14.73,20.83M2,2H20V2H20V4H19.92L14,9.92V22.91L8,16.91V9.91L2.09,4H2V2M10,16.08L12,18.08V9H12.09L17.09,4H4.92L9.92,9H10V16.08Z">
-                                        <title>Remove filter</title>
-                                    </path>
-                                </svg>
-                                :
-                                <div />
-                            }
-								{ self.state.showChart ?
-                                <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showChart} >
-                                    <path fill="#fff" d="M20,14H4V10H20">
-                                        <title>Hide attribute</title>
-                                    </path>
-                                </svg>
-								:
-									<svg style={{width: iconWidth, height: iconHeight}} onClick={self.showChart} viewBox="0 0 24 24">
-										<path fill="#fff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
-											<title> Show attribute</title>
-										</path>
-											
-									</svg>
-								}
+                                    <svg style={{width:iconWidth,height:iconHeight }} viewBox="0 0 24 24" onClick={self.onReset}>
+                                        <path fill={filterFillColor} d="M14.73,20.83L17.58,18L14.73,15.17L16.15,13.76L19,16.57L21.8,13.76L23.22,15.17L20.41,18L23.22,20.83L21.8,22.24L19,19.4L16.15,22.24L14.73,20.83M2,2H20V2H20V4H19.92L14,9.92V22.91L8,16.91V9.91L2.09,4H2V2M10,16.08L12,18.08V9H12.09L17.09,4H4.92L9.92,9H10V16.08Z">
+                                            <title>Remove filter</title>
+                                        </path>
+                                    </svg>
+                                    :
+                                    <div/>
+                                }
+                                { self.state.showStatistics ? /* show/hide statistics */
+                                    <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
+                                        <path fill="#fff" d="M20,14H4V10H20">
+                                            <title>Show statistics</title>
+                                        </path>
+                                    </svg>
+                                    :
+                                    <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
+                                        <path fill="#fff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
+                                            <title>Show statistics</title>
+                                        </path>
+                                    </svg>
+                                }
+                                { self.state.showChart ? /* show/hide attribute*/
+                                    <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showChart} >
+                                        <path fill="#fff" d="M20,14H4V10H20">
+                                            <title>Hide attribute</title>
+                                        </path>
+                                    </svg>
+                                    :
+                                    <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showChart} viewBox="0 0 24 24">
+                                        <path fill="#fff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
+                                            <title> Show attribute</title>
+                                        </path>
+                                    </svg>
+                                }
                             </div>
                         </div>
-                       
+
                         <div style={showChart}>
-                            <div className="chart-stage">
-                                <div  id={divId}> </div>
-                            </div>
-                            <div className="chart-notes">
-                                <ChartAddons config={this.props.config} data={this.props.currData} chart={this.state.chart} isFilterActive={isFilterActive}/>
-                            </div>
+                                <div style={showStatisticsVis}>
+                                    <div className="chart-stage">
+                                        <StatisticsTable cols={cols} data={data}/>
+                                    </div>
+                                </div>
+                                <div style={showVis}>
+                                    <div className="chart-stage">
+                                        <div  id={divId}> </div>
+                                    </div>
+                                    <div className="chart-notes">
+                                        <ChartAddons config={this.props.config} data={this.props.currData} chart={this.state.chart} isFilterActive={isFilterActive}/>
+                                    </div>
+                                </div>
                         </div>
  
 
@@ -584,4 +662,5 @@ var FilteringAttribute = React.createClass({
 
     }
 });
+
 module.exports = FilteringAttribute;

@@ -2,7 +2,9 @@ var React =require("react");
 var DataTable = require("./DataTable.jsx"),
     HeatMap = require("./HeatMap.jsx"),
     ImageGrid = require("./ImageGrid.jsx"),
-    Splom = require("./Splom.jsx");
+    Splom = require("./Splom.jsx"),
+    GeoChoroplethMap = require("./GeoChoroplethMap.jsx"),
+    MarkerMap = require("./MarkerMap.jsx");
 
 var Visualization = React.createClass({
     render: function(){
@@ -36,6 +38,14 @@ var Visualization = React.createClass({
         case "SPLOM": 
             return(
                 <Splom config={this.props.config} currData={this.props.currData}/>
+            );
+        case "geoChoroplethMap":
+            return(
+                <GeoChoroplethMap config={this.props.config} currData={this.props.currData}/>
+            );
+        case "markerMap":
+            return(
+                <MarkerMap config={this.props.config} currData={this.props.currData}/>
             );
         default:
             return(

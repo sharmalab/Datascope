@@ -49,7 +49,6 @@ var Dashboard = React.createClass({
                 //Do the initial filtering 
                 d3.json("data/?filter={}", function(d) {
                     filteredData = d;
-                    //console.log(filteredData);
                     self.setState({
                         interactiveFilters: interactiveFilters,
                         visualization: visualization,

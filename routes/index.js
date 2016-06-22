@@ -10,6 +10,8 @@ var interactiveFilters = require("../modules/interactiveFilters"),
 
 //var TABLE_STATE = 0;
 
+ // Load datalib.
+var dl = require('datalib');
 
 var CURRENTDATA = {};
 
@@ -58,24 +60,19 @@ var _filterFunction = function(filter){
                 });
 
             }
-            else
-            {
+            else {
                 //array
-                if(filter[dim].length > 1){
-                    //console.log("len > 1")
-                    if(dataDescription.getDataType(dim) == "enum"){
-                        //console.log("enum")
-
-                        dimensions[dim].filterFunction(function(d){
+                if (filter[dim].length > 1) {
+                    if (dataDescription.getDataType(dim) == "enum") {
+                        dimensions[dim].filterFunction(function(d) {
                             return filter[dim].indexOf(d) >= 0; 
                         });
                     }
-                    else{
+                    else {
                         dimensions[dim].filterRange(filter[dim]);
                     }
 
                 } else {
-
                     dimensions[dim].filter(filter[dim][0]);
                 }
             }
@@ -83,8 +80,8 @@ var _filterFunction = function(filter){
             dimensions[dim].filterAll(null);
         }
     });
+
     Object.keys(groups).forEach(function(key) {
-        //console.log(key)
         results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value};
     });
     var filteringAttributes = dataDescription.getFilteringAttributes();
@@ -92,16 +89,13 @@ var _filterFunction = function(filter){
 
     if(visualization.hasVisualization("imageGrid")){
 
-
-
         CURRENTDATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
 
-        console.log(CURRENTDATA.length);
         var reqLength = 100;
         var paginate = true;
         if(CURRENTDATA.length < reqLength)
             paginate = false;
-        console.log(paginate);
+
         results["imageGrid"] = {
             values: CURRENTDATA.slice(0,500),
             active: 100,
@@ -321,6 +315,7 @@ var _heat = function(req, res){
 };
 */
 
+
 var _populationInfo = function(req, res, next){
     var filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
 
@@ -331,6 +326,63 @@ var _populationInfo = function(req, res, next){
     var originalLength = dataSource.getTotalRecords();
 
     return res.json({"Current": filteredLength, "Total": originalLength});
+};
+var _getStatistics = function(req, res) {
+    var attr = req.param("attr");
+
+    var dimensions = interactiveFilters.getDimensions(),
+        filteringAttributes = dataDescription.getFilteringAttributes();
+    var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+
+    var statisticsToReturn = {};
+    if (attr) {
+        var statistics = interactiveFilters.getFilterConfig(attr).statistics;
+        if (statistics) {
+            var summary = dl.summary(TABLE_DATA, [attr])[0];
+
+            if (statistics.constructor === String) {
+                if (statistics == "default") {
+                    if (summary["type"] == "number" ||
+                            summary["type"] == "integer") {
+                        statistics = ["count", "distinct", "min", "max", "mean", "median", "stdev"];
+                    } else {
+                        statistics = ["count", "distinct"];
+                    }
+                }
+            }
+
+            if (statistics.constructor === Array) {
+                statistics.forEach(function(stat){
+                    statisticsToReturn[stat] = summary[stat];
+                })
+            }
+        }
+    } else {
+        var attr1 = req.param("attr1");
+        var attr2 = req.param("attr2");
+        if (attr1 && attr2) {
+            // Pearson product-moment correlation
+            statisticsToReturn["correlation"] = dl.cor(TABLE_DATA, attr1, attr2);
+            // Spearman rank correlation of two arrays of values
+            statisticsToReturn["rankCorrelation"] = dl.cor.rank(TABLE_DATA, attr1, attr2);
+            // Removed since is not working // distance correlation of two arrays of numbers
+            // statisticsToReturn["distanceCorrelation"] = dl.cor.dist(TABLE_DATA, attr1, attr2);
+            // vector dot product of two arrays of numbers
+            statisticsToReturn["dotProduct"] = dl.dot(TABLE_DATA, attr1, attr2);
+            //vector Euclidian distance between two arrays of numbers
+            statisticsToReturn["euclidianDistance"] = dl.dist(TABLE_DATA, attr1, attr2);
+            // covariance between two arrays of numbers
+            statisticsToReturn["covariance"] = dl.covariance(TABLE_DATA, attr1, attr2);
+            // Cohen's d effect size between two arrays of numbers
+            statisticsToReturn["cohensd"] = dl.cohensd(TABLE_DATA, attr1, attr2);
+        } else {
+            statisticsToReturn = dl.summary(TABLE_DATA);
+        }
+    }
+
+    res.writeHead(200, {"content-type": "application/json"});
+    res.end(JSON.stringify(statisticsToReturn));
+
 }
 
 exports.index = function(req, res){
@@ -341,5 +393,6 @@ exports.handleFilterRequest = _handleFilterRequest;
 exports.tableNext = _tableNext;
 exports.imageGridNext = _imageGridNext;
 exports.save = _save;
+exports.getStatistics = _getStatistics;
 
 //exports.heat = _heat;

@@ -20,24 +20,13 @@ var AppStore = Reflux.createStore({
 	        }
 	        d3.json("data/?filter="+JSON.stringify(queryFilter), function (d) {
 	            filteredData = d;
-	            console.log(filteredData);
 	            _currentData = filteredData;
 
-	            /*
-	            if(dataTable.ajax){  
-	                dataTable.ajax.reload(); //jquery datatable fix
-	            }
-	            */
-	            //dc.renderAll(); //refresh dc charts
 	            that.trigger(_currentData); //Trigger the event and pass current state of data
-		 
 	        });
 	        } else {
 	            
 	        }
-		//_currentData = filteredData;
-		
-
 	},
 	getData: function(){
 		return _currentData;

@@ -557,6 +557,7 @@ ul.nav.nav-tabs{
     box-shadow: 0 0 11px black;
 }
 
+<<<<<<< HEAD
 .interactiveFiltersList{
     padding-top: 30px;
 }
@@ -633,3 +634,18 @@ font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
     height: 30px;
     color: black;
 }
+
+.statistics td, .statistics th {
+   border-bottom: 1px solid black;
+   text-align: center;
+   height: 30px;
+   padding: 5px;
+   color: white;
+   width: 100%;
+}
+
+.map {
+  width:800px;
+  height:450px;
+}
+

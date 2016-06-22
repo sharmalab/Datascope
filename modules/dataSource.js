@@ -64,7 +64,6 @@ var dataSource = (function(){
 	    } else if (type == "odbc") {
 	      anyToJSON.odbc(options, processData);
 	    }
-
 	}
 	//### _init()
 	//Returns an array of dataSources
