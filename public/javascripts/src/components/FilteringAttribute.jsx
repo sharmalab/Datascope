@@ -557,15 +557,20 @@ var FilteringAttribute = React.createClass({
                                 }
                                 { self.state.showStatistics ? /* show/hide statistics */
                                     <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
-                                        <path fill="#fff" d="M20,14H4V10H20">
+                                        <path fill={filterFillColor}  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                        <path d="M0 0h24v24H0z" fill="none"/>
+                                   
                                             <title>Show statistics</title>
-                                        </path>
+                                        
                                     </svg>
                                     :
-                                    <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
-                                        <path fill="#fff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
+                                    <svg  style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
+                                        <path fill={filterFillColor}  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                        <path d="M0 0h24v24H0z" fill="none"/>
+ 
+
                                             <title>Show statistics</title>
-                                        </path>
+
                                     </svg>
                                 }
 
@@ -611,15 +616,18 @@ var FilteringAttribute = React.createClass({
                                 }
                                 { self.state.showStatistics ? /* show/hide statistics */
                                     <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
-                                        <path fill="#fff" d="M20,14H4V10H20">
+                                        <path fill={filterFillColor} d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                        <path d="M0 0h24v24H0z" fill="none"/>
                                             <title>Show statistics</title>
-                                        </path>
+
                                     </svg>
                                     :
                                     <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
-                                        <path fill="#fff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
+                                        <path fill={filterFillColor} d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                        <path d="M0 0h24v24H0z" fill="none"/>
+
                                             <title>Show statistics</title>
-                                        </path>
+
                                     </svg>
                                 }
                                 { self.state.showChart ? /* show/hide attribute*/
