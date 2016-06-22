@@ -23,11 +23,6 @@ var summaryChart = function(data) {
             console.log("..");
             return 500 * (Current/Total) + "px"; 
         })
-        /*
-        .text(function(){
-            //return Current + "/" + Total + " Selected";
-        })
-        */
         .style("background", function(){
             return "steelblue";
         });
@@ -35,7 +30,7 @@ var summaryChart = function(data) {
 
 var Summary = React.createClass({
     getInitialState: function(){
-        return {Current: "", Total: "", showSummary: true};
+        return {Current: "", Total: "", showSummary: false};
     },  
     componentDidMount: function(){
         var self=this;    
@@ -118,8 +113,9 @@ var Summary = React.createClass({
                                 </span>
                         </span>
                            <div id="queryString">
-                                Filters
+
                                 <div id="queryStringQuery">
+                        
                                     {Filters}
                                 </div>
                             </div>

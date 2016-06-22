@@ -631,8 +631,11 @@ font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
 }
 .summaryHide{
     width: 30px;
+    font-size: 10px;
     height: 30px;
     color: black;
+    position: relative;
+    left: 200px;
 }
 
 .statistics td, .statistics th {
