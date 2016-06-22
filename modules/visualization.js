@@ -154,7 +154,7 @@ var visualization = (function(){
     }
 
     var geoChoroplethMap = function (ndx, visualization) {
-        var attributeName = visualization.attributeName;
+        var attributeName = visualization.attribute.name;
 
         var dimension = ndx.dimension(function (d) {
                 return d[attributeName];

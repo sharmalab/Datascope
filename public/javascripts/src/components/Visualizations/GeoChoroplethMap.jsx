@@ -10,7 +10,8 @@ var GeoChoroplethMap = React.createClass({
     },
     componentDidMount: function () {
         var self = this;
-        var attributeName = this.props.config.attributeName;
+        var attributeName = this.props.config.attribute.name;
+        var attributeType = this.props.config.attribute.type;
 
         var dim = {
             filter: function (f) {
@@ -62,7 +63,7 @@ var GeoChoroplethMap = React.createClass({
             }
         };
 
-        var geo = dc.geoChoroplethChart("#geoVis");
+        var geo;
         
         var geoJsonPath = this.props.config.geoJson.path;
         d3.json(geoJsonPath, function (err, geoJson) {
@@ -71,24 +72,33 @@ var GeoChoroplethMap = React.createClass({
                 return;
             }
 
-            geo.width(990)
-                .height(500)
-                .dimension(dim)
-                .group(group)
-                .colors(d3.scale.quantize().range(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]))
-                .colorDomain([0, 16])
-                .colorCalculator(function (d) { return d ? geo.colors()(d) : '#ccc'; })
-                .overlayGeoJson(geoJson.features, attributeName, function (d) {
-                    return d.properties.NAME;
-                })
-                .title(function (d) {
-                    return attributeName + ": " + d.key + "\nNo: " + (d.value ? d.value : 0);
-                });
+            geo = dc.geoChoroplethChart("#geoVis")
+                    .width(990)
+                    .height(500)
+                    .dimension(dim)
+                    .group(group)
+                    .colors(d3.scale.quantize().range(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]))
+                    .colorDomain(
+                        [
+                            d3.min(group.all(), function (d) {
+                                return d.value;
+                            }),
+                            d3.max(group.all(), function (d) {
+                                return d.value;
+                            })
+                        ]
+                    )
+                    .colorCalculator(function (d) { return d ? geo.colors()(d) : '#ccc'; })
+                    .overlayGeoJson(geoJson.features, attributeName, function (d) {
+                        return d.properties[attributeType];
+                    })
+                    .title(function (d) {
+                        return attributeName + ": " + d.key + "\nNo: " + (d.value ? d.value : 0);
+                    });
 
             dc.renderAll();
+            self.setState({chart: geo});
         });
-
-        this.setState({chart: geo});
     },
     changeFilterState: function () {
         var isFilterActive = !this.state.isFilterActive;
@@ -100,7 +110,7 @@ var GeoChoroplethMap = React.createClass({
     },
     render: function () {
         var self = this;
-        var attributeName = this.props.config.attributeName;
+        var attributeName = this.props.config.attribute.name;
         var isFilterActive = this.state.isFilterActive;
         return(
             <div id="geo">
@@ -109,7 +119,7 @@ var GeoChoroplethMap = React.createClass({
                 <div id="geoVis">
                     { isFilterActive ?
                         <div>
-                            <button class="link" onClick={self.onReset}>Reset</button>
+                            <button className="link" onClick={self.onReset}>Reset</button>
                             <p>Current filter: {attributeName} = {queryFilter[attributeName]}</p>
                         </div>
                         :
