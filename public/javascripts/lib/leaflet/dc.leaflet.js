@@ -346,13 +346,12 @@ dc_leaflet.markerChart = function(parent, chartGroup) {
         }
 
         if (addList.length > 0) {
-            if (_fitOnRender || (_fitOnRedraw /*&& !_disableFitOnRedraw*/)) {
+            if (_fitOnRender) {
                 var featureGroup = new L.featureGroup(addList);
                 _chart.map().fitBounds(featureGroup.getBounds());//.pad(0.5));
             }
         }
 
-        //_disableFitOnRedraw = false;
         _fitOnRender = false;
     };
 

@@ -76,6 +76,7 @@ var MarkerMap = React.createClass({
                         .filterByArea(true);
 
         dc.renderAll();
+
         this.setState({chart: marker});
     },
     changeFilterState: function () {
@@ -90,6 +91,12 @@ var MarkerMap = React.createClass({
         var self = this;
         var attributeName = this.props.config.attributeName;
         var isFilterActive = this.state.isFilterActive;
+
+        /* leaflet maps works bed with ReactJS. When opening the map, it will look very bad,
+            unles I am using the next 2 lines of code :D */
+        if (this.state.chart) {
+            this.state.chart.map().invalidateSize(false);
+        }
 
         return(
             <div id="holder">
