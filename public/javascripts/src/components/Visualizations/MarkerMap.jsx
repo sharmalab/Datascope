@@ -42,6 +42,7 @@ var MarkerMap = React.createClass({
                 }
             },
             filterFunction: function (f) {
+                console.log("marker map - filter function")
                 // TOBE implemented
             },
             filterAll: function () {
@@ -65,16 +66,16 @@ var MarkerMap = React.createClass({
             }
         };
 
-        var marker = dc.leafletMarkerChart("#demo1 .map")
-                        .width(600)
-                        .height(400)
+        var marker = dc_leaflet.markerChart("#demo1 .map")
+                        .width(700)
+                        .height(450)
                         .dimension(dim)
                         .group(group)
                         .fitOnRender(true)
-                        .fitOnRedraw(true)
                         .cluster(true)
                         .filterByArea(true);
 
+        dc.renderAll();
         this.setState({chart: marker});
     },
     changeFilterState: function () {
@@ -89,6 +90,7 @@ var MarkerMap = React.createClass({
         var self = this;
         var attributeName = this.props.config.attributeName;
         var isFilterActive = this.state.isFilterActive;
+
         return(
             <div id="holder">
                 <div id="demo1">
