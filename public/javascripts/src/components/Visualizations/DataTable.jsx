@@ -28,13 +28,14 @@ var DataTable = React.createClass({
                 "ajax": "dataTable/next",
                 "processing": true,
                 "serverSide": true,
-                //"scrollY": 420,
+                "scrollY": true,
+                "scrollX": true,
                 //"scrollX": "100%",
-                "pageLength": 100,
+                "pageLength": 10,
                 columns: columns,
                 fixedHeader: true,
-                responsive: true
-
+                responsive: true,
+                "searching":true
             });
                 var url = self.props.config.url;
 

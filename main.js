@@ -9,8 +9,8 @@ var express = require("express"),
     user = require("./routes/user"),
     rest = require("./routes/rest"),
     visualizationRoutes = require("./routes/visualizations"),
-    //http = require("http"),
-    compress = require('compression')(),
+    process = require("process"),
+    compress = require("compression")(),
     path = require("path");
     //assert = require("assert"),
     //crossfilter = require("./crossfilter").crossfilter,
@@ -74,12 +74,18 @@ function init(callback){
     dataDescription.init();
     interactiveFilters.init();
     visualization.init();
-    console.log("........");
+
     dataSource.loadData(function(data){
-    //console.log(data);
+        if(!data){
+            console.log("Error! Couldn't fetch the data.");
+            process.exit(1);
+        }
+        //console.log(data);
+        console.log("Loaded Data");
         interactiveFilters.applyCrossfilter(data);
         visualization.applyCrossfilter();
         visualizationRoutes.heatInit();
+        console.log("Initialized filters");
         listen(callback);
     });
 }
@@ -105,6 +111,7 @@ function handleState(req, res, next){
 
 // Listen for filtering requests on ```/data```
 app.use("/data",routes.handleFilterRequest);
+app.use("/populationInfo", routes.populationInfo);
 app.use("/dataTable/next", routes.tableNext);
 app.use("/state",  handleState);
 app.use("/save", routes.save);

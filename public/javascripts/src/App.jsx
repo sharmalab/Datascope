@@ -76,7 +76,7 @@ var Dashboard = React.createClass({
         
         var data = AppStore.getData();
         //var debug=this.state.debug+1;
-        console.log("filterrrrrrrrrr");
+        console.log("filtered!");
         this.setState({currData: data, loading: false});
         dc.renderAll();
 
@@ -100,6 +100,7 @@ var Dashboard = React.createClass({
             </InteractiveFilters>
             <Visualizations config ={this.state.visualization} debug={this.state.debug} currData={this.state.currData}>
             </Visualizations>
+            <div className="clear"></div>
           </div>
         );
     }

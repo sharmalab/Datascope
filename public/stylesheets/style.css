@@ -100,7 +100,7 @@ body {
     width: 330px;
 
     display: block;
-    overflow-x: hidden;
+    //overflow-x: visible;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
@@ -109,6 +109,7 @@ body {
 
 #interactiveFiltersPanel{
   overflow-y: scroll;
+  overflow-x: visible;
   background: hsl(211,3%,94%);
   height: 100vh;
   padding-top: 12x;
@@ -210,12 +211,20 @@ table#dataTable{
 /*
 */
 
+
+#totalChart{
+    height: 25px;
+    width: 300px;
+    background: #ccc;
+    border: 1px solid #333;
+}
+
 .visualizationArea{
     margin: 4px auto;
 
     overflow-y: scroll;
-    height: 100vh;
-    padding-bottom: 120px;
+    height: 80vh;
+    padding-bottom: 50px;
 }
 
 #dataTableNav{
@@ -227,7 +236,12 @@ table#dataTable{
 }
 //Font size for datatable
 .dataTables_scrollBody{
+    border: 1px solid #333;
     font-size: 11px;
+
+}
+tr{
+    cursor: pointer;
 }
 
 #activeRecords div{
@@ -261,17 +275,23 @@ table#dataTable{
 }
 
 #visualization{
-    padding-top: 12px;
+    //padding-top: 12px;
     margin: 0 auto;
 }
 
 #interactiveFiltersPanelSlider{
-    
+  position: relative;  
+  left: 18px;
+  padding: 5px 10px ;
+  background: #FF4081;
+  color: #fff;
+  margin: 0;
+  top: 4px;
+  //box-shadow: 5px 5px 5px grey;
   float: right;
-  margin: 4px;
-  z-index: 10000;
-  margin: 10px;
-  margin-top: -29px;
+  //top: 100px;
+  //left: 320px;
+  z-index:1000;
 }
 
 #heat{
@@ -477,6 +497,10 @@ img {
 
 }
 
+.filteringAttributesList{
+    margin-top: 40px;
+}
+
 #filteringAttributeTitle{
     padding-top: 17px;
     font-size: 17px;
@@ -501,6 +525,7 @@ img {
 .chart-title-icons svg:hover{
  //   fill: #fff;
  opacity: 1;
+ cursor: pointer;
 }
 #interactiveFiltersPanel{
     color: #212121;
@@ -532,6 +557,87 @@ ul.nav.nav-tabs{
     box-shadow: 0 0 11px black;
 }
 
+<<<<<<< HEAD
+.interactiveFiltersList{
+    padding-top: 30px;
+}
+
+
+
+
+/*Summary*/
+#summary{
+   //background: #333;
+   // height: 100px;
+   padding: 10px;
+  // padding-left: 200px;
+  text-align: center;
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
+
+}
+.summaryPopulation{
+    height: 25px;
+    width: 500px;
+    //padding: 12px;
+    //z-index: 2000;
+    display: inline-block;
+    //background: steelblue;
+    color: #fff;
+    //padding-top: 3px;
+    //border: 1px solid #333;  
+    font-size: 12px;
+    background: #455A64;
+}
+.summaryPopulation div{
+    
+    //z-index:10;
+    //display: inline-block;
+    background: red;
+    height: 25px;
+    position: relative;
+    top: -17px;
+    //padding-top: 3px;
+    
+}
+.summaryFull{
+
+}
+
+.filterSummary{
+    display: inline-block;
+    background: #eee;
+    border-radius: 3px;
+    font-size: 12px;
+    width: 160px;
+    padding: 3px;
+    border: 1px solid #ddd;
+}
+.filterSummary:hover{
+    border: 1px solid #bbb;
+}
+
+.filterButton:hover{
+    color: #000;
+    cursor: pointer;
+}
+.filterName{
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+}
+.summaryPopulationLabel{
+    position: relative;
+    top: 5px;
+    z-index: 100;
+}
+.summaryHide{
+    width: 30px;
+    font-size: 10px;
+    height: 30px;
+    color: black;
+    position: relative;
+    left: 200px;
+}
+
 .statistics td, .statistics th {
    border-bottom: 1px solid black;
    text-align: center;
@@ -545,3 +651,4 @@ ul.nav.nav-tabs{
   width:800px;
   height:450px;
 }
+

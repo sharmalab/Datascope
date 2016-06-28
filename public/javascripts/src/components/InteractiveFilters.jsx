@@ -6,6 +6,8 @@ var    Button          = ReactBootstrap.Button;
 //Require app components
 var FilteringAttribute = require("./FilteringAttribute.jsx");
 
+var Glyphicon = ReactBootstrap.Glyphicon;
+
 var Masonry = require("react-masonry-component")(React);
 
 var InteractiveFilters = React.createClass({      
@@ -47,10 +49,12 @@ var InteractiveFilters = React.createClass({
         if(this.state.full){
             return(
                 <div  className="col-sm-12 fixed" id="interactiveFiltersPanel">
-                    <p id="filteringAttributeTitle"> Filtering Attributes</p>
-                     <Button onClick={this.fullView} id="interactiveFiltersPanelSlider" bsSize="xsmall"> &laquo; </Button>
+                    
+                    <Button onClick={this.fullView} id="interactiveFiltersPanelSlider" bsSize="xsmall">
+                        <Glyphicon glyph="chevron-left" />
+                    </Button>
                     <Masonry className={"filteringFullView"} elementType={"div"} options={{itemSelector: ".grid-item"}} >
-                        <div>{filteringAttributes}</div>
+                        <div className="filteringAttributesList">{filteringAttributes}</div>
                     </Masonry>
                 </div>
             );   
@@ -58,10 +62,12 @@ var InteractiveFilters = React.createClass({
         } else {
             return(
                 <div  className="col-sm-5 col-md5 col-lg-4 fixed side" id="interactiveFiltersPanel"  >
-                    <p id="filteringAttributeTitle"> Filtering Attributes </p>
-                     <Button title="Full view" onClick={this.fullView}  id="interactiveFiltersPanelSlider" bsSize="xsmall"> &raquo; </Button>
+
+                     <Button title="Full view" onClick={this.fullView}  id="interactiveFiltersPanelSlider" bsSize="xsmall">
+                        <Glyphicon glyph="chevron-right" />
+                     </Button>
                     <Masonry className={"filteringFullView"} elementType={"div"} options={{itemSelector: ".grid-item", isFitWidth: true}}>
-                        <div>{filteringAttributes}</div>
+                        <div className="filteringAttributesList">{filteringAttributes}</div>
                     </Masonry>
 
                 </div>

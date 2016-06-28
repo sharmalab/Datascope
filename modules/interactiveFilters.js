@@ -44,6 +44,12 @@ var interactiveFilters = (function(){
         }
     };
 
+    var _getFilterDescription = function(attributeName) {
+        return filteringAttributes.filter(
+            function(attr) {
+                return attr.attributeName === attributeName})[0];
+    }
+
     //
     //#### applyCrossfilter()
     //Applies crossfilter to all the ```dimensions``` and ```groups```
@@ -61,95 +67,72 @@ var interactiveFilters = (function(){
             //console.log(filteringAttribute.datatype);
             
             var fconfig = _getFilterConfig(filteringAttribute.attributeName);
-           
+
             if(fconfig){
                 var binFactor = fconfig.visualization.binFactor || 1; 
+
                 //Create a crossfilter dimension on this attribute
                 var dimension = {};
-               
-                if(filteringAttribute.datatype  === "float"){
-                    dimension = ndx.dimension(function(d){
-                        //set binning parameter here
-                        var binFactor = fconfig.visualization.binFactor || 10; 
-                        if(d[filteringAttribute[ATTRIBUTENAME]]) 
-                            return d[filteringAttribute[ATTRIBUTENAME]];
-                        else{ return null;}
-                          
-                    });
-                } else if(filteringAttribute.datatype === "integer"){
-                   
-                    dimension = ndx.dimension(function(d){
-                        //console.log(d);
-                        //console.log(d[5]);
-                        //console.log(d[filteringAttribute[ATTRIBUTENAME]]);
-                        //console.log(+d[filteringAttribute[ATTRIBUTENAME]])
-                        //binFactor = 1;
-                        if(d[filteringAttribute[ATTRIBUTENAME]]) {
-
-                            return (+d[filteringAttribute[ATTRIBUTENAME]]);
-                        } 
-                        else{
-                            //console.log(d)
-                            //console.log(d);
-                            //console.log("null");
-                            return null;
-
-                        }
-                        
-                       
-                    });
-                    /*
-                    dimension = ndx.dimension(function(d){
-                        return Math.round(+d[filteringAttribute[ATTRIBUTENAME]]*binFactor)/binFactor;
-                    });
+                dimension = ndx.dimension(function(d) {
+                    /*  If is a scatterplot than is 2 dimensional chart and thus needs a special treatment
                     */
-                } else {
-               
-                    dimension = ndx.dimension(function(d){
-                        return d[filteringAttribute[ATTRIBUTENAME]];
-                    });
-                }
+                    if(fconfig.visualization.visType === "scatterPlot") {
+                        var xAttr = fconfig.visualization.xAttribute,
+                            yAttr = fconfig.visualization.yAttribute;
+
+                        if (d[xAttr] && d[yAttr]) {
+                            xDesc = _getFilterDescription(xAttr)
+                            yDesc = _getFilterDescription(yAttr)
+
+                            if (xDesc.datatype === "integer") {
+                                d[xAttr] = +d[xAttr];
+                            }
+                            if (yDesc.datatype === "integer") {
+                                d[yAttr] = +d[yAttr];
+                            }
+
+                            return [d[xAttr], d[yAttr]];
+                        } else {
+                            return null;
+                        }
+                    } else {
+                        if(d[filteringAttribute[ATTRIBUTENAME]]) {
+                            if(filteringAttribute.datatype === "integer") {
+                                d[filteringAttribute[ATTRIBUTENAME]] = +d[filteringAttribute[ATTRIBUTENAME]]
+                            }
+                            return d[filteringAttribute[ATTRIBUTENAME]];
+                        } 
+                        else {
+                            return null;
+                        }
+                    }
+                });
 
                 dimensions[filteringAttribute[ATTRIBUTENAME]] = dimension;
 
                 var group = {};
                 if(binFactor != 1){
-                    //group = dimension.group(function(d){ return Math.floor( +d[filteringAttribute[ ATTRIBUTENAME ] ] * binFactor);
-                    //})
                     binwidth = 1/binFactor;
-                    //console.log("binnning!");
                     
                     group = dimension.group(function(d){
-                        //console.log(Math.floor(+d/binwidth));
-                        //console.log(d)
                         if(d){
                             var binned = Math.floor(+d/binFactor)*binFactor;
-                            //console.log(binned);
                             if(binned == 0)
                                 return 0.000001;
                             else
                                 return (Math.floor(+d/binFactor)*binFactor);
                         }
-                        else{
-
+                        else {
                             return null;
                         }
-                        //return +d[filteringAttribute[ATTRIBUTENAME]]; 
                     });
-                    //console.log(group.all()); 
-                    //group = dimension.group();
                 } else {
                     group = dimension.group();
                 }
-                //console.log(filteringAttribute[ATTRIBUTENAME])
+
                 groups[filteringAttribute[ATTRIBUTENAME]] = group;
             }
         }
-
-        /*
-        var size = ndx.size(),
-            all = ndx.groupAll();
-        */
     };
 
     return {

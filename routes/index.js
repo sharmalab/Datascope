@@ -173,28 +173,40 @@ var _tableNext = function(req, res){
     var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
     var dataTableAttributes = visualization.getAttributes("dataTable");
 
+    /* if the query contains a value to be searched,
+        then filter the rows that don't contain the value
+    */
+    var searchValue = req.query.search.value;
+    if (searchValue) {
+        TABLE_DATA = TABLE_DATA.filter(function (row) {
+            for (key in row) {
+                if (row[key].toString().match(searchValue))
+                    return true;
+            }
+            return false;
+        })
+    }
 
     var len = TABLE_DATA.length;
-    //var reqParams = iDisplayLength, iDisplayStart
-    var start = req.query.start;
-    var length = req.query.length;
+
+    var start = 1*req.query.start;
+    var length = 1*req.query.length;
+
+    console.log(start);
+    console.log(length);
+    var end = start+length;
+    console.log(end);
     TABLE_DATA = TABLE_DATA.slice(start, start+length);
+    console.log(TABLE_DATA.length);
     var DATA_ARRAY = [];
     for(var i in TABLE_DATA){
-        //var row = Object.keys(TABLE_DATA[i]).map(function(k) { return TABLE_DATA[i][k] });
+
         var row = [];
         for(var j in dataTableAttributes){
             var attrName = dataTableAttributes[j]["attributeName"];
             row.push(TABLE_DATA[i][attrName]);
         }
-        /*
 
-        for(var j in TABLE_DATA[i]){
-            //console.log(j)
-
-            row.push(TABLE_DATA[i][j])
-        }
-        */
         DATA_ARRAY.push(row);
     }
     var all = {};
@@ -204,7 +216,7 @@ var _tableNext = function(req, res){
         active: all.value(),
         state: state,
         draw: req.query.draw,
-        recordsTotal: dataSource.getTotalRecords(),          //FIX THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        recordsTotal: dataSource.getTotalRecords(),         
         recordsFiltered: len
     };
     res.writeHead(200, {"content-type": "application/json"});
@@ -303,6 +315,18 @@ var _heat = function(req, res){
 };
 */
 
+
+var _populationInfo = function(req, res, next){
+    var filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
+
+    console.log(filter);
+    var result = _filterFunction(filter);
+    var filteredData = result.filteredData;
+    var filteredLength = filteredData.length;
+    var originalLength = dataSource.getTotalRecords();
+
+    return res.json({"Current": filteredLength, "Total": originalLength});
+};
 var _getStatistics = function(req, res) {
     var attr = req.param("attr");
 
@@ -358,12 +382,13 @@ var _getStatistics = function(req, res) {
 
     res.writeHead(200, {"content-type": "application/json"});
     res.end(JSON.stringify(statisticsToReturn));
+
 }
 
 exports.index = function(req, res){
     res.render("index", { title: "Express" });
 };
-
+exports.populationInfo = _populationInfo;
 exports.handleFilterRequest = _handleFilterRequest;
 exports.tableNext = _tableNext;
 exports.imageGridNext = _imageGridNext;
