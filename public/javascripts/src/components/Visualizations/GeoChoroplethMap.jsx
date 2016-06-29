@@ -15,7 +15,7 @@ var GeoChoroplethMap = React.createClass({
 
         var dim = {
             filter: function (f) {
-                self.changeFilterState();
+                self.changeFilterState(f && f.length != 0 ? true : false);
                 if (f) {
                     queryFilter[attributeName] = f;
                     AppActions.refresh(queryFilter);
@@ -28,22 +28,8 @@ var GeoChoroplethMap = React.createClass({
                     }
                 }
             },
-            filterExact: function (f) {
-                self.changeFilterState();
-                if (f) {
-                    queryFilter[attributeName] = f;
-                    AppActions.refresh(queryFilter);
-                } else {
-                    if (queryFilter[attributeName]) {
-                        delete queryFilter[attributeName];
-                        AppActions.refresh(queryFilter);
-                    } else {
-                        return {};
-                    }
-                }
-            },
             filterAll: function () {
-                self.changeFilterState();
+                self.changeFilterState(false);
                 delete queryFilter[attributeName];
                 AppActions.refresh(queryFilter);
             },
@@ -96,22 +82,49 @@ var GeoChoroplethMap = React.createClass({
                         return attributeName + ": " + d.key + "\nNo: " + (d.value ? d.value : 0);
                     });
 
+            geo.filterHandler(function(dimension, filters){
+                if(filters)
+                    dimension.filter(filters);
+                else
+                    dimension.filter(null);
+                return filters;
+            });
+
             dc.renderAll();
-            self.setState({chart: geo});
+            self.setState({chart: geo, dimension: dim, group: group});
         });
     },
-    changeFilterState: function () {
-        var isFilterActive = !this.state.isFilterActive;
+    changeFilterState: function (isFilterActive) {
         this.setState({isFilterActive: isFilterActive});
     },
     onReset: function () {
         this.state.chart.filterAll();
-        this.changeFilterState();
+        this.changeFilterState(false);
     },
     render: function () {
+        /* the color domain needs to be assigned with every render in case the data changed */
+        if (this.state.group) {
+            this.state.chart.colorDomain(
+                [
+                    d3.min(this.state.group.all(), function (d) {
+                        return d.value;
+                    }),
+                    d3.max(this.state.group.all(), function (d) {
+                        return d.value;
+                    })
+                ]
+            )
+        }
+
         var self = this;
         var attributeName = this.props.config.attribute.name;
         var isFilterActive = this.state.isFilterActive;
+
+        var queryString;
+        if (queryFilter[attributeName]) {
+            queryString = queryFilter[attributeName].toString();
+        }
+
         return(
             <div id="geo">
                 <h2>{this.props.config.heading}</h2>
@@ -120,7 +133,7 @@ var GeoChoroplethMap = React.createClass({
                     { isFilterActive ?
                         <div>
                             <button className="link" onClick={self.onReset}>Reset</button>
-                            <p>Current filter: {attributeName} = {queryFilter[attributeName]}</p>
+                            <p>Current filter: {attributeName} = {queryString}</p>
                         </div>
                         :
                         <div/>
