@@ -16,12 +16,34 @@ var dl = require('datalib');
 var CURRENTDATA = {};
 
 
-/*
-var RangedTwoDimensionalFilter = function(filter){
+var _containsTwoDimensional = function (f, d) {
+    var fromBottomLeft;
 
+    if(f[0] instanceof Array) {
+        fromBottomLeft = [
+            [Math.min(f[0][0], f[1][0]), Math.min(f[0][1], f[1][1])],
+            [Math.max(f[0][0], f[1][0]), Math.max(f[0][1], f[1][1])]
+        ];
+    } else {
+        fromBottomLeft = [[filter[0], -Infinity], [filter[1], Infinity]];
+    }
+
+    var x = d[0];
+    var y = d[1];
+
+    return x >= fromBottomLeft[0][0] && x < fromBottomLeft[1][0] && y >= fromBottomLeft[0][1] && y < fromBottomLeft[1][1];
 };
-*/
 
+var _containsMarker = function (f, d) {
+    var fSouthWest=f._southWest,fNorthEast=f._northEast;
+    var dLatLng = d.split(",");
+    var dLat = dLatLng[0], dLng = dLatLng[1];
+
+    return dLat >= fSouthWest.lat
+        && dLat <= fNorthEast.lat
+        && dLng >= fSouthWest.lng
+        && dLng <= fNorthEast.lng;
+}
 
 var _filterFunction = function(filter){
     var dimensions = interactiveFilters.getDimensions();
@@ -32,33 +54,18 @@ var _filterFunction = function(filter){
     Object.keys(dimensions).forEach(function (dim) {
 
         if (filter[dim]) {
-
-            if(filter[dim].type){
-                dimensions[dim].filterFunction(function(d){
-
-                    var f = filter[dim].filters[0];
-
-
-                    var fromBottomLeft;
-
-                    if(f[0] instanceof Array) {
-                        fromBottomLeft = [
-							[Math.min(f[0][0], f[1][0]), Math.min(f[0][1], f[1][1])],
-							[Math.max(f[0][0], f[1][0]), Math.max(f[0][1], f[1][1])]			
-                        ];
-                    } else {
-                        fromBottomLeft = [[filter[0], -Infinity], [filter[1], Infinity]];
-                    }
-					
-					
-                    var x = d[0];
-                    var y = d[1];
-
-
-                    return x >= fromBottomLeft[0][0] && x < fromBottomLeft[1][0] && y >= fromBottomLeft[0][1] && y < fromBottomLeft[1][1];
-
-                });
-
+            if(filter[dim].type) {
+                var f = filter[dim].filters[0];
+                if (filter[dim].type === "marker") {
+                    dimensions[dim].filterFunction(function (d) {
+                        return _containsMarker (f, d);
+                    });
+                }
+                else {
+                    dimensions[dim].filterFunction(function (d) {
+                        return _containsTwoDimensional (f, d);
+                    });
+                }
             }
             else {
                 //array
@@ -192,12 +199,12 @@ var _tableNext = function(req, res){
     var start = 1*req.query.start;
     var length = 1*req.query.length;
 
-    console.log(start);
-    console.log(length);
+    //console.log(start);
+    //console.log(length);
     var end = start+length;
-    console.log(end);
+    //console.log(end);
     TABLE_DATA = TABLE_DATA.slice(start, start+length);
-    console.log(TABLE_DATA.length);
+    //console.log(TABLE_DATA.length);
     var DATA_ARRAY = [];
     for(var i in TABLE_DATA){
 
@@ -232,7 +239,7 @@ var _save = function(req, res){
     
     var filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
 
-    console.log(filter);
+    //console.log(filter);
     var result = _filterFunction(filter);
     var filteredData = result.filteredData;
     res.writeHead(200, {"content-type": "application/json"});
@@ -319,7 +326,7 @@ var _heat = function(req, res){
 var _populationInfo = function(req, res, next){
     var filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
 
-    console.log(filter);
+    //console.log(filter);
     var result = _filterFunction(filter);
     var filteredData = result.filteredData;
     var filteredLength = filteredData.length;

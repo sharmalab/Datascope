@@ -16,7 +16,10 @@ var MarkerMap = React.createClass({
             filter: function (f) {
                 self.changeFilterState();
                 if (f) {
-                    queryFilter[attributeName] = f;
+                    queryFilter[attributeName] = {
+                        filters: f,
+                        type: "marker"
+                    };
                     AppActions.refresh(queryFilter);
                 } else {
                     if(queryFilter[attributeName]) {
@@ -27,23 +30,8 @@ var MarkerMap = React.createClass({
                     }
                 }
             },
-            filterExact: function (f) {
-                self.changeFilterState();
-                if (f) {
-                    queryFilter[attributeName] = f;
-                    AppActions.refresh(queryFilter);
-                } else {
-                    if (queryFilter[attributeName]) {
-                        delete queryFilter[attributeName];
-                        AppActions.refresh(queryFilter);
-                    } else {
-                        return {};
-                    }
-                }
-            },
             filterFunction: function (f) {
-                console.log("marker map - filter function")
-                // TOBE implemented
+
             },
             filterAll: function () {
                 self.changeFilterState();
@@ -77,6 +65,14 @@ var MarkerMap = React.createClass({
 
         dc.renderAll();
 
+        marker.filterHandler(function (dimension, filters) {
+            if(filters)
+                dimension.filter(filters);
+            else
+                dimension.filter(null);
+            return filters;
+        });
+
         this.setState({chart: marker});
     },
     changeFilterState: function () {
@@ -92,7 +88,7 @@ var MarkerMap = React.createClass({
         var attributeName = this.props.config.attributeName;
         var isFilterActive = this.state.isFilterActive;
 
-        /* leaflet maps works bed with ReactJS. When opening the map, it will look very bad,
+        /* leaflet maps works bad with ReactJS. When opening the map, it will look very bad,
             unles I am using the next 2 lines of code :D */
         if (this.state.chart) {
             this.state.chart.map().invalidateSize(false);
@@ -101,8 +97,7 @@ var MarkerMap = React.createClass({
         return(
             <div id="holder">
                 <div id="demo1">
-                    <h2>{this.props.config.heading}</h2>
-                    <i>{this.props.config.subheading}</i>
+                    <i>{this.props.config.heading}</i>
                     <div className="map"></div>
                 </div>
             </div>
