@@ -127,13 +127,12 @@ var GeoChoroplethMap = React.createClass({
 
         return(
             <div id="geo">
-                <h2>{this.props.config.heading}</h2>
                 <h4>{this.props.config.subheading}</h4>
                 <div id="geoVis">
                     { isFilterActive ?
                         <div>
-                            <button className="link" onClick={self.onReset}>Reset</button>
                             <p>Current filter: {attributeName} = {queryString}</p>
+                            <button className="link" onClick={self.onReset}>Reset</button>
                         </div>
                         :
                         <div/>
