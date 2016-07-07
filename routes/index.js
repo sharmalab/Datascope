@@ -132,7 +132,7 @@ var _handleFilterRequest = function(req,res) {
 
     //var filteringAttributes = dataDescription.getFilteringAttributes();
     var filter = {};
-    filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
+    filter = req.params.filter ? JSON.parse(req.params.filter) : {};
     //req.session["f"] = filter;
     // Loop through each dimension and check if user requested a filter
 
@@ -175,7 +175,7 @@ var _tableNext = function(req, res){
     var dimensions = interactiveFilters.getDimensions(),
 
         filteringAttributes = dataDescription.getFilteringAttributes(),
-        state = req.param("state") ? JSON.parse(req.param("state")) : 1,
+        state = req.params.state ? JSON.parse(req.params.state) : 1,
         results = {};
     var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
     var dataTableAttributes = visualization.getAttributes("dataTable");
@@ -237,7 +237,7 @@ var _save = function(req, res){
 
 
     
-    var filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
+    var filter = req.params.filter ? JSON.parse(req.params.filter) : {};
 
     //console.log(filter);
     var result = _filterFunction(filter);
@@ -324,7 +324,7 @@ var _heat = function(req, res){
 
 
 var _populationInfo = function(req, res, next){
-    var filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
+    var filter = req.params.filter ? JSON.parse(req.params.filter) : {};
 
     //console.log(filter);
     var result = _filterFunction(filter);
@@ -335,7 +335,7 @@ var _populationInfo = function(req, res, next){
     return res.json({"Current": filteredLength, "Total": originalLength});
 };
 var _getStatistics = function(req, res) {
-    var attr = req.param("attr");
+    var attr = req.params.attr;
 
     var dimensions = interactiveFilters.getDimensions(),
         filteringAttributes = dataDescription.getFilteringAttributes();
@@ -365,8 +365,8 @@ var _getStatistics = function(req, res) {
             }
         }
     } else {
-        var attr1 = req.param("attr1");
-        var attr2 = req.param("attr2");
+        var attr1 = req.params.attr1;
+        var attr2 = req.params.attr2;
         if (attr1 && attr2) {
             // Pearson product-moment correlation
             statisticsToReturn["correlation"] = dl.cor(TABLE_DATA, attr1, attr2);
