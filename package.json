@@ -24,6 +24,7 @@
     "masonry-layout": "^3.3.2",
     "method-override": "^2.3.6",
     "morgan": "^1.7.0",
+    "multer": "^1.1.0",
     "node-jsx": "^0.11.0",
     "react": "^0.14.2",
     "react-bootstrap": "^0.27.3",

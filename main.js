@@ -12,12 +12,12 @@ var express = require("express"),
     process = require("process"),
     compress = require("compression")(),
     path = require("path"),
-    favicon = require('serve-favicon'),
-    morgan = require('morgan'),
+    favicon = require("serve-favicon"),
+    morgan = require("morgan"),
     bodyParser = require("body-parser"),
     methodOverride = require("method-override"),
     cookieParser = require("cookie-parser"),
-    cookieSession = require("cookie-session")
+    cookieSession = require("cookie-session");
 
 //App modules
 
@@ -102,6 +102,8 @@ app.use("/save", routes.save);
 app.use("/heat", visualizationRoutes.heat);
 app.use("/imageGrid/next", routes.imageGridNext);
 app.use("/statistics", routes.getStatistics);
+
+app.post('/uploadDataSource', routes.postDataSource);
 
 // Change this to the static directory of the index.html file
 app.get("/", routes.index);

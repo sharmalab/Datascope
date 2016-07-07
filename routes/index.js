@@ -11,7 +11,8 @@ var interactiveFilters = require("../modules/interactiveFilters"),
 //var TABLE_STATE = 0;
 
  // Load datalib.
-var dl = require('datalib');
+var dl = require('datalib'),
+    multer = require("multer");
 
 var CURRENTDATA = {};
 
@@ -389,8 +390,27 @@ var _getStatistics = function(req, res) {
 
     res.writeHead(200, {"content-type": "application/json"});
     res.end(JSON.stringify(statisticsToReturn));
+};
 
-}
+var _postDataSource = function (req, res) {
+    var storage = multer.diskStorage({
+        destination: function (request, file, callback) {
+            callback(null, './uploads');
+        },
+        filename: function (request, file, callback) {
+            callback(null, file.originalname)
+        }
+    });
+
+    var upload = multer({storage: storage}).single('file');
+
+    upload(req, res, function(err) {
+        if(err) {
+            res.status(500).send('Error uploading.');
+        }
+        res.status(200).send('Your File Uploaded.');
+    })
+};
 
 exports.index = function(req, res){
     res.render("index", { title: "Express" });
@@ -401,5 +421,6 @@ exports.tableNext = _tableNext;
 exports.imageGridNext = _imageGridNext;
 exports.save = _save;
 exports.getStatistics = _getStatistics;
+exports.postDataSource = _postDataSource;
 
 //exports.heat = _heat;
