@@ -30,14 +30,14 @@ var Dashboard = React.createClass({
 //        console.log("Waxzaaswoot!"); adsff
         self.unsubscribe = AppStore.listen(self.onFilter);
 
-        d3.json("config/interactiveFilters.json", function(err, data) {
+        d3.json("config/interactiveFilters", function(err, data) {
 
             if(err) {
                 console.log(err);
                 return;
             }
             interactiveFilters = data;
-            d3.json("config/visualization.json", function(err, data) {
+            d3.json("config/visualization", function(err, data) {
 
                 if(err) {
                     console.log(err);

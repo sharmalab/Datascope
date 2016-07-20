@@ -12,7 +12,7 @@ var visualization = (function(){
     var visualizationConfig = {},
         ndx = {},
         visualizations = [], //array containing information about all the visualizations
-        visualizationConfigPath = "public/config/visualization.json";
+        visualizationConfigPath = "config/visualization.json";
 
     var splomFilters = function(ndx, visualization){
         var attributes=visualization.attributes;

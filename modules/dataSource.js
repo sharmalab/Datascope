@@ -21,7 +21,7 @@ var dataSource = (function(){
     var dataSourceConfig = {},
         dataSources = [],
         source = {},
-        dataSourceConfigPath = "public/config/dataSource.json",
+        dataSourceConfigPath = "config/dataSource.json",
         _init,
         _loadDataSourceConfig,
         attributes = {},

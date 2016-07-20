@@ -23,7 +23,7 @@ var interactiveFilters = (function(){
 
 
     var interactiveFiltersConfig = {},
-        interactiveFiltersConfigPath = "public/config/interactiveFilters.json";
+        interactiveFiltersConfigPath = "config/interactiveFilters.json";
 
     var _loadConfig = function(path) {
         interactiveFiltersConfigPath = path || interactiveFiltersConfigPath;

@@ -5,6 +5,6 @@ node_modules/
 *.log
 *.bak
 *.back
-public/config/*
+config/*
 data/*
 bundle.js
