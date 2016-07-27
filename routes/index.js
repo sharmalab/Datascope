@@ -46,9 +46,9 @@ var _containsMarker = function (f, d) {
         && dLng <= fNorthEast.lng;
 }
 
-var _filterFunction = function(filter){
-    var dimensions = interactiveFilters.getDimensions();
-    var groups = interactiveFilters.getGroups();
+var _filterFunction = function(filter, dataSourceName){
+    var dimensions = interactiveFilters.getDimensions(dataSourceName);
+    var groups = interactiveFilters.getGroups(dataSourceName);
 
     var results = {};
 
@@ -97,7 +97,7 @@ var _filterFunction = function(filter){
 
     if(visualization.hasVisualization("imageGrid")){
 
-        CURRENTDATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+        CUdataSourceNameRRENTDATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
 
         var reqLength = 100;
         var paginate = true;
@@ -130,6 +130,7 @@ var _filterFunction = function(filter){
 //
 var _handleFilterRequest = function(req,res) {
 
+    var dataSourceName = req.query.dataSourceName;
 
     //var filteringAttributes = dataDescription.getFilteringAttributes();
     var filter = {};
@@ -139,13 +140,14 @@ var _handleFilterRequest = function(req,res) {
 
     // Assemble group results and and the maximum value for each group
     var results = {};
-    results = _filterFunction(filter);
+    results = _filterFunction(filter, dataSourceName);
     res.writeHead(200, { "content-type": "application/json" });
     res.end((JSON.stringify(results.results)));
 };
 
 var _imageGridNext = function(req, res){
-    var dimensions = interactiveFilters.getDimensions(),
+    var dataSourceName = req.query.dataSourceName;
+    var dimensions = interactiveFilters.getDimensions(dataSourceName),
         //groups = interactiveFilters.getGroups(),
         //filteringAttributes = dataDescription.getFilteringAttributes(),
         //state = req.param("state") ? JSON.parse(req.param("state")) : 1,
@@ -173,8 +175,9 @@ var _imageGridNext = function(req, res){
 };
 
 var _tableNext = function(req, res){
-    var dimensions = interactiveFilters.getDimensions(),
+    var dataSourceName = req.query.dataSourceName;
 
+    var dimensions = interactiveFilters.getDimensions(dataSourceName),
         filteringAttributes = dataDescription.getFilteringAttributes(),
         state = req.query.state ? JSON.parse(req.query.state) : 1,
         results = {};
@@ -224,7 +227,7 @@ var _tableNext = function(req, res){
         active: all.value(),
         state: state,
         draw: req.query.draw,
-        recordsTotal: dataSource.getTotalRecords(),         
+        recordsTotal: dataSource.getTotalRecords(dataSourceName),
         recordsFiltered: len
     };
     res.writeHead(200, {"content-type": "application/json"});
@@ -325,21 +328,23 @@ var _heat = function(req, res){
 
 
 var _populationInfo = function(req, res, next){
-    var filter = req.query.filter ? JSON.parse(req.query.filter) : {};
+    var filter = req.query.filter ? JSON.parse(req.query.filter) : {},
+        dataSourceName = req.query.dataSourceName;
 
-    //console.log(filter);
-    var result = _filterFunction(filter);
+    var result = _filterFunction(filter, dataSourceName);
     var filteredData = result.filteredData;
     var filteredLength = filteredData.length;
-    var originalLength = dataSource.getTotalRecords();
+    var originalLength = dataSource.getTotalRecords(dataSourceName);
 
     return res.json({"Current": filteredLength, "Total": originalLength});
 };
 var _getStatistics = function(req, res) {
-    var attr = req.query.attr;
+    var attr = req.query.attr,
+        dataSourceName = req.query.dataSourceName;
 
-    var dimensions = interactiveFilters.getDimensions(),
+    var dimensions = interactiveFilters.getDimensions(dataSourceName),
         filteringAttributes = dataDescription.getFilteringAttributes();
+
     var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
 
     var statisticsToReturn = {};
@@ -393,11 +398,13 @@ var _getStatistics = function(req, res) {
 };
 
 var _postDataSource = function (req, res) {
+    var dataSourceName;
     var storage = multer.diskStorage({
         destination: function (request, file, callback) {
-            callback(null, './public/config');
+            callback(null, './config');
         },
         filename: function (request, file, callback) {
+            dataSourceName = file.originalname;
             callback(null, file.originalname)
         }
     });
@@ -408,9 +415,31 @@ var _postDataSource = function (req, res) {
         if(err) {
             res.status(500).send('Error uploading.');
         }
+
+        _loadNewDataSource(dataSourceName);
+
         res.status(200).send('Your File Uploaded.');
     });
 };
+
+var _loadNewDataSource = function (dataSourceName) {
+    console.log(dataSourceName);
+
+    dataSource.init("config/" + dataSourceName);
+    var dataSourceName = dataSource.getDataSourceName();
+
+    dataSource.loadData(function (dataSourceName, data){
+        if(!data) {
+            console.log("Error! Couldn't fetch the data.");
+            process.exit(1);
+        }
+        //console.log(data);
+        console.log("Loaded New Data");
+        interactiveFilters.applyCrossfilter(data, dataSourceName);
+        visualization.applyCrossfilter(dataSourceName);
+        //visualizationRoutes.heatInit();
+    });
+}
 
 exports.index = function(req, res){
     res.render("index", { title: "Express" });

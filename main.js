@@ -59,16 +59,16 @@ function init(callback){
     interactiveFilters.init();
     visualization.init();
 
-    dataSource.loadData(function(data){
+    dataSource.loadData(function(dataSourceName, data){
         if(!data){
             console.log("Error! Couldn't fetch the data.");
             process.exit(1);
         }
         //console.log(data);
         console.log("Loaded Data");
-        interactiveFilters.applyCrossfilter(data);
-        visualization.applyCrossfilter();
-        visualizationRoutes.heatInit();
+        interactiveFilters.applyCrossfilter(data, dataSourceName);
+        visualization.applyCrossfilter(dataSourceName);
+        visualizationRoutes.heatInit(dataSourceName);
         console.log("Initialized filters");
         listen(callback);
     });

@@ -503,7 +503,8 @@ var FilteringAttribute = React.createClass({
     refreshStatistics: function(){
         var self = this;
         var attributeName = this.props.config.attributeName;
-        var url = "/statistics?attr=" + attributeName;
+        var url = "/statistics?attr=" + attributeName
+            + "&dataSourceName=" + globalDataSourceName;
         d3.json(url, function(d) {
             self.statistics[attributeName] = d;
             self.props.onToggleShow();

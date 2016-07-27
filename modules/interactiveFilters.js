@@ -12,15 +12,14 @@ var interactiveFilters = (function(){
     // - **dimensions** stores an array of dimensions.
     // - **groups** stores an array of groups.
     // - **ndx** is the crossfilter object.
-    var dimensions = {},
-        groups = {},
-        ndx,
+    var allDimensions = {},
+        allGroups = {},
+        allNdx = {},
         filter = {};
 
     var ATTRIBUTENAME = "attributeName";
 
     var filteringAttributes = dataDescription.getFilteringAttributes();
-
 
     var interactiveFiltersConfig = {},
         interactiveFiltersConfigPath = "config/interactiveFilters.json";
@@ -55,8 +54,10 @@ var interactiveFilters = (function(){
     //Applies crossfilter to all the ```dimensions``` and ```groups```
     //
 
-    var _applyCrossfilter = function(data){
-
+    var _applyCrossfilter = function(data, dataSourceName){
+        var dimensions = {},
+            groups = {},
+            ndx;
         
         ndx = crossfilter(data);
        
@@ -133,26 +134,32 @@ var interactiveFilters = (function(){
                 groups[filteringAttribute[ATTRIBUTENAME]] = group;
             }
         }
+
+        if (dataSourceName) {
+            allDimensions[dataSourceName] = dimensions;
+            allGroups[dataSourceName] = groups;
+            allNdx[dataSourceName] = ndx;
+        }
     };
 
     return {
         init: _init,
         applyCrossfilter: _applyCrossfilter,
-        addDimension: function(name,body){
-            dimensions[name] = body;
+        addDimension: function (name, body, dataSourceName) {
+            allDimensions[dataSourceName][name] = body;
 
         },
-        addGroup: function(name, body){
-            groups[name] = body;
+        addGroup: function (name, body, dataSourceName) {
+            allGroups[dataSourceName][name] = body;
         },
-        getDimensions: function(){
-            return dimensions;
+        getDimensions: function (dataSourceName) {
+            return allDimensions[dataSourceName];
         },
-        getGroups: function(){
-            return groups;
+        getGroups: function (dataSourceName) {
+            return allGroups[dataSourceName];
         },
-        getndx: function(){
-            return ndx;
+        getndx: function (dataSourceName){
+            return allNdx[dataSourceName];
         },
         getFilterConfig: _getFilterConfig
     };
