@@ -112,16 +112,12 @@ var _filterFunction = function(filter, dataSourceName){
             paginate: paginate,
             finalState: Math.floor(CURRENTDATA.length/reqLength)
         };
-
-
     }
 
     return {
         results: results,
         filteredData: filteredData
     };
-    //res.writeHead(200, { "content-type": "application/json" });
-    //res.end((JSON.stringify(results)));
 };
 
 //
@@ -131,11 +127,8 @@ var _filterFunction = function(filter, dataSourceName){
 var _handleFilterRequest = function(req,res) {
 
     var dataSourceName = req.query.dataSourceName;
-
-    //var filteringAttributes = dataDescription.getFilteringAttributes();
     var filter = {};
     filter = req.query.filter ? JSON.parse(req.query.filter) : {};
-    //req.session["f"] = filter;
     // Loop through each dimension and check if user requested a filter
 
     // Assemble group results and and the maximum value for each group
@@ -148,9 +141,6 @@ var _handleFilterRequest = function(req,res) {
 var _imageGridNext = function(req, res){
     var dataSourceName = req.query.dataSourceName;
     var dimensions = interactiveFilters.getDimensions(dataSourceName),
-        //groups = interactiveFilters.getGroups(),
-        //filteringAttributes = dataDescription.getFilteringAttributes(),
-        //state = req.param("state") ? JSON.parse(req.param("state")) : 1,
         results = {},
         imageGridData = dimensions["imageGrid"].top(Infinity);
 
@@ -203,12 +193,10 @@ var _tableNext = function(req, res){
     var start = 1*req.query.start;
     var length = 1*req.query.length;
 
-    //console.log(start);
-    //console.log(length);
     var end = start+length;
-    //console.log(end);
+
     TABLE_DATA = TABLE_DATA.slice(start, start+length);
-    //console.log(TABLE_DATA.length);
+
     var DATA_ARRAY = [];
     for(var i in TABLE_DATA){
 
@@ -234,98 +222,14 @@ var _tableNext = function(req, res){
     res.end(JSON.stringify(results));
 };
 
-var _save = function(req, res){
-
-
-
-
-
-    
+var _save = function(req, res) {
     var filter = req.query.filter ? JSON.parse(req.query.filter) : {};
-
-    //console.log(filter);
     var result = _filterFunction(filter);
     var filteredData = result.filteredData;
+
     res.writeHead(200, {"content-type": "application/json"});
     res.end(JSON.stringify(filteredData));
-
-
-
-    /*
-    var requiredAttributes = req.param("attributes") ? JSON.parse(req.param("attributes")) : {};
-    var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
-    if(requiredAttributes){
-        console.log(typeof TABLE_DATA);
-        res.writeHead(200, {"content-type": "application/json"});
-        res.end(JSON.stringify(TABLE_DATA));
-        return;
-    } 
-    requiredAttributes = requiredAttributes["list"];
-    var type = requiredAttributes["type"] || "csv"; 
-    var results = {};
-
-    
-    if(type == "json"){
-        res.writeHead(200,{"content-type": "application/json"});
-        var EXPORT_DATA = [];
-        for(var i in TABLE_DATA){
-            var row = TABLE_DATA[i];
-            EXPORT_DATA.push({});
-            for(var j in row){
-                for(var k in requiredAttributes["list"]){
-                    if(j == requiredAttributes["list"][k]){
-
-                        //var col = row[j];
-                        EXPORT_DATA[i][j] = row[j];
-                    }
-                }
-            }
-        }
-
-        res.end(JSON.stringify(EXPORT_DATA));
-    }
-    else if(type == "csv"){
-        res.writeHead(200,{"content-type": "text/csv"});
-
-        json2csv({data: TABLE_DATA, fields: requiredAttributes}, function(err, csv){
-            if(err){
-                console.log(err);
-            }
-
-            res.end((csv));
-        });
-
-    }
-    /*
-    console.log(EXPORT_DATA)
-
-    var attributes = Object.keys(TABLE_DATA[0])
-    //console.log(attributes)
-    */
 };
-/*
-var _heatInit = function(){
-            var ndx = interactiveFilters.getndx();
-            var dimension;
-            var xAttr = "AgeatInitialDiagnosis";
-            var yAttr = "KarnofskyScore";
-
-            dimension = ndx.dimension(function(d){
-                return ([+d[xAttr]*1, +d[yAttr]*1]);
-            });
-            var group = dimension.group(); 
-}
-*/
-/*
-var _heat = function(req, res){
-
-    var results = {visualization: {values: group.all(),top: group.top(1)[0].value}};
-
-    res.writeHead(200, {"content-type": "application/json" });
-    res.end((JSON.stringify(results.re)));
-};
-*/
-
 
 var _populationInfo = function(req, res, next){
     var filter = req.query.filter ? JSON.parse(req.query.filter) : {},
@@ -338,6 +242,7 @@ var _populationInfo = function(req, res, next){
 
     return res.json({"Current": filteredLength, "Total": originalLength});
 };
+
 var _getStatistics = function(req, res) {
     var attr = req.query.attr,
         dataSourceName = req.query.dataSourceName;
@@ -429,15 +334,15 @@ var _loadNewDataSource = function (dataSourceName) {
     var dataSourceName = dataSource.getDataSourceName();
 
     dataSource.loadData(function (dataSourceName, data){
-        if(!data) {
+        if (!data) {
             console.log("Error! Couldn't fetch the data.");
             process.exit(1);
         }
-        //console.log(data);
+
         console.log("Loaded New Data");
         interactiveFilters.applyCrossfilter(data, dataSourceName);
         visualization.applyCrossfilter(dataSourceName);
-        //visualizationRoutes.heatInit();
+        //visualizationRoutes.heatInit(dataSourceName);
     });
 }
 
@@ -451,5 +356,3 @@ exports.imageGridNext = _imageGridNext;
 exports.save = _save;
 exports.getStatistics = _getStatistics;
 exports.postDataSource = _postDataSource;
-
-//exports.heat = _heat;

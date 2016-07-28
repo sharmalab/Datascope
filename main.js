@@ -64,7 +64,7 @@ function init(callback){
             console.log("Error! Couldn't fetch the data.");
             process.exit(1);
         }
-        //console.log(data);
+
         console.log("Loaded Data");
         interactiveFilters.applyCrossfilter(data, dataSourceName);
         visualization.applyCrossfilter(dataSourceName);
