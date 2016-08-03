@@ -15,6 +15,7 @@ var interactiveFilters = (function(){
     var allDimensions = {},
         allGroups = {},
         allNdx = {},
+        allDataSources = [],
         filter = {};
 
     var ATTRIBUTENAME = "attributeName";
@@ -33,6 +34,10 @@ var interactiveFilters = (function(){
     var _init = function(path){
         _loadConfig(path);
     };
+
+    var _getInteractiveFiltersConfig = function () {
+        return interactiveFiltersConfig;
+    }
 
     var _getFilterConfig = function(attributeName){
         for(var i in interactiveFiltersConfig){
@@ -58,9 +63,12 @@ var interactiveFilters = (function(){
         var dimensions = {},
             groups = {},
             ndx;
-        
-        ndx = crossfilter(data);
-       
+
+        if (data) {
+            ndx = crossfilter(data);
+        } else {
+            ndx = allNdx[dataSourceName];
+        }
       
         for(var attr in filteringAttributes){
 
@@ -81,7 +89,7 @@ var interactiveFilters = (function(){
                         var xAttr = fconfig.visualization.xAttribute,
                             yAttr = fconfig.visualization.yAttribute;
 
-                        if (d[xAttr] && d[yAttr]) {
+                    if (d[xAttr] && d[yAttr]) {
                             xDesc = _getFilterDescription(xAttr)
                             yDesc = _getFilterDescription(yAttr)
 
@@ -139,6 +147,9 @@ var interactiveFilters = (function(){
             allDimensions[dataSourceName] = dimensions;
             allGroups[dataSourceName] = groups;
             allNdx[dataSourceName] = ndx;
+            if (allDataSources.indexOf(dataSourceName) === -1) {
+                allDataSources.push(dataSourceName);
+            }
         }
     };
 
@@ -161,7 +172,11 @@ var interactiveFilters = (function(){
         getndx: function (dataSourceName){
             return allNdx[dataSourceName];
         },
-        getFilterConfig: _getFilterConfig
+        getAllDataSources: function () {
+            return allDataSources;
+        },
+        getFilterConfig: _getFilterConfig,
+        getInteractiveFiltersConfig: _getInteractiveFiltersConfig
     };
 
 })();

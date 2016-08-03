@@ -103,7 +103,9 @@ app.use("/heat", visualizationRoutes.heat);
 app.use("/imageGrid/next", routes.imageGridNext);
 app.use("/statistics", routes.getStatistics);
 
-app.post('/uploadDataSource', routes.postDataSource);
+app.post('/uploadDataSource', rest.postDataSource);
+app.post('/uploadVisualization', rest.postVisualization);
+app.post('/uploadInteractiveFilters', rest.postInteractiveFilters);
 
 // Change this to the static directory of the index.html file
 app.get("/", routes.index);

@@ -11,8 +11,7 @@ var interactiveFilters = require("../modules/interactiveFilters"),
 //var TABLE_STATE = 0;
 
  // Load datalib.
-var dl = require('datalib'),
-    multer = require("multer");
+var dl = require('datalib');
 
 var CURRENTDATA = {};
 
@@ -92,12 +91,12 @@ var _filterFunction = function(filter, dataSourceName){
     Object.keys(groups).forEach(function(key) {
         results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value};
     });
-    var filteringAttributes = dataDescription.getFilteringAttributes();
-    var filteredData = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+    var interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
+    var filteredData = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
 
     if(visualization.hasVisualization("imageGrid")){
 
-        CUdataSourceNameRRENTDATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+        CUdataSourceNameRRENTDATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
 
         var reqLength = 100;
         var paginate = true;
@@ -168,10 +167,10 @@ var _tableNext = function(req, res){
     var dataSourceName = req.query.dataSourceName;
 
     var dimensions = interactiveFilters.getDimensions(dataSourceName),
-        filteringAttributes = dataDescription.getFilteringAttributes(),
         state = req.query.state ? JSON.parse(req.query.state) : 1,
         results = {};
-    var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+    var interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
+    var TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
     var dataTableAttributes = visualization.getAttributes("dataTable");
 
     /* if the query contains a value to be searched,
@@ -248,9 +247,9 @@ var _getStatistics = function(req, res) {
         dataSourceName = req.query.dataSourceName;
 
     var dimensions = interactiveFilters.getDimensions(dataSourceName),
-        filteringAttributes = dataDescription.getFilteringAttributes();
+        interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
 
-    var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+    var TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
 
     var statisticsToReturn = {};
     if (attr) {
@@ -302,50 +301,6 @@ var _getStatistics = function(req, res) {
     res.end(JSON.stringify(statisticsToReturn));
 };
 
-var _postDataSource = function (req, res) {
-    var dataSourceName;
-    var storage = multer.diskStorage({
-        destination: function (request, file, callback) {
-            callback(null, './config');
-        },
-        filename: function (request, file, callback) {
-            dataSourceName = file.originalname;
-            callback(null, file.originalname)
-        }
-    });
-
-    var upload = multer({storage: storage}).single('file');
-
-    upload(req, res, function(err) {
-        if(err) {
-            res.status(500).send('Error uploading.');
-        }
-
-        _loadNewDataSource(dataSourceName);
-
-        res.status(200).send('Your File Uploaded.');
-    });
-};
-
-var _loadNewDataSource = function (dataSourceName) {
-    console.log(dataSourceName);
-
-    dataSource.init("config/" + dataSourceName);
-    var dataSourceName = dataSource.getDataSourceName();
-
-    dataSource.loadData(function (dataSourceName, data){
-        if (!data) {
-            console.log("Error! Couldn't fetch the data.");
-            process.exit(1);
-        }
-
-        console.log("Loaded New Data");
-        interactiveFilters.applyCrossfilter(data, dataSourceName);
-        visualization.applyCrossfilter(dataSourceName);
-        //visualizationRoutes.heatInit(dataSourceName);
-    });
-}
-
 exports.index = function(req, res){
     res.render("index", { title: "Express" });
 };
@@ -355,4 +310,3 @@ exports.tableNext = _tableNext;
 exports.imageGridNext = _imageGridNext;
 exports.save = _save;
 exports.getStatistics = _getStatistics;
-exports.postDataSource = _postDataSource;
