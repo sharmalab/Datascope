@@ -6,7 +6,8 @@
 var interactiveFilters = require("../modules/interactiveFilters"),
     dataSource          = require("../modules/dataSource"),
     dataDescription     = require("../modules/dataDescription"),
-    visualization       = require("../modules/visualization");
+    visualization       = require("../modules/visualization"),
+    customStatistics    = require("../modules/customStatistics");
 
 //var TABLE_STATE = 0;
 
@@ -269,8 +270,16 @@ var _getStatistics = function(req, res) {
             }
 
             if (statistics.constructor === Array) {
-                statistics.forEach(function(stat){
-                    statisticsToReturn[stat] = summary[stat];
+                statistics.forEach(function(stat) {
+                    if (stat.startsWith("custom")) {
+                        var statName = stat.split("-")[1];
+                        if (statName in global && typeof global[statName] === "function") {
+                            var fn = global[statName];
+                            statisticsToReturn[statName] = fn(TABLE_DATA, attr);
+                        }
+                    } else {
+                        statisticsToReturn[stat] = summary[stat];
+                    }
                 })
             }
         }
