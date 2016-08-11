@@ -4,7 +4,8 @@ var DataTable = require("./DataTable.jsx"),
     ImageGrid = require("./ImageGrid.jsx"),
     Splom = require("./Splom.jsx"),
     GeoChoroplethMap = require("./GeoChoroplethMap.jsx"),
-    MarkerMap = require("./MarkerMap.jsx");
+    MarkerMap = require("./MarkerMap.jsx"),
+    TwoDimStat = require("./TwoDimStat.jsx");
 
 var Visualization = React.createClass({
     render: function(){
@@ -46,6 +47,10 @@ var Visualization = React.createClass({
         case "markerMap":
             return(
                 <MarkerMap config={this.props.config} currData={this.props.currData}/>
+            );
+        case "twoDimStat":
+            return (
+                <TwoDimStat config={this.props.config} currData={this.props.currData}/>
             );
         default:
             return(

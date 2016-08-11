@@ -287,20 +287,46 @@ var _getStatistics = function(req, res) {
         var attr1 = req.query.attr1;
         var attr2 = req.query.attr2;
         if (attr1 && attr2) {
-            // Pearson product-moment correlation
-            statisticsToReturn["correlation"] = dl.cor(TABLE_DATA, attr1, attr2);
-            // Spearman rank correlation of two arrays of values
-            statisticsToReturn["rankCorrelation"] = dl.cor.rank(TABLE_DATA, attr1, attr2);
-            // Removed since is not working // distance correlation of two arrays of numbers
-            // statisticsToReturn["distanceCorrelation"] = dl.cor.dist(TABLE_DATA, attr1, attr2);
-            // vector dot product of two arrays of numbers
-            statisticsToReturn["dotProduct"] = dl.dot(TABLE_DATA, attr1, attr2);
-            //vector Euclidian distance between two arrays of numbers
-            statisticsToReturn["euclidianDistance"] = dl.dist(TABLE_DATA, attr1, attr2);
-            // covariance between two arrays of numbers
-            statisticsToReturn["covariance"] = dl.covariance(TABLE_DATA, attr1, attr2);
-            // Cohen's d effect size between two arrays of numbers
-            statisticsToReturn["cohensd"] = dl.cohensd(TABLE_DATA, attr1, attr2);
+            var statistics = visualization.getStatistics("twoDimStat");
+            if (statistics.constructor === String) {
+                if (statistics == "default") {
+                    statistics = ["correlation", "rankCorrelation", /*"distanceCorrelation",*/ "dotProduct",
+                        "euclidianDistance", "covariance", "cohensd"];
+                }
+            }
+
+            if (statistics.constructor === Array) {
+                statistics.forEach(function(stat) {
+                    if (stat.startsWith("custom")) {
+                        var statName = stat.split("-")[1];
+                        if (statName in global && typeof global[statName] === "function") {
+                            var fn = global[statName];
+                            statisticsToReturn[statName] = fn(TABLE_DATA, attr1, attr2);
+                        }
+                    } else if (stat === "correlation") {
+                        // Pearson product-moment correlation
+                        statisticsToReturn["correlation"] = dl.cor(TABLE_DATA, attr1, attr2);
+                    } else if (stat === "rankCorrelation") {
+                        // Spearman rank correlation of two arrays of values
+                        statisticsToReturn["rankCorrelation"] = dl.cor.rank(TABLE_DATA, attr1, attr2);
+                    } else if (stat === "distanceCorrelation") {
+                        // Removed since is not working // distance correlation of two arrays of numbers
+                        // statisticsToReturn["distanceCorrelation"] = dl.cor.dist(TABLE_DATA, attr1, attr2);
+                    } else if (stat === "dotProduct") {
+                        // vector dot product of two arrays of numbers
+                        statisticsToReturn["dotProduct"] = dl.dot(TABLE_DATA, attr1, attr2);
+                    } else if (stat === "euclidianDistance") {
+                        //vector Euclidian distance between two arrays of numbers
+                        statisticsToReturn["euclidianDistance"] = dl.dist(TABLE_DATA, attr1, attr2);
+                    } else if (stat === "covariance") {
+                        // covariance between two arrays of numbers
+                        statisticsToReturn["covariance"] = dl.covariance(TABLE_DATA, attr1, attr2);
+                    } else if (stat === "cohensd") {
+                        // Cohen's d effect size between two arrays of numbers
+                        statisticsToReturn["cohensd"] = dl.cohensd(TABLE_DATA, attr1, attr2);
+                    }
+                });
+            }
         } else {
             statisticsToReturn = dl.summary(TABLE_DATA);
         }

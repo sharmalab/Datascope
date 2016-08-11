@@ -227,7 +227,15 @@ var visualization = (function(){
         },
         getVisualizationType: function(){
             return visualizationConfig.type;
-        }, 
+        },
+        getStatistics: function (visualizationType) {
+            for(var i in visualizations){
+                var visualization = visualizations[i];
+                if(visualization.visualizationType == visualizationType){
+                    return visualization.statistics;
+                }
+            }
+        },
         hasVisualization: function(visualizationType){
             for(var i in visualizations){
                 var visualization = visualizations[i];
