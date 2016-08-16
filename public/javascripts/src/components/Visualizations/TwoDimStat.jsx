@@ -2,6 +2,9 @@ var React = require("react");
 
 var StatisticsTable = require("../StatisticsTable.jsx");
 
+/*
+    React component for creating a two dimensional statistic visualization.
+*/
 var TwoDimStat = React.createClass({
     getInitialState: function () {
         return {cols: [], data: []};

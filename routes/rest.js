@@ -17,6 +17,9 @@ exports.index = function(req, res){
 	res.end((JSON.stringify(data)));
 };
 
+/*
+    Route for getting the interactive filters configuration file.
+*/
 exports.getInteractiveFiltersConfig = function (req, res) {
 	var file = fs.readFileSync("config/interactiveFilters.json");
 	data = JSON.parse(file);
@@ -24,6 +27,9 @@ exports.getInteractiveFiltersConfig = function (req, res) {
 	res.end((JSON.stringify(data)));
 }
 
+/*
+    Route for returning the visualizations configuration file.
+*/
 exports.getVisualizationConfig = function (req, res) {
 	var file = fs.readFileSync("config/visualization.json");
 	data = JSON.parse(file);
@@ -31,6 +37,9 @@ exports.getVisualizationConfig = function (req, res) {
 	res.end((JSON.stringify(data)));
 }
 
+/*
+    Route for returning the dashboard configuration file.
+*/
 exports.getDashboardConfig = function (req, res) {
 	var file = fs.readFileSync("config/dashboard.json");
 	data = JSON.parse(file);
@@ -38,6 +47,10 @@ exports.getDashboardConfig = function (req, res) {
 	res.end((JSON.stringify(data)));
 }
 
+/*
+    Route for posting a new data source configuration file.
+    It uploads the new file in '/config' folder and then creates a new dashboard endpoint using the new dataset.
+*/
 exports.postDataSource = function (req, res) {
     var fileName;
     var storage = multer.diskStorage({
@@ -63,6 +76,10 @@ exports.postDataSource = function (req, res) {
     });
 };
 
+/*
+    Helper function for posting a new data source configuration file.
+    It loads the new dataset and then creates a new dashboard endpoint using it.
+*/
 var _loadNewDataSource = function (fileName) {
     dataSource.init("config/" + fileName);
     var dataSourceName = dataSource.getDataSourceName();
@@ -80,6 +97,11 @@ var _loadNewDataSource = function (fileName) {
     });
 }
 
+/*
+    Route for posting a new visualizations configuration file.
+    It uploads the new file in the '/congfig' folder. When the user will reload its browser, he will get the new
+    visualizations.
+*/
 exports.postVisualization = function (req, res) {
     var storage = multer.diskStorage({
         destination: function (request, file, callback) {
@@ -111,6 +133,11 @@ exports.postVisualization = function (req, res) {
     });
 }
 
+/*
+    Route for posting a new interactive filters configuration file.
+    It uploads the new file in the '/congfig' folder. When the user will reload its browser, he will get the new
+    interactive filters.
+*/
 exports.postInteractiveFilters = function (req, res) {
 	var storage = multer.diskStorage({
         destination: function (request, file, callback) {

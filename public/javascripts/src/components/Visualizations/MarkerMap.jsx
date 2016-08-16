@@ -2,6 +2,9 @@
 var React = require("react");
 var AppActions = require("../../actions/AppActions.jsx");
 
+/*
+    React component for creating a Marker map visualization.
+*/
 var MarkerMap = React.createClass({
     getInitialState: function () {
         return({dimension: null, group: null, isFilterActive: false});

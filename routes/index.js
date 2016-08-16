@@ -11,7 +11,7 @@ var interactiveFilters = require("../modules/interactiveFilters"),
 
 //var TABLE_STATE = 0;
 
- // Load datalib.
+// Load datalib.
 var dl = require('datalib');
 
 var CURRENTDATA = {};
@@ -243,6 +243,12 @@ var _populationInfo = function(req, res, next){
     return res.json({"Current": filteredLength, "Total": originalLength});
 };
 
+/*
+    Function that gets called when the user requires one or more one dimensional statistic for an attribute or
+    one or more two dimensional statistcs for two attributes.
+    It uses datalib for usual statistics (mean, median, count, etc.) and custom statistics defined in
+    'customStatistics.js' file.
+*/
 var _getStatistics = function(req, res) {
     var attr = req.query.attr,
         dataSourceName = req.query.dataSourceName;

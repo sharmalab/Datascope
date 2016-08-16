@@ -533,13 +533,9 @@ var FilteringAttribute = React.createClass({
         var iconWidth = "20px";
 
         var isFilterActive = this.isFilterActive();
-        //console.log(isFilterActive);
         var filterFillColor = isFilterActive ? "#fff": "#000";
 
-        //console.log(showChart);
-        //console.log(this.props.currData);
         if(this.props.full === true){
-            //console.log("FULL!");
             return (
                 <div className="grid-item" style={{"margin": 10}} key={self.props.config.attributeName}>
                

@@ -2,6 +2,9 @@
 var React = require("react");
 var AppActions = require("../../actions/AppActions.jsx");
 
+/*
+    React component for creating a Cloropleth Map visualization based on a geo json file.
+*/
 var GeoChoroplethMap = React.createClass({
     getInitialState: function () {
         return({dimension: null, group: null, isFilterActive: false});
