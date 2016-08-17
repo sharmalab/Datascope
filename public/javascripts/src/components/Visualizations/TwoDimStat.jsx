@@ -9,7 +9,7 @@ var TwoDimStat = React.createClass({
     getInitialState: function () {
         return {cols: [], data: []};
     },
-    componentDidMount: function () {
+    componentWillReceiveProps: function () {
         var self = this;
         var attr1 = this.props.config.attributes.attr1;
         var attr2 = this.props.config.attributes.attr2;
