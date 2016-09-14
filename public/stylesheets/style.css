@@ -48,6 +48,9 @@ footer {
 }
 */
 
+.filterRangeInput{
+    color: #333;
+}
 
 .navbar-options{
 
@@ -238,8 +241,16 @@ table#dataTable{
 .dataTables_scrollBody{
     border: 1px solid #333;
     font-size: 11px;
-
+    width: 100%;
 }
+
+
+//Fix datatable for small width tables
+.dataTables_scrollHeadInner{
+    width: 100%;
+}
+
+
 tr{
     cursor: pointer;
 }
@@ -276,7 +287,7 @@ tr{
 
 #visualization{
     //padding-top: 12px;
-    margin: 0 auto;
+   // margin: 0 auto;
 }
 
 #interactiveFiltersPanelSlider{

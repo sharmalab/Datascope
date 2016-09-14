@@ -129,9 +129,9 @@ var ChartAddons = React.createClass({
                     <div className="chartAddons">
                         <label>
                         Range:
-                        <input type="text" onChange={this.handleBeg} onKeyDown={this.filter} id={"filterBeg"+this.props.config.attributeName}/>
+                        <input type="text" onChange={this.handleBeg} onKeyDown={this.filter} className="filterRangeInput" id={"filterBeg"+this.props.config.attributeName}/>
                         -
-                        <input type="text" onChange={this.handleEnd} onKeyDown={this.filter} id={"filterEnd"+this.props.config.attributeName}/>
+                        <input type="text" onChange={this.handleEnd} onKeyDown={this.filter} className="filterRangeInput" id={"filterEnd"+this.props.config.attributeName}/>
                         </label>
                     </div>
                     <div className="chartAddons">
