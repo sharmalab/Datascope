@@ -21,13 +21,13 @@ var dataSource = (function(){
     var dataSourceConfig = {},
         dataSources = [],
         source = {},
-        dataSourceConfigPath = "public/config/dataSource.json",
+        dataSourceConfigPath = "config/dataSource.json",
         _init,
         _loadDataSourceConfig,
         attributes = {},
         dataSourceSchema,
         validation,
-        totalRecordsSize = 0,
+        totalRecordsSize = {},
         DATA = {},
         keys = [];
 
@@ -130,7 +130,7 @@ var dataSource = (function(){
                     count++;
                 	//console.log(row)
                 }
-                totalRecordsSize = count;
+                totalRecordsSize[_getDataSourceName()] = count;
                 callback(merged);
             });
 
@@ -173,7 +173,6 @@ var dataSource = (function(){
 
     var _loadData = function(callback){
         //Load data from sources
-        //console.log("...")
         if(dataSources.length > 1){
             _loadDataSources(dataSources, callback);
         }
@@ -182,34 +181,31 @@ var dataSource = (function(){
 
                 var count=0;
                 for(var i in data){
-                	var row = data[i];
+                    var row = data[i];
 
-                	for(var attr in row){
-                		flag = false;
-                		var x = attributes[attr]
-                		if(x === undefined){
-                			//delete row[attr]
-                		}
-                	}
-                	data[i] = row
+                    for(var attr in row){
+                        flag = false;
+                        var x = attributes[attr]
+                        if(x === undefined){
+                            //delete row[attr]
+                        }
+                    }
+                    data[i] = row
                     count++;
-                	//console.log(row)
                 }
-                totalRecordsSize = count;
-                callback(data);
+                totalRecordsSize[_getDataSourceName()] = count;
+                callback(_getDataSourceName(), data);
             });
-
         }
-        //Merge them
-        //_mergeDataSources(dataSources);
+    };
 
-
-        //loadDataSource(dataSources, callback);
-
+    var _getDataSourceName = function() {
+        return dataSourcesConfig["dataSourceName"] || "main";
     };
 
     return{
         loadDataSourceConfig: _loadDataSourceConfig,
+        getDataSourceName: _getDataSourceName,
         init: function(path){
             _loadDataSourceConfig(path);
             var sources = _init();
@@ -222,10 +218,11 @@ var dataSource = (function(){
             dataSourceSchema = JSON.parse(fs.readFileSync("./schemas/dataSourceSchema.json"));
             validation = schemaValidator.validate(dataSourceConfig, dataSourceSchema);
         },
-        getTotalRecords: function(){
+        getTotalRecords: function(dataSourceName) {
             //console.log(totalRecordsSize)
-            return totalRecordsSize;
+            return totalRecordsSize[dataSourceName];
         },
+        //loadData: _loadData,
         loadData: _loadData
     };
 })();

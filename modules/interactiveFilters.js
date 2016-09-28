@@ -12,18 +12,18 @@ var interactiveFilters = (function(){
     // - **dimensions** stores an array of dimensions.
     // - **groups** stores an array of groups.
     // - **ndx** is the crossfilter object.
-    var dimensions = {},
-        groups = {},
-        ndx,
+    var allDimensions = {},
+        allGroups = {},
+        allNdx = {},
+        allDataSources = [],
         filter = {};
 
     var ATTRIBUTENAME = "attributeName";
 
     var filteringAttributes = dataDescription.getFilteringAttributes();
 
-
     var interactiveFiltersConfig = {},
-        interactiveFiltersConfigPath = "public/config/interactiveFilters.json";
+        interactiveFiltersConfigPath = "config/interactiveFilters.json";
 
     var _loadConfig = function(path) {
         interactiveFiltersConfigPath = path || interactiveFiltersConfigPath;
@@ -34,6 +34,10 @@ var interactiveFilters = (function(){
     var _init = function(path){
         _loadConfig(path);
     };
+
+    var _getInteractiveFiltersConfig = function () {
+        return interactiveFiltersConfig;
+    }
 
     var _getFilterConfig = function(attributeName){
         for(var i in interactiveFiltersConfig){
@@ -55,11 +59,16 @@ var interactiveFilters = (function(){
     //Applies crossfilter to all the ```dimensions``` and ```groups```
     //
 
-    var _applyCrossfilter = function(data){
+    var _applyCrossfilter = function(data, dataSourceName){
+        var dimensions = {},
+            groups = {},
+            ndx;
 
-        
-        ndx = crossfilter(data);
-       
+        if (data) {
+            ndx = crossfilter(data);
+        } else {
+            ndx = allNdx[dataSourceName];
+        }
       
         for(var attr in filteringAttributes){
 
@@ -80,7 +89,7 @@ var interactiveFilters = (function(){
                         var xAttr = fconfig.visualization.xAttribute,
                             yAttr = fconfig.visualization.yAttribute;
 
-                        if (d[xAttr] && d[yAttr]) {
+                    if (d[xAttr] && d[yAttr]) {
                             xDesc = _getFilterDescription(xAttr)
                             yDesc = _getFilterDescription(yAttr)
 
@@ -133,28 +142,41 @@ var interactiveFilters = (function(){
                 groups[filteringAttribute[ATTRIBUTENAME]] = group;
             }
         }
+
+        if (dataSourceName) {
+            allDimensions[dataSourceName] = dimensions;
+            allGroups[dataSourceName] = groups;
+            allNdx[dataSourceName] = ndx;
+            if (allDataSources.indexOf(dataSourceName) === -1) {
+                allDataSources.push(dataSourceName);
+            }
+        }
     };
 
     return {
         init: _init,
         applyCrossfilter: _applyCrossfilter,
-        addDimension: function(name,body){
-            dimensions[name] = body;
+        addDimension: function (name, body, dataSourceName) {
+            allDimensions[dataSourceName][name] = body;
 
         },
-        addGroup: function(name, body){
-            groups[name] = body;
+        addGroup: function (name, body, dataSourceName) {
+            allGroups[dataSourceName][name] = body;
         },
-        getDimensions: function(){
-            return dimensions;
+        getDimensions: function (dataSourceName) {
+            return allDimensions[dataSourceName];
         },
-        getGroups: function(){
-            return groups;
+        getGroups: function (dataSourceName) {
+            return allGroups[dataSourceName];
         },
-        getndx: function(){
-            return ndx;
+        getndx: function (dataSourceName){
+            return allNdx[dataSourceName];
         },
-        getFilterConfig: _getFilterConfig
+        getAllDataSources: function () {
+            return allDataSources;
+        },
+        getFilterConfig: _getFilterConfig,
+        getInteractiveFiltersConfig: _getInteractiveFiltersConfig
     };
 
 })();

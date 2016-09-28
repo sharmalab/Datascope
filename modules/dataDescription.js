@@ -15,7 +15,7 @@ var dataDescription = (function(){
         visualAttributes = [],
         dataDescriptionConfig = {},
         attributes = {},
-        dataDescriptionConfigPath="public/config/dataDescription.json",
+        dataDescriptionConfigPath="config/dataDescription.json",
         _init,
         _loadConfig;
 

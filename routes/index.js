@@ -6,59 +6,67 @@
 var interactiveFilters = require("../modules/interactiveFilters"),
     dataSource          = require("../modules/dataSource"),
     dataDescription     = require("../modules/dataDescription"),
-    visualization       = require("../modules/visualization");
+    visualization       = require("../modules/visualization"),
+    customStatistics    = require("../modules/customStatistics");
 
 //var TABLE_STATE = 0;
 
- // Load datalib.
+// Load datalib.
 var dl = require('datalib');
 
 var CURRENTDATA = {};
 
 
-/*
-var RangedTwoDimensionalFilter = function(filter){
+var _containsTwoDimensional = function (f, d) {
+    var fromBottomLeft;
 
+    if(f[0] instanceof Array) {
+        fromBottomLeft = [
+            [Math.min(f[0][0], f[1][0]), Math.min(f[0][1], f[1][1])],
+            [Math.max(f[0][0], f[1][0]), Math.max(f[0][1], f[1][1])]
+        ];
+    } else {
+        fromBottomLeft = [[filter[0], -Infinity], [filter[1], Infinity]];
+    }
+
+    var x = d[0];
+    var y = d[1];
+
+    return x >= fromBottomLeft[0][0] && x < fromBottomLeft[1][0] && y >= fromBottomLeft[0][1] && y < fromBottomLeft[1][1];
 };
-*/
 
+var _containsMarker = function (f, d) {
+    var fSouthWest=f._southWest,fNorthEast=f._northEast;
+    var dLatLng = d.split(",");
+    var dLat = dLatLng[0], dLng = dLatLng[1];
 
-var _filterFunction = function(filter){
-    var dimensions = interactiveFilters.getDimensions();
-    var groups = interactiveFilters.getGroups();
+    return dLat >= fSouthWest.lat
+        && dLat <= fNorthEast.lat
+        && dLng >= fSouthWest.lng
+        && dLng <= fNorthEast.lng;
+}
+
+var _filterFunction = function(filter, dataSourceName){
+    var dimensions = interactiveFilters.getDimensions(dataSourceName);
+    var groups = interactiveFilters.getGroups(dataSourceName);
 
     var results = {};
 
     Object.keys(dimensions).forEach(function (dim) {
 
         if (filter[dim]) {
-
-            if(filter[dim].type){
-                dimensions[dim].filterFunction(function(d){
-
-                    var f = filter[dim].filters[0];
-
-
-                    var fromBottomLeft;
-
-                    if(f[0] instanceof Array) {
-                        fromBottomLeft = [
-							[Math.min(f[0][0], f[1][0]), Math.min(f[0][1], f[1][1])],
-							[Math.max(f[0][0], f[1][0]), Math.max(f[0][1], f[1][1])]			
-                        ];
-                    } else {
-                        fromBottomLeft = [[filter[0], -Infinity], [filter[1], Infinity]];
-                    }
-					
-					
-                    var x = d[0];
-                    var y = d[1];
-
-
-                    return x >= fromBottomLeft[0][0] && x < fromBottomLeft[1][0] && y >= fromBottomLeft[0][1] && y < fromBottomLeft[1][1];
-
-                });
-
+            if(filter[dim].type) {
+                var f = filter[dim].filters[0];
+                if (filter[dim].type === "marker") {
+                    dimensions[dim].filterFunction(function (d) {
+                        return _containsMarker (f, d);
+                    });
+                }
+                else {
+                    dimensions[dim].filterFunction(function (d) {
+                        return _containsTwoDimensional (f, d);
+                    });
+                }
             }
             else {
                 //array
@@ -84,12 +92,12 @@ var _filterFunction = function(filter){
     Object.keys(groups).forEach(function(key) {
         results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value};
     });
-    var filteringAttributes = dataDescription.getFilteringAttributes();
-    var filteredData = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+    var interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
+    var filteredData = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
 
     if(visualization.hasVisualization("imageGrid")){
 
-        CURRENTDATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+        CUdataSourceNameRRENTDATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
 
         var reqLength = 100;
         var paginate = true;
@@ -104,16 +112,12 @@ var _filterFunction = function(filter){
             paginate: paginate,
             finalState: Math.floor(CURRENTDATA.length/reqLength)
         };
-
-
     }
 
     return {
         results: results,
         filteredData: filteredData
     };
-    //res.writeHead(200, { "content-type": "application/json" });
-    //res.end((JSON.stringify(results)));
 };
 
 //
@@ -122,25 +126,21 @@ var _filterFunction = function(filter){
 //
 var _handleFilterRequest = function(req,res) {
 
-
-    //var filteringAttributes = dataDescription.getFilteringAttributes();
+    var dataSourceName = req.query.dataSourceName;
     var filter = {};
-    filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
-    //req.session["f"] = filter;
+    filter = req.query.filter ? JSON.parse(req.query.filter) : {};
     // Loop through each dimension and check if user requested a filter
 
     // Assemble group results and and the maximum value for each group
     var results = {};
-    results = _filterFunction(filter);
+    results = _filterFunction(filter, dataSourceName);
     res.writeHead(200, { "content-type": "application/json" });
     res.end((JSON.stringify(results.results)));
 };
 
 var _imageGridNext = function(req, res){
-    var dimensions = interactiveFilters.getDimensions(),
-        //groups = interactiveFilters.getGroups(),
-        //filteringAttributes = dataDescription.getFilteringAttributes(),
-        //state = req.param("state") ? JSON.parse(req.param("state")) : 1,
+    var dataSourceName = req.query.dataSourceName;
+    var dimensions = interactiveFilters.getDimensions(dataSourceName),
         results = {},
         imageGridData = dimensions["imageGrid"].top(Infinity);
 
@@ -165,12 +165,13 @@ var _imageGridNext = function(req, res){
 };
 
 var _tableNext = function(req, res){
-    var dimensions = interactiveFilters.getDimensions(),
+    var dataSourceName = req.query.dataSourceName;
 
-        filteringAttributes = dataDescription.getFilteringAttributes(),
-        state = req.param("state") ? JSON.parse(req.param("state")) : 1,
+    var dimensions = interactiveFilters.getDimensions(dataSourceName),
+        state = req.query.state ? JSON.parse(req.query.state) : 1,
         results = {};
-    var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+    var interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
+    var TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
     var dataTableAttributes = visualization.getAttributes("dataTable");
 
     /* if the query contains a value to be searched,
@@ -192,12 +193,10 @@ var _tableNext = function(req, res){
     var start = 1*req.query.start;
     var length = 1*req.query.length;
 
-    console.log(start);
-    console.log(length);
     var end = start+length;
-    console.log(end);
+
     TABLE_DATA = TABLE_DATA.slice(start, start+length);
-    console.log(TABLE_DATA.length);
+
     var DATA_ARRAY = [];
     for(var i in TABLE_DATA){
 
@@ -216,123 +215,48 @@ var _tableNext = function(req, res){
         active: all.value(),
         state: state,
         draw: req.query.draw,
-        recordsTotal: dataSource.getTotalRecords(),         
+        recordsTotal: dataSource.getTotalRecords(dataSourceName),
         recordsFiltered: len
     };
     res.writeHead(200, {"content-type": "application/json"});
     res.end(JSON.stringify(results));
 };
 
-var _save = function(req, res){
-
-
-
-
-
-    
-    var filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
-
-    console.log(filter);
+var _save = function(req, res) {
+    var filter = req.query.filter ? JSON.parse(req.query.filter) : {};
     var result = _filterFunction(filter);
     var filteredData = result.filteredData;
+
     res.writeHead(200, {"content-type": "application/json"});
     res.end(JSON.stringify(filteredData));
-
-
-
-    /*
-    var requiredAttributes = req.param("attributes") ? JSON.parse(req.param("attributes")) : {};
-    var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
-    if(requiredAttributes){
-        console.log(typeof TABLE_DATA);
-        res.writeHead(200, {"content-type": "application/json"});
-        res.end(JSON.stringify(TABLE_DATA));
-        return;
-    } 
-    requiredAttributes = requiredAttributes["list"];
-    var type = requiredAttributes["type"] || "csv"; 
-    var results = {};
-
-    
-    if(type == "json"){
-        res.writeHead(200,{"content-type": "application/json"});
-        var EXPORT_DATA = [];
-        for(var i in TABLE_DATA){
-            var row = TABLE_DATA[i];
-            EXPORT_DATA.push({});
-            for(var j in row){
-                for(var k in requiredAttributes["list"]){
-                    if(j == requiredAttributes["list"][k]){
-
-                        //var col = row[j];
-                        EXPORT_DATA[i][j] = row[j];
-                    }
-                }
-            }
-        }
-
-        res.end(JSON.stringify(EXPORT_DATA));
-    }
-    else if(type == "csv"){
-        res.writeHead(200,{"content-type": "text/csv"});
-
-        json2csv({data: TABLE_DATA, fields: requiredAttributes}, function(err, csv){
-            if(err){
-                console.log(err);
-            }
-
-            res.end((csv));
-        });
-
-    }
-    /*
-    console.log(EXPORT_DATA)
-
-    var attributes = Object.keys(TABLE_DATA[0])
-    //console.log(attributes)
-    */
 };
-/*
-var _heatInit = function(){
-            var ndx = interactiveFilters.getndx();
-            var dimension;
-            var xAttr = "AgeatInitialDiagnosis";
-            var yAttr = "KarnofskyScore";
-
-            dimension = ndx.dimension(function(d){
-                return ([+d[xAttr]*1, +d[yAttr]*1]);
-            });
-            var group = dimension.group(); 
-}
-*/
-/*
-var _heat = function(req, res){
-
-    var results = {visualization: {values: group.all(),top: group.top(1)[0].value}};
-
-    res.writeHead(200, {"content-type": "application/json" });
-    res.end((JSON.stringify(results.re)));
-};
-*/
-
 
 var _populationInfo = function(req, res, next){
-    var filter = req.param("filter") ? JSON.parse(req.param("filter")) : {};
+    var filter = req.query.filter ? JSON.parse(req.query.filter) : {},
+        dataSourceName = req.query.dataSourceName;
 
-    console.log(filter);
-    var result = _filterFunction(filter);
+    var result = _filterFunction(filter, dataSourceName);
     var filteredData = result.filteredData;
     var filteredLength = filteredData.length;
-    var originalLength = dataSource.getTotalRecords();
+    var originalLength = dataSource.getTotalRecords(dataSourceName);
 
     return res.json({"Current": filteredLength, "Total": originalLength});
 };
-var _getStatistics = function(req, res) {
-    var attr = req.param("attr");
 
-    var dimensions = interactiveFilters.getDimensions(),
-        filteringAttributes = dataDescription.getFilteringAttributes();
-    var TABLE_DATA = dimensions[filteringAttributes[0]["attributeName"]].top(Infinity);
+/*
+    Function that gets called when the user requires one or more one dimensional statistic for an attribute or
+    one or more two dimensional statistcs for two attributes.
+    It uses datalib for usual statistics (mean, median, count, etc.) and custom statistics defined in
+    'customStatistics.js' file.
+*/
+var _getStatistics = function(req, res) {
+    var attr = req.query.attr,
+        dataSourceName = req.query.dataSourceName;
+
+    var dimensions = interactiveFilters.getDimensions(dataSourceName),
+        interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
+
+    var TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
 
     var statisticsToReturn = {};
     if (attr) {
@@ -352,29 +276,63 @@ var _getStatistics = function(req, res) {
             }
 
             if (statistics.constructor === Array) {
-                statistics.forEach(function(stat){
-                    statisticsToReturn[stat] = summary[stat];
+                statistics.forEach(function(stat) {
+                    if (stat.startsWith("custom")) {
+                        var statName = stat.split("-")[1];
+                        if (statName in global && typeof global[statName] === "function") {
+                            var fn = global[statName];
+                            statisticsToReturn[statName] = fn(TABLE_DATA, attr);
+                        }
+                    } else {
+                        statisticsToReturn[stat] = summary[stat];
+                    }
                 })
             }
         }
     } else {
-        var attr1 = req.param("attr1");
-        var attr2 = req.param("attr2");
+        var attr1 = req.query.attr1;
+        var attr2 = req.query.attr2;
         if (attr1 && attr2) {
-            // Pearson product-moment correlation
-            statisticsToReturn["correlation"] = dl.cor(TABLE_DATA, attr1, attr2);
-            // Spearman rank correlation of two arrays of values
-            statisticsToReturn["rankCorrelation"] = dl.cor.rank(TABLE_DATA, attr1, attr2);
-            // Removed since is not working // distance correlation of two arrays of numbers
-            // statisticsToReturn["distanceCorrelation"] = dl.cor.dist(TABLE_DATA, attr1, attr2);
-            // vector dot product of two arrays of numbers
-            statisticsToReturn["dotProduct"] = dl.dot(TABLE_DATA, attr1, attr2);
-            //vector Euclidian distance between two arrays of numbers
-            statisticsToReturn["euclidianDistance"] = dl.dist(TABLE_DATA, attr1, attr2);
-            // covariance between two arrays of numbers
-            statisticsToReturn["covariance"] = dl.covariance(TABLE_DATA, attr1, attr2);
-            // Cohen's d effect size between two arrays of numbers
-            statisticsToReturn["cohensd"] = dl.cohensd(TABLE_DATA, attr1, attr2);
+            var statistics = visualization.getStatistics("twoDimStat");
+            if (statistics.constructor === String) {
+                if (statistics == "default") {
+                    statistics = ["correlation", "rankCorrelation", /*"distanceCorrelation",*/ "dotProduct",
+                        "euclidianDistance", "covariance", "cohensd"];
+                }
+            }
+
+            if (statistics.constructor === Array) {
+                statistics.forEach(function(stat) {
+                    if (stat.startsWith("custom")) {
+                        var statName = stat.split("-")[1];
+                        if (statName in global && typeof global[statName] === "function") {
+                            var fn = global[statName];
+                            statisticsToReturn[statName] = fn(TABLE_DATA, attr1, attr2);
+                        }
+                    } else if (stat === "correlation") {
+                        // Pearson product-moment correlation
+                        statisticsToReturn["correlation"] = dl.cor(TABLE_DATA, attr1, attr2);
+                    } else if (stat === "rankCorrelation") {
+                        // Spearman rank correlation of two arrays of values
+                        statisticsToReturn["rankCorrelation"] = dl.cor.rank(TABLE_DATA, attr1, attr2);
+                    } else if (stat === "distanceCorrelation") {
+                        // Removed since is not working // distance correlation of two arrays of numbers
+                        // statisticsToReturn["distanceCorrelation"] = dl.cor.dist(TABLE_DATA, attr1, attr2);
+                    } else if (stat === "dotProduct") {
+                        // vector dot product of two arrays of numbers
+                        statisticsToReturn["dotProduct"] = dl.dot(TABLE_DATA, attr1, attr2);
+                    } else if (stat === "euclidianDistance") {
+                        //vector Euclidian distance between two arrays of numbers
+                        statisticsToReturn["euclidianDistance"] = dl.dist(TABLE_DATA, attr1, attr2);
+                    } else if (stat === "covariance") {
+                        // covariance between two arrays of numbers
+                        statisticsToReturn["covariance"] = dl.covariance(TABLE_DATA, attr1, attr2);
+                    } else if (stat === "cohensd") {
+                        // Cohen's d effect size between two arrays of numbers
+                        statisticsToReturn["cohensd"] = dl.cohensd(TABLE_DATA, attr1, attr2);
+                    }
+                });
+            }
         } else {
             statisticsToReturn = dl.summary(TABLE_DATA);
         }
@@ -382,8 +340,7 @@ var _getStatistics = function(req, res) {
 
     res.writeHead(200, {"content-type": "application/json"});
     res.end(JSON.stringify(statisticsToReturn));
-
-}
+};
 
 exports.index = function(req, res){
     res.render("index", { title: "Express" });
@@ -394,5 +351,3 @@ exports.tableNext = _tableNext;
 exports.imageGridNext = _imageGridNext;
 exports.save = _save;
 exports.getStatistics = _getStatistics;
-
-//exports.heat = _heat;

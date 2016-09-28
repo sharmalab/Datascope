@@ -9,7 +9,7 @@ var NavBar = React.createClass({
     },  
     componentDidMount: function() {
         var self = this;
-        d3.json("config/dashboard.json", function(config){
+        d3.json("config/dashboard", function(config){
             var dashBoardConfig =  config || {};
             console.log(dashBoardConfig.projectTitle);
             var title = dashBoardConfig.projectTitle || "DataScope";

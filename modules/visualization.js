@@ -12,9 +12,9 @@ var visualization = (function(){
     var visualizationConfig = {},
         ndx = {},
         visualizations = [], //array containing information about all the visualizations
-        visualizationConfigPath = "public/config/visualization.json";
+        visualizationConfigPath = "config/visualization.json";
 
-    var splomFilters = function(ndx, visualization){
+    var splomFilters = function(ndx, visualization, dataSourceName) {
         var attributes=visualization.attributes;
         for(var i=0; i<attributes.length; i++){
             for(var j=1; j<attributes.length; j++){
@@ -26,8 +26,8 @@ var visualization = (function(){
                
                 var group = dimension.group();
                 //console.log(xAttr);
-                interactiveFilters.addDimension(xAttr + "-"+ yAttr, dimension);
-                interactiveFilters.addGroup(xAttr + "-" + yAttr, group);
+                interactiveFilters.addDimension(xAttr + "-"+ yAttr, dimension, dataSourceName);
+                interactiveFilters.addGroup(xAttr + "-" + yAttr, group, dataSourceName);
 
 
             }
@@ -47,12 +47,12 @@ var visualization = (function(){
             } else {
                 group=  dimension.group();
             }
-            interactiveFilters.addDimension(attribute, dimension);
-            interactiveFilters.addGroup(attribute, group);
+            interactiveFilters.addDimension(attribute, dimension, dataSourceName);
+            interactiveFilters.addGroup(attribute, group, dataSourceName);
         }
         
     };
-    var imageGridFilters = function (ndx, visualization){
+    var imageGridFilters = function (ndx, visualization, dataSourceName) {
         var dimension;
         for(var attr in visualization.attributes){
             var attribute = visualization.attributes[attr];
@@ -65,11 +65,11 @@ var visualization = (function(){
 
         }
 
-        interactiveFilters.addDimension("imageGrid", dimension);
-        interactiveFilters.addGroup("imageGrid", dimension.group());
+        interactiveFilters.addDimension("imageGrid", dimension, dataSourceName);
+        interactiveFilters.addGroup("imageGrid", dimension.group(), dataSourceName);
     };
 
-    var heatMapFilters = function(ndx, visualization){
+    var heatMapFilters = function (ndx, visualization, dataSourceName) {
         var xAttr, yAttr;
         for(var attr in visualization.attributes){
             var attribute = visualization.attributes[attr];
@@ -84,8 +84,8 @@ var visualization = (function(){
             return ([+d[xAttr]*1, +d[yAttr]*1]);
         });
         //var group = dimension.group();
-        interactiveFilters.addDimension("heatMap", dimension);
-        interactiveFilters.addGroup("heatMap", dimension.group());
+        interactiveFilters.addDimension("heatMap", dimension, dataSourceName);
+        interactiveFilters.addGroup("heatMap", dimension.group(), dataSourceName);
     };
     var bubbleChartFilters = function(){
         var xAttr;
@@ -142,26 +142,26 @@ var visualization = (function(){
         ); 
     };
 
-    var markerMap = function (ndx, visualization) {
+    var markerMap = function (ndx, visualization, dataSourceName) {
         var attributeName = visualization.attributeName;
 
         var dimension = ndx.dimension(function (d) {
                 return d[attributeName];
             });
 
-        interactiveFilters.addDimension(attributeName, dimension);
-        interactiveFilters.addGroup(attributeName, dimension.group().reduceCount());
+        interactiveFilters.addDimension(attributeName, dimension, dataSourceName);
+        interactiveFilters.addGroup(attributeName, dimension.group().reduceCount(), dataSourceName);
     }
 
-    var geoChoroplethMap = function (ndx, visualization) {
+    var geoChoroplethMap = function (ndx, visualization, dataSourceName) {
         var attributeName = visualization.attribute.name;
 
         var dimension = ndx.dimension(function (d) {
                 return d[attributeName];
             });
 
-        interactiveFilters.addDimension(attributeName, dimension);
-        interactiveFilters.addGroup(attributeName, dimension.group().reduceCount());
+        interactiveFilters.addDimension(attributeName, dimension, dataSourceName);
+        interactiveFilters.addGroup(attributeName, dimension.group().reduceCount(), dataSourceName);
     }
 
     var _loadConfig = function(path) {
@@ -184,27 +184,27 @@ var visualization = (function(){
         return config;
     };
 
-    var _applyCrossfilter = function(){
-        var ndx = interactiveFilters.getndx();
+    var _applyCrossfilter = function (dataSourceName) {
+        var ndx = interactiveFilters.getndx(dataSourceName);
 
         for(var i in visualizations){
             var vis = visualizations[i];
 
             switch(vis.visualizationType){
             case "imageGrid":
-                imageGridFilters(ndx,vis);
+                imageGridFilters(ndx, vis, dataSourceName);
                 break;
             case "heatMap":
-                heatMapFilters(ndx,vis);
+                heatMapFilters(ndx, vis, dataSourceName);
                 break;
             case "SPLOM":
-                splomFilters(ndx,vis);
+                splomFilters(ndx, vis, dataSourceName);
                 break;
             case "geoChoroplethMap":
-                geoChoroplethMap(ndx, vis);
+                geoChoroplethMap(ndx, vis, dataSourceName);
                 break;
             case "markerMap":
-                markerMap(ndx, vis);
+                markerMap(ndx, vis, dataSourceName);
                 break;
             }
         }
@@ -212,7 +212,7 @@ var visualization = (function(){
 
     };
 
-    return{
+    return {
         init: _init,
         applyCrossfilter: _applyCrossfilter,
         //Returns an array of attributes corresponding to the visualization
@@ -227,7 +227,15 @@ var visualization = (function(){
         },
         getVisualizationType: function(){
             return visualizationConfig.type;
-        }, 
+        },
+        getStatistics: function (visualizationType) {
+            for(var i in visualizations){
+                var visualization = visualizations[i];
+                if(visualization.visualizationType == visualizationType){
+                    return visualization.statistics;
+                }
+            }
+        },
         hasVisualization: function(visualizationType){
             for(var i in visualizations){
                 var visualization = visualizations[i];
