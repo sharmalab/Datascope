@@ -1,6 +1,6 @@
 {
-  "name": "interactive-data-exploration",
-  "version": "0.0.1",
+  "name": "datascope",
+  "version": "0.0.8",
   "private": true,
   "scripts": {
     "start": "node app.js",
@@ -9,6 +9,8 @@
   "dependencies": {
     "anytojson": "^2.0.4",
     "async": "^1.0.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-runtime": "^6.11.6",
     "babelify": "~7.2.0",
     "body-parser": "^1.15.2",
     "compression": "^1.6.0",
@@ -26,16 +28,16 @@
     "morgan": "^1.7.0",
     "multer": "^1.1.0",
     "node-jsx": "^0.11.0",
-    "react": "^0.14.2",
-    "react-bootstrap": "^0.27.3",
-    "react-document-title": "^2.0.1",
-    "react-masonry-component": "^2.0.0",
-    "react-modal": "^0.3.0",
+    "react": "^15.3.2",
+    "react-bootstrap": "^0.30.3",
+    "react-document-title": "^2.0.2",
+    "react-dom": "^15.3.2",
+    "react-masonry-component": "^4.2.1",
     "reflux": "^0.1.13",
     "serve-favicon": "^2.1.7",
     "should": "^6.0.3"
   },
-  "description": "We propose an environment for visualizing and exploring TCIA data . We leverage TCIA's REST API to programmatically query and download data. We propose methods to create a new search interface to the data as an alternate way to explore the contents of TCIA, create dynamic dashboards that can be extended to support the exploration of TCIA data using Javascript libraries like crossfilter and dc.js. This method is extendible to support data from other remote archives.",
+  "description": "Datascope is a platform for visualizing massive data. Datascope generates dashboards that are interactive and the visualizations are coordinated. This can be used to slice/dice the data and generate different views.",
   "main": "app.js",
   "directories": {
     "doc": "docs",
@@ -54,11 +56,9 @@
     "grunt-browserify": "^3.0.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-nodemon": "^0.3.0",
-    "grunt-react": "^0.12.2",
+    "grunt-react": "^0.12.3",
     "imports-loader": "^0.6.5",
     "mocha": "^2.2.5",
-    "react-loader": "^2.0.0",
-    "react-tools": "^0.11.2",
     "superagent": "^1.2.0",
     "webpack": "^1.12.11"
   },
@@ -67,5 +67,5 @@
     "url": "https://lastlegion@bitbucket.org/BMI/interactive-data-exporation.git"
   },
   "author": "Ganesh Iyer, Ashish Sharma",
-  "license": "BSD-2-Clause"
+  "license": "Apache 2.0"
 }
