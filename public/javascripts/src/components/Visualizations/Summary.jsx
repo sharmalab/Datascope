@@ -1,5 +1,6 @@
 /* global d3 */
 /* global queryFilter */
+/* global globalDataSourceName */
 var React = require("react");
 var AppActions = require("../../actions/AppActions.jsx");
 var AppStore = require("../../stores/AppStore.jsx");
@@ -12,7 +13,7 @@ var summaryChart = function(data) {
     var Current = data.Current;
     var Total = data.Total;
     //console.log("Rendering chart");
-    
+    console.log(data); 
     d3.select(".summaryPopulationBar")
         .remove();
     
@@ -24,6 +25,7 @@ var summaryChart = function(data) {
             return 500 * (Current/Total) + "px"; 
         })
         .style("background", function(){
+            console.log("coloring steelblue");
             return "steelblue";
         });
 };
@@ -37,8 +39,7 @@ var Summary = React.createClass({
         self.unsubscribe = AppStore.listen(self.onFilter);
 
 
-        d3.json("populationInfo/?filter=" + JSON.stringify(queryFilter)
-                + "&dataSourceName=" + globalDataSourceName, function (data) {
+        d3.json("populationInfo/?filter=" + JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (data) {
             //console.log("Populationdata");
             //console.log(data);
             self.setState({Current: data.Current, Total: data.Total});
@@ -47,8 +48,7 @@ var Summary = React.createClass({
     },
     onFilter: function(){
         var self = this;
-        d3.json("populationInfo/?filter=" + JSON.stringify(queryFilter)
-                + "&dataSourceName=" + globalDataSourceName, function (data) {
+        d3.json("populationInfo/?filter=" + JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (data) {
             //console.log("Populationdata");
             //console.log(data);   
             summaryChart(data);
@@ -68,12 +68,12 @@ var Summary = React.createClass({
         //console.log(queryFilter);
     },
     hideSummary: function(){
-        var show = this.state.showSummary
+        var show = this.state.showSummary;
         this.setState({showSummary: !show}); 
     },  
     render: function(){
         var self = this;
-        var filters  = queryFilter;
+        //var filters  = queryFilter;
         //console.log(AppStore.getData());    
         //console.log(filters);
         var filters_arr = [];
@@ -84,7 +84,7 @@ var Summary = React.createClass({
             filters_arr[i].value=  queryFilter[f];
             i++;
         }
-        var filterFillColor = "#333";
+        //var filterFillColor = "#333";
 
 
         var Filters = filters_arr.map(function(f){
@@ -97,7 +97,12 @@ var Summary = React.createClass({
                 </span>
                 </div>;
         });
-
+        var display = "";
+        if(self.state.showSummary){
+            display = "block"
+        } else{
+            display = "none"
+        }
         return(
             <div id="summary">
                 <span className="summaryHide">
@@ -107,8 +112,8 @@ var Summary = React.createClass({
 
                 <span className="summaryBody">
                     <div>
-                    { self.state.showSummary ?
-                        <div>
+                   
+                        <div style={{"display": display}}>
                         <span className="summaryPopulation">
                                 <span className="summaryPopulationLabel">
                                     {self.state.Current}/{self.state.Total} Selected
@@ -123,9 +128,7 @@ var Summary = React.createClass({
                             </div>
 
                         </div>
-                    :
-                            <div />
-                    }
+                
                     </div>
 
                 </span>
