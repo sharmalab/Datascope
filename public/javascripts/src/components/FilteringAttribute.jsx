@@ -2,7 +2,7 @@
 /* global $ */
 /* global dc */
 /* global queryFilter */
-
+/* global globalDataSourceName */
 //var queryFilter = {};
 var React = require("react");
 
@@ -20,7 +20,7 @@ var ChartAddons = React.createClass({
     filter: function(e){
         var self = this;
         var c = self.props.chart;
-        if(e.keyCode == 13){
+        if(e.keyCode === 13){
             //console.log(this.props.chart);
             var f = [self.state.beg, self.state.end];
             c.filterAll();
@@ -86,7 +86,7 @@ var ChartAddons = React.createClass({
         this.setState({elasticY: !this.state.elasticY});
 
     },
-    handleInvertSelection: function(event) {
+    handleInvertSelection: function() {
         console.log(this.props.config.attributeName);
         var attributeName = this.props.config.attributeName;
         var c = this.props.chart;
@@ -99,11 +99,13 @@ var ChartAddons = React.createClass({
             var filter = availableFilters[i].key;
             var flag = true;
             for(var j in currentFilter){
-                if(filter === currentFilter[j])
+                if(filter === currentFilter[j]){
                     flag = false;
+                }
             }
-            if(flag)
+            if(flag){
                 invertedFilter.push(filter);
+            }
             /*
             //console.log(filter.key +" " + currentFilter);
             if(currentFilter != filter.key){
@@ -258,9 +260,9 @@ var FilteringAttribute = React.createClass({
         };
 
 
-        if(attributeName == "ageCancer"){
+        if(attributeName === "ageCancer"){
             dim = {
-                filter: function(f){
+                filter: function(){
                     //console.log("filtering", f);
                     //console.log(arguments.toString());
                 },
@@ -281,14 +283,14 @@ var FilteringAttribute = React.createClass({
                   //console.log(self.props.currData);
                   //console.log("......grouop...");
                     //console.log(self.props.currData["ageCancerGroup"].values);
-                    return self.props.currData["ageCancerGroup"].values;
+                    return self.props.currData.ageCancerGroup.values;
                 },
                 order: function(){
                     //return groups["ageCancerGroup"];
                 },
                 top: function(){
                     //console.log(".............");
-                    return self.props.currData["ageCancerGroup"].values;
+                    return self.props.currData.ageCancerGroup.values;
                 }
             };
         }
@@ -321,15 +323,17 @@ var FilteringAttribute = React.createClass({
             .radius(90)
             .renderLabel(true);
             c.filterHandler(function(dimension, filters){
-                if(filters)
+                if(filters){
                     dimension.filter(filters);
-                else
+                }
+                else{
                     dimension.filter(null);
+                }
                 return filters;
             });
             break;
         case "scatterPlot":
-        console.log(self.props)
+
             c = dc.scatterPlot(divId);
             c.width(260)
                 .height(200)
@@ -338,21 +342,21 @@ var FilteringAttribute = React.createClass({
                 .x(d3.scale.linear().domain(domain))
                 .elasticY(true)
                 .elasticX(true)
-                .yAxisLabel(self.props.config.visualization.yAttribute)
+                .yAxisLabel(self.props.config.visualization.yAttribute);
 
             c.renderlet(function(chart){
                 chart.selectAll("g.x text")
                     .attr("transform", "translate(-10,10) rotate(315)");
 
                 chart.selectAll(".y-label")
-                    .attr("fill", "white")
+                    .attr("fill", "white");
             });
 
             c.filterHandler(function(dimension, filter) {
 
                 var begin = $("#filterBeg"+dimension.name());
                 var end = $("#filterEnd"+dimension.name());
-                if(filter.length > 0 && filter.length!=2) {
+                if(filter.length > 0 && filter.length!==2) {
                     filter = filter[0];
                 }
                 begin.val(filter[0]);
@@ -364,7 +368,7 @@ var FilteringAttribute = React.createClass({
             break;
         case "barChart":
             c = dc.barChart(divId);
-            var binFactor = self.props.config.visualization.binFactor;
+            //var binFactor = self.props.config.visualization.binFactor;
             c.width(260)
                 .height(200).dimension(self.state.dimension)
                 .group(self.state.group)
@@ -384,12 +388,12 @@ var FilteringAttribute = React.createClass({
             c.filterHandler(function(dimension, filter){
                 var begin = $("#filterBeg"+dimension.name());
                 var end = $("#filterEnd"+dimension.name());
-                if(filter.length > 0 && filter.length!=2){
+                if(filter.length > 0 && filter.length!== 2){
                     filter = filter[0];
                 }
                 begin.val(filter[0]);
                 end.val(filter[1]);
-                if(filter.length == 2){
+                if(filter.length === 2){
                     filter[0] = 1*(1*filter[0]).toPrecision(3);
                     filter[1] = 1*(1*filter[1]).toPrecision(3);
                 }
@@ -433,12 +437,15 @@ var FilteringAttribute = React.createClass({
                 }
                 
                 //console.log(filters);
-                if(typeof filters[0] === "object")
+                if(typeof filters[0] === "object"){
                     filters = filters[0];
-                if(filters)
+                }
+                if(filters){
                     dimension.filter(filters);
-                else
+                }
+                else{
                     dimension.filter(null);
+                }
                 return filters;
             });
             c.label(function(d){
@@ -480,8 +487,9 @@ var FilteringAttribute = React.createClass({
         //console.log("Filters");
         for(var i in filters){
             //console.log(i);
-            if(dim == i)
+            if(dim === i){
                 return true;
+            }
         }
         return false;
     },
@@ -503,8 +511,7 @@ var FilteringAttribute = React.createClass({
     refreshStatistics: function(){
         var self = this;
         var attributeName = this.props.config.attributeName;
-        var url = "/statistics?attr=" + attributeName
-            + "&dataSourceName=" + globalDataSourceName;
+        var url = "/statistics?attr=" + attributeName + "&dataSourceName=" + globalDataSourceName;
         d3.json(url, function(d) {
             self.statistics[attributeName] = d;
             self.props.onToggleShow();
@@ -554,7 +561,7 @@ var FilteringAttribute = React.createClass({
                                 }
                                 { self.state.showStatistics ? /* show/hide statistics */
                                     <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
-                                        <path fill={filterFillColor}  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                        <path fill="#fff"  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
                                         <path d="M0 0h24v24H0z" fill="none"/>
                                    
                                             <title>Show statistics</title>
@@ -562,7 +569,7 @@ var FilteringAttribute = React.createClass({
                                     </svg>
                                     :
                                     <svg  style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
-                                        <path fill={filterFillColor}  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                        <path fill="#fff"  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
                                         <path d="M0 0h24v24H0z" fill="none"/>
  
 
@@ -613,14 +620,14 @@ var FilteringAttribute = React.createClass({
                                 }
                                 { self.state.showStatistics ? /* show/hide statistics */
                                     <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
-                                        <path fill={filterFillColor} d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                        <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
                                         <path d="M0 0h24v24H0z" fill="none"/>
                                             <title>Show statistics</title>
 
                                     </svg>
                                     :
                                     <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
-                                        <path fill={filterFillColor} d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                        <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
                                         <path d="M0 0h24v24H0z" fill="none"/>
 
                                             <title>Show statistics</title>

@@ -7,9 +7,15 @@ var    Button          = ReactBootstrap.Button;
 var FilteringAttribute = require("./FilteringAttribute.jsx");
 
 var Glyphicon = ReactBootstrap.Glyphicon;
-
-var Masonry = require("react-masonry-component")(React);
-
+var Masonry = require("react-masonry-component");
+//var Masonry = React.createFactory(require("react-masonry-component"))(React);
+/*
+var Masonry = React.createClass({
+    render: function() {
+        return <div />;
+    }
+});
+*/
 var InteractiveFilters = React.createClass({      
     getInitialState: function(){
         //console.log("Rendering interactive filters");
@@ -17,10 +23,12 @@ var InteractiveFilters = React.createClass({
     },
     fullView: function(){
         if(this.state.full){
-            if(this.state.full === false)
+            if(this.state.full === false){
                 this.setState({full: true});
-            else
+            }
+            else{
                 this.setState({full: false});
+            }
 
         }else{
 
@@ -43,9 +51,9 @@ var InteractiveFilters = React.createClass({
                     <FilteringAttribute key={key} onToggleShow={self.toggleShow.bind(self)} config={filteringAttribute} currData={self.props.currData} full={self.state.full} />
                 );
             });
-        } else {
-           // filteringAttribute = <div></div>;
         }
+
+
         if(this.state.full){
             return(
                 <div  className="col-sm-12 fixed" id="interactiveFiltersPanel">
@@ -54,7 +62,8 @@ var InteractiveFilters = React.createClass({
                         <Glyphicon glyph="chevron-left" />
                     </Button>
                     <Masonry className={"filteringFullView"} elementType={"div"} options={{itemSelector: ".grid-item"}} >
-                        <div className="filteringAttributesList">{filteringAttributes}</div>
+                        <div className="filteringAttributesList">{filteringAttributes}</div>                    
+
                     </Masonry>
                 </div>
             );   
@@ -68,6 +77,7 @@ var InteractiveFilters = React.createClass({
                      </Button>
                     <Masonry className={"filteringFullView"} elementType={"div"} options={{itemSelector: ".grid-item", isFitWidth: true}}>
                         <div className="filteringAttributesList">{filteringAttributes}</div>
+                    
                     </Masonry>
 
                 </div>

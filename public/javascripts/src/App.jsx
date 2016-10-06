@@ -1,6 +1,8 @@
 /* global d3 */
 /* global dc */
 /* global queryFilter */
+/* global globalDataSourceName */
+
 //Global
 queryFilter = {};
 
@@ -15,7 +17,7 @@ var ReactDOM = require("react-dom");
 var AppActions = require("./actions/AppActions.jsx");
 var AppStore = require("./stores/AppStore.jsx");
 //var Reflux = require('reflux');
-var InteractiveFilters = require("./components/InteractiveFilters.jsx");
+var InteractiveFilters = React.createFactory(require("./components/InteractiveFilters.jsx"));
 var Visualizations = require("./components/Visualizations.jsx");
 var NavBar = require("./components/Navbar.jsx");
 //var Loader = require('react-loader');

@@ -1,7 +1,7 @@
 /* global queryFilter */
 /* global d3 */
 var React = require("react");
-var DocumentTitle = require("react-document-title");
+var DocumentTitle = React.createFactory(require("react-document-title"));
 
 var NavBar = React.createClass({
     getInitialState: function(){
@@ -25,7 +25,7 @@ var NavBar = React.createClass({
         var projectTitle = this.state.projectTitle || "DataScope";
         return(
             <div className='navbar navbar-inverse navbar-fixed-top' id='header' role='navigation'>
-                <DocumentTitle title={"Datascope :: "+ projectTitle}/>
+             
                 <div className='navbar-header'>
                     <div className="navbar-brand">{projectTitle}</div>
                         

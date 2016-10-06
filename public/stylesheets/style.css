@@ -526,7 +526,8 @@ img {
 
 .chart-title-icons{
     display: inline-block;
-    float: right;
+    position: absolute;
+    right: 10px;
 
 }
 .chart-title-icons svg{
