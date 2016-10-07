@@ -2,7 +2,7 @@
 
 * Statistics and custom stats
 * Chloropleth maps
-* Geograhical GOogle maps
+* Geograhical Google maps
 * Summary view of data
 	* Number of filtered vs Number total
 	* List of filters
