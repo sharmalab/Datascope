@@ -3,8 +3,7 @@
   "version": "0.0.8",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "test": "node_modules/.bin/mocha "
+    "start": "node app.js" 
   },
   "dependencies": {
     "anytojson": "^2.0.4",
