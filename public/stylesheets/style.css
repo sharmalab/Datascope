@@ -226,10 +226,14 @@ table#dataTable{
     margin: 4px auto;
 
     overflow-y: scroll;
-    height: 80vh;
-    padding-bottom: 50px;
-}
 
+    padding-bottom: 50px;
+
+}
+th{
+padding: 15px;
+}
+/*
 #dataTableNav{
   text-align: center;
 }
@@ -249,11 +253,16 @@ table#dataTable{
 .dataTables_scrollHeadInner{
     width: 100%;
 }
-
+*/
+th{
+//    border:1px solid #333;
+}
 
 tr{
     cursor: pointer;
 }
+
+
 
 #activeRecords div{
   display: inline;
@@ -288,16 +297,28 @@ tr{
 #visualization{
     //padding-top: 12px;
    // margin: 0 auto;
+
 }
+#visualization_wrapper{
+   float: none;
+   width: auto;
+    overflow: scroll;
+   padding: -2px 20px;
+    height: 90vh;
+}
+#main_container{
+    width: 100%;
+}
+
 
 #interactiveFiltersPanelSlider{
   position: relative;  
-  left: 18px;
+  left: 12px;
   padding: 5px 10px ;
   background: #FF4081;
   color: #fff;
   margin: 0;
-  top: 4px;
+  top: 2px;
   //box-shadow: 5px 5px 5px grey;
   float: right;
   //top: 100px;
@@ -486,13 +507,25 @@ button{
 .side{
     max-width: 350px;
 }
-
+#interactiveFiltersPanelFull{
+    background: #CFD8DC;
+    color: #212121;
+//    max-width: 400px;
+    padding-bottom: 60px;
+    text-align: center;
+    float: left;
+    width: 100%;
+    padding: 10px;
+}
 #interactiveFiltersPanel{
     background: #CFD8DC;
     color: #212121;
 //    max-width: 400px;
     padding-bottom: 60px;
     text-align: center;
+    float: left;
+    width: 340px;
+    padding: 10px;
 }
 #interactiveFiltersPanel h4{
 //    font-family: Roboto, Futura, Arial, Verdana;
@@ -569,7 +602,7 @@ ul.nav.nav-tabs{
     box-shadow: 0 0 11px black;
 }
 
-<<<<<<< HEAD
+
 .interactiveFiltersList{
     padding-top: 30px;
 }
@@ -664,3 +697,13 @@ font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
   height:450px;
 }
 
+
+#footer{
+    width: 100%;
+    padding: 10px;
+    //position: fixed;
+    bottom: 0px;
+    //height: 30px;
+    //background: #ccc;
+    //color:
+}

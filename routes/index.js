@@ -97,13 +97,13 @@ var _filterFunction = function(filter, dataSourceName){
 
     if(visualization.hasVisualization("imageGrid")){
 
-        CUdataSourceNameRRENTDATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
+        CURRENTDATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
 
         var reqLength = 100;
         var paginate = true;
         if(CURRENTDATA.length < reqLength)
             paginate = false;
-
+        //console.log(CURRENTDATA);
         results["imageGrid"] = {
             values: CURRENTDATA.slice(0,500),
             active: 100,
@@ -187,6 +187,37 @@ var _tableNext = function(req, res){
             return false;
         })
     }
+    /* perform sorting of columns */
+
+    var order = req.query.order;
+
+    if(order) {
+
+        var sortColumnI = order[0].column;
+        var sortDir = order[0].dir;
+
+        var sortColumn = dataTableAttributes[sortColumnI].attributeName;
+
+    
+        TABLE_DATA.sort(function(a,b){
+            var strcol1 = ""+a[sortColumn];
+            var strcol2 = ""+b[sortColumn];
+            var comparison;           
+            if(sortDir == "asc"){
+                comparison = (strcol1.localeCompare(strcol2));
+            } else {
+                comparison = (strcol2.localeCompare(strcol1));
+            }
+
+            return comparison;
+            //return 
+            //return 1;
+            
+        });
+        
+    }
+    
+
 
     var len = TABLE_DATA.length;
 
