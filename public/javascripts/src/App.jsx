@@ -91,7 +91,7 @@ var Dashboard = React.createClass({
         var loading =  this.state.loading;
         console.log(loading);
         return (
-          <div>
+          <div id="main_container">
             <NavBar />
             { loading ?
                 <h1 id="loadingMessage"> Loading </h1>
@@ -102,7 +102,7 @@ var Dashboard = React.createClass({
             </InteractiveFilters>
             <Visualizations config ={this.state.visualization} debug={this.state.debug} currData={this.state.currData}>
             </Visualizations>
-            <div className="clear"></div>
+            <div id="footer" className="clear"></div>
           </div>
         );
     }
