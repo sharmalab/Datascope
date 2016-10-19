@@ -56,7 +56,7 @@ var InteractiveFilters = React.createClass({
 
         if(this.state.full){
             return(
-                <div  className="col-sm-12 fixed" id="interactiveFiltersPanel">
+                <div  className="col-sm-12 fixed" id="interactiveFiltersPanelFull">
                     
                     <Button onClick={this.fullView} id="interactiveFiltersPanelSlider" bsSize="xsmall">
                         <Glyphicon glyph="chevron-left" />
@@ -70,7 +70,7 @@ var InteractiveFilters = React.createClass({
 
         } else {
             return(
-                <div  className="col-sm-5 col-md5 col-lg-4 fixed side" id="interactiveFiltersPanel"  >
+                <div  className="" id="interactiveFiltersPanel"  >
 
                      <Button title="Full view" onClick={this.fullView}  id="interactiveFiltersPanelSlider" bsSize="xsmall">
                         <Glyphicon glyph="chevron-right" />

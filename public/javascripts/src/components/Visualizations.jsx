@@ -95,11 +95,11 @@ var Visualizations = React.createClass({
             });
 
             return(
-                <div>
+                <div id="visualization_wrapper">
                     <div id="summary">
                         <Summary />
                     </div>
-                    <div id="visualization" className="col-sm-9 col-md-9 col-lg-8">
+                    <div id="visualization" className="">
                        
                         <Tabs defaultActiveKey={1}>
                             {visualizations}

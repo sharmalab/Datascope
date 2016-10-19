@@ -10,8 +10,8 @@ var DataTable = React.createClass({
             columns[count] = {};
             //columns[count]["data"] = self.props.config.attributes[i].name;
             columns[count]["title"] = self.props.config.attributes[i].label || self.props.config.attributes[i].attributeName;
-            columns[count]["bSearchable"]= false;
-            columns[count]["bSortable"] =false ;
+            columns[count]["bSearchable"] = true;
+            columns[count]["bSortable"] = true;
             if(self.props.config.attributes[i].type){
                 url = self.props.config.attributes[i];
             }
@@ -21,20 +21,20 @@ var DataTable = React.createClass({
         var ajaxUrl = "dataTable/next?dataSourceName=" + globalDataSourceName;
 
         dataTable = $('#vis').DataTable({
-            bSort: false,
-            bFilter: false,
+            //bSort: false,
+            //bFilter: false,
             aoColumns: columns,
             "ajax": ajaxUrl,
             "processing": true,
             "serverSide": true,
-            "scrollY": true,
-            "scrollX": true,
+            //"scrollY": true,
+            //"scrollX": true,
+            "width": "1000px",
             //"scrollX": "100%",
             "pageLength": 10,
             columns: columns,
-            fixedHeader: true,
+            //fixedHeader: true,
             responsive: true,
-            "searching":true
         });
 
         var url = self.props.config.url;
@@ -47,6 +47,8 @@ var DataTable = React.createClass({
             var url = data[data.length-1];
             window.open(url);
         });
+
+        $("#vis").removeClass("display").addClass("table table-striped table-bordered");
     },
     componentWillReceiveProps: function(){
         if(dataTable.ajax){
