@@ -19,7 +19,16 @@ block content
 
         var globalDataSourceName = getParameterByName('dataSourceName') || 'main';
         console.log("data source name: " + globalDataSourceName)
+        
+        var Theme = {};
 
+        d3.json("config/dashboard", function(config){
+            var dashBoardConfig =  config || {};
+            console.log(config);
+            console.log("....");
+            Theme = dashBoardConfig;
+
+        });
         console.log("Hello")
         var queryFilter = {};
         var dataTable = {};

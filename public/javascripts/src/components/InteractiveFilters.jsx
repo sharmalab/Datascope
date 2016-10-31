@@ -44,6 +44,17 @@ var InteractiveFilters = React.createClass({
         //console.log(this.props.config);
         var self = this;
         var key = 0;
+        console.log("----");
+        console.log(this.props.dashboardConfig);
+    
+        var theme = {};
+        console.log(Theme);    
+        if(this.props.dashboardConfig){
+            theme = this.props.dashboardConfig.theme;
+            
+        }
+
+
         if(this.props.config){
             filteringAttributes = this.props.config.map(function(filteringAttribute){
                 key++;
