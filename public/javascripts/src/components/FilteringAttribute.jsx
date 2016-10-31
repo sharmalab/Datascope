@@ -322,6 +322,7 @@ var FilteringAttribute = React.createClass({
             .group(self.state.group)
             .radius(90)
             .renderLabel(true);
+            c.colors(d3.scale.ordinal().range(["#F47A7E", "#FCDADB", "#F7A2A5", "#9C4E51"]));
             c.filterHandler(function(dimension, filters){
                 if(filters){
                     dimension.filter(filters);
@@ -376,12 +377,13 @@ var FilteringAttribute = React.createClass({
                 //.xUnits(dc.units.fp.precision((1/binFactor)))
                 //.xUnits(function() {return 30})
                 //.xUnits(function(){return 500*(1/binFactor)})
-                .elasticY(true)
-                .elasticX(true);
+                //.elasticY(true)
+                //.elasticX(true);
             c.renderlet(function(chart){
                 chart.selectAll("g.x text")
                     .attr("transform", "translate(-10,10) rotate(315)");
             });
+            //c.ordinalColors
 
                 //.renderLabel(true)
                 //.margins({left: 35, top: 10, bottom: 20, right: 10});
@@ -416,7 +418,7 @@ var FilteringAttribute = React.createClass({
             .dimension(self.state.dimension)
             .group(self.state.group)
             .renderLabel(true)
-            .elasticX(true)
+            //.elasticX(true)
             .margins({top: 10, right: 20, bottom: 20, left: 20});
             c.filterHandler(function(dimension, filters){
                 //console.log(filters);
@@ -448,6 +450,8 @@ var FilteringAttribute = React.createClass({
                 }
                 return filters;
             });
+            //c.colors(["#f46e7e", "#f46e7e"]);
+            c.colors(d3.scale.ordinal().range(["#F47A7E"]));
             c.label(function(d){
                 return d.key + " ("+ d.value + ")";
             });
@@ -547,7 +551,7 @@ var FilteringAttribute = React.createClass({
                 <div className="grid-item" style={{"margin": 10}} key={self.props.config.attributeName}>
                
                     <div className="chart-wrapper">
-                        <div className="chart-title">
+                        <div className="chart-title" style={{"background": Theme.headerColor1}}>
                             {self.props.config.attributeName}
 							<div className="chart-title-icons">
                                 { isFilterActive ?
@@ -605,7 +609,7 @@ var FilteringAttribute = React.createClass({
             return (
                 <div className="grid-item" onClick={this.fullView} key={self.props.config.attributeName}>
                     <div className="chart-wrapper">
-                        <div className="chart-title" >
+                        <div className="chart-title" style={{"background": Theme.headerColor1}} >
                             {self.props.config.attributeName}
                             <div className="chart-title-icons">
                                 { isFilterActive ? /* delete filter */
@@ -660,7 +664,7 @@ var FilteringAttribute = React.createClass({
                                     <div className="chart-stage">
                                         <div  id={divId}> </div>
                                     </div>
-                                    <div className="chart-notes">
+                                    <div className="chart-notes" style={{"background": Theme.headerColor2}}>
                                         <ChartAddons config={this.props.config} data={this.props.currData} chart={this.state.chart} isFilterActive={isFilterActive}/>
                                     </div>
                                 </div>
