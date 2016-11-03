@@ -94,11 +94,18 @@ var Visualizations = React.createClass({
                 );            
             });
 
+
+            /*
+             *                    <!--
+                    <div id="summary">
+                    <Summary />
+                    </div>
+                    -->
+            
+            */        
             return(
                 <div id="visualization_wrapper">
-                    <div id="summary">
-                        <Summary />
-                    </div>
+
                     <div id="visualization" className="">
                        
                         <Tabs defaultActiveKey={1}>

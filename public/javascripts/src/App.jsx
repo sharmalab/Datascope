@@ -58,7 +58,9 @@ var Dashboard = React.createClass({
                         loaded: true,
                         debug: 0
                     });
-                    
+
+
+
                     dc.renderAll();
                 });
                 
@@ -66,12 +68,21 @@ var Dashboard = React.createClass({
             });
 
         });
+
+        d3.json("config/dashboard", function(config){
+            var dashBoardConfig =  config || {};
+            console.log(config);
+            console.log("....");
+            Theme = dashBoardConfig.theme;
+            self.setState({ dashboardConfig: config});
+
+        });
     },
     componentWillMount: function(){
 
     },
     getInitialState: function(){
-        return {interactiveFilters: null, visualization: null, filter: null, loaded: false};
+        return {interactiveFilters: null, visualization: null, filter: null, loaded: false, dashboardConfig: null};
     },
     onFilter: function(){
         this.setState({loading: true});
@@ -90,6 +101,7 @@ var Dashboard = React.createClass({
         //console.log(this.state.loaded);
         var loading =  this.state.loading;
         console.log(loading);
+        console.log(this.state.dashboardConfig);
         return (
           <div id="main_container">
             <NavBar />
@@ -98,9 +110,9 @@ var Dashboard = React.createClass({
             :
                 <div />
             }
-            <InteractiveFilters onFilter={this.onFilter} config={this.state.interactiveFilters} currData={this.state.currData}>
+            <InteractiveFilters dashboardConfig={this.state.dashboardConfig} onFilter={this.onFilter} config={this.state.interactiveFilters} currData={this.state.currData}>
             </InteractiveFilters>
-            <Visualizations config ={this.state.visualization} debug={this.state.debug} currData={this.state.currData}>
+            <Visualizations dashboardConfig={this.state.dashboardConfig} config={this.state.visualization} debug={this.state.debug} currData={this.state.currData}>
             </Visualizations>
             <div id="footer" className="clear"></div>
           </div>
