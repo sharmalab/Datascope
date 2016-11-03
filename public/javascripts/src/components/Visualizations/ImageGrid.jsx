@@ -142,6 +142,7 @@ var ImageGrid = React.createClass({
                 return(
 
                     <div id="imageGrid" >
+
                     <div style={{whiteSpace: "nowrap"}} >
                     <span  style={{width:"140px", position: "fixed", display: "inline", padding:"2px", opacity: "0.7", background: "#fff", lineHeight: "18px", fontSize: "8px"}}>
                     Zoom:
@@ -151,6 +152,9 @@ var ImageGrid = React.createClass({
                 }/>
 	                </span>
                     </div>
+
+
+
                         <div id="imageGridImages">
                                 {Img}
                         </div>
@@ -164,6 +168,16 @@ var ImageGrid = React.createClass({
 
                 return(
                     <div id="imageGrid" >
+                    <div style={{whiteSpace: "nowrap"}} >
+                    <span  style={{width:"140px", position: "fixed", display: "inline", padding:"2px", opacity: "0.7", background: "#fff", lineHeight: "18px", fontSize: "8px"}}>
+                    Zoom:
+				<input onChange={self.onZoom} type="range" min="0.1" max="1.5" 
+                    step="0.1" defaultValue={self.state.zoom} style={
+                        {width: "100px", display: "inline", position: "relative", top: "4.5"}
+                }/>
+	                </span>
+                    </div>
+
                         <div id="imageGridImages">
                                 {Img}
                         </div>
@@ -175,6 +189,15 @@ var ImageGrid = React.createClass({
             } else {
                 return(
                     <div id="imageGrid" >
+                    <div style={{whiteSpace: "nowrap"}} >
+                    <span  style={{width:"140px", position: "fixed", display: "inline", padding:"2px", opacity: "0.7", background: "#fff", lineHeight: "18px", fontSize: "8px"}}>
+                    Zoom:
+				<input onChange={self.onZoom} type="range" min="0.1" max="1.5" 
+                    step="0.1" defaultValue={self.state.zoom} style={
+                        {width: "100px", display: "inline", position: "relative", top: "4.5"}
+                }/>
+	                </span>
+                    </div>
                         <div id="imageGridImages">
                                 {Img}
                         </div>
@@ -190,6 +213,15 @@ var ImageGrid = React.createClass({
             return(
 
                 <div id="imageGrid" >
+                    <div style={{whiteSpace: "nowrap"}} >
+                    <span  style={{width:"140px", position: "fixed", display: "inline", padding:"2px", opacity: "0.7", background: "#fff", lineHeight: "18px", fontSize: "8px"}}>
+                    Zoom:
+				<input onChange={self.onZoom} type="range" min="0.1" max="1.5" 
+                    step="0.1" defaultValue={self.state.zoom} style={
+                        {width: "100px", display: "inline", position: "relative", top: "4.5"}
+                }/>
+	                </span>
+                    </div>
                     <div id="imageGridImages">
                             {Img}
                     </div>
