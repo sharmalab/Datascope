@@ -147,7 +147,7 @@ var ImageGrid = React.createClass({
                     Zoom:
 				<input onChange={self.onZoom} type="range" min="0.1" max="1.5" 
                     step="0.1" defaultValue={self.state.zoom} style={
-                        {width: "100px", display: "inline"}
+                        {width: "100px", display: "inline", position: "relative", top: "4.5"}
                 }/>
 	                </span>
                     </div>
