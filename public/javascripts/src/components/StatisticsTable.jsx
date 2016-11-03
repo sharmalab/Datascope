@@ -30,7 +30,7 @@ var StatisticsTable = React.createClass({
         return data.map(function(item) {
             // handle the column data within each row
             var cells = cols.map(function(colData) {
-
+                console.log(item[colData]);
                 return <td>{item[colData]}</td>;
             });
             return <tr>{cells}</tr>;

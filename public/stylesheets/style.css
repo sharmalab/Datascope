@@ -207,7 +207,7 @@ table#dataTable{
   overflow-x: scroll;
 }
 */
-#vis{
+.datatablevis{
     font-size: 11px;
     margin: 0 auto;
 }
@@ -224,7 +224,7 @@ table#dataTable{
 
 .visualizationArea{
     margin: 4px auto;
-
+    padding: 10px;
     overflow-y: scroll;
 
     padding-bottom: 50px;
@@ -310,12 +310,16 @@ tr{
     width: 100%;
 }
 
+#interactiveFiltersPanelSlider:hover{
 
+  background: rgb(244, 122, 126);
+
+}
 #interactiveFiltersPanelSlider{
   position: relative;  
   left: 12px;
-  padding: 5px 10px ;
-  background: #FF4081;
+  padding: 16px 3px ;
+  background: #03A9F4;
   color: #fff;
   margin: 0;
   top: 2px;
@@ -361,6 +365,8 @@ tr{
 .chartAddons input{
   width: 40px;
   display: inline;
+  border: 1px solid #333;
+  color: #666;
 }
 
 
@@ -462,7 +468,7 @@ div#splom-spacer{
     width: 300px;
 }
 .chart-wrapper .chart-stage{
-    background: #455A64;
+    background: #fff;
     padding: 4px 24px;
 }
 .chart-title, .chart-wrapper .chart-notes{
@@ -471,7 +477,7 @@ div#splom-spacer{
 
 }
 .chart-wrapper .chart-title{
-    color: #fff;
+    color: #000;
     border: 0;
    text-align: left;
     text-transform: capitalize;
@@ -479,11 +485,11 @@ div#splom-spacer{
 }
 .chart-wrapper{
     border: 0;
-    background: #455A64;
+    background: #fff;
 }
 .chartAddons{
     font-size:10.5px;
-    color: #ddd;
+    color: #fff;
 }   
 .chart-notes{
     border:0;
@@ -507,6 +513,15 @@ button{
 .side{
     max-width: 350px;
 }
+
+a{
+    color: #000;
+}
+
+.filteringFullView{
+    position: relative;
+    top: -30px;
+}
 #interactiveFiltersPanelFull{
     background: #CFD8DC;
     color: #212121;
@@ -518,7 +533,7 @@ button{
     padding: 10px;
 }
 #interactiveFiltersPanel{
-    background: #CFD8DC;
+    background: #f5f5f8;
     color: #212121;
 //    max-width: 400px;
     padding-bottom: 60px;
@@ -549,6 +564,39 @@ img {
     padding-top: 17px;
     font-size: 17px;
     
+}
+
+.nav-tabs>li.active>a{
+    background: #c9c9d8;
+    border: 0px;
+    border-bottom: 3px solid #f46a73;
+    cursor: pointer;
+
+}
+.nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
+    background: #c9c9d8;
+    color: #000;
+    border: 0px;
+    border-bottom: 3px solid #f46a73;
+    cursor: pointer;
+}
+
+.nav>li>a:hover, .nav>li>a:focus{
+    background: #c9c9d8;
+    color: #000;
+    border: 0px;
+    border-bottom: 3px solid #f46a73;
+    cursor: pointer;
+}
+
+ul.nav.nav-tabs{
+    background: #c9c9d8;
+}
+
+.navbar{
+-webkit-box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.75);
 }
 .navbar-right{
     padding-right: 30px;
@@ -584,8 +632,26 @@ img {
 }
 
 ul.nav.nav-tabs{
+    background: #c9c9d8;
+    text-align: left;
+}
+#visualization{
+    margin: 20px 14px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+}
+.chart-wrapper{
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+
+}
+
+ul.nav.nav-tabs{
 	text-transform: capitalize;
 }
+
+.bar, .symbol{
+    fill: #f47a7e;
+}
+
 
 .grid-item{
     margin: 0px auto;
@@ -604,7 +670,7 @@ ul.nav.nav-tabs{
 
 
 .interactiveFiltersList{
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 
@@ -684,14 +750,23 @@ font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
 }
 
 .statistics td, .statistics th {
-   border-bottom: 1px solid black;
-   text-align: center;
-   height: 30px;
-   padding: 5px;
+ //  border-bottom: 1px solid black;
+   text-align: left;
+   //height: 30px;
+   padding: 3px 10px;
    color: black;
-   width: 100%;
+   width: 80px;
+   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+   font-size: 12px;
+   border: 1px solid #ccc;
+}
+.statistics{
+    margin: 5px;
 }
 
+.statistics td:first-child, .statistics th:first-child{
+    //text-align: right;
+}
 .map {
   width:800px;
   height:450px;
