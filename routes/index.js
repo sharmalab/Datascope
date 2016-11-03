@@ -229,16 +229,30 @@ var _tableNext = function(req, res){
     TABLE_DATA = TABLE_DATA.slice(start, start+length);
 
     var DATA_ARRAY = [];
+    
+    
     for(var i in TABLE_DATA){
 
         var row = [];
+        /*
         for(var j in dataTableAttributes){
             var attrName = dataTableAttributes[j]["attributeName"];
             row.push(TABLE_DATA[i][attrName]);
         }
+        */
+        for(var r in TABLE_DATA[i]){
+            console.log(r);
+            row.push(TABLE_DATA[i][r]);
+
+            //row.push( TABLE_DATA{i][r]);
+        }
+        //console.log(i);
 
         DATA_ARRAY.push(row);
     }
+    
+    //DATA_ARRAY = TABLE_DATA;
+
     var all = {};
     all.value = function(){return 0;};
     results = {
