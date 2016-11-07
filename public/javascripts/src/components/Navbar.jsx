@@ -1,6 +1,7 @@
 /* global queryFilter */
 /* global d3 */
 /* global Theme */
+/* global document */
 var React = require("react");
 var DocumentTitle = React.createFactory(require("react-document-title"));
 
@@ -14,6 +15,10 @@ var NavBar = React.createClass({
             var dashBoardConfig =  config || {};
             console.log(dashBoardConfig.projectTitle);
             var title = dashBoardConfig.projectTitle || "DataScope";
+
+            //set HTML document title
+            document.title = "Datascope :: "+title;
+
             self.setState({projectTitle: title, dashBoardConfig: config});
 
         });
@@ -38,6 +43,7 @@ var NavBar = React.createClass({
         //var theme = dashBoardConfig.theme;
         return (
             <div className='navbar navbar-inverse navbar-fixed-top' id='header' role='navigation' style={{"background": Theme.headerColor1}} >
+
              
                 <div className='navbar-header'>
                     <div className="navbar-brand" style={{"background": primaryColor1, "width": "340"}}>{projectTitle}</div>
