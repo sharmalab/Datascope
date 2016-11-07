@@ -363,8 +363,8 @@ var FilteringAttribute = React.createClass({
             var binFactor = self.props.config.visualization.binFactor;
             var scale = (d3.scale.linear().domain([domain[0]-8, domain[1]+15])());
             var nBins = (domain[1]/binFactor);
-            console.log(Math.ceil(nBins));
-            console.log(scale);
+            //console.log(Math.ceil(nBins));
+            //console.log(scale);
             c.width(260)
                 .height(200).dimension(self.state.dimension)
                 .group(self.state.group)
