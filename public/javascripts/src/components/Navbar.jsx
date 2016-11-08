@@ -51,7 +51,7 @@ var NavBar = React.createClass({
                 </div>
 
                     <ul className="nav navbar-nav navbar-right navbar-options">
-                        <li><a href={"/save?filter="+JSON.stringify(queryFilter)} target="_blank">Download</a></li>
+
                     </ul>
             </div>
         );
