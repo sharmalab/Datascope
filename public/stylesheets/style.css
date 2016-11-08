@@ -784,3 +784,9 @@ font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
     //background: #ccc;
     //color:
 }
+.dc-chart .pie-slice{
+    fill:black;
+}
+.dc-chart g.row text{
+    fill: black;
+}
