@@ -46,7 +46,7 @@ var NavBar = React.createClass({
 
              
                 <div className='navbar-header'>
-                    <div className="navbar-brand" style={{"background": primaryColor1, "width": "340"}}>{projectTitle}</div>
+                    <div className="navbar-brand" style={{"background": primaryColor1, "width": "340px"}}>{projectTitle}</div>
                         
                 </div>
 

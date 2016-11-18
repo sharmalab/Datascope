@@ -59,7 +59,7 @@ var InteractiveFilters = React.createClass({
             filteringAttributes = this.props.config.map(function(filteringAttribute){
                 key++;
                 return (
-                    <FilteringAttribute key={key} onToggleShow={self.toggleShow.bind(self)} config={filteringAttribute} currData={self.props.currData} full={self.state.full} />
+                    <FilteringAttribute key={key} onToggleShow={self.toggleShow} config={filteringAttribute} currData={self.props.currData} full={self.state.full} />
                 );
             });
         }
