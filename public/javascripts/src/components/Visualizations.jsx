@@ -90,7 +90,7 @@ var Visualizations = React.createClass({
                 if(!visualization.tabTitle)
                     visualization.tabTitle = visualization.visualizationType;
                 return(
-                    <Tab title={visualization.tabTitle} eventKey={count}>
+                    <Tab title={visualization.tabTitle} eventKey={count} key={count}>
                         <div className="visualizationArea">
                         <Visualization config ={visualization} debug={self.props.debug} currData={self.props.currData}  />
                         </div>
