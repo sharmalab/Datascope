@@ -8,7 +8,7 @@ var StatisticsTable = React.createClass({
 
         return (
             <table className="statistics">
-                <thead>{headerComponents}</thead>
+                <thead><tr>{headerComponents}</tr></thead>
                 <tbody>{rowComponents}</tbody>
             </table>
         );
@@ -18,8 +18,10 @@ var StatisticsTable = React.createClass({
         var cols = this.props.cols;
 
         // generate our header (th) cell components
+        var key = 0;
         return cols.map(function(colData) {
-            return <th>{colData}</th>;
+            key++;
+            return <th key={key}>{colData}</th>;
         });
     },
 
