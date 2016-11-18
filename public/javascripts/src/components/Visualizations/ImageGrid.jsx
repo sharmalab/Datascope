@@ -113,7 +113,7 @@ var ImageGrid = React.createClass({
 			items.push(item);
 			var url = "http://imaging.cci.emory.edu/phone/camicroscope/osdCamicroscope.php?tissueId="+URL;
             return (
-                    <span>
+                    <span key={key}>
                     <a href={"http://imaging.cci.emory.edu/phone/camicroscope/osdCamicroscope.php?tissueId=" + URL} target="_blank"> 
 
                     <ImageGridItem image={image} url={url} zoom={self.state.zoom}/>
