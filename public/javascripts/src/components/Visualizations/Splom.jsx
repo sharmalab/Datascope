@@ -90,45 +90,6 @@ var SplomGrid = React.createClass({
             });
 			*/
             chart.filterHandler(function(dimension, filter){
-                /*
-                
-               
-              
-                //console.log(filter);
-                //console.log(dimension);
-                //var begin = $("#filterBeg"+dimension.name());
-                //var end = $("#filterEnd"+dimension.name());
-                //console.log(filter[0].filterType);
-                if(filter.length === 0){
-                    console.log("here zeeeor");
-                    dimension.filter([]);
-                    return null;
-                }
-
-
-                if(filter[0].filterType === "RangedFilter"){
-                    console.log("...");
-                    dimension.filter(filter[0]);
-                    return filter[0];
-                } else {
-                    
-
-                    
-                    if(filter.length > 0 && filter.length!=2){
-                        filter = filter[0];
-                        dimension.filter([+filter]);
-                        return [filter];
-                    } 
-
-                }
-                console.log(filter);
-
-                //begin.val(filter[0]);
-                //end.val(filter[1]);
-                //dimension.filter(filter);
-                //return filter;
-                */
-
                 
                
 
@@ -400,11 +361,11 @@ var SplomGrid = React.createClass({
         var rows = attributes.map(function(attribute){
             //
             
-            return <div className="row"><SplomRow config={self.props.config} rowLabel={attribute.shortLabel} rowId={attribute.attributeName} /></div>;
+            return <div key={attribute.attributeName} className="row"><SplomRow config={self.props.config} rowLabel={attribute.shortLabel} rowId={attribute.attributeName} /></div>;
         });
 
 
-        rows.unshift(<SplomHeader config = {self.props.config} />);
+        rows.unshift(<SplomHeader config = {self.props.config} key={"header"} />);
         return (
                 <div>{rows}</div>
         );
@@ -433,11 +394,15 @@ var SplomRow = React.createClass({
         var rowLabel = this.props.rowLabel;
         var cols = [];
         cols.push(<div className="splom-side-title" >{rowLabel}</div>);
+        var count =0;
         for(var i in attributes){
             //
             var colId = attributes[i].attributeName; 
-            var box = <SplomBox rowId={rowId} colId={colId} />;
+            var box = <SplomBox rowId={rowId} colId={colId} key={count} />;
             cols.push(box);
+            count++; 
+
+
         }
         /*
         var col = attributes.map(function(attribute) {
@@ -459,7 +424,7 @@ var SplomHeader = React.createClass({
     render: function(){
         var attributes = this.props.config.attributes;
         var titles = attributes.map(function(attribute){
-            var titleBox = <div className="splom-grid-title" >{attribute.label}</div>
+            var titleBox = <div key={attribute.label} className="splom-grid-title" >{attribute.label}</div>
             return titleBox;
         });
         titles.unshift(<div className="splom-side-title" id="splom-spacer"></div>);

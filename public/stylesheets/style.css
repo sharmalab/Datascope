@@ -498,9 +498,9 @@ div#splom-spacer{
     font-size: 10px;
 }
 button{
-    color: #ddd;
+    color: #000;
 //    background: #03A9F4;
-    background:  rgba(69, 90, 100, 0.84);
+    background:  rgb(201, 201, 216);
 //    box-shadow: 2px 2px 2px grey;
     border: 0;
 }

@@ -71,8 +71,7 @@ var Dashboard = React.createClass({
 
         d3.json("config/dashboard", function(config){
             var dashBoardConfig =  config || {};
-            console.log(config);
-            console.log("....");
+
             Theme = dashBoardConfig.theme;
             self.setState({ dashboardConfig: config});
 
@@ -89,7 +88,7 @@ var Dashboard = React.createClass({
         
         var data = AppStore.getData();
         //var debug=this.state.debug+1;
-        console.log("filtered!");
+
         this.setState({currData: data, loading: false});
         dc.renderAll();
 
@@ -100,8 +99,7 @@ var Dashboard = React.createClass({
           //visualizationData = currData.visualization;
         //console.log(this.state.loaded);
         var loading =  this.state.loading;
-        console.log(loading);
-        console.log(this.state.dashboardConfig);
+
         return (
           <div id="main_container">
             <NavBar />

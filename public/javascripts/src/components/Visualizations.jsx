@@ -85,12 +85,12 @@ var Visualizations = React.createClass({
                 //console.log(visualization);
                 //console.log(TabPane);
                 count++;   
-
-                console.log(visualization.tabTitle);
+                //console.log(count);
+                //console.log(visualization.tabTitle);
                 if(!visualization.tabTitle)
                     visualization.tabTitle = visualization.visualizationType;
                 return(
-                    <Tab title={visualization.tabTitle} eventKey={count} key={count}>
+                    <Tab title={visualization.tabTitle} eventKey={count} key={count} id={visualization.tabTitle}>
                         <div className="visualizationArea">
                         <Visualization config ={visualization} debug={self.props.debug} currData={self.props.currData}  />
                         </div>
@@ -112,7 +112,7 @@ var Visualizations = React.createClass({
 
                     <div id="visualization" className="">
                        
-                        <Tabs defaultActiveKey={1}>
+                        <Tabs defaultActiveKey={1} id="tabs">
                             {visualizations}
                         </Tabs>
                     </div>

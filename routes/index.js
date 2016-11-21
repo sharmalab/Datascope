@@ -172,8 +172,13 @@ var _tableNext = function(req, res){
         results = {};
     var interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
     var TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
-    var dataTableAttributes = visualization.getAttributes("dataTable");
+    //var dataTableAttributes = visualization.getAttributes("dataTable");
+    var dataTableAttributes = [];
 
+    for( i in req.query.columns){
+      dataTableAttributes.push(req.query.columns[i].name);
+    }
+    console.log(dataTableAttributes);
     /* if the query contains a value to be searched,
         then filter the rows that don't contain the value
     */
@@ -217,7 +222,7 @@ var _tableNext = function(req, res){
         
     }
     
-
+    console.log(req.query);
 
     var len = TABLE_DATA.length;
 
@@ -230,7 +235,7 @@ var _tableNext = function(req, res){
 
     var DATA_ARRAY = [];
     
-    
+    console.log(dataTableAttributes); 
     for(var i in TABLE_DATA){
 
         var row = [];
@@ -241,7 +246,7 @@ var _tableNext = function(req, res){
         }
         */
         for(var r in TABLE_DATA[i]){
-            console.log(r);
+            //console.log(r);
             row.push(TABLE_DATA[i][r]);
 
             //row.push( TABLE_DATA{i][r]);

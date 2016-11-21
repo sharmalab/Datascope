@@ -1,4 +1,5 @@
 var React = require("react");
+var TableCounts = 0;
 var DataTable = React.createClass({
 
     getInitialState: function(){
@@ -12,22 +13,23 @@ var DataTable = React.createClass({
 
         var id = this.state.id;
         var tableId = "vis"+ id;
-
+        TableCounts++;
         for(var i in self.props.config.attributes){
             columns[count] = {};
             //columns[count]["data"] = self.props.config.attributes[i].name;
             columns[count]["title"] = self.props.config.attributes[i].label || self.props.config.attributes[i].attributeName;
             columns[count]["bSearchable"] = true;
             columns[count]["bSortable"] = true;
+            columns[count]["name"] = self.props.config.attributes[i].attributeName;
             if(self.props.config.attributes[i].type){
                 url = self.props.config.attributes[i];
             }
             count++;
         }
         console.log(columns);
-        var ajaxUrl = "dataTable/next?dataSourceName=" + globalDataSourceName;
+        var ajaxUrl = "dataTable/next?dataSourceName=" + globalDataSourceName ;
         console.log(ajaxUrl);
-        dataTable = $('#'+tableId).DataTable({
+        var dataTable = $('#'+tableId).DataTable({
             //bSort: false,
             //bFilter: false,
             aoColumns: columns,
@@ -38,7 +40,9 @@ var DataTable = React.createClass({
             //"scrollX": true,
             //"width": "100%",
             "bScrollAutoCss": true,
+            
 
+           
             //"scrollX": "100%",
             "pageLength": 10,
             columns: columns,
@@ -60,16 +64,23 @@ var DataTable = React.createClass({
         });
 
         $("#"+tableId).removeClass("display").addClass("table table-striped table-bordered");
+
+        self.setState({"dataTable": dataTable});
     },
     componentWillReceiveProps: function(){
-        if(dataTable.ajax){
-            dataTable.ajax.reload(); //jquery datatable fix
+        var dataTable = this.state.dataTable;
+        console.log(dataTable);
+        if(dataTable){
+          console.log(dataTable);
+          if(dataTable.ajax){
+              dataTable.ajax.reload(); //jquery datatable fix
+          }
         }
     },
     render: function(){
         var tableAttribtes = [];
 
-        console.log(this.state.id);
+        //console.log(this.state.id);
         var id = this.state.id;
         var tableId = "vis"+ id;
             return(
