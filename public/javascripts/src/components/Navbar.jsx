@@ -4,6 +4,9 @@
 /* global document */
 var React = require("react");
 var DocumentTitle = React.createFactory(require("react-document-title"));
+var Summary = require("./Visualizations/Summary.jsx");
+
+
 
 var NavBar = React.createClass({
     getInitialState: function(){
@@ -49,7 +52,9 @@ var NavBar = React.createClass({
                     <div className="navbar-brand" style={{"background": primaryColor1, "width": "340px"}}>{projectTitle}</div>
                         
                 </div>
-
+                     <div id="summary">
+                    <Summary />
+                    </div>                   
                     <ul className="nav navbar-nav navbar-right navbar-options">
                         <li><a href={"/save?filter="+JSON.stringify(queryFilter)} target="_blank">Download</a></li>
                     </ul>

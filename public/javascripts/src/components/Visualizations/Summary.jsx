@@ -22,11 +22,11 @@ var summaryChart = function(data) {
         .attr("class", "summaryPopulationBar")
         .style("width", function(){
             //console.log("..");
-            return 500 * (Current/Total) + "px"; 
+            return 400 * (Current/Total) + "px"; 
         })
         .style("background", function(){
             console.log("coloring steelblue");
-            return "steelblue";
+            return "#f47a7e";
         });
 };
 
@@ -103,29 +103,18 @@ var Summary = React.createClass({
         } else{
             display = "none"
         }
+        display = "block";
         return(
             <div id="summary">
-                <span className="summaryHide">
-                    <a href="#" onClick={self.hideSummary}> <Glyphicon glyph="stats" />
-                    Toggle Summary</a>
-                </span>
-
                 <span className="summaryBody">
                     <div>
                    
-                        <div style={{"display": display}}>
+                        <div style={{"display": display}} id="summaryMain">
                         <span className="summaryPopulation">
                                 <span className="summaryPopulationLabel">
                                     {self.state.Current}/{self.state.Total} Selected
                                 </span>
                         </span>
-                           <div id="queryString">
-
-                                <div id="queryStringQuery">
-                        
-                                    {Filters}
-                                </div>
-                            </div>
 
                         </div>
                 
