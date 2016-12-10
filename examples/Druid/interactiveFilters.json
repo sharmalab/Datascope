@@ -1,0 +1,16 @@
+[{
+  "attributeName": "group",
+  "visualization": {
+    "visType": "rowChart",
+    "height": 400
+  }
+},
+{
+  "attributeName": "A",
+  "visualization": {
+    "visType": "rowChart",
+    "height": 140
+  }
+}
+
+]

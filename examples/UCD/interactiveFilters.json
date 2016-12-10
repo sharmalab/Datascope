@@ -1,0 +1,73 @@
+[{
+  "attributeName": "Group",
+  "visualization": {
+    "visType": "rowChart",
+    "height": 400
+  }
+}, 
+ {
+  "attributeName": "Disease-Free-Months",
+  "visualization": {
+    "visType": "barChart",
+    "binFactor": 10,
+    "domain": [0, 290]
+  },
+  "statistics": "default"
+}, {
+  "attributeName": "Disease-Free-Status",
+  "visualization": {
+    "visType": "pieChart"
+  }
+}, {
+  "attributeName": "Ethnicity-Category",
+  "visualization": {
+    "visType": "rowChart"
+  }
+}, {
+  "attributeName": "Mutation-Count",
+  "visualization": {
+    "visType": "barChart",
+    "binFactor": 400,
+    "domain": [0,2000]
+  }
+}, {
+  "attributeName": "Neoplasm-Disease-Stage",
+  "visualization": {
+    "visType": "rowChart",
+    "height": 400
+  }
+}, {
+  "attributeName": "Overall-Survival-Status",
+  "visualization": {
+    "visType": "rowChart"
+  }
+}, {
+  "attributeName": "Overall-Survival-Months",
+  "visualization": {
+    "visType": "barChart",
+    "binFactor": 10,
+    "domain": [0,130]
+  }
+}, {
+  "attributeName": "Person-Gender",
+  "visualization": {
+    "visType": "rowChart"
+  }
+}, {
+  "attributeName": "Race-Category",
+  "visualization": {
+    "visType": "rowChart"
+  }
+}, {
+  "attributeName": "Radiology",
+  "visualization": {
+    "visType": "rowChart",
+    "height": 120
+  }
+}, {
+  "attributeName": "Pathology",
+  "visualization": {
+    "visType": "rowChart",
+    "height": 120
+  }
+}]

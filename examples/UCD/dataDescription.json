@@ -1,0 +1,102 @@
+[{
+  "attributeName": "Group",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "enum"
+},
+{
+    "attributeName": "CNA",
+    "attributeType": ["filtering", "visual"],
+    "dataProvider": "",
+    "datatype": "float"
+},
+{
+  "attributeName": "Diagnosis-Age",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "integer"
+}, {
+  "attributeName": "Disease-Free-Months",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "integer"
+}, {
+  "attributeName": "Disease-Free-Status",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "enum"
+}, {
+  "attributeName": "Ethnicity-Category",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "enum"
+}, {
+  "attributeName": "Mutation-Count",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "integer"
+}, {
+  "attributeName": "Neoplasm-Disease-Stage",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "enum"
+}, {
+  "attributeName": "Overall-Survival-Status",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "enum"
+}, {
+  "attributeName": "Overall-Survival-Months",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "integer"
+}, {
+  "attributeName": "Person-Gender",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "enum"
+}, {
+  "attributeName": "Race-Category",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "enum"
+}, {
+  "attributeName": "Tissue-Source-Site",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "enum"
+}, {
+  "attributeName": "Radiology",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "enum"
+}, {
+  "attributeName": "Pathology",
+  "attributeType": ["filtering", "visual"],
+  "dataProvider": "",
+  "datatype": "enum"
+}, {
+  "attributeName": "PATIENT_ID",
+  "attributeType": [
+    "visual"
+  ]
+}, {
+  "attributeName": "ER-Score",
+  "attributeType": [
+    "visual"
+  ],
+  "datatype": "integer"
+}, {
+  "attributeName": "HER2-Score",
+  "attributeType": [
+    "visual"
+  ],
+  "datatype": "integer"
+}, {
+
+  "attributeName": "PR-Status",
+  "attributeType": [
+    "visual"
+  ],
+  "datatype": "enum"
+}]

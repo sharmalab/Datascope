@@ -1,0 +1,11 @@
+{
+  "dataSourceAlias": "",
+  "dataSources": [{
+    "sourceName": "clinicalData",
+    "sourceType": "jsonFile",
+    "options": {
+      "path": "data/out.json"
+    }
+  }],
+  "joinKey": "PATIENT_ID"
+}
