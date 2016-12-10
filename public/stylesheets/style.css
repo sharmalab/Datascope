@@ -214,6 +214,14 @@ table#dataTable{
 /*
 */
 
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    background-color: #f47a7e;
+    border: 0px solid #f47a7e
+}
+.pagination>li>a, .pagination>li>span{
+    color: #f47a7e;
+}
+
 
 #totalChart{
     height: 25px;
