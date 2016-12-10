@@ -797,3 +797,9 @@ ul.nav.nav-tabs{
     //background: #ccc;
     //color:
 }
+.dc-chart .pie-slice{
+    fill:black;
+}
+.dc-chart g.row text{
+    fill: black;
+}

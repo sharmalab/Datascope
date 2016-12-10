@@ -103,7 +103,7 @@ var ImageGrid = React.createClass({
         var Img = images.map(function(d){
 			var item = {}
             var image = d["Image"];
-			item.image = image
+			item.image = image;
             var URL=  image.substring(95, 95+ ("TCGA-A1-AOSD").length);
 			item.url = URL;
 			item.label = d["TCGA-ID"];
@@ -111,10 +111,11 @@ var ImageGrid = React.createClass({
 			item.key = key;
 			key++;
 			items.push(item);
-			var url = "http://imaging.cci.emory.edu/phone/camicroscope/osdCamicroscope.php?tissueId="+URL;
+			var url = "http://quip1.uhmc.sunysb.edu/camicroscope/osdCamicroscope.php?tissueId="+URL;
             return (
-                    <span key={key}>
-                    <a href={"http://imaging.cci.emory.edu/phone/camicroscope/osdCamicroscope.php?tissueId=" + URL} target="_blank"> 
+
+                    <span>
+                    <a href={d["Image_URL"]} target="_blank"> 
 
                     <ImageGridItem image={image} url={url} zoom={self.state.zoom}/>
                     </a>

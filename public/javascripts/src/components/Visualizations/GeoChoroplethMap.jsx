@@ -66,7 +66,7 @@ var GeoChoroplethMap = React.createClass({
                     .height(500)
                     .dimension(dim)
                     .group(group)
-                    .colors(d3.scale.quantize().range(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]))
+                    .colors(d3.scale.quantize().range(["#F47A7E", "#FCDADB", "#F7A2A5", "#9C4E51"]))
                     .colorDomain(
                         [
                             d3.min(group.all(), function (d) {
@@ -132,14 +132,7 @@ var GeoChoroplethMap = React.createClass({
             <div id="geo">
                 <h4>{this.props.config.subheading}</h4>
                 <div id="geoVis">
-                    { isFilterActive ?
-                        <div>
-                            <p>Current filter: {attributeName} = {queryString}</p>
-                            <button className="link" onClick={self.onReset}>Reset</button>
-                        </div>
-                        :
-                        <div/>
-                    }
+
                 </div>
              </div>
         );

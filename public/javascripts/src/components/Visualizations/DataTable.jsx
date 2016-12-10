@@ -60,7 +60,7 @@ var DataTable = React.createClass({
             //console.log(dataTable.row(this).data());
             var data = dataTable.row(this).data();
             var url = data[data.length-1];
-            window.open(url);
+            //window.open(url);
         });
 
         $("#"+tableId).removeClass("display").addClass("table table-striped table-bordered");
