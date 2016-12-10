@@ -26,9 +26,9 @@ var DataTable = React.createClass({
             }
             count++;
         }
-        console.log(columns);
+        //console.log(columns);
         var ajaxUrl = "dataTable/next?dataSourceName=" + globalDataSourceName ;
-        console.log(ajaxUrl);
+        //console.log(ajaxUrl);
         var dataTable = $('#'+tableId).DataTable({
             //bSort: false,
             //bFilter: false,
@@ -57,7 +57,7 @@ var DataTable = React.createClass({
         $("#"+tableId+" tbody").on("click", "tr", function(){
             //var url = self.props.config.url
             //var id = DataTable.fnGetData(this)[0];
-            console.log(dataTable.row(this).data());
+            //console.log(dataTable.row(this).data());
             var data = dataTable.row(this).data();
             var url = data[data.length-1];
             window.open(url);
@@ -69,9 +69,9 @@ var DataTable = React.createClass({
     },
     componentWillReceiveProps: function(){
         var dataTable = this.state.dataTable;
-        console.log(dataTable);
+        //console.log(dataTable);
         if(dataTable){
-          console.log(dataTable);
+          //console.log(dataTable);
           if(dataTable.ajax){
               dataTable.ajax.reload(); //jquery datatable fix
           }

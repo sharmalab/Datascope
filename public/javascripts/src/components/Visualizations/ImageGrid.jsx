@@ -136,7 +136,8 @@ var ImageGrid = React.createClass({
 			</div>
 		);
 		*/
-        
+        console.log("Paginate: ");
+        console.log(paginate); 
         if(paginate == true){
             if(gridState == 0){
                 return(

@@ -8035,11 +8035,18 @@ dc.rowChart = function (parent, chartGroup) {
     var _xAxis = d3.svg.axis().orient('bottom');
 
     var _rowData;
+    var _originalRowData;
 
     _chart.rowsCap = _chart.cap;
+    
+    //_rowData = _chart.data();
+    _originalRowData = _rowData;
+    //console.log("updating");
+
 
     function calculateAxisScale () {
         if (!_x || _elasticX) {
+            //console.log(_rowData);
             var extent = d3.extent(_rowData, _chart.cappedValueAccessor);
             if (extent[0] > 0) {
                 extent[0] = 0;
@@ -8115,10 +8122,13 @@ dc.rowChart = function (parent, chartGroup) {
             .attr('y2', function () {
                 return -_chart.effectiveHeight();
             });
+
+
     }
 
     function drawChart () {
         _rowData = _chart.data();
+
 
         drawAxis();
         drawGridLines();
@@ -8183,6 +8193,9 @@ dc.rowChart = function (parent, chartGroup) {
 
         dc.transition(rect, _chart.transitionDuration())
             .attr('width', function (d) {
+                //console.log(_rowData);
+                //console.log(rootValue());
+                //console.log(d);
                 return Math.abs(rootValue() - _x(_chart.valueAccessor()(d)));
             })
             .attr('transform', translateX);
