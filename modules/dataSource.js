@@ -53,8 +53,71 @@ var dataSource = (function(){
 
 	    var type=  dataSource.sourceType;
 	    var options = dataSource.options;
+
+        var JSONStream = require('JSONStream');
+        var es = require('event-stream');
+        /*
+        fileStream = fs.createReadStream(filePath, {encoding: 'utf-8'});
+        fileStream.pipe(JSONStream.parse('*')).pipe(es.through(function(data){
+          console.log(data);
+        },function end(){
+          console.log("end")
+          this.emit('end')
+        }));
+        function processOneCustomer(data, es){
+          
+        };
+        */
+        function json(options, callback){
+          var path = options.path;
+          var stream = JSONStream.parse('*');
+          var fullData = [];
+          var fileStream = fs.createReadStream(path, {encoding: 'utf-8'})
+            .pipe(stream);
+          stream.on('data', function(data){
+            fullData.push(data);
+            //console.log(data);
+          });
+          stream.on('footer', function(){
+            console.log('end');
+            callback(fullData);
+          });
+        };
+        /*
+        function json(options, callback){
+              console.log("json");
+              console.log("....");
+              var path = options.path;
+              source.on("startObject", function(d){
+                console.log(d);
+              });
+              source.on("end", function(){
+                console.log("end");
+                callback([]);
+              
+              callback([]);});
+              fs.createReadStream(path).pipe(source.input);
+              //Read the file using filepath
+              /*
+              fs.readFile(path, 'utf8', function(err, d){
+                if(err){
+                  console.log("Error: "+ err);
+                  return;
+                }
+                data = JSON.parse(d);
+                //console.log(data); 
+                //Send data back to app.js
+                callback(data);
+              });
+        
+        }
+        */
+
+
+        
 	    if(type== FILETYPES.JSONFILE){
-	      anyToJSON.json(options, processData);
+          json(options, processData);
+          //anyToJSON.json(options, processData);
 	    } else if(type == FILETYPES.CSVFILE) {
 	      anyToJSON.csv(options, processData);
 	    } else if(type == FILETYPES.JSONREST) {
@@ -64,6 +127,7 @@ var dataSource = (function(){
 	    } else if (type == "odbc") {
 	      anyToJSON.odbc(options, processData);
 	    }
+        
 	}
 	//### _init()
 	//Returns an array of dataSources
