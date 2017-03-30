@@ -9,7 +9,7 @@ We propose an environment for visualizing and exploring multidimensional data. W
 * Install Node.js
 * Clone the repository
 * Run ```npm install```
-* Run ```grunt browserify ``` or ```webpack```
+* Run ```webpack```
 
 ##### Running
 
