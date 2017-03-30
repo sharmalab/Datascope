@@ -172,8 +172,8 @@ var _tableNext = function(req, res){
         results = {};
     var interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
     var TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
-    //var dataTableAttributes = visualization.getAttributes("dataTable");
-    var dataTableAttributes = [];
+    var dataTableAttributes = visualization.getAttributes("dataTable");
+    //var dataTableAttributes = [];
 
     for( i in req.query.columns){
       dataTableAttributes.push(req.query.columns[i].name);
@@ -235,22 +235,22 @@ var _tableNext = function(req, res){
 
     var DATA_ARRAY = [];
     
-   
+    //console.log(dataTableAttributes); 
     for(var i in TABLE_DATA){
 
         var row = [];
-        /*
+        
         for(var j in dataTableAttributes){
             var attrName = dataTableAttributes[j]["attributeName"];
             row.push(TABLE_DATA[i][attrName]);
         }
-        */
+        /*
         for(var r in TABLE_DATA[i]){
             //console.log(r);
             row.push(TABLE_DATA[i][r]);
 
             //row.push( TABLE_DATA{i][r]);
-        }
+        }*/
         //console.log(i);
 
         DATA_ARRAY.push(row);
