@@ -178,7 +178,7 @@ var _tableNext = function(req, res){
     for( i in req.query.columns){
       dataTableAttributes.push(req.query.columns[i].name);
     }
-    console.log(dataTableAttributes);
+   
     /* if the query contains a value to be searched,
         then filter the rows that don't contain the value
     */
@@ -222,7 +222,7 @@ var _tableNext = function(req, res){
         
     }
     
-    console.log(req.query);
+   
 
     var len = TABLE_DATA.length;
 
@@ -235,7 +235,7 @@ var _tableNext = function(req, res){
 
     var DATA_ARRAY = [];
     
-    console.log(dataTableAttributes); 
+   
     for(var i in TABLE_DATA){
 
         var row = [];
