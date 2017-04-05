@@ -16,9 +16,11 @@ var ImageGridItem = React.createClass({
             fontSize: "7px"
 
         };
+        //console.log(this.props.label);
         return <div className="imageGridItem" style={itemStyle}>
             <figure>
-                <img src={image} style={{zoom: zoom}} /> 
+                <img src={image} style={{zoom: zoom}}  title="Image"/>
+                <figcaption>{this.props.label}</figcaption>
              
             </figure>
         </div>;
@@ -111,17 +113,21 @@ var ImageGrid = React.createClass({
 			item.key = key;
 			key++;
 			items.push(item);
+            //console.log(d);
 			var url = "http://quip1.uhmc.sunysb.edu/camicroscope/osdCamicroscope.php?tissueId="+URL;
+            if(d["Image_Available"] == "Yes"){
             return (
 
                     <span>
-                    <a href={d["Image_URL"]} target="_blank"> 
+                    <a href={d["url"]} target="_blank"> 
 
-                    <ImageGridItem image={image} url={url} zoom={self.state.zoom}/>
+                    <ImageGridItem label={d["Slide IDs"]} image={image} url={url} zoom={self.state.zoom}/>
                     </a>
                     </span>
             );
-
+            } else {
+              return <span />
+            }
 
         });
 		/*

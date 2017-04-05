@@ -106,13 +106,18 @@ var interactiveFilters = (function(){
                         }
                     } else {
                         if(d[filteringAttribute[ATTRIBUTENAME]]) {
+                            if(d[filteringAttribute[ATTRIBUTENAME]]){
+
+                            } else {
+                              return null;
+                            }
                             if(filteringAttribute.datatype === "integer") {
                                 d[filteringAttribute[ATTRIBUTENAME]] = +d[filteringAttribute[ATTRIBUTENAME]]
                             }
                             return d[filteringAttribute[ATTRIBUTENAME]];
                         } 
                         else {
-                            return null;
+                            return "NA";
                         }
                     }
                 });

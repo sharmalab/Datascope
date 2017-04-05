@@ -99,16 +99,16 @@ var _filterFunction = function(filter, dataSourceName){
 
         CURRENTDATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
 
-        var reqLength = 100;
+        var reqLength = 1000;
         var paginate = true;
         if(CURRENTDATA.length < reqLength)
             paginate = false;
         //console.log(CURRENTDATA);
         results["imageGrid"] = {
-            values: CURRENTDATA.slice(0,500),
-            active: 100,
-            size: 100,
-            state: Math.floor(reqLength/100),
+            values: CURRENTDATA.slice(0,3000),
+            active: 1000,
+            size: 1000,
+            state: Math.floor(reqLength/1000),
             paginate: paginate,
             finalState: Math.floor(CURRENTDATA.length/reqLength)
         };
@@ -172,13 +172,8 @@ var _tableNext = function(req, res){
         results = {};
     var interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
     var TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
-    //var dataTableAttributes = visualization.getAttributes("dataTable");
-    var dataTableAttributes = [];
+    var dataTableAttributes = visualization.getAttributes("dataTable");
 
-    for( i in req.query.columns){
-      dataTableAttributes.push(req.query.columns[i].name);
-    }
-    console.log(dataTableAttributes);
     /* if the query contains a value to be searched,
         then filter the rows that don't contain the value
     */
@@ -222,7 +217,7 @@ var _tableNext = function(req, res){
         
     }
     
-    console.log(req.query);
+
 
     var len = TABLE_DATA.length;
 
@@ -235,18 +230,18 @@ var _tableNext = function(req, res){
 
     var DATA_ARRAY = [];
     
-    console.log(dataTableAttributes); 
+    
     for(var i in TABLE_DATA){
 
-        var row = [];
-        /*
+        var row = []; 
         for(var j in dataTableAttributes){
             var attrName = dataTableAttributes[j]["attributeName"];
             row.push(TABLE_DATA[i][attrName]);
         }
-        */
+        
+        console.log("...");
         for(var r in TABLE_DATA[i]){
-            //console.log(r);
+            console.log(r);
             row.push(TABLE_DATA[i][r]);
 
             //row.push( TABLE_DATA{i][r]);

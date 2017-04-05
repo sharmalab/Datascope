@@ -129,10 +129,7 @@ var ChartAddons = React.createClass({
                         </label>
                     </div>
                     <div className="chartAddons">
-                        <label>
-                        ElasticY:
-                        <input type="checkbox"  onChange={this.handleElasticY}  checked={this.state.elasticY}/>
-                        </label>
+
                     </div>
                     </div>
                 );
@@ -140,10 +137,7 @@ var ChartAddons = React.createClass({
             return(
                     <div className="chartAddons">
 
-                        <label>
-                        ElasticX:
-                        <input type="checkbox" onChange={this.handleElasticX} checked={this.state.elasticX}/>
-                        </label>
+
                         <br />
                         {isFilterActive ?
                         
@@ -375,8 +369,8 @@ var FilteringAttribute = React.createClass({
                 //.xUnits(dc.units.fp.precision((1/binFactor)))
                 //.xUnits(function() {return 15})
                 //.xUnits(function(){return 500*(1/binFactor)})
-                //.elasticY(true)
-                //.elasticX(true);
+                .elasticY(true)
+                .elasticX(true);
             c.renderlet(function(chart){
                 chart.selectAll("g.x text")
                     .attr("transform", "translate(-10,10) rotate(315)");
@@ -416,7 +410,7 @@ var FilteringAttribute = React.createClass({
             .dimension(self.state.dimension)
             .group(self.state.group)
             .renderLabel(true)
-            //.elasticX(true)
+            .elasticX(true)
             .margins({top: 10, right: 20, bottom: 20, left: 20});
             c.filterHandler(function(dimension, filters){
                 //console.log(filters);

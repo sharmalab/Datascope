@@ -348,7 +348,7 @@ tr{
 
 #imageGridPagination{
   padding: 20px;
-//display: none;
+display: none;
 }
 #imageGridPagination .next{
 //	display: hidden;
