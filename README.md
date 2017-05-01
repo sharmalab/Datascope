@@ -24,3 +24,10 @@ We propose an environment for visualizing and exploring multidimensional data. W
 * Goto ```http://localhost:3000``` from your favorite browser.
 
 Read the User Guide present in ```docs/wiki/``` for more details
+
+
+## Developers
+
+* Use ```webpack --watch``` to rebuild automatically after edits.
+* Use ```nodemon```(https://github.com/remy/nodemon) to restart the server automatically after edits. 
+
