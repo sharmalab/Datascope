@@ -56,6 +56,7 @@ div.dc-chart {
 
 .dc-chart .axis text {
     font: 10px sans-serif;
+    transform: translate(-10px ,10px) rotate(315deg);
 }
 
 .dc-chart .grid-line {
