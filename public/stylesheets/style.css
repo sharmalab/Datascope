@@ -607,6 +607,7 @@ ul.nav.nav-tabs{
 -webkit-box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.75);
 -moz-box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.75);
 box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.75);
+display:flex;
 }
 .navbar-right{
     padding-right: 30px;
@@ -695,9 +696,9 @@ ul.nav.nav-tabs{
     text-align: center;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     width: 600px;
-    display: flex;
+    display: inline-block;
    //margin: 0 auto;
-   margin-left: 10%;
+   margin: auto;
     padding-top: 5px;
 }
 #summaryMain{
