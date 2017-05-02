@@ -16,7 +16,7 @@ var Masonry = React.createClass({
     }
 });
 */
-var InteractiveFilters = React.createClass({      
+var InteractiveFilters = React.createClass({
     getInitialState: function(){
         //console.log("Rendering interactive filters");
         return {full:false};
@@ -32,7 +32,7 @@ var InteractiveFilters = React.createClass({
 
         }else{
 
-            this.setState({full:true});   
+            this.setState({full:true});
         }
     },
     toggleShow: function(){
@@ -44,12 +44,12 @@ var InteractiveFilters = React.createClass({
 
         var self = this;
         var key = 0;
-   
+
         var theme = {};
 
         if(this.props.dashboardConfig){
             theme = this.props.dashboardConfig.theme;
-            
+
         }
 
 
@@ -66,31 +66,31 @@ var InteractiveFilters = React.createClass({
         if(this.state.full){
             return(
                 <div  className="col-sm-12 fixed" id="interactiveFiltersPanelFull">
-                    
-                    <Button onClick={this.fullView} id="interactiveFiltersPanelSlider" bsSize="xsmall">
+
+                    <Button onClick={this.fullView} id="interactiveFiltersPanelSlider" bsSize="large">
                         <Glyphicon glyph="chevron-left" />
                     </Button>
                     <Masonry className={"filteringFullView"} elementType={"div"} options={{itemSelector: ".grid-item"}} >
-                        <div className="filteringAttributesList">{filteringAttributes}</div>                    
+                        <div className="filteringAttributesList">{filteringAttributes}</div>
 
                     </Masonry>
                 </div>
-            );   
+            );
 
         } else {
             return(
                 <div  className="" id="interactiveFiltersPanel"  >
 
-                     <Button title="Full view" onClick={this.fullView}  id="interactiveFiltersPanelSlider" bsSize="xsmall">
+                     <Button title="Full view" onClick={this.fullView}  id="interactiveFiltersPanelSlider" bsSize="large">
                         <Glyphicon glyph="chevron-right" />
                      </Button>
                     <Masonry className={"filteringFullView"} elementType={"div"} options={{itemSelector: ".grid-item", isFitWidth: true}}>
                         <div className="filteringAttributesList">{filteringAttributes}</div>
-                    
+
                     </Masonry>
 
                 </div>
-            );            
+            );
         }
 
     }
