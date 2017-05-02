@@ -86,12 +86,12 @@ body {
 
 /* Hide for mobile, show later */
 .sidebar {
-  
+
 }
 @media (min-width: 768px) {
   .sidebar {
 
-    
+
     position: fixed;
 
     top: 51px;
@@ -170,7 +170,7 @@ body {
   cursor: pointer;
 }
 .thumb-panel-body{
-  
+
 }
 .panel-heading-right{
   float: right;
@@ -324,7 +324,7 @@ tr{
 
 }
 #interactiveFiltersPanelSlider{
-  position: relative;  
+  position: relative;
   left: 12px;
   padding: 16px 3px ;
   background: #03A9F4;
@@ -386,7 +386,7 @@ tr{
 }
 
 
-/* 
+/*
  * SPLOM
  */
 .splom{
@@ -498,7 +498,7 @@ div#splom-spacer{
 .chartAddons{
     font-size:10.5px;
     color: #fff;
-}   
+}
 .chart-notes{
     border:0;
     text-align: left;
@@ -573,7 +573,7 @@ img {
 #filteringAttributeTitle{
     padding-top: 17px;
     font-size: 17px;
-    
+
 }
 
 .nav-tabs>li.active>a{
@@ -638,7 +638,7 @@ box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.75);
 }
 
 #interactiveFiltersPanel .dc-chart .axis path, #interactiveFiltersPanel .axis line{
-    stroke: #73838A;   
+    stroke: #73838A;
 }
 
 ul.nav.nav-tabs{
@@ -695,7 +695,7 @@ ul.nav.nav-tabs{
     text-align: center;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     width: 600px;
-    display: inline-block;
+    display: flex;
    //margin: 0 auto;
    margin-left: 10%;
     padding-top: 5px;
@@ -712,11 +712,11 @@ ul.nav.nav-tabs{
     //background: steelblue;
     color: #fff;
     //padding-top: 3px;
-    //border: 1px solid #333;  
+    //border: 1px solid #333;
     font-size: 12px;
     background: #9c9cab;
 }
-.summaryPopulation div{   
+.summaryPopulation div{
     //z-index:10;
     //display: inline-block;
     background: red;
