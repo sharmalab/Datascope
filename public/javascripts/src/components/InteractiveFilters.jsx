@@ -67,7 +67,7 @@ var InteractiveFilters = React.createClass({
             return(
                 <div  className="col-sm-12 fixed" id="interactiveFiltersPanelFull">
 
-                    <Button onClick={this.fullView} id="interactiveFiltersPanelSlider" bsSize="large">
+                    <Button onClick={this.fullView} id="interactiveFiltersPanelSlider" title="Minimize Filters" bsSize="large">
                         <Glyphicon glyph="chevron-left" />
                     </Button>
                     <Masonry className={"filteringFullView"} elementType={"div"} options={{itemSelector: ".grid-item"}} >
@@ -81,7 +81,7 @@ var InteractiveFilters = React.createClass({
             return(
                 <div  className="" id="interactiveFiltersPanel"  >
 
-                     <Button title="Full view" onClick={this.fullView}  id="interactiveFiltersPanelSlider" bsSize="large">
+                     <Button title="Full view" onClick={this.fullView}  id="interactiveFiltersPanelSlider" title="Expand Filters" bsSize="large">
                         <Glyphicon glyph="chevron-right" />
                      </Button>
                     <Masonry className={"filteringFullView"} elementType={"div"} options={{itemSelector: ".grid-item", isFitWidth: true}}>
