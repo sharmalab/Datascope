@@ -291,19 +291,20 @@ tr {
 #interactiveFiltersPanelSlider:hover {
     background: rgb(244, 122, 126);
 }
-#interactiveFiltersPanelSlider {
-    position: relative;
-    left: 12px;
-    padding: 16px 3px;
-    background: #03A9F4;
-    color: #fff;
-    margin: 0;
-    top: 2px;
-    //box-shadow: 5px 5px 5px grey;
-    float: right;
-    //top: 100px;
-    //left: 320px;
-    z-index: 1000;
+
+#interactiveFiltersPanelSlider{
+  position: relative;
+  left: 12px;
+  padding: 20px 5px ;
+  background: #03A9F4;
+  color: #fff;
+  margin: 0;
+  top: 2px;
+  //box-shadow: 5px 5px 5px grey;
+  float: right;
+  //top: 100px;
+  //left: 320px;
+  z-index:1000;
 }
 #heat {
     margin: 0px 30px 0 0;
@@ -345,6 +346,7 @@ tr {
 #OptionsBar button {
     float: right;
 }
+
 /*
  * SPLOM
  */
@@ -552,6 +554,7 @@ ul.nav.nav-tabs {
     -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
+    display:flex;
 }
 .navbar-right {
     padding-right: 30px;
@@ -627,9 +630,9 @@ ul.nav.nav-tabs {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     width: 600px;
     display: inline-block;
-    //margin: 0 auto;
-    margin-left: 10%;
-    padding-top: 5px;
+   //margin: 0 auto;
+   margin: auto;
+   padding-top: 5px;
 }
 #summaryMain {
     margin: 0 auto;

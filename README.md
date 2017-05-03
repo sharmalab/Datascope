@@ -4,9 +4,15 @@ We propose an environment for visualizing and exploring multidimensional data. W
 
 ### Quick start guide ###
 
+##### Prerequisites
+
+* Install Node.js and NPM
+* `npm install -g webpack`
+* `npm install -g forever` (Optional, suggested for production deployements)
+
+
 ##### Installation
 
-* Install Node.js
 * Clone the repository
 * Run ```npm install```
 * Run ```webpack```
