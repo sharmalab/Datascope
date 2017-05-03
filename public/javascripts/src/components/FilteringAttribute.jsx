@@ -114,7 +114,7 @@ var ChartAddons = React.createClass({
     },
     render: function(){
         var visType = this.props.config.visualization.visType;
-        var isFilterActive = this.props.isFilterActive; 
+        var isFilterActive = this.props.isFilterActive;
         //console.log(isFilterActive);
         switch(visType){
         case  "barChart":
@@ -146,12 +146,12 @@ var ChartAddons = React.createClass({
                         </label>
                         <br />
                         {isFilterActive ?
-                        
+
                         <button onClick={this.handleInvertSelection}>Invert Selection</button>
                         :
                             <div />
                         }
-                        
+
                    </div>
                 );
         case "scatterPlot":
@@ -257,14 +257,14 @@ var FilteringAttribute = React.createClass({
                     //console.log(arguments.toString());
                 },
                 filterAll: function(){
-                 
+
                 },
                 name: function(){
                     return "ageCancer";
                 },
                 filterFunction: function(){
                   //arguments[0]();
-                  //console.log(arguments[0].toString());                
+                  //console.log(arguments[0].toString());
                     AppActions.refresh({});
                 }
             };
@@ -294,7 +294,7 @@ var FilteringAttribute = React.createClass({
         var self = this;
         var visType = this.props.config.visualization.visType;
         var divId = "#dc-"+this.props.config.attributeName;
-        
+
         var domain = this.props.config.visualization.domain || [0,100];
         //console.log(this.props.config);
         var height = this.props.config.visualization.height || 190;
@@ -417,7 +417,7 @@ var FilteringAttribute = React.createClass({
             .group(self.state.group)
             .renderLabel(true)
             //.elasticX(true)
-            .margins({top: 10, right: 20, bottom: 20, left: 20});
+            .margins({top: 10, right: 20, bottom: 45, left: 20});
             c.filterHandler(function(dimension, filters){
                 //console.log(filters);
                 var invert = false;
@@ -435,7 +435,7 @@ var FilteringAttribute = React.createClass({
                     dimension.filter(invertedFilters);
                     return invertedFilters;
                 }
-                
+
                 //console.log(filters);
                 if(typeof filters[0] === "object"){
                     filters = filters[0];
@@ -459,7 +459,7 @@ var FilteringAttribute = React.createClass({
 				var bars = chart.selectAll("rect").each(function(d){barsData.push(d);});
 				var gLabels = d3.select(bars).append('g').attr('id', '
 				for(var i =bars[0].length -1; i>=0; i==){
-						
+
 				}
 
 
@@ -547,7 +547,7 @@ var FilteringAttribute = React.createClass({
         if(this.props.full === true){
             return (
                 <div className="grid-item" style={{"margin": 10}} key={self.props.config.attributeName}>
-               
+
                     <div className="chart-wrapper">
                         <div className="chart-title" style={{"background": Theme.headerColor1}}>
                             {self.props.config.attributeName}
@@ -565,15 +565,15 @@ var FilteringAttribute = React.createClass({
                                     <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
                                         <path fill="#fff"  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
                                         <path d="M0 0h24v24H0z" fill="none"/>
-                                   
+
                                             <title>Show statistics</title>
-                                        
+
                                     </svg>
                                     :
                                     <svg  style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
                                         <path fill="#fff"  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
                                         <path d="M0 0h24v24H0z" fill="none"/>
- 
+
 
                                             <title>Show statistics</title>
 
@@ -600,7 +600,7 @@ var FilteringAttribute = React.createClass({
                         </div>
 
                     </div>
-              
+
                 </div>
             );
         } else {
@@ -667,7 +667,7 @@ var FilteringAttribute = React.createClass({
                                     </div>
                                 </div>
                         </div>
- 
+
 
                     </div>
                 </div>
