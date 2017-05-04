@@ -7,6 +7,4 @@ before_install:
     - sudo apt-get install unixodbc unixodbc-dev
 script:
 - webpack
-- node test/dataSource.js
-- node test/dataDescription.js
-- node test/interactiveFilters.js
+- ./node_modules/.bin/mocha --require ./test/tests.js
