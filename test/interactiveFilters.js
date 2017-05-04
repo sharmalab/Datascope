@@ -53,10 +53,8 @@ describe("interactive Filters", function() {
           //console.log(results)
           //(results).should.be.eql(truth);
           //console.log(interactiveFilters.getGroups()["A"].top(Infinity));
-          done();  
         });
-
-        
-      }); 
+        done();
+      });
     });
 });

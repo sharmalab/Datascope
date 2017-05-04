@@ -35,7 +35,8 @@ describe("dataDescription", function() {
 
           (farray).should.be.eql(filteringAttributesTruth);
           (varray).should.be.eql(visualAttributesTruth);
-          done()
+
         });
+        done()
       });
 });

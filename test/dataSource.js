@@ -15,7 +15,7 @@ describe("dataSource", function() {
             var dataSource = require("../modules/dataSource");
             console.log("dataSource")
             dataSource.init("./examples/titanicTable/config/dataSource.json");
-            var expected_attrbiutes = { 
+            var expected_attrbiutes = {
               PassengerId: true,
               Survived: true,
               Pclass: true,
@@ -27,13 +27,13 @@ describe("dataSource", function() {
               Ticket: true,
               Fare: true,
               Cabin: true,
-              Embarked: true 
+              Embarked: true
             };
-            
+
 
             (JSON.stringify(dataSource.getAttributes())).should.be.exactly(JSON.stringify(expected_attrbiutes));
-      
-        }); 
+
+        });
     });
 
 */
@@ -43,7 +43,7 @@ describe("dataSource", function() {
 
         var dataSource = require("../modules/dataSource");
         var ds = dataSource.init("./examples/joinDemo/config/dataSource.json");
-        //console.log(ds);  
+        //console.log(ds);
         dataSource.loadData(function(data){
           console.log("...")
           console.log(data);
@@ -64,7 +64,7 @@ describe("dataSource", function() {
 
         var dataSource = require("../modules/dataSource");
         var ds = dataSource.init("./examples/joinDemo/config/dataSource.json");
-        //console.log(ds);  
+        //console.log(ds);
         dataSource.loadData(function(data){
           console.log("...")
 z          console.log(data);
@@ -73,7 +73,7 @@ z          console.log(data);
 
       });
     */
-    
+
       it("should work on single source dummy data", function(done){
 
         var dataSource = require("../modules/dataSource");
@@ -108,12 +108,10 @@ z          console.log(data);
             }
           ];
           (data).should.be.eql(truth);
-
-          done();
         })
-
+        done();
       });
-      
+
 
       it("should work on multi source dummy data", function(done){
 
@@ -153,9 +151,8 @@ z          console.log(data);
             }
           ];
           (data).should.be.eql(truth);
-
-          done();
-        })
+        });
+        done();
 
       });
       /*
@@ -164,7 +161,7 @@ z          console.log(data);
         var dataSource = require ("../modules/dataSource");
         var anyToJSON = require("anytojson");
         var ds = dataSource.init("./examples/TCIAJoin2/config/dataSource.json");
-        
+
         //var dataSource2 = require("../modules/dataSource");
         //var d2 = dataSource2.init("./examples/TCIAJoin2/config/dataSource2.json");
 
@@ -178,18 +175,18 @@ z          console.log(data);
               console.log(data2.length)
               done();
             })
-            
+
         });
-        
+
         /*
           dataSource2.loadData(function(data2){
             console.log(data2.length)
-            done();  
+            done();
           })
-      
+
       })
 
-    }); 
+    });
         */
     });
 });
