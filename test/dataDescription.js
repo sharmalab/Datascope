@@ -6,15 +6,25 @@ var expect = require("expect.js");
 
 
 describe("dataDescription", function() {
+  var dataSource, dataDescription, ds, dd;
+
+  it("should load correctly through require", function(done){
+    dataSource = require("../modules/dataSource");
+    dataDescription = require("../modules/dataDescription");
+    done();
+  });
+
+  it("should initalize correctly", function(done){
+    ds = dataSource.init(
+      "./examples/newDataSourceConfig/config/dataSource.json");
+    dd = dataDescription.init(
+      "./examples/newDataSourceConfig/config/dataDescription.json");
+    done();
+  });
+
   it("should return filteringAttributes and visualAttributes", function(
     done) {
 
-    var dataSource = require("../modules/dataSource");
-    var dataDescription = require("../modules/dataDescription");
-    var ds = dataSource.init(
-      "./examples/newDataSourceConfig/config/dataSource.json");
-    var dd = dataDescription.init(
-      "./examples/newDataSourceConfig/config/dataDescription.json")
     //console.log(ds)
     dataSource.loadData(function(data) {
       //console.log(data)
@@ -27,7 +37,6 @@ describe("dataDescription", function() {
         ];
         farray.push(filteringAttribute);
       }
-
 
       var visualAttributes = dataDescription.getVisualAttributes();
       var visualAttributesTruth = ["A", "C", "D"];
