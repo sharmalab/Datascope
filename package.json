@@ -3,7 +3,8 @@
   "version": "0.0.8",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "build": "npm install; webpack"
   },
   "dependencies": {
     "anytojson": "^2.0.4",
