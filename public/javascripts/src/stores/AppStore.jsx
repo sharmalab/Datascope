@@ -52,9 +52,7 @@ var AppStore = Reflux.createStore({
 	    var dataDescription = this.dataDescription;
         if(JSON.stringify(queryFilter)) {
 	        for (var qf in queryFilter) {
-	            if(queryFilter[qf].length === 0) {
-	                delete queryFilter[qf];
-	            }
+
                 
                 console.log(dataDescription);
                 for(var dd in dataDescription){
@@ -89,7 +87,13 @@ var AppStore = Reflux.createStore({
                     } 
                   }
                 }
-	        }
+	        
+  	            if(queryFilter[qf].length === 0) {
+	                delete queryFilter[qf];
+	            }
+            }
+
+
             //encode {queryFilter} using data dictionary
 	        d3.json("data/?filter="+JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (d) {
 	            filteredData = d;
