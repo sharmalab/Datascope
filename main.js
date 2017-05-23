@@ -112,6 +112,7 @@ app.get("/", routes.index);
 app.get("/rest/json", rest.index);
 app.get("/users", user.list);
 
+app.get("/config/dataDescription", rest.getDataDescriptionConfig);
 app.get("/config/interactiveFilters", rest.getInteractiveFiltersConfig);
 app.get("/config/visualization", rest.getVisualizationConfig);
 app.get("/config/dashboard", rest.getDashboardConfig);
