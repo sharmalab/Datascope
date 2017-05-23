@@ -18,6 +18,17 @@ exports.index = function(req, res){
 };
 
 /*
+ * GET dataDescription.json file
+ */
+
+exports.getDataDescriptionConfig = function(req, res) {
+  var file = fs.readFileSync("config/dataDescription.json");
+  var data = JSON.parse(file);
+  res.writeHead(200, {'content-type': 'application/json' });
+  res.end(JSON.stringify(data));
+};
+
+/*
     Route for getting the interactive filters configuration file.
 */
 exports.getInteractiveFiltersConfig = function (req, res) {
