@@ -1,12 +1,108 @@
+/* global d3 */
+/* global globalDataSourceName */
 var Reflux = require('reflux');
 
 var AppActions = require('../actions/AppActions.jsx');
 
 var _currentData = {};
 
-function transform(data) {
-  return data;
-}
+
+var Decoder = class Decoder {
+  constructor(dataDescription){
+    //convert dataDescription.json file to decoder datastructure.
+  
+    var D = {};
+    for(var i=0; i<dataDescription.length; i++){
+      var d = dataDescription[i];
+      var attr = d.attributeName;
+      if(d.dictionary){
+        D[attr] = {};
+        console.log(d.dictionary);
+        var dictionary = d.dictionary;
+        for(var j in dictionary){
+          if(dictionary.hasOwnProperty(j)){
+            D[attr][j] = dictionary[j];
+          }
+        }
+      }
+    }
+    this.decoder = D;
+
+  }
+
+  decode(data){
+    var decoder = this.decoder;
+    for(var i in decoder){
+      if(!decoder.hasOwnProperty(i)){
+        continue;
+      }
+      var dictionary = decoder[i];
+
+      if(data[i]){
+        var attributeData = data[i].values;
+        for(var d in attributeData){
+          if(!attributeData.hasOwnProperty(d)){
+            continue;
+          }
+
+          if(dictionary[attributeData[d].key]){
+            attributeData[d].key = dictionary[attributeData[d].key];     
+          }
+        }
+        data[i].values = attributeData;
+      }   
+
+    }
+    return data;  
+  }
+};
+
+var Encoder = class Encoder {
+  constructor(dataDescription){
+    //convert dataDescription.json to encoder datastructure.
+    var E = {};
+    for(var  i=0; i<dataDescription.length; i++){
+      var d = dataDescription[i];
+      var attr = d.attributeName;
+      if(d.dictionary){
+        E[attr] = {};
+        var dictionary = d.dictionary;
+        for(var j in dictionary){
+          if(dictionary.hasOwnProperty(j)){
+            E[attr][dictionary[j]] = j;
+          }
+        }
+      }
+    }
+    this.encoder = E;
+  }
+
+  encode(queryFilter) {
+    var encoder = this.encoder;
+    for(var key in queryFilter){
+      if(queryFilter.hasOwnProperty(key)){
+           console.log(queryFilter);
+           console.log(key);
+           var qf = queryFilter[key];
+           if(encoder[key]){ //encoding exists for key?
+              var e = encoder[key];
+              var encodedQf = [];
+              for(var i=0; i<qf.length; i++){
+                if(e[qf[i]]){
+                  encodedQf.push(e[qf[i]]);
+                } else {
+                  encodedQf.push(qf[i]);
+                }
+              }
+              qf = encodedQf;
+              queryFilter[key] = qf;
+           }
+      }
+    }
+    return queryFilter;
+  }
+};
+
 
 var AppStore = Reflux.createStore({
     getInitialState: function(){
@@ -19,95 +115,35 @@ var AppStore = Reflux.createStore({
         console.log("getting data description");
         console.log(data);
         self.dataDescription = data;
+        self.encoder = new Encoder(data);
+        self.decoder = new Decoder(data);
       });
 
 	  this.listenTo(AppActions.refresh, this.onRefresh);
 	},
     decodeData: function(data){
-      var dataDescription = this.dataDescription;
-      for(var i in dataDescription){
-        var attribute = dataDescription[i].attributeName;
-        var dataDictionary = dataDescription[i].dictionary;
+      //var dataDescription = this.dataDescription;
+      var decoder = this.decoder;
+      var decodedData = decoder.decode(data);
 
-        if(dataDictionary){
-          //console.log(data[attribute]);
-          if(data[attribute]){
-            var attributeData = data[attribute].values;
-            for(var d in attributeData){
-              console.log(attributeData[d]);
-              if(dataDictionary[attributeData[d]["key"]]){
-                attributeData[d]["key"] = dataDictionary[attributeData[d]["key"]];
-              }
-            }
-
-          }
-        }
-      }
-      console.log(data);
-      return data;
+      return decodedData;
     },
 	onRefresh: function(queryFilter){
 		var filteredData = {};
 		var that = this;
-	    var dataDescription = this.dataDescription;
-        if(JSON.stringify(queryFilter)) {
-	        for (var qf in queryFilter) {
+        var encoder = this.encoder;
+        queryFilter = encoder.encode(queryFilter);
+        d3.json("data/?filter="+JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (d) {
+            filteredData = d;
+            _currentData = filteredData;
+            console.log(that);
 
-                
-                console.log(dataDescription);
-                for(var dd in dataDescription){
-                  var attr = dataDescription[dd];
-                  var attrName = dataDescription[dd].attributeName;
-                  var dictionary = attr.dictionary;
-                  console.log(dictionary);
-                  if(dictionary){
-                    console.log(attrName);
-                    console.log(qf);
-                    if(attrName == qf){
-                      var filters = queryFilter[qf];
-                      var encodedFilters = [];
-                      console.log(filters);
-                      for(var f in filters){
-                        var filter = filters[f];
-                        for(var d in dictionary){
-                          var dictionary_entry = dictionary[d];
-                          console.log(d);
-                          console.log("dict entry: ");
-                          console.log(dictionary_entry);
-                          if(dictionary_entry == filter){
-                            filter = d;
-                            console.log(filter);
-                            encodedFilters.push(filter);
-                          }
-                          console.log(dictionary_entry);
-                        }
-                      }
-                      console.log(queryFilter[qf]);
-                      queryFilter[qf] = encodedFilters;
-                    } 
-                  }
-                }
-	        
-  	            if(queryFilter[qf].length === 0) {
-	                delete queryFilter[qf];
-	            }
-            }
+            _currentData = that.decodeData(_currentData);
+            //that.state.currentData = _currentData;
+            that.trigger(_currentData); //Trigger the event and pass current state of data
 
+        });
 
-            //encode {queryFilter} using data dictionary
-	        d3.json("data/?filter="+JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (d) {
-	            filteredData = d;
-	            _currentData = filteredData;
-                console.log(that);
-
-                _currentData = that.decodeData(_currentData);
-                //that.state.currentData = _currentData;
-	            that.trigger(_currentData); //Trigger the event and pass current state of data
-
-	        });
-	        } else {
-	            
-	        }
 	},
 	getData: function(){
         return _currentData;
