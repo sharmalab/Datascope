@@ -38,11 +38,15 @@ var AppStore = Reflux.createStore({
 		var that = this;
         var encoder = this.encoder;
         queryFilter = encoder.encode(queryFilter);
+		for (var qf in queryFilter) {
+			if(queryFilter[qf].length === 0) {
+				delete queryFilter[qf];
+			}
+		}
         d3.json("data/?filter="+JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (d) {
             filteredData = d;
             _currentData = filteredData;
             console.log(that);
-
             _currentData = that.decodeData(_currentData);
             //that.state.currentData = _currentData;
             that.trigger(_currentData); //Trigger the event and pass current state of data

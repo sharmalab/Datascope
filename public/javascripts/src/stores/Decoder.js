@@ -8,7 +8,7 @@ var Decoder = class Decoder {
       var attr = d.attributeName;
       if(d.dictionary){
         D[attr] = {};
-        console.log(d.dictionary);
+  
         var dictionary = d.dictionary;
         for(var j in dictionary){
           if(dictionary.hasOwnProperty(j)){
@@ -23,12 +23,14 @@ var Decoder = class Decoder {
 
   decode(data){
     var decoder = this.decoder;
+   
     for(var i in decoder){
       if(!decoder.hasOwnProperty(i)){
         continue;
       }
       var dictionary = decoder[i];
 
+      //Decode interactive filters
       if(data[i]){
         var attributeData = data[i].values;
         for(var d in attributeData){
