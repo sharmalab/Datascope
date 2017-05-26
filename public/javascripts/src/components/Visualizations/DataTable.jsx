@@ -14,7 +14,7 @@ var DataTable = React.createClass({
       var decoder = AppStore.decoder.decoder;
       var self = this;
       var tableAttributes = self.props.config.attributes;
-      console.log(d.length);
+     
       for(var i=0; i<d.length; i++){
         var row = d[i];
         for(var j=0; j<row.length; j++){
@@ -36,12 +36,12 @@ var DataTable = React.createClass({
         var columns = [];
         var count=0;
         var url;
-        console.log(AppStore.decoder);
+    
         var id = this.state.id;
         var tableId = "vis"+ id;
         TableCounts++;
         var tableAttributes = self.props.config.attributes;
-        console.log(tableAttributes);
+   
         for(var i in tableAttributes){
             if(!tableAttributes.hasOwnProperty(i)){
               continue;
@@ -67,8 +67,6 @@ var DataTable = React.createClass({
             "ajax": {
               "url": ajaxUrl,
               "dataSrc": function(d){
-
-                console.log(d);
                 var data = self.decode(d.data);
                 return data;
               }
