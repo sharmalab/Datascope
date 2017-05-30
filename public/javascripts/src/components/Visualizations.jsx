@@ -3,17 +3,16 @@ var Visualization = require("./Visualizations/Visualization.jsx");
 var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
 
-var Summary = require("./Visualizations/Summary.jsx");
+//var Summary = require("./Visualizations/Summary.jsx");
 
 var Tabs      = ReactBootstrap.Tabs,
-    Tab         = ReactBootstrap.Tab,
-    Modal = ReactBootstrap.Modal,
-    Button          = ReactBootstrap.Button;
+    Tab         = ReactBootstrap.Tab;
+    //Modal = ReactBootstrap.Modal,
+    //Button          = ReactBootstrap.Button;
 
 
 
-    
-
+/*
 var OptionsBar = React.createClass({
     getInitialState: function(){
 
@@ -34,9 +33,10 @@ var OptionsBar = React.createClass({
         //console.log(self.state.showModal);
         //console.log(this.props.currData);
         var attributes = [];
-
         for(var i in this.props.currData){
-            attributes.push(i);
+            if(this.props.currData.hasOwnProperty(i)){
+              attributes.push(i);
+            }
         }
 
         var url = "/save?attributes={list:"+(attributes)+"}";
@@ -72,6 +72,7 @@ var OptionsBar = React.createClass({
         );
     }
 });
+*/
 
 var Visualizations = React.createClass({
     render: function(){
@@ -87,8 +88,9 @@ var Visualizations = React.createClass({
                 count++;   
                 //console.log(count);
                 //console.log(visualization.tabTitle);
-                if(!visualization.tabTitle)
+                if(!visualization.tabTitle){
                     visualization.tabTitle = visualization.visualizationType;
+                }
                 return(
                     <Tab title={visualization.tabTitle} eventKey={count} key={count} id={visualization.tabTitle}>
                         <div className="visualizationArea">
