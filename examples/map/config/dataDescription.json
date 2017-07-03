@@ -1,0 +1,122 @@
+[
+  {
+    "attributeName": "Survival_months",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "PR_Status",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "ER_Status",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "Regional_nodes_examined",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "Grade",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "Laterality",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "Age",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "Race",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "Primary_Site",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "Hispanic_or_Latino",
+    "attributeType": [
+      "visual"
+    ]
+  },
+  {
+    "attributeName": "State",
+    "attributeType": [
+     "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "Registry",
+    "attributeType": [
+      "visual"
+    ]
+  },
+  {
+    "attributeName": "Tumor_Size",
+    "attributeType": [
+      "visual"
+    ]
+  },
+  {
+    "attributeName": "FIPS_County_Code",
+    "attributeType": [
+      "visual"
+    ]
+  },
+  {
+    "attributeName": "FIPS_Coordinates",
+    "attributeType": [
+      "visual"
+    ]
+  }
+]

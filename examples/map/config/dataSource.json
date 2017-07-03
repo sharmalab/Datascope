@@ -1,0 +1,12 @@
+{
+  "dataSourceAlias": "",
+  "dataSources": [
+    {
+      "sourceName": "SEER Breast",
+      "sourceType": "csvFile",
+      "options": {
+        "path": "data/output.csv"
+      }
+    }
+  ]
+}

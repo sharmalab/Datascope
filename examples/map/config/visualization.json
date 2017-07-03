@@ -1,0 +1,58 @@
+[
+  {
+        "visualizationType": "markerMap",
+        "attributeName": "FIPS_Coordinates",
+        "heading": "Marker Map",
+        "subheading": "Counties"
+  },
+  {
+    "visualizationType": "dataTable",
+    "attributes": [
+      {
+        "attributeName": "Hispanic_or_Latino"
+      },
+      {
+        "attributeName": "Survival_months"
+      },
+      {
+        "attributeName": "Regional_nodes_examined"
+      },
+      {
+        "attributeName": "ER_Status"
+      },
+      {
+        "attributeName": "PR_Status"
+      },
+      {
+        "attributeName": "Grade"
+      },
+      {
+        "attributeName": "Laterality"
+      },
+      {
+        "attributeName": "Age"
+      },
+      {
+        "attributeName": "FIPS_County_Code"
+      },
+      {
+        "attributeName": "FIPS_Coordinates"
+      },
+      {
+        "attributeName": "Tumor_Size"
+      },
+      {
+        "attributeName": "State"
+      },
+      {
+        "attributeName": "Race"
+      },
+      {
+        "attributeName": "Primary_Site"
+      },
+      {
+        "attributeName": "Registry"
+      }
+    ]
+  }
+]
