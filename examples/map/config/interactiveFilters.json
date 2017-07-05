@@ -1,58 +1,9 @@
 [
   {
-    "attributeName": "Survival_months",
-    "visualization": {
-      "visType": "rowChart",
-      "height": 400
-    }
-  },
-  {
-    "attributeName": "PR_Status",
-    "visualization": {
-      "visType": "pieChart"
-    }
-  },
-  {
-    "attributeName": "ER_Status",
-    "visualization": {
-      "visType": "pieChart"
-    }
-  },
-  {
-    "attributeName": "Regional_nodes_examined",
-    "visualization": {
-      "visType": "rowChart"
-    }
-  },
-  {
-    "attributeName": "Grade",
-    "visualization": {
-      "visType": "pieChart"
-    }
-  },
-  {
-    "attributeName": "Laterality",
-    "visualization": {
-      "visType": "pieChart"
-    }
-  },
-  {
     "attributeName": "Age",
     "visualization": {
       "visType": "rowChart",
       "height": 400
-    }
-  },
-  {
-    "attributeName": "Race",
-    "visualization": {
-      "visType": "pieChart"
-    }
-  },
-  {
-    "attributeName": "Primary_Site",
-    "visualization": {
-      "visType": "rowChart"
     }
   },
   {

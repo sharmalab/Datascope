@@ -2,10 +2,10 @@
   "dataSourceAlias": "",
   "dataSources": [
     {
-      "sourceName": "SEER Breast",
+      "sourceName": "MapTest",
       "sourceType": "csvFile",
       "options": {
-        "path": "data/output.csv"
+        "path": "data/map_data.csv"
       }
     }
   ]
