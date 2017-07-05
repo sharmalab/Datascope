@@ -1,7 +1,7 @@
 [
   {
         "visualizationType": "markerMap",
-        "attributeName": "FIPS_Coordinates",
+        "attributeName": ["lat","long"],
         "heading": "Marker Map",
         "subheading": "Counties"
   }

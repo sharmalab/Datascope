@@ -27,7 +27,13 @@
     "datatype": "enum"
   },
   {
-    "attributeName": "FIPS_Coordinates",
+    "attributeName": "lat",
+    "attributeType": [
+      "visual"
+    ]
+  },
+  {
+    "attributeName": "lon",
     "attributeType": [
       "visual"
     ]
