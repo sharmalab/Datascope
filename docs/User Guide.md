@@ -1,8 +1,9 @@
 ### Setting up the app ###
 
 1. Install Node.js
-2. Clone the repository run ```git clone https://lastlegion@bitbucket.org/BMI/interactive-data-exporation.git```
-3. Run ```npm install``` 
+2. Clone the repository run ```git clone https://github.com/sharmalab/Datascope.git```
+3. Run ```npm install```
+4. Goto ```http://localhost:3000``` from your favorite browser.
 
 ### Configuring ###
 
