@@ -4,15 +4,6 @@
 3. [Adding support for new data sources](#markdown-header-adding-support-for-new-data-sources)
 4. [Adding support for new visualizations](#markdown-header-adding-support-for-new-visualizations)
 
-#Annotated source code
-* [app.js](http://lastlegion.bitbucket.org/app.html)
-* [modules/loadDataSource.js](http://lastlegion.bitbucket.org/loadDataSources.html)
-
-#Schemas
-* [dataSourceSchema.json](http://lastlegion.bitbucket.org/dataSourceSchema.html)
-* [dataDescriptionSchema.json](http://lastlegion.bitbucket.org/dataDescriptionSchema.html)
-* [interactiveFilters.json](http://lastlegion.bitbucket.org/interactiveFiltersSchema.html)
-
 #Adding support for new data sources
 
 In ```modules/loadDataSource.js``` we have functions that allow us to obtain data from different data sources. We can extend it add functionality to support newer data sources. The function must have 4 parts:
@@ -21,7 +12,7 @@ In ```modules/loadDataSource.js``` we have functions that allow us to obtain dat
 2. Reading from data source(file or REST API).
 3. Convert data to JSON.
 4. Send data back to the application.
-5. Invoke the callback. 
+5. Invoke the callback.
 
 ```
 #!javascript
@@ -39,7 +30,7 @@ function newSource(options, callback){
         }
         // 3 Convert data into JSON
         data = JSON.parse(d);
-        
+
         // 4 Send data back to app.js
       	exports.data = data;
 
@@ -52,13 +43,13 @@ function newSource(options, callback){
 
 #Adding support for new visualizations
 
-Support for new visualizations can be done using these 3 steps: 
+Support for new visualizations can be done using these 3 steps:
 
 1. ***Write functions for rendering visualization***
 The ```public/javascripts/visualizations.js``` specifies functions for rendering various visualizations. Every visualization has an ```init``` function(Ex: ```renderImageGridInit()``` etc) and another ```render function )=(Ex: ```renderImageGrid()``` etc.) that gets called up on every filtering request.
 
 2. ***Modify app.js to encapsulate visualization information in results object***
-The information required by the client is provided by the server ```app.js```. To embed information in the ```results``` object which is provided by the server and is used by server to know about the current state of filtering. Most visualizations use the ```visualization``` attribute in the ```results``` object. For example the ```imageGrid``` 
+The information required by the client is provided by the server ```app.js```. To embed information in the ```results``` object which is provided by the server and is used by server to know about the current state of filtering. Most visualizations use the ```visualization``` attribute in the ```results``` object. For example the ```imageGrid```
 
 
         if(visualization.type == "imageGrid")

@@ -1,8 +1,5 @@
 ###dataDescription###
 
-**For a complete overview please look at the [Data Description Schema Reference](http://lastlegion.bitbucket.org/dataDescriptionSchema.html)
-**
-
 The dataDescription.json file is the specification that the data provider provides, which provides the system, the information pertaining to the number of attributes, the type of each attribute, whether or not filtering would be performed on the attribute etc.
 
 The following is an example of a dataDescription.json file:

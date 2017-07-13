@@ -1,8 +1,6 @@
 ###interactiveFilters.json###
-**For a complete overview please look at the [Schema Reference](http://lastlegion.bitbucket.org/interactiveFiltersSchema.html)
-**
 
-This file describes how the dashboard should look like. 
+This file describes how the dashboard should look like.
 ```
 #!javascript
 
@@ -67,7 +65,7 @@ This file describes how the dashboard should look like.
 * **datatype**(String): The type of data. This information is unused as of now.
 * **filtering-attribute**(Boolean): If true it is considered as a filtering attribute and is expected to have a ```filtering-attribute-order```, ```visualization-type```
 * **visual-attribute**(Boolean): If the attribute is used just as for rendering visualizations based on the filters of the filtering attributes. Example could be an attribute that is shown on the data-table but cannot be filtered.
-* **filtering-attribute-order**(Integer): 
+* **filtering-attribute-order**(Integer):
 * **visualization-type**(String): The type of visualization to be done. Currently supports: "barChart" and "pieChart".
 * **domain**(Array of 2 integers): Required if the visualization type is barChart. Gives information about the extent of the data.
 * **filter**: If this entry is provided the corresponding filter is applied to the attribute.
