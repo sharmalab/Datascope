@@ -6,36 +6,51 @@ var expect = require("expect.js");
 
 
 describe("dataDescription", function() {
-        it("should return filteringAttributes and visualAttributes", function(done){
+  var dataSource, dataDescription, ds, dd;
 
-        var dataSource = require("../modules/dataSource");
-        var dataDescription = require("../modules/dataDescription");
-        var ds = dataSource.init("./examples/newDataSourceConfig/config/dataSource.json");
-        var dd = dataDescription.init("./examples/newDataSourceConfig/config/dataDescription.json")
-        //console.log(ds)
-        dataSource.loadData(function(data){
-          //console.log(data)
-          var filteringAttributes = dataDescription.getFilteringAttributes();
-          var filteringAttributesTruth = ["A","B","C","D"];
-          var farray = [];
-          for(var i in filteringAttributes){
-            var filteringAttribute = filteringAttributes[i]["attributeName"];
-            farray.push(filteringAttribute);
-          }
+  it("should load correctly through require", function(done){
+    dataSource = require("../modules/dataSource");
+    dataDescription = require("../modules/dataDescription");
+    done();
+  });
 
+  it("should initalize correctly", function(done){
+    ds = dataSource.init(
+      "./examples/newDataSourceConfig/config/dataSource.json");
+    dd = dataDescription.init(
+      "./examples/newDataSourceConfig/config/dataDescription.json");
+    done();
+  });
 
-          var visualAttributes = dataDescription.getVisualAttributes();
-          var visualAttributesTruth = ["A","C", "D"];
-          var varray = [];
+  it("should return filteringAttributes and visualAttributes", function(
+    done) {
 
-          for(var i in visualAttributes){
-            var visualAttribute = visualAttributes[i]["attributeName"];
-            varray.push(visualAttribute);
-          }
+    //console.log(ds)
+    dataSource.loadData(function(data) {
+      //console.log(data)
+      var filteringAttributes = dataDescription.getFilteringAttributes();
+      var filteringAttributesTruth = ["A", "B", "C", "D"];
+      var farray = [];
+      for (var i in filteringAttributes) {
+        var filteringAttribute = filteringAttributes[i][
+          "attributeName"
+        ];
+        farray.push(filteringAttribute);
+      }
 
-          (farray).should.be.eql(filteringAttributesTruth);
-          (varray).should.be.eql(visualAttributesTruth);
-          done()
-        });
-      });
+      var visualAttributes = dataDescription.getVisualAttributes();
+      var visualAttributesTruth = ["A", "C", "D"];
+      var varray = [];
+
+      for (var i in visualAttributes) {
+        var visualAttribute = visualAttributes[i]["attributeName"];
+        varray.push(visualAttribute);
+      }
+
+      (farray).should.be.eql(filteringAttributesTruth);
+      (varray).should.be.eql(visualAttributesTruth);
+
+    });
+    done()
+  });
 });

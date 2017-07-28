@@ -1,0 +1,41 @@
+[
+  {
+    "attributeName": "Survival_months",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "Age",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "State",
+    "attributeType": [
+     "filtering",
+      "visual"
+    ],
+    "dataProvider": "",
+    "datatype": "enum"
+  },
+  {
+    "attributeName": "lat",
+    "attributeType": [
+      "visual"
+    ]
+  },
+  {
+    "attributeName": "lon",
+    "attributeType": [
+      "visual"
+    ]
+  }
+]
