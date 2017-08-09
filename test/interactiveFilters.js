@@ -7,16 +7,32 @@ var expect = require("expect.js");
 
 describe("interactive Filters", function() {
 
-    describe("crossfilter groups ", function(){
-      it("should work on dummy data", function(done){
-        this.timeout(10000);
-        var dataSource = require ("../modules/dataSource");
-        var interactiveFilters = require("../modules/interactiveFilters");
-        var dataDescription = require("../modules/dataDescription");
-        dataDescription.init("./examples/newDataSourceConfig/config/dataDescription.json");
-        var ds = dataSource.init("./examples/newDataSourceConfig/config/dataSource.json");
-        interactiveFilters.init("./examples/newDataSourceConfig/config/interactiveFilters.json")
-        dataSource.loadData(function(data){
+  describe("crossfilter groups ", function() {
+    var dataSource, interactiveFilters, dataDescription, ds;
+
+    it("should load correctly through require", function(done){
+      dataSource = require("../modules/dataSource");
+      interactiveFilters = require(
+        "../modules/interactiveFilters");
+      dataDescription = require("../modules/dataDescription");
+      done()
+    });
+
+    it("should init correctly", function(done){
+      dataDescription.init(
+        "./examples/newDataSourceConfig/config/dataDescription.json"
+      );
+      ds = dataSource.init(
+        "./examples/newDataSourceConfig/config/dataSource.json");
+      interactiveFilters.init(
+        "./examples/newDataSourceConfig/config/interactiveFilters.json"
+      )
+      done()
+    });
+
+    it("should work on dummy data", function(done) {
+      dataSource.loadData(function(data) {
+
 
           //console.log(data);
           interactiveFilters.applyCrossfilter(data);
