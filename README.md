@@ -8,7 +8,7 @@ We propose an environment for visualizing and exploring multidimensional data. W
 
 * Install Node.js and NPM
 * `npm install -g webpack`
-* `npm install -g forever` (Optional, suggested for production deployements)
+* `npm install -g forever` ((Optional) recommended for production deployements)
 
 
 ##### Installation

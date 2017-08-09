@@ -240,9 +240,6 @@ th {
 th {
     //    border:1px solid #333;
 }
-tr {
-    cursor: pointer;
-}
 #activeRecords div {
     display: inline;
 }
