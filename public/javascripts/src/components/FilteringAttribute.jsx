@@ -455,7 +455,7 @@ var FilteringAttribute = React.createClass({
             c.label(function(d){
                 return d.key + " ("+ d.value + ")";
             });
-            c.ordering(function(d){return +d.key;});
+            c.ordering(function(d){return d.key;});
 			/*
 			c.renderlet(function(chart){
 				var bars = chart.selectAll("rect").each(function(d){barsData.push(d);});
