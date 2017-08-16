@@ -32,7 +32,6 @@ describe("interactive Filters", function() {
 
     it("should work on dummy data", function(done) {
       dataSource.loadData(function(data) {
-
         //console.log(data);
         interactiveFilters.applyCrossfilter(data);
         var truth = [

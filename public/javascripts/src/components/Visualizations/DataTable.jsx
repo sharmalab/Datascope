@@ -49,8 +49,8 @@ var DataTable = React.createClass({
             columns[count] = {};
             //columns[count]["data"] = self.props.config.attributes[i].name;
             columns[count].title = self.props.config.attributes[i].label || self.props.config.attributes[i].attributeName;
-            columns[count].bSearchable = true;
-            columns[count].bSortable = true;
+            //columns[count].bSearchable = true;
+            //columns[count].bSortable = true;
             columns[count].name = self.props.config.attributes[i].attributeName;
             if(self.props.config.attributes[i].type){
                 url = self.props.config.attributes[i];
@@ -61,8 +61,8 @@ var DataTable = React.createClass({
         var ajaxUrl = "dataTable/next?dataSourceName=" + globalDataSourceName ;
         //console.log(ajaxUrl);
         var dataTable = $('#'+tableId).DataTable({
-            //bSort: false,
-            //bFilter: false,
+            bSort: false,
+            bFilter: false,
             aoColumns: columns,
             "ajax": {
               "url": ajaxUrl,
@@ -83,7 +83,7 @@ var DataTable = React.createClass({
             "responsive": true,
             "bAutoWidth": true
             //fixedHeader: true,
-            //responsive: true,
+            //responsive: true
         });
 
         url = self.props.config.url;

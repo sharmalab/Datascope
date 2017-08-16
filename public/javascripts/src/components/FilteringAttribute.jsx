@@ -21,7 +21,7 @@ var ChartAddons = React.createClass({
         var self = this;
         var c = self.props.chart;
         if(e.keyCode === 13){
-            //console.log(this.props.chart);
+           
             var f = [self.state.beg, self.state.end];
             c.filterAll();
             c.filter(f);
@@ -37,12 +37,12 @@ var ChartAddons = React.createClass({
 
     handleElasticX: function(){
         var c = this.props.chart;
-        //console.log("handle checkbox..");
-        //console.log((this.state.elasticY));
+       
+      
         //var queryFilterBackup = queryFilter;
         //c.elasticY(true);
         //AppActions.refresh({});
-        //console.log(queryFilter);
+     
 
         if(this.state.elasticX === true){
 
@@ -79,7 +79,7 @@ var ChartAddons = React.createClass({
 
     },
     handleInvertSelection: function() {
-        console.log(this.props.config.attributeName);
+       
         var attributeName = this.props.config.attributeName;
         var c = this.props.chart;
         var availableFilters = (this.props.data[attributeName].values);
@@ -106,11 +106,11 @@ var ChartAddons = React.createClass({
             }
             */
         }
-        console.log(invertedFilter);
+        
         c.filter(null);
         c.filter(invertedFilter);
         ////c.filter({invert: invertedFilter});
-        console.log("filtered! woot");
+       
     },
     render: function(){
         var visType = this.props.config.visualization.visType;
@@ -292,6 +292,7 @@ var FilteringAttribute = React.createClass({
     componentDidMount: function(){
 
         var self = this;
+       
         var visType = this.props.config.visualization.visType;
         var divId = "#dc-"+this.props.config.attributeName;
 
@@ -410,13 +411,14 @@ var FilteringAttribute = React.createClass({
 
             break;
         case "rowChart":
+            
             c = dc.rowChart(divId);
             c.width(250)
             .height(height)
             .dimension(self.state.dimension)
             .group(self.state.group)
             .renderLabel(true)
-            //.elasticX(true)
+            .elasticX(true)
             .margins({top: 10, right: 20, bottom: 45, left: 20});
             c.filterHandler(function(dimension, filters){
                 //console.log(filters);
@@ -453,7 +455,7 @@ var FilteringAttribute = React.createClass({
             c.label(function(d){
                 return d.key + " ("+ d.value + ")";
             });
-            c.ordering(function(d){return +d.key;});
+            c.ordering(function(d){return d.key;});
 			/*
 			c.renderlet(function(chart){
 				var bars = chart.selectAll("rect").each(function(d){barsData.push(d);});
