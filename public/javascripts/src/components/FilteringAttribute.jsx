@@ -187,13 +187,16 @@ var ChartAddons = React.createClass({
 var FilteringAttribute = React.createClass({
     getInitialState: function() {
         this.statistics = {};
-        return {showChart: true, showStatistics:false};
+        return {showChart: true, showStatistics:false, hasStatistics: false};
     },
     componentWillMount: function(){
      //Initialize crossfilter dimensions and groups before rendering
         var self = this;
         var attributeName = this.props.config.attributeName;
-
+       
+        if(this.props.config.statistics){
+          self.setState({"hasStatistics": true});
+        }
         var dim = {
             filter: function(f) {
                 if(f) {
@@ -563,23 +566,30 @@ var FilteringAttribute = React.createClass({
                                 :
                                     <div />
                                 }
-                                { self.state.showStatistics ? /* show/hide statistics */
-                                    <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
-                                        <path fill="#fff"  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-                                        <path d="M0 0h24v24H0z" fill="none"/>
 
-                                            <title>Show statistics</title>
+                                {
+                                  self.state.hasStatistics ? 
+                                
+                                  <span> 
+                                  { self.state.showStatistics ? /* show/hide statistics */
+                                      <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
+                                          <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                          <path d="M0 0h24v24H0z" fill="none"/>
+                                              <title>Show statistics</title>
 
-                                    </svg>
-                                    :
-                                    <svg  style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
-                                        <path fill="#fff"  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-                                        <path d="M0 0h24v24H0z" fill="none"/>
+                                      </svg>
+                                      :
+                                      <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
+                                          <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                          <path d="M0 0h24v24H0z" fill="none"/>
 
+                                              <title>Show statistics</title>
 
-                                            <title>Show statistics</title>
-
-                                    </svg>
+                                      </svg>
+                                  }
+                                  </span>
+                                  :
+                                  <span />
                                 }
 
 							</div>
@@ -622,22 +632,31 @@ var FilteringAttribute = React.createClass({
                                     :
                                     <div/>
                                 }
-                                { self.state.showStatistics ? /* show/hide statistics */
-                                    <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
-                                        <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-                                        <path d="M0 0h24v24H0z" fill="none"/>
-                                            <title>Show statistics</title>
+                                {
+                                  self.state.hasStatistics ? 
+                                
+                                  <span> 
+                                  { self.state.showStatistics ? /* show/hide statistics */
+                                      <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
+                                          <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                          <path d="M0 0h24v24H0z" fill="none"/>
+                                              <title>Show statistics</title>
 
-                                    </svg>
-                                    :
-                                    <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
-                                        <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-                                        <path d="M0 0h24v24H0z" fill="none"/>
+                                      </svg>
+                                      :
+                                      <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
+                                          <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                          <path d="M0 0h24v24H0z" fill="none"/>
 
-                                            <title>Show statistics</title>
+                                              <title>Show statistics</title>
 
-                                    </svg>
+                                      </svg>
+                                  }
+                                  </span>
+                                  :
+                                  <span />
                                 }
+                              
                                 { self.state.showChart ? /* show/hide attribute*/
                                     <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showChart} >
                                         <path fill="#fff" d="M20,14H4V10H20">
