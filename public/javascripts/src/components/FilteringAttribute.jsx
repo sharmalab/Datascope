@@ -362,14 +362,14 @@ var FilteringAttribute = React.createClass({
         case "barChart":
             c = dc.barChart(divId);
             var binFactor = self.props.config.visualization.binFactor;
-            var scale = (d3.scale.linear().domain([domain[0]-8, domain[1]+15])());
+            var scale = (d3.scale.linear().domain([domain[0], domain[1]])());
             var nBins = (domain[1]/binFactor);
             //console.log(Math.ceil(nBins));
             //console.log(scale);
             c.width(260)
                 .height(200).dimension(self.state.dimension)
                 .group(self.state.group)
-                .x(d3.scale.linear().domain([domain[0]-10, domain[1]+15]))
+                .x(d3.scale.linear().domain([domain[0], domain[1]]))
                 //.barPadding(2)
                 .xUnits(function(){return nBins+1;})
                 .centerBar(true)
