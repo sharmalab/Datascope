@@ -79,7 +79,7 @@ var dataSource = (function(){
             //console.log(data);
           });
           stream.on('footer', function(){
-            console.log('end');
+           
             callback(fullData);
           });
         };
@@ -116,7 +116,8 @@ var dataSource = (function(){
 
         
 	    if(type== FILETYPES.JSONFILE){
-          json(options, processData);
+         
+          anyToJSON.json(options, processData);
           //anyToJSON.json(options, processData);
 	    } else if(type == FILETYPES.CSVFILE) {
 	      anyToJSON.csv(options, processData);
@@ -237,12 +238,14 @@ var dataSource = (function(){
 
     var _loadData = function(callback){
         //Load data from sources
+        
         if(dataSources.length > 1){
             _loadDataSources(dataSources, callback);
         }
         else {
+            
             loadData(dataSources[0], function(data){
-
+       
                 var count=0;
                 for(var i in data){
                     var row = data[i];
@@ -257,6 +260,7 @@ var dataSource = (function(){
                     data[i] = row
                     count++;
                 }
+     
                 totalRecordsSize[_getDataSourceName()] = count;
                 callback(_getDataSourceName(), data);
             });
