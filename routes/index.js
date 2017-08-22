@@ -97,7 +97,7 @@ var _filterFunction = function(filter, dataSourceName){
 
     if(visualization.hasVisualization("imageGrid")){
 
-        CURRENTDATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
+        CURRENTDATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(100);
 
         var reqLength = 100;
         var paginate = true;
@@ -171,7 +171,11 @@ var _tableNext = function(req, res){
         state = req.query.state ? JSON.parse(req.query.state) : 1,
         results = {};
     var interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
-    var TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
+    var start = 1*req.query.start;
+
+    var TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(10,start);
+    ///console.log(TABLE_DATA);
+    //console.log(state);
     var dataTableAttributes = visualization.getAttributes("dataTable");
     //var dataTableAttributes = [];
 
@@ -181,9 +185,14 @@ var _tableNext = function(req, res){
    
     /* if the query contains a value to be searched,
         then filter the rows that don't contain the value
-    */
+
     var searchValue = req.query.search.value;
     if (searchValue) {
+        dimensions[interactiveFiltersConfig[0]["attributeName"]].filter(function(d){
+          console.log(d);
+          return d.toString().match(searchValue);
+        });
+        /*
         TABLE_DATA = TABLE_DATA.filter(function (row) {
             for (key in row) {
                 if (row[key].toString().match(searchValue))
@@ -191,9 +200,12 @@ var _tableNext = function(req, res){
             }
             return false;
         })
-    }
-    /* perform sorting of columns */
 
+
+    }
+    */
+    /* perform sorting of columns */
+    /*
     var order = req.query.order;
 
     if(order) {
@@ -221,37 +233,21 @@ var _tableNext = function(req, res){
         });
         
     }
-    
-   
-
+    */
     var len = TABLE_DATA.length;
 
-    var start = 1*req.query.start;
     var length = 1*req.query.length;
-
     var end = start+length;
 
-    TABLE_DATA = TABLE_DATA.slice(start, start+length);
-
     var DATA_ARRAY = [];
-    
+    TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(10,start);   
     //console.log(dataTableAttributes); 
     for(var i in TABLE_DATA){
-
         var row = [];
-        
         for(var j in dataTableAttributes){
             var attrName = dataTableAttributes[j]["attributeName"];
             row.push(TABLE_DATA[i][attrName]);
         }
-        /*
-        for(var r in TABLE_DATA[i]){
-            //console.log(r);
-            row.push(TABLE_DATA[i][r]);
-
-            //row.push( TABLE_DATA{i][r]);
-        }*/
-        //console.log(i);
 
         DATA_ARRAY.push(row);
     }
@@ -266,7 +262,7 @@ var _tableNext = function(req, res){
         state: state,
         draw: req.query.draw,
         recordsTotal: dataSource.getTotalRecords(dataSourceName),
-        recordsFiltered: len
+        recordsFiltered:  dataSource.getTotalRecords(dataSourceName)
     };
     res.writeHead(200, {"content-type": "application/json"});
     res.end(JSON.stringify(results));

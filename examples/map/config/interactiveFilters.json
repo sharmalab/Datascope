@@ -1,0 +1,15 @@
+[
+  {
+    "attributeName": "Age",
+    "visualization": {
+      "visType": "rowChart",
+      "height": 400
+    }
+  },
+  {
+    "attributeName": "State",
+    "visualization": {
+      "visType": "rowChart"
+    }
+  }
+]

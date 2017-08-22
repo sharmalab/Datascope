@@ -1,0 +1,12 @@
+{
+  "dataSourceAlias": "",
+  "dataSources": [
+    {
+      "sourceName": "MapTest",
+      "sourceType": "csvFile",
+      "options": {
+        "path": "data/map_data.csv"
+      }
+    }
+  ]
+}
