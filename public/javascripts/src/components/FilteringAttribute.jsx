@@ -376,6 +376,7 @@ var FilteringAttribute = React.createClass({
                 //.barPadding(2)
                 .xUnits(function(){return nBins+1;})
                 .centerBar(true)
+                .margins({top: 10, right: 20, bottom: 45, left: 20})
                 //.xUnits(dc.units.fp.precision((1/binFactor)))
                 //.xUnits(function() {return 15})
                 //.xUnits(function(){return 500*(1/binFactor)})
