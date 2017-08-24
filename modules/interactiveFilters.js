@@ -106,15 +106,27 @@ var interactiveFilters = (function(){
                         }
                     } else {
                         if(d[filteringAttribute[ATTRIBUTENAME]]) {
-                            if(filteringAttribute.datatype === "integer") {
-                                d[filteringAttribute[ATTRIBUTENAME]] = +d[filteringAttribute[ATTRIBUTENAME]]
+                            if(filteringAttribute.datatype === "integer" || filteringAttribute.datatype === "float") {
+                              if(d[filteringAttribute[ATTRIBUTENAME]]){
+                                d[filteringAttribute[ATTRIBUTENAME]] = +d[filteringAttribute[ATTRIBUTENAME]];
+                                return d[filteringAttribute[ATTRIBUTENAME]];
+                              } else {
+                                return Number.MIN_SAFE_INTEGER;
+                              }
+
                             }
                             return d[filteringAttribute[ATTRIBUTENAME]];
                         } 
                         else {
-                            return null;
+                          if(filteringAttribute.datatype === "integer" || filteringAttribute.datatype === "float") {
+                            return Number.MIN_SAFE_INTEGER;
+                          } else {
+                            return "";
+                          }
                         }
-                    }
+                    }                   
+                    
+                    
                 });
 
                 dimensions[filteringAttribute[ATTRIBUTENAME]] = dimension;
