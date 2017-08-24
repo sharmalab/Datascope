@@ -21,6 +21,7 @@
     "datalib": "^1.0.0",
     "express": "^4.14.0",
     "extend": "^2.0.1",
+    "halogen": "^0.2.0",
     "jade": "*",
     "json2csv": "^2.3.0",
     "jsonschema": "^1.0.2",
