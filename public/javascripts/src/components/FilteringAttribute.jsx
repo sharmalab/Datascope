@@ -372,7 +372,7 @@ var FilteringAttribute = React.createClass({
             c.width(260)
                 .height(200).dimension(self.state.dimension)
                 .group(self.state.group)
-                .x(d3.scale.linear().domain([domain[0], domain[1]]))
+                .x(d3.scale.linear().domain([domain[0]-binFactor, domain[1]+binFactor]))
                 //.barPadding(2)
                 .xUnits(function(){return nBins+1;})
                 .centerBar(true)
