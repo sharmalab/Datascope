@@ -380,7 +380,7 @@ var FilteringAttribute = React.createClass({
                 //.xUnits(dc.units.fp.precision((1/binFactor)))
                 //.xUnits(function() {return 15})
                 //.xUnits(function(){return 500*(1/binFactor)})
-                //.elasticY(true)
+                .elasticY(true)
                 //.elasticX(true);
             c.renderlet(function(chart){
                 chart.selectAll("g.x text")
