@@ -30,7 +30,7 @@ var Dashboard = React.createClass({
     componentDidMount: function(){      
         var self=this;    
 
-//        console.log("Waxzaaswoot!"); adsff
+
         self.unsubscribe = AppStore.listen(self.onFilter);
 
         d3.json("config/interactiveFilters", function(err, data) {
@@ -61,6 +61,7 @@ var Dashboard = React.createClass({
                     });
 
 
+                    dc.disableTransitions=true; //disable dc.js animations
 
 					dc.renderAll();
                     setTimeout(function(){
