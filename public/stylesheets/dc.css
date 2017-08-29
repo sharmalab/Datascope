@@ -160,8 +160,9 @@ div.dc-chart {
     fill-opacity: .8;
 }
 
-.dc-chart g.state path {
+.dc-chart g.state path, .dc-chart g.Origin_State path {
     stroke: white;
+    stroke-width:1;
 }
 
 .dc-chart g.selected path {
