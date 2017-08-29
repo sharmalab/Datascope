@@ -2,9 +2,22 @@
 var React = require("react");
 var AppActions = require("../../actions/AppActions.jsx");
 
+
+var geoColors = ["#FCDADB","#F7A2A5", "#F47A7E",  "#9C4E51"]
 /*
     React component for creating a Cloropleth Map visualization based on a geo json file.
 */
+
+var GeoLegend = React.createClass({
+  render: function(){
+
+    var colors = geoColors.map(function(d){
+      return <div className='geoLegendRect' style={{"background": d}} />
+    });
+    return <div className="geoLegend">{colors}</div>;
+  }
+});
+  
 var GeoChoroplethMap = React.createClass({
     getInitialState: function () {
         return({dimension: null, group: null, isFilterActive: false});
@@ -66,7 +79,7 @@ var GeoChoroplethMap = React.createClass({
                     .height(500)
                     .dimension(dim)
                     .group(group)
-                    .colors(d3.scale.quantize().range(["#FCDADB","#F7A2A5", "#F47A7E",  "#9C4E51"]))
+                    .colors(d3.scale.quantize().range(geoColors))
                     .colorDomain(
                         [
                             d3.min(group.all(), function (d) {
@@ -130,7 +143,9 @@ var GeoChoroplethMap = React.createClass({
 
         return(
             <div id="geo">
-                <h4>{this.props.config.subheading}</h4>
+
+                <h4 style={{"display": "inline"}}>{this.props.config.subheading}</h4>
+                <GeoLegend />
                 <div id="geoVis">
 
                 </div>
