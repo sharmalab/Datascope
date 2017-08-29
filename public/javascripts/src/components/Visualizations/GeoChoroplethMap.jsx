@@ -66,7 +66,7 @@ var GeoChoroplethMap = React.createClass({
                     .height(500)
                     .dimension(dim)
                     .group(group)
-                    .colors(d3.scale.quantize().range(["#F47A7E", "#FCDADB", "#F7A2A5", "#9C4E51"]))
+                    .colors(d3.scale.quantize().range(["#FCDADB","#F7A2A5", "#F47A7E",  "#9C4E51"]))
                     .colorDomain(
                         [
                             d3.min(group.all(), function (d) {
