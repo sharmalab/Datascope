@@ -1,8 +1,3 @@
-
-/*
- * GET home page.
- */
-
 var interactiveFilters = require("../modules/interactiveFilters"),
     dataSource          = require("../modules/dataSource"),
     dataDescription     = require("../modules/dataDescription"),
@@ -10,7 +5,7 @@ var interactiveFilters = require("../modules/interactiveFilters"),
     customStatistics    = require("../modules/customStatistics"),
     json2csv = require("json2csv");
 
-//var TABLE_STATE = 0;
+
 
 // Load datalib.
 var dl = require('datalib');
@@ -26,9 +21,10 @@ var _containsTwoDimensional = function (f, d) {
             [Math.min(f[0][0], f[1][0]), Math.min(f[0][1], f[1][1])],
             [Math.max(f[0][0], f[1][0]), Math.max(f[0][1], f[1][1])]
         ];
-    } else {
-        fromBottomLeft = [[filter[0], -Infinity], [filter[1], Infinity]];
-    }
+    } /*else {
+        //fromBottomLeft = [[filter[0], -Infinity], [filter[1], Infinity]];
+        continue;
+    }*/
 
     var x = d[0];
     var y = d[1];
@@ -41,11 +37,8 @@ var _containsMarker = function (f, d) {
     var dLatLng = d.split(",");
     var dLat = dLatLng[0], dLng = dLatLng[1];
 
-    return dLat >= fSouthWest.lat
-        && dLat <= fNorthEast.lat
-        && dLng >= fSouthWest.lng
-        && dLng <= fNorthEast.lng;
-}
+    return dLat >= fSouthWest.lat && dLat <= fNorthEast.lat && dLng >= fSouthWest.lng && dLng <= fNorthEast.lng;
+};
 
 var _filterFunction = function(filter, dataSourceName){
     var dimensions = interactiveFilters.getDimensions(dataSourceName);
@@ -72,7 +65,7 @@ var _filterFunction = function(filter, dataSourceName){
             else {
                 //array
                 if (filter[dim].length > 1) {
-                    if (dataDescription.getDataType(dim) == "enum") {
+                    if (dataDescription.getDataType(dim) === "enum") {
                         dimensions[dim].filterFunction(function(d) {
                             return filter[dim].indexOf(d) >= 0; 
                         });
@@ -94,18 +87,19 @@ var _filterFunction = function(filter, dataSourceName){
         results[key] = {values:groups[key].all(),top:groups[key].top(1)[0].value};
     });
     var interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
-    var filteredData = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
+    var filteredData = dimensions[interactiveFiltersConfig[0].attributeName].top(Infinity);
 
     if(visualization.hasVisualization("imageGrid")){
 
-        CURRENTDATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(100);
+        CURRENTDATA = dimensions[interactiveFiltersConfig.attributeName].top(100);
 
         var reqLength = 100;
         var paginate = true;
-        if(CURRENTDATA.length < reqLength)
+        if(CURRENTDATA.length < reqLength){
             paginate = false;
+        }
         //console.log(CURRENTDATA);
-        results["imageGrid"] = {
+        results.imageGrid = {
             values: CURRENTDATA.slice(0,500),
             active: 100,
             size: 100,
@@ -143,7 +137,7 @@ var _imageGridNext = function(req, res){
     var dataSourceName = req.query.dataSourceName;
     var dimensions = interactiveFilters.getDimensions(dataSourceName),
         results = {},
-        imageGridData = dimensions["imageGrid"].top(Infinity);
+        imageGridData = dimensions.imageGrid.top(Infinity);
 
 
     var state = req.query.state;
@@ -154,7 +148,7 @@ var _imageGridNext = function(req, res){
         paginate = false;
     }
     var start = state*length;
-    results["imageGrid"] = {
+    results.imageGrid = {
         "values": imageGridData.slice(start, start+length),
         state: state,
         finalState: finalState,
@@ -174,14 +168,16 @@ var _tableNext = function(req, res){
     var interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
     var start = 1*req.query.start;
 
-    var TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(10,start);
+    var TABLE_DATA = dimensions[interactiveFiltersConfig[0].attributeName].top(10,start);
     ///console.log(TABLE_DATA);
     //console.log(state);
     var dataTableAttributes = visualization.getAttributes("dataTable");
     //var dataTableAttributes = [];
 
-    for( i in req.query.columns){
+    for( var i in req.query.columns){
+      if(1){
       dataTableAttributes.push(req.query.columns[i].name);
+      }
     }
    
     /* if the query contains a value to be searched,
@@ -235,19 +231,25 @@ var _tableNext = function(req, res){
         
     }
     */
-    var len = TABLE_DATA.length;
+    //var len = TABLE_DATA.length;
 
-    var length = 1*req.query.length;
-    var end = start+length;
+    //var length = 1*req.query.length;
+    //var end = start+length;
 
     var DATA_ARRAY = [];
-    TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(10,start);   
+    TABLE_DATA = dimensions[interactiveFiltersConfig[0].attributeName].top(10,start);   
     //console.log(dataTableAttributes); 
-    for(var i in TABLE_DATA){
+    for(var i2 in TABLE_DATA){
+        if(! TABLE_DATA.hasOwnProperty(i2)){
+          continue;
+        }
         var row = [];
         for(var j in dataTableAttributes){
-            var attrName = dataTableAttributes[j]["attributeName"];
-            row.push(TABLE_DATA[i][attrName]);
+          if(!dataTableAttributes.hasOwnProperty(j)){
+            continue;
+          }
+            var attrName = dataTableAttributes[j].attributeName;
+            row.push(TABLE_DATA[i2][attrName]);
         }
 
         DATA_ARRAY.push(row);
@@ -263,7 +265,7 @@ var _tableNext = function(req, res){
         state: state,
         draw: req.query.draw,
         recordsTotal: dataSource.getTotalRecords(dataSourceName),
-        recordsFiltered: dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity).length
+        recordsFiltered: dimensions[interactiveFiltersConfig[0].attributeName].top(Infinity).length
     };
     res.writeHead(200, {"content-type": "application/json"});
     res.end(JSON.stringify(results));
@@ -282,7 +284,7 @@ var _save = function(req, res) {
     });
 };
 
-var _populationInfo = function(req, res, next){
+var _populationInfo = function(req, res){
     var filter = req.query.filter ? JSON.parse(req.query.filter) : {},
         dataSourceName = req.query.dataSourceName;
 
@@ -303,22 +305,22 @@ var _populationInfo = function(req, res, next){
 var _getStatistics = function(req, res) {
     var attr = req.query.attr,
         dataSourceName = req.query.dataSourceName;
-
+    var statistics = {};
     var dimensions = interactiveFilters.getDimensions(dataSourceName),
         interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
 
-    var TABLE_DATA = dimensions[interactiveFiltersConfig[0]["attributeName"]].top(Infinity);
+    var TABLE_DATA = dimensions[interactiveFiltersConfig[0].attributeName].top(Infinity);
 
     var statisticsToReturn = {};
     if (attr) {
-        var statistics = interactiveFilters.getFilterConfig(attr).statistics;
+        statistics = interactiveFilters.getFilterConfig(attr).statistics;
         if (statistics) {
             var summary = dl.summary(TABLE_DATA, [attr])[0];
 
             if (statistics.constructor === String) {
-                if (statistics == "default") {
-                    if (summary["type"] == "number" ||
-                            summary["type"] == "integer") {
+                if (statistics === "default") {
+                    if (summary.type === "number" ||
+                            summary.type === "integer") {
                         statistics = ["count", "distinct", "min", "max", "mean", "median", "stdev"];
                     } else {
                         statistics = ["count", "distinct"];
@@ -337,16 +339,17 @@ var _getStatistics = function(req, res) {
                     } else {
                         statisticsToReturn[stat] = summary[stat];
                     }
-                })
+                });
             }
         }
     } else {
         var attr1 = req.query.attr1;
         var attr2 = req.query.attr2;
+
         if (attr1 && attr2) {
-            var statistics = visualization.getStatistics("twoDimStat");
+            statistics = visualization.getStatistics("twoDimStat");
             if (statistics.constructor === String) {
-                if (statistics == "default") {
+                if (statistics === "default") {
                     statistics = ["correlation", "rankCorrelation", /*"distanceCorrelation",*/ "dotProduct",
                         "euclidianDistance", "covariance", "cohensd"];
                 }
@@ -362,25 +365,22 @@ var _getStatistics = function(req, res) {
                         }
                     } else if (stat === "correlation") {
                         // Pearson product-moment correlation
-                        statisticsToReturn["correlation"] = dl.cor(TABLE_DATA, attr1, attr2);
+                        statisticsToReturn.correlation = dl.cor(TABLE_DATA, attr1, attr2);
                     } else if (stat === "rankCorrelation") {
                         // Spearman rank correlation of two arrays of values
-                        statisticsToReturn["rankCorrelation"] = dl.cor.rank(TABLE_DATA, attr1, attr2);
-                    } else if (stat === "distanceCorrelation") {
-                        // Removed since is not working // distance correlation of two arrays of numbers
-                        // statisticsToReturn["distanceCorrelation"] = dl.cor.dist(TABLE_DATA, attr1, attr2);
-                    } else if (stat === "dotProduct") {
+                        statisticsToReturn.rankCorrelation = dl.cor.rank(TABLE_DATA, attr1, attr2);
+                    }else if (stat === "dotProduct") {
                         // vector dot product of two arrays of numbers
-                        statisticsToReturn["dotProduct"] = dl.dot(TABLE_DATA, attr1, attr2);
+                        statisticsToReturn.dotProduct = dl.dot(TABLE_DATA, attr1, attr2);
                     } else if (stat === "euclidianDistance") {
                         //vector Euclidian distance between two arrays of numbers
-                        statisticsToReturn["euclidianDistance"] = dl.dist(TABLE_DATA, attr1, attr2);
+                        statisticsToReturn.euclidianDistance = dl.dist(TABLE_DATA, attr1, attr2);
                     } else if (stat === "covariance") {
                         // covariance between two arrays of numbers
-                        statisticsToReturn["covariance"] = dl.covariance(TABLE_DATA, attr1, attr2);
+                        statisticsToReturn.covariance = dl.covariance(TABLE_DATA, attr1, attr2);
                     } else if (stat === "cohensd") {
                         // Cohen's d effect size between two arrays of numbers
-                        statisticsToReturn["cohensd"] = dl.cohensd(TABLE_DATA, attr1, attr2);
+                        statisticsToReturn.cohensd = dl.cohensd(TABLE_DATA, attr1, attr2);
                     }
                 });
             }
