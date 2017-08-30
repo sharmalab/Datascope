@@ -33,6 +33,10 @@ body {
 }
 */
 
+.download img{
+    width:24px;
+    height: 24px;
+}   
 .navbar-brand {
     background: #F47A7E;
 }
@@ -741,4 +745,13 @@ ul.nav.nav-tabs {
 }
 .dc-chart g.row text {
     fill: black;
+}
+a.download, #dl{
+    font-weight:200;
+}
+.download{
+    padding: 10px;
+    position: relative;
+    top: 10px;
+    font-weight: 100;
 }

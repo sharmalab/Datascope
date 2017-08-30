@@ -7,7 +7,8 @@ var interactiveFilters = require("../modules/interactiveFilters"),
     dataSource          = require("../modules/dataSource"),
     dataDescription     = require("../modules/dataDescription"),
     visualization       = require("../modules/visualization"),
-    customStatistics    = require("../modules/customStatistics");
+    customStatistics    = require("../modules/customStatistics"),
+    json2csv = require("json2csv");
 
 //var TABLE_STATE = 0;
 
@@ -269,12 +270,16 @@ var _tableNext = function(req, res){
 };
 
 var _save = function(req, res) {
-    var filter = req.query.filter ? JSON.parse(req.query.filter) : {};
-    var result = _filterFunction(filter);
-    var filteredData = result.filteredData;
 
-    res.writeHead(200, {"content-type": "application/json"});
-    res.end(JSON.stringify(filteredData));
+    var filter = req.query.filter ? JSON.parse(req.query.filter) : {};
+
+    var result = _filterFunction(filter, "main");
+    var filteredData = result.filteredData;
+    json2csv({data: filteredData}, function(err, csv){
+      res.attachment('cohort.csv');
+      res.writeHead(200, {"content-type": "test/csv"});
+      res.end(csv);
+    });
 };
 
 var _populationInfo = function(req, res, next){
