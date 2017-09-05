@@ -9,13 +9,13 @@ We propose an environment for visualizing and exploring multidimensional data. W
 * Install Node.js and NPM
 * `npm install -g webpack`
 * `npm install -g forever` ((Optional) recommended for production deployements)
+* `npm install -g apidoc`
 
 
 ##### Installation
 
 * Clone the repository
-* Run ```npm install```
-* Run ```webpack```
+* Run ```npm run-script build```
 
 ##### Running
 
