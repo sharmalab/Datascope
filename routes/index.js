@@ -119,6 +119,28 @@ var _filterFunction = function(filter, dataSourceName){
 //#### handleFilterRequest(request, response, next)
 //Is fired on GET "/data" request. Performs filtering using the filtering information provided in the GET parameter:    ```filter```    
 //
+//
+
+/**
+ * @api {get} data Request binned aggregated data
+ * @apiGroup Datascope
+ * @apiName GetData
+ * @apiParam {String} filter Stringified JSON filter object
+ * @apiParam {String} dataSourceName Use 'main' for default or specify dataSourceName
+ * @apiSuccessExample Success-Response:
+ * [{
+ *   "Netflix": {
+ *   "values": [{
+ *     "key": "No",
+ *     "value": 3013
+ *   }, {
+ *     "key": "Yes",
+ *     "value": 188
+ *  }],
+ *   "top": 3013
+ * }]
+ */
+
 var _handleFilterRequest = function(req,res) {
 
     var dataSourceName = req.query.dataSourceName;
@@ -132,6 +154,8 @@ var _handleFilterRequest = function(req,res) {
     res.writeHead(200, { "content-type": "application/json" });
     res.end((JSON.stringify(results.results)));
 };
+
+
 
 var _imageGridNext = function(req, res){
     var dataSourceName = req.query.dataSourceName;
@@ -158,6 +182,19 @@ var _imageGridNext = function(req, res){
     res.writeHead(200, {"content-type": "application/json"});
     res.end(JSON.stringify(results));
 };
+
+
+/**
+ * @api {get} dataTable/next Request paginated data for datatable
+ * @apiGroup dataTable
+ * @apiName DataTableNext
+ * @apiParam {String} dataSourceName Use 'main' for default or specify dataSourceName
+ * @apiParam {Number} start Starting offset
+ * @apiParam {Number} length Number of rows
+ * @apiParam {Number} draw
+ * @apiParam {Number} state
+ */
+
 
 var _tableNext = function(req, res){
     var dataSourceName = req.query.dataSourceName;
@@ -233,11 +270,11 @@ var _tableNext = function(req, res){
     */
     //var len = TABLE_DATA.length;
 
-    //var length = 1*req.query.length;
+    var length = 1*req.query.length;
     //var end = start+length;
 
     var DATA_ARRAY = [];
-    TABLE_DATA = dimensions[interactiveFiltersConfig[0].attributeName].top(10,start);   
+    TABLE_DATA = dimensions[interactiveFiltersConfig[0].attributeName].top(length,start);   
     //console.log(dataTableAttributes); 
     for(var i2 in TABLE_DATA){
         if(! TABLE_DATA.hasOwnProperty(i2)){
@@ -271,6 +308,13 @@ var _tableNext = function(req, res){
     res.end(JSON.stringify(results));
 };
 
+/**
+ * @api {get} save Request complete filtered data in JSON format
+ * @apiGroup Datascope
+ * @apiName Save
+ * @apiParam {String} filter Stringified JSON filter object 
+ */
+
 var _save = function(req, res) {
 
     var filter = req.query.filter ? JSON.parse(req.query.filter) : {};
@@ -284,7 +328,22 @@ var _save = function(req, res) {
     });
 };
 
-var _populationInfo = function(req, res){
+/**
+ * @api {get} populationInfo Request global population info
+ * @apiGroup Datascope
+ * @apiName PopulationInfo
+ * @apiParam {String} filter Stringified JSON filter object 
+ * @apiParam {String} dataSourceName name of the datasource
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ *  {
+ *    "Current": 371,
+ *      "Total": 3201
+ *  }
+ */
+
+var _populationInfo = function(req, res, next){
+
     var filter = req.query.filter ? JSON.parse(req.query.filter) : {},
         dataSourceName = req.query.dataSourceName;
 
@@ -302,6 +361,29 @@ var _populationInfo = function(req, res){
     It uses datalib for usual statistics (mean, median, count, etc.) and custom statistics defined in
     'customStatistics.js' file.
 */
+
+
+/**
+ * @api {get} statistics Request statistics associated with an attribute
+ * @apiGroup Datascope
+ * @apiName Statistics
+ * @apiParam {String} attr Name of the attribute
+ * @apiParam {String} dataSourceName name of the datasource
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ *  {
+    "count": 371,
+	"distinct": 16,
+	"min": 7.7,
+	"max": 9.2,
+	"mean": 8.073854447439347,
+	"median": 8,
+	"stdev": 0.3217199896341025
+ *  
+ *  }
+ */
+
+
 var _getStatistics = function(req, res) {
     var attr = req.query.attr,
         dataSourceName = req.query.dataSourceName;

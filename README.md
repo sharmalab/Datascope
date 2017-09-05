@@ -9,13 +9,13 @@ We propose an environment for visualizing and exploring multidimensional data. W
 * Install Node.js and NPM
 * `npm install -g webpack`
 * `npm install -g forever` ((Optional) recommended for production deployements)
+* `npm install -g apidoc`
 
 
 ##### Installation
 
 * Clone the repository
-* Run ```npm install```
-* Run ```webpack```
+* Run ```npm run-script build```
 
 ##### Running
 
@@ -36,4 +36,7 @@ Read the User Guide present in ```docs/wiki/``` for more details
 
 * Use ```webpack --watch``` to rebuild automatically after edits.
 * Use ```nodemon```(https://github.com/remy/nodemon) to restart the server automatically after edits. 
+
+### API Documentation
+Head over to [API Doc](https://sharmalab.github.io/Datascope/apidoc/) for documentation about Datascope's REST API.
 
