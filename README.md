@@ -37,3 +37,6 @@ Read the User Guide present in ```docs/wiki/``` for more details
 * Use ```webpack --watch``` to rebuild automatically after edits.
 * Use ```nodemon```(https://github.com/remy/nodemon) to restart the server automatically after edits. 
 
+### API Documentation
+Head over to (https://sharmalab.github.io/Datascope/apidoc/)[API Doc] for documentation about Datascope's REST API.
+
