@@ -20,10 +20,10 @@ We propose an environment for visualizing and exploring multidimensional data. W
 ##### Running
 
 * Modify the files present in ```config``` to fit your needs:
-    * dataSource.json (Refer to [dataSource.json documentation](https://bitbucket.org/BMI/interactive-data-exporation/wiki/dataSource.json))
-    * dataDescription.json (Refer to [dataDescription.json documentation](https://bitbucket.org/BMI/interactive-data-exporation/wiki/dataDescription.json))
-    * interactiveFilters.json (Refer to [interactiveFilters.json documentation](https://bitbucket.org/BMI/interactive-data-exporation/wiki/interactiveFilters.json))
-    * visualization.json (Refer to [visualization.json documentation](https://bitbucket.org/BMI/interactive-data-exporation/wiki/visualization.json))
+    * dataSource.json 
+    * dataDescription.json 
+    * interactiveFilters.json
+    * visualization.json
     * dashboard.json (For dashboard settings)
 
 * Run ```node app.js```
