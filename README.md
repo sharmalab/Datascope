@@ -6,7 +6,7 @@ We propose an environment for visualizing and exploring multidimensional data. W
 
 ##### Prerequisites
 
-* Install Node.js and NPM
+* Install [Node.js](https://nodejs.org/en/download/) and [NPM](https://www.npmjs.com/get-npm)
 * `npm install -g webpack`
 * `npm install -g forever` ((Optional) recommended for production deployements)
 * `npm install -g apidoc`
