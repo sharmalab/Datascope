@@ -29,7 +29,7 @@ We propose an environment for visualizing and exploring multidimensional data. W
 * Run ```node app.js```
 * Goto ```http://localhost:3000``` from your favorite browser.
 
-Read the User Guide present in ```docs/wiki/``` for more details
+Read the [User Guide](https://github.com/sharmalab/Datascope/wiki)  for more details
 
 
 ## Developers
