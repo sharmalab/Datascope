@@ -528,11 +528,11 @@ a {
     font-size: 16.5;
 }
 img {
-    -webkit-transition: opacity 3s ease-in-out;
-    -moz-transition: opacity 2s ease-in-out;
-    -o-transition: opacity 2s ease-in-out;
-    transition: opacity 2s ease-in-out;
-    animation: 3s ease-in 1s 2 reverse both paused slidein;
+    //-webkit-transition: opacity 3s ease-in-out;
+    //-moz-transition: opacity 2s ease-in-out;
+    //-o-transition: opacity 2s ease-in-out;
+    //transition: opacity 2s ease-in-out;
+    //animation: 3s ease-in 1s 2 reverse both paused slidein;
 }
 .filteringAttributesList {
     margin-top: 40px;
