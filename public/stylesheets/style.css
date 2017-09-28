@@ -583,10 +583,10 @@ ul.nav.nav-tabs {
     position: absolute;
     right: 10px;
 }
-.chart-title-icons svg {
+.chart-title-icons svg, .chart-title-icons img {
     opacity: 0.6;
 }
-.chart-title-icons svg:hover {
+.chart-title-icons svg:hover , .chart-title-icons img:hover{
     //   fill: #fff;
     opacity: 1;
     cursor: pointer;

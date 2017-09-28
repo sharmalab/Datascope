@@ -56,7 +56,7 @@ var NavBar = React.createClass({
                     <Summary />
                     </div>                   
                     <ul className="nav navbar-nav navbar-right navbar-options">
-                      <a className='download' href={url} target='_blank' id='dl'><img src='images/download.png' />Cohort</a>
+                      <a className='download' href={url} target='_blank' id='dl'><img src='images/Download1.png' />Cohort</a>
                     </ul>
             </div>
         );
