@@ -584,7 +584,7 @@ ul.nav.nav-tabs {
     right: 10px;
 }
 .chart-title-icons svg, .chart-title-icons img {
-    opacity: 0.6;
+    //opacity: 0.6;
 }
 .chart-title-icons svg:hover , .chart-title-icons img:hover{
     //   fill: #fff;
@@ -754,4 +754,8 @@ a.download, #dl{
     position: relative;
     top: 10px;
     font-weight: 100;
+}
+
+.dc-chart g.deselected path{
+    fill: rgba(128, 128, 128, 0.21);
 }
