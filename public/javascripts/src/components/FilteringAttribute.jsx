@@ -479,7 +479,7 @@ var FilteringAttribute = React.createClass({
 
         //e.preventDefault();
         var c  = this.state.chart;
-        //console.log("Reset");
+        console.log("Reset");
         c.filterAll();
         //dc.renderAll();
     },
@@ -559,11 +559,7 @@ var FilteringAttribute = React.createClass({
                             {self.props.config.attributeName}
 							<div className="chart-title-icons">
                                 { isFilterActive ?
-                                <svg style={{width:iconWidth,height:iconHeight }} viewBox="0 0 24 24" onClick={self.onReset}>
-                                    <path fill={filterFillColor} d="M14.73,20.83L17.58,18L14.73,15.17L16.15,13.76L19,16.57L21.8,13.76L23.22,15.17L20.41,18L23.22,20.83L21.8,22.24L19,19.4L16.15,22.24L14.73,20.83M2,2H20V2H20V4H19.92L14,9.92V22.91L8,16.91V9.91L2.09,4H2V2M10,16.08L12,18.08V9H12.09L17.09,4H4.92L9.92,9H10V16.08Z">
-                                        <title>Remove filter</title>
-                                    </path>
-                                </svg>
+                                    <img src="images/Command-Reset-256-4.png"  onClick={self.onReset} style={{width:iconWidth,height:iconHeight,top:"-7px", position:"relative" }} />
                                 :
                                     <div />
                                 }
@@ -584,7 +580,7 @@ var FilteringAttribute = React.createClass({
                                           <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
                                           <path d="M0 0h24v24H0z" fill="none"/>
 
-                                              <title>Show statistics</title>
+                                              <title>Show statistics hello</title>
 
                                       </svg>
                                   }
@@ -624,7 +620,7 @@ var FilteringAttribute = React.createClass({
                             {self.props.config.attributeName}
                             <div className="chart-title-icons">
                                 { isFilterActive ? /* delete filter */
-                                    <img src="images/Command-Reset-256-4.png" style={{width:iconWidth,height:iconHeight,top:"-9px", position:"relative" }} />
+                                    <img src="images/Command-Reset-256-4.png"  onClick={self.onReset} style={{width:iconWidth,height:iconHeight,top:"-8px", position:"relative" }} />
                                     :
                                     <div/>
                                 }
