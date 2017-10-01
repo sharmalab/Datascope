@@ -29,7 +29,7 @@
 							<div class="inner">
 								<header>
 									<h1>DataScope</h1>
-									<p>Create Interactive Dashboards for Large Biomedical Data Exploration Without any Coding</p>
+									<p>Create Interactive Dashboards for Biomedical Data Exploration Without any Coding</p>
 								</header>
 								<nav id="nav">
 									<ul class="actions vertical special spinY">
@@ -37,7 +37,7 @@
 									</ul>
 								</nav>
 								<ul class="icons">
-									<li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="https://github.com/sharmalab/Datascope" class="icon fa-github"><span class="label">GitHub</span></a></li>
 								</ul>
 							</div>
 						</div>
@@ -56,11 +56,12 @@
 							<div class="inner">
 								<header>
 									<h2>Features</h2>
-									<p>Magna feugiat lorem ipsum dolor<br />
-									veroeros sed adipiscing</p>
 								</header>
-								<p>Lorem ipsum dolor sit amet, magna etiam adipiscing elit. Vivamus in quam eu turpis venenatis euismod eget ac velit. Magna pharetra eleifend urna quis laoreet. Nullam quis urna iaculis metus ornare accumsan. Sed nunc lacus, lobortis nec ante sit amet.</p>
-								<p>Vitae quis magna. Sed condimentum dui sed nunc dapibus dignissim. Sed at arcu gravida, vehicula massa ut, consectetur urna. Morbi eu venenatis turpis. In tincidunt pharetra etiam veroeros.</p>
+								<p>Create dashboards using a declarative specification (i.e. No coding required)</p>
+								<p>Data is presented as linked coordinated views — as you filter on one attribute, you will see changes propogate across the other attributes</p>
+								<p>Scalable to large hetrogeneous distributed datasets. This is possible through a mix of server-side cross-filtering, compressed encoding of data, and some other optimizations</p>
+								<p>DataScope is extensible and can be templated, making it easy to integrated in existing apps, and add new visualizations</p>
+								<p>Provide users with a graphic view of an attribute or a quantitative view that summarizes the data</p>
 							</div>
 						</div>
 					</article>
@@ -78,13 +79,23 @@
 						<div class="inner">
 							<header>
 								<h2>DataScope In Action</h2>
-								<p>Deployed in many places. Some public instances and demo instances are shown here</p>
 							</header>
 							<section>
 								<ul class="alt">
-									<li><a href="#link1">Example 1</a></li>
-									<li><a href="#link2">Example 2</a></li>
-									<li><a href="#link3">Example 3</a></li>
+									<li><a href="https://cancerimagingarchive.net/datascope/">Digital Pathology Data Exploration at The Cancer Imaging Archive</a>
+										<p>This instance provides access to an integration of digital patholgy data, and 
+											linked clinical data from the NCI Clinical Proteomic Tumor Analysis 
+											Consortium (CPTAC) project</p></li>
+									<li><a href="http://imaging.cci.emory.edu/datascope/">Mouse-Human co-Clinical Data</a>
+										<p>One of the earliest deployments of DataScope. Here we integrate 
+											some representative mouse model data with human data. 
+											Additionally, we also link the molecular data with radiology 
+											and pathology imaging data.</p></li>
+									<li><a href="https://wolf.cci.emory.edu/birds/">FAA Wildlife Strike Database</a></li>
+									<li><a href="https://wolf.cci.emory.edu/movies/">IMDB Movie Dataset</a>
+										<p>The FAA and the IMDB demos are two instances that highlight 
+											some key capabilities. The DataScope user guides also reference 
+											these datasets</p></li>
 								</ul>
 							</section>
 						</div>
@@ -103,11 +114,24 @@
 						<div class="inner">
 							<header>
 								<h2>Getting Started</h2>
-								<p>Magna feugiat lorem ipsum dolor<br />
-								veroeros sed adipiscing</p>
+								<p><a href="https://github.com/sharmalab/Datascope/wiki">Details can be found here</a></p>
 							</header>
-							<p>Lorem ipsum dolor sit amet, magna etiam adipiscing elit. Vivamus in quam eu turpis venenatis euismod eget ac velit. Magna pharetra eleifend urna quis laoreet. Nullam quis urna iaculis metus ornare accumsan. Sed nunc lacus, lobortis nec ante sit amet.</p>
-							<p>Vitae quis magna. Sed condimentum dui sed nunc dapibus dignissim. Sed at arcu gravida, vehicula massa ut, consectetur urna. Morbi eu venenatis turpis. In tincidunt pharetra etiam veroeros.</p>
+							<p>Step 1. Identify the source of the data by creating a DataSource.json  
+								Supported data sources include CSV & JSON files on filesystem, REST APIs, 
+								and Databases over ODBC connections.</p>
+							<p>Step 2. Describe the data. Here you define the attributes that you want on 
+								your dashboard; whether they are integers, floats, enumerated values etc. 
+								You also indicate whether an attribute will be used as a linked filter, or 
+								is being used for display only. This is done in DataDescription.json</p>
+							<p>Step 3. Describe how you want to visualize your attributes using DataScopes
+								 declerative grammar. This is done in Visualization.json</p>
+							<p>NOTE: We are currently updating DataScope so you may be using an earlier version that 
+								requires two files to describe the visualizations. As always the instructions on
+								the repo are current.</p>								
+							<p></p>
+							<p></p>
+							<p></p>
+							
 						</div>
 					</div>
 				</article>
@@ -115,8 +139,9 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<p class="copyright"><h5>Acknowledgements</h5>
-							<strong>One</strong>blah blah <br>
-							<strong>Two</strong>Bloh jdghfs <br>
+							NCI QIN 1U01CA187013<br>
+							NCI/NCIP CTIIP caMicroscope<br>
+							Google Summer of Code 2014, 2015<br>
 						</p>
 					</footer>
 
