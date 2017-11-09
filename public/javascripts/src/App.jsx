@@ -21,6 +21,7 @@ var InteractiveFilters = React.createFactory(require("./components/InteractiveFi
 var Visualizations = require("./components/Visualizations.jsx");
 var NavBar = require("./components/Navbar.jsx");
 //var Loader = require('react-loader');
+var Loader = require('halogen/ScaleLoader');
 
 var interactiveFilters = {},
     visualization = {};
@@ -29,7 +30,7 @@ var Dashboard = React.createClass({
     componentDidMount: function(){      
         var self=this;    
 
-//        console.log("Waxzaaswoot!"); adsff
+
         self.unsubscribe = AppStore.listen(self.onFilter);
 
         d3.json("config/interactiveFilters", function(err, data) {
@@ -55,13 +56,27 @@ var Dashboard = React.createClass({
                         interactiveFilters: interactiveFilters,
                         visualization: visualization,
                         currData: filteredData,
-                        loaded: true,
+                
                         debug: 0
                     });
 
 
+                    dc.disableTransitions=true; //disable dc.js animations
 
-                    dc.renderAll();
+					dc.renderAll();
+                    setTimeout(function(){
+
+                    	dc.renderAll(); //fix safari issue
+                    },50);
+					
+					setTimeout(function(){
+						self.setState({
+							loading: false,
+							loaded: true
+						});
+					},4400);	
+
+                    //dc.renderAll();
                 });
                 
                 
@@ -72,7 +87,7 @@ var Dashboard = React.createClass({
         d3.json("config/dashboard", function(config){
             var dashBoardConfig =  config || {};
 
-            Theme = dashBoardConfig.theme;
+            var Theme = dashBoardConfig.theme;
             self.setState({ dashboardConfig: config});
 
         });
@@ -81,7 +96,7 @@ var Dashboard = React.createClass({
 
     },
     getInitialState: function(){
-        return {interactiveFilters: null, visualization: null, filter: null, loaded: false, dashboardConfig: null};
+        return {interactiveFilters: null, visualization: null, filter: null, loaded: false, dashboardConfig: null, loading: true};
     },
     onFilter: function(){
         this.setState({loading: true});
@@ -104,7 +119,9 @@ var Dashboard = React.createClass({
           <div id="main_container">
             <NavBar />
             { loading ?
-                <h1 id="loadingMessage"> Loading </h1>
+                <div id="loadingMessage">       <Loader color="#f47a7e" size="16px" margin="4px"/>
+Initializing
+ </div>
             :
                 <div />
             }

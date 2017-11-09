@@ -1,0 +1,31 @@
+/*
+	Indivisible by Pixelarity
+	pixelarity.com | hello@pixelarity.com
+	License: pixelarity.com/license
+*/
+
+/* Button */
+
+	input[type="submit"],
+	input[type="reset"],
+	input[type="button"],
+	button,
+	.button {
+		border: solid 1px #cccccc !important;
+	}
+
+		input[type="submit"].back,
+		input[type="reset"].back,
+		input[type="button"].back,
+		button.back,
+		.button.back {
+			padding-left: 2em;
+		}
+
+		input[type="submit"].special,
+		input[type="reset"].special,
+		input[type="button"].special,
+		button.special,
+		.button.special {
+			border: 0 !important;
+		}

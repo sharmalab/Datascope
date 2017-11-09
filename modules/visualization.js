@@ -59,7 +59,11 @@ var visualization = (function(){
             if(attribute.type == "image"){  
                 dimension = attribute.attributeName;
                 dimension = ndx.dimension(function(d){
-                    return d[attribute.attributeName];        
+                    if(d[attribute.attributeName]){ //check if not undefined
+                      return d[attribute.attributeName];        
+                    } else {
+                      return null;
+                    }
                 });
             }
 

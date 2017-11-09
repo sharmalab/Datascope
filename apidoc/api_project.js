@@ -1,0 +1,1 @@
+define({  "name": "DataScope",  "version": "0.2.2",  "description": "DataScope REST API",  "title": "",  "url": "https://localhost:3000/",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2017-09-08T15:32:55.724Z",    "url": "http://apidocjs.com",    "version": "0.17.6"  }});

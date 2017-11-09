@@ -16,7 +16,7 @@ var AppStore = Reflux.createStore({
     },
 	init: function(){
       var self = this;
-      d3.json("/config/dataDescription", function(data){
+      d3.json("config/dataDescription", function(data){
         console.log("getting data description");
         console.log(data);
         self.dataDescription = data;

@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<!--
+	Indivisible by Pixelarity
+	pixelarity.com | hello@pixelarity.com
+	License: pixelarity.com/license
+-->
+<html>
+	<head>
+		<title>DataScope</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+			<!-- Global Site Tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107515805-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments)};
+			gtag('js', new Date());
+			gtag('config', 'UA-107515805-1');
+		</script>
+	</head>
+	<body class="is-loading-0 is-loading-1">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Home -->
+					<article id="home" class="panel special">
+						<div class="image">
+							<img src="images/home.jpg" alt="" data-position="center center" />
+						</div>
+						<div class="content">
+							<div class="inner">
+								<header>
+									<h1>DataScope</h1>
+									<p>Create Interactive Dashboards for Biomedical Data Exploration Without any Coding</p>
+								</header>
+								<nav id="nav">
+									<ul class="actions vertical special spinY">
+										<li><a href="#one" class="button special front">Features</a></li>
+									</ul>
+								</nav>
+								<ul class="icons">
+									<li><a href="https://github.com/sharmalab/Datascope" class="icon fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</article>
+
+				<!-- Features -->
+					<article id="one" class="panel secondary">
+						<div class="image">
+							<img src="images/gallery.jpg" alt="" data-position="center center" />
+						</div>
+						<div class="content">
+							<ul class="actions spinX">
+								<li><a href="#home" class="button back">Home</a></li>
+								<li><a href="#two" class="button special front">Examples</a></li>
+							</ul>
+							<div class="inner">
+								<header>
+									<h2>Features</h2>
+								</header>
+								<p>Create dashboards using a declarative specification (i.e. No coding required)</p>
+								<p>Data is presented as linked coordinated views — as you filter on one attribute, you will see changes propogate across the other attributes</p>
+								<p>Scalable to large hetrogeneous distributed datasets. This is possible through a mix of server-side cross-filtering, compressed encoding of data, and some other optimizations</p>
+								<p>DataScope is extensible and can be templated, making it easy to integrated in existing apps, and add new visualizations</p>
+								<p>Provide users with a graphic view of an attribute or a quantitative view that summarizes the data</p>
+							</div>
+						</div>
+					</article>
+
+				<!-- Examples -->
+				<article id="two" class="panel secondary">
+					<div class="image">
+						<img src="images/examples.jpg" alt="" data-position="center center" />
+					</div>
+					<div class="content">
+						<ul class="actions spinX">
+							<li><a href="#one" class="button back">Features</a></li>
+							<li><a href="#three" class="button special front">Getting Started</a></li>
+						</ul>
+						<div class="inner">
+							<header>
+								<h2>DataScope In Action</h2>
+							</header>
+							<section>
+								<ul class="alt">
+									<li><a href="https://cancerimagingarchive.net/datascope/">Digital Pathology Data Exploration at The Cancer Imaging Archive</a>
+										<p>This instance provides access to an integration of digital patholgy data, and 
+											linked clinical data from the NCI Clinical Proteomic Tumor Analysis 
+											Consortium (CPTAC) project</p></li>
+									<li><a href="http://imaging.cci.emory.edu/datascope/">Mouse-Human co-Clinical Data</a>
+										<p>One of the earliest deployments of DataScope. Here we integrate 
+											some representative mouse model data with human data. 
+											Additionally, we also link the molecular data with radiology 
+											and pathology imaging data.</p></li>
+									<li><a href="https://wolf.cci.emory.edu/birds/">FAA Wildlife Strike Database</a></li>
+									<li><a href="https://wolf.cci.emory.edu/movies/">IMDB Movie Dataset</a>
+										<p>The FAA and the IMDB demos are two instances that highlight 
+											some key capabilities. The DataScope user guides also reference 
+											these datasets</p></li>
+								</ul>
+							</section>
+						</div>
+					</div>
+				</article>
+
+				<!-- Getting Started -->
+				<article id="three" class="panel secondary">
+					<div class="image">
+						<img src="images/pic03.jpg" alt="" data-position="center center" />
+					</div>
+					<div class="content">
+						<ul class="actions spinX">
+							<li><a href="#home" class="button special back">Home</a></li>
+						</ul>
+						<div class="inner">
+							<header>
+								<h2>Getting Started</h2>
+								<p><a href="https://github.com/sharmalab/Datascope/wiki">Details can be found here</a></p>
+							</header>
+							<p>Step 1. Identify the source of the data by creating a DataSource.json  
+								Supported data sources include CSV & JSON files on filesystem, REST APIs, 
+								and Databases over ODBC connections.</p>
+							<p>Step 2. Describe the data. Here you define the attributes that you want on 
+								your dashboard; whether they are integers, floats, enumerated values etc. 
+								You also indicate whether an attribute will be used as a linked filter, or 
+								is being used for display only. This is done in DataDescription.json</p>
+							<p>Step 3. Describe how you want to visualize your attributes using DataScopes
+								 declerative grammar. This is done in Visualization.json</p>
+							<p>NOTE: We are currently updating DataScope so you may be using an earlier version that 
+								requires two files to describe the visualizations. As always the instructions on
+								the repo are current.</p>								
+							<p></p>
+							<p></p>
+							<p></p>
+							
+						</div>
+					</div>
+				</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<p class="copyright"><h5>Acknowledgements</h5>
+							NCI QIN 1U01CA187013<br>
+							NCI/NCIP CTIIP caMicroscope<br>
+							Google Summer of Code 2014, 2015<br>
+						</p>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>
