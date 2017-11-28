@@ -58,8 +58,8 @@ var DataTable = React.createClass({
             count++;
         }
         //console.log(columns);
-        var ajaxUrl = "dataTable/next?dataSourceName=" + globalDataSourceName ;
-        //console.log(ajaxUrl);
+        var ajaxUrl = "druid/tableNext?dataSourceName=" + globalDataSourceName+"&filter="+JSON.stringify(queryFilter) ;
+        console.log(ajaxUrl);
         var dataTable = $('#'+tableId).DataTable({
             bSort: false,
             bFilter: false,

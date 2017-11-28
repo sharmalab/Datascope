@@ -1,4 +1,6 @@
 /* global d3 */
+
+
 /* global dc */
 /* global queryFilter */
 /* global globalDataSourceName */
@@ -40,6 +42,20 @@ var Dashboard = React.createClass({
                 return;
             }
             interactiveFilters = data;
+            console.log(interactiveFilters);
+            interactiveFilters = [];
+            interactiveFilters.push({"attributeName": "countryIsoCode", "visualization": {
+                "visType": "rowChart"
+            }});
+            interactiveFilters.push({"attributeName": "isRobot", "visualization": {
+                "visType": "pieChart"
+            }});
+            interactiveFilters.push({"attributeName": "isMinor", "visualization": {
+                "visType": "rowChart"
+            }});
+            interactiveFilters.push({"attributeName": "channel", "visualization": {
+                "visType": "rowChart"
+            }});
             d3.json("config/visualization", function(err, data) {
 
                 if(err) {
@@ -50,7 +66,7 @@ var Dashboard = React.createClass({
                 AppActions.refresh(queryFilter); //Initial refresh
                 filteredData = AppStore.getData();
                 //Do the initial filtering 
-                d3.json("data/?filter={}&dataSourceName=" + globalDataSourceName, function(d) {
+                d3.json("druid/filter?filter={}&dataSourceName=" + globalDataSourceName, function(d) {
                     filteredData = d;
                     self.setState({
                         interactiveFilters: interactiveFilters,

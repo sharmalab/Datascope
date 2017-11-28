@@ -38,7 +38,7 @@ var Summary = React.createClass({
         self.unsubscribe = AppStore.listen(self.onFilter);
 
 
-        d3.json("populationInfo/?filter=" + JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (data) {
+        d3.json("druid/populationInfo/?filter=" + JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (data) {
 
             self.setState({Current: data.Current, Total: data.Total});
         });
@@ -46,7 +46,7 @@ var Summary = React.createClass({
     },
     onFilter: function(){
         var self = this;
-        d3.json("populationInfo/?filter=" + JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (data) {
+        d3.json("druid/populationInfo/?filter=" + JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (data) {
 
             summaryChart(data);
             self.setState({Current: data.Current, Total: data.Total});

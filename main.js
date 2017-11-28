@@ -29,7 +29,7 @@ var dataSource = require("./modules/dataSource"),
 var app = express();
 
 // all environments
-app.set("port", process.env.PORT || 3001);
+app.set("port", process.env.PORT || 3003);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 //app.use(favicon());
@@ -97,12 +97,14 @@ function handleState(req, res, next){
 app.use("/data",routes.handleFilterRequest);
 app.use("/populationInfo", routes.populationInfo);
 app.use("/dataTable/next", routes.tableNext);
+app.use("/druid/tableNext", routes.druidTableNext);
+app.use("/druid/populationInfo", routes.druidPopulationInfo);
 app.use("/state",  handleState);
 app.use("/save", routes.save);
 app.use("/heat", visualizationRoutes.heat);
 app.use("/imageGrid/next", routes.imageGridNext);
 app.use("/statistics", routes.getStatistics);
-
+app.use("/druid/filter", routes.handleDruidRequest);
 app.post('/uploadDataSource', rest.postDataSource);
 app.post('/uploadVisualization', rest.postVisualization);
 app.post('/uploadInteractiveFilters', rest.postInteractiveFilters);
