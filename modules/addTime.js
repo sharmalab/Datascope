@@ -34,6 +34,11 @@ var dataSource = {
 };
 
 
+if(process.argv.length != 4){
+	console.log("Usage: node addTime.js <input_path> <output_path>");
+	process.exit(1);
+}
+
 var inPath = process.argv[2];
 var outPath = process.argv[3];
 var out = loadJson(process.argv[2], function(data){
@@ -73,12 +78,12 @@ var out = loadJson(process.argv[2], function(data){
         }
     };
 
-    ingestionSpec.spec.metricSpec =  [];
-    ingestionSpec.spec.granularitySpec =  {
+    ingestionSpec.spec.dataSchema.metricSpec =  [];
+    ingestionSpec.spec.dataSchema.granularitySpec =  {
         "type": "uniform",
         "segmentGranularity": "DAY",
         "queryGranularity": "NONE",
-        "intervals": ["2016-12-31/2016-12-01"]
+        "intervals": ["2015-12-31/2017-12-01"]
     };
     ingestionSpec.spec.ioConfig = {
         "type": "hadoop", 
