@@ -64,36 +64,41 @@ var out = loadJson(process.argv[2], function(data){
     ingestionSpec.spec.dataSchema.dataSource = dataSource.sourceName;
     ingestionSpec.spec.dataSchema.parser = {
         "type": "hadoopyString",
-        "parserSpec": {
+        "parseSpec": {
             "format": "json",
             "timestampSpec": {
-                "column": "timestamp",
+                "column": "time",
                 "format": "auto"
-            }
-        },
-        "dimensionsSpec": {
-            "dimensions": ["Creative_Type", "Major_Genre", "IMDB_Votes", "Rotten_Tomatoes_Rating", "MPAA_Rating", "Worldwide_Gross", "Source", "Running_Time_min", "Netflix", "IMDB_Rating", "Production_Budget"],
-            "dimensionExclusions": [],
-            "spatialDimensions": []
+            },
+	    "dimensionsSpec": {
+	    	"dimensions": ["Creative_Type", "Major_Genre", "IMDB_Votes", "Rotten_Tomatoes_Rating", "MPAA_Rating", "Worldwide_Gross", "Source", "Running_Time_min", "Netflix", "IMDB_Rating", "Production_Budget"],
+		"dimensionExclusions": [],
+		"spatialDimensions": []
+	    }
         }
     };
 
-    ingestionSpec.spec.dataSchema.metricSpec =  [];
+    ingestionSpec.spec.dataSchema.metricsSpec =  [];
     ingestionSpec.spec.dataSchema.granularitySpec =  {
-        "type": "uniform",
-        "segmentGranularity": "DAY",
-        "queryGranularity": "NONE",
-        "intervals": ["2015-12-31/2017-12-01"]
+        "type" : "uniform",
+        "segmentGranularity" : "day",
+        "queryGranularity" : "none",
+        "intervals":  ["2015-09-12/2017-09-13"]
     };
     ingestionSpec.spec.ioConfig = {
         "type": "hadoop", 
         "inputSpec": {
             "type": "static",
-            "paths": "/home/griyer/dev/Datascope/data/out.json"
+            "paths": outPath
         }
     };
     ingestionSpec.spec.tuningConfig = {
-        "type": "hadoop"
+      "type" : "hadoop",
+      "partitionsSpec" : {
+        "type" : "hashed",
+        "targetPartitionSize" : 5000000
+      },
+      "jobProperties" : {}
     }
 
     request.post('http://localhost:8090/druid/indexer/v1/task')
