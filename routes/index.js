@@ -170,7 +170,7 @@ var druidRequester = druidRequesterFactory({
 
 var wikiDataset = External.fromJS({
       engine: 'druid',
-      source: 'wikiticker',  // The datasource name in Druid
+      source: 'movies',  // The datasource name in Druid
       timeAttribute: 'time',  // Druid's anonymous time attribute will be called 'time',
       context: {
               timeout: 10000 // The Druid context
@@ -190,13 +190,14 @@ function druidToDatascopeFormat(json){
 
     json = json.data[0];
 
-    for(var i in json){
-        console.log("aggregates... ");
+    for (var i in json) {
+        //console.log("aggregates... ");
         var aggregate = json[i];
              
-        console.log(aggregate);
+
         dsjson[i] = {};
         dsjson[i]["values"] = [];
+
         aggregate.data.map(function(d){
             if(d["Count"]){
             var obj = {};
@@ -209,16 +210,13 @@ function druidToDatascopeFormat(json){
             
         });
     }
-    console.log("moredata");
-    console.log(json[data])
-    console.log("moredata_end");
     dsjson.tables = json[data];
-    //console.log(dsjson);
+
     
     /*
     json = json[0];
     json.map(function(d){
-        console.log(d);
+        
     });
     /*
     for(var key in json){
@@ -241,12 +239,19 @@ function druidToDatascopeFormat(json){
 var _handleDruidRequest = function(req, res){
     var filter = {};
     filter = req.query.filter ? JSON.parse(req.query.filter) : {};
-    console.log("filters:");
-    console.log(filter);
+
+    var interactiveFiltersConfig = (interactiveFilters.getInteractiveFiltersConfig());
+  
     var query = filter;
     var aggregations = [
-        "countryIsoCode", "page", "isAnonymous", "isUnpatrolled", "isMinor", "isRobot", "channel"
+
     ];
+
+    for(var i in interactiveFiltersConfig) {
+      var aggregate = interactiveFiltersConfig[i].attributeName;
+      aggregations.push(aggregate);
+    }
+    console.log(aggregations);
 
     var F = $("time").in({
       start: new Date("2010-09-12T00:00:00Z"),
@@ -255,9 +260,6 @@ var _handleDruidRequest = function(req, res){
 
 
     for(var f in query){
-        //console.log(f);
-        //console.log(query);
-
         var filterval = query[f];
 
         if(typeof filterval == "string"){
@@ -268,7 +270,7 @@ var _handleDruidRequest = function(req, res){
 
     }
     var filters =     $('wiki').filter(F)
-    //console.log(filters);
+
 
     
     var ex = ply()
@@ -283,13 +285,13 @@ var _handleDruidRequest = function(req, res){
                 .apply("Count", $('wiki').count()).sort('$Count', 'descending').limit(10));
     }   
     //ex = ex.apply("added",$("wiki").apply("ad", ($('added').numberBucket(10))));
-    ex = ex.apply("added", $('wiki').apply('added', ($('added').numberBucket(10))));
+    //ex = ex.apply("added", $('wiki').apply('added', ($('added').numberBucket(10))));
     //add table data 
 
 
     ex.compute(context).then(function(data){
-        console.log("filtered data: ");
-        //console.log(data.data[0].added.data);
+
+
         var datascopeData = druidToDatascopeFormat(data);
         res.json(datascopeData);
         res.end();
@@ -334,7 +336,8 @@ var _druidTableNext = function(req, res){
     console.log(filter);
     var query = filter;
     var aggregations = [
-        "countryIsoCode", "page", "isAnonymous", "isUnpatrolled", "isMinor", "isRobot", "channel"
+        //"countryIsoCode", "page", "isAnonymous", "isUnpatrolled", "isMinor", "isRobot", "channel"
+        "Creative_Type", "Major_Genre"
     ];
 
     var F = $("time").in({
@@ -344,11 +347,7 @@ var _druidTableNext = function(req, res){
 
 
     for(var f in query){
-        //console.log(f);
-        //console.log(query);
-
         var filterval = query[f];
-
         if(typeof filterval == "string"){
             F = F.and($(f).is(filterval));
         } else if (typeof filterval == "object") {
@@ -357,7 +356,8 @@ var _druidTableNext = function(req, res){
 
     }
     var filters =     $('wiki').filter(F)
-    //console.log(filters);
+    console.log("druidTableNext");
+    console.log(filters);
 
      
     var ex = ply()
@@ -365,9 +365,6 @@ var _druidTableNext = function(req, res){
     .apply("wiki",filters)
 
     ex = ex.apply("Table", $('wiki').limit(10));
-
-    //add table data 
-
 
     ex.compute(context).then(function(data){
         console.log("filtered data: ");
@@ -384,13 +381,11 @@ var _druidTableNext = function(req, res){
             }
             out.push(nrow);
         }
-        console.log(out);
+        //console.log(out);
         response.data = out;
         res.json(response);
         res.end();
     });
-     
-    
 }
 
 /**
@@ -543,8 +538,8 @@ var _druidPopulationInfo = function(req, res, next){
 
     var filter = {};
     filter = req.query.filter ? JSON.parse(req.query.filter) : {};
-    console.log("filters:");
-    console.log(filter);
+
+
     var query = filter;
     var total = 39244;
 
@@ -555,9 +550,6 @@ var _druidPopulationInfo = function(req, res, next){
 
 
     for(var f in query){
-        //console.log(f);
-        //console.log(query);
-
         var filterval = query[f];
 
         if(typeof filterval == "string"){
@@ -568,7 +560,7 @@ var _druidPopulationInfo = function(req, res, next){
 
     }
     var filters =     $('wiki').filter(F)
-    //console.log(filters);
+
 
     
     var ex = ply()
@@ -578,9 +570,7 @@ var _druidPopulationInfo = function(req, res, next){
 
  
     ex.compute(context).then(function(data){
-        console.log("filtered data: ");
-        //console.log(data.data[0].added.data);
-        //var datascopeData = druidToDatascopeFormat(data);
+       //var datascopeData = druidToDatascopeFormat(data);
         var response = {};
         response.Current = data.data[0].Count;
         response.Total = total;

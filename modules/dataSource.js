@@ -6,7 +6,18 @@ var fs = require("fs");
 var async = require("async");
 var extend = require("extend");
 
- var anyToJSON = require("anytojson");
+var anyToJSON = require("anytojson");
+
+
+var plywood = require('plywood');
+var ply = plywood.ply;
+var $ = plywood.$;
+
+
+var External = plywood.External;
+var druidRequesterFactory = require('plywood-druid-requester').druidRequesterFactory;
+
+
 
 var FILETYPES = {
   "CSVFILE": "csvFile",
@@ -24,6 +35,7 @@ var dataSource = (function(){
         dataSourceConfigPath = "config/dataSource.json",
         _init,
         _loadDataSourceConfig,
+	_isDruid = false,
         attributes = {},
         dataSourceSchema,
         validation,
@@ -127,7 +139,14 @@ var dataSource = (function(){
 	      anyToJSON.restCSV(options, processData);
 	    } else if (type == "odbc") {
 	      anyToJSON.odbc(options, processData);
-	    }
+	    } else if(type == "druid") {
+		console.log("druid");
+		_isDruid = true;
+                console.log("opt:" + JSON.stringify(options));
+                _connectDruid(options);
+                console.log(_isDruid);
+		processData();
+	   }
         
 	}
 	//### _init()
@@ -148,6 +167,28 @@ var dataSource = (function(){
         return dataSources;
 
     };
+
+    _connectDruid = function(options) {
+      console.log("options; ");
+      console.log(options);
+      console.log(options.host);
+      var druidRequester = druidRequesterFactory({
+        host: options.host // Where ever your Druid may be
+      });  
+      console.log("----");
+
+      var dataSet = External.fromJS({
+        engine: 'druid', 
+        source: options.source,
+        context: {
+          timeout: 1000 
+        },
+        allowSelectQueries: true
+         
+      });  
+      
+    }
+
     _loadDataSourceConfig = function (path){
         dataSourceConfigPath = path || dataSourceConfigPath;
         dataSourcesConfig = fs.readFileSync(dataSourceConfigPath);
@@ -270,6 +311,9 @@ var dataSource = (function(){
     var _getDataSourceName = function() {
         return dataSourcesConfig["dataSourceName"] || "main";
     };
+    var _getIsDruid = function() {
+      return _isDruid;
+    };  
 
     return{
         loadDataSourceConfig: _loadDataSourceConfig,
@@ -290,6 +334,11 @@ var dataSource = (function(){
             //console.log(totalRecordsSize)
             return totalRecordsSize[dataSourceName];
         },
+        getIsDruid: function() {
+          return _isDruid;
+        },
+        connectDruid: _connectDruid,
+	//druid: _isDruid, 
         //loadData: _loadData,
         loadData: _loadData
     };
