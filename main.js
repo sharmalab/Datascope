@@ -29,7 +29,7 @@ var dataSource = require("./modules/dataSource"),
 var app = express();
 
 // all environments
-app.set("port", process.env.PORT || 3003);
+app.set("port", process.env.PORT || 3001);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 //app.use(favicon());
@@ -60,16 +60,26 @@ function init(callback){
     visualization.init();
 
     dataSource.loadData(function(dataSourceName, data){
-        if(!data){
+	console.log("isDuid: "+ dataSource.getIsDruid());
+        console.log(dataSource);
+        if(dataSource.getIsDruid()){
+
+          //dataSource.connectDruid();
+          console.log("Connected to druid!" );   
+        } else  if(!data){
             console.log("Error! Couldn't fetch the data.");
             process.exit(1);
-        }
+        } else {
 
         console.log("Loaded Data");
-        interactiveFilters.applyCrossfilter(data, dataSourceName);
-        visualization.applyCrossfilter(dataSourceName);
-        visualizationRoutes.heatInit(dataSourceName);
-        console.log("Initialized filters");
+
+
+          interactiveFilters.applyCrossfilter(data, dataSourceName);
+          visualization.applyCrossfilter(dataSourceName);
+          visualizationRoutes.heatInit(dataSourceName);
+          console.log("Initialized filters");
+
+        }
         listen(callback);
     });
 }
