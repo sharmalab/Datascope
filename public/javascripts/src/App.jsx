@@ -43,19 +43,7 @@ var Dashboard = React.createClass({
             }
             interactiveFilters = data;
             console.log(interactiveFilters);
-            interactiveFilters = [];
-            interactiveFilters.push({"attributeName": "countryIsoCode", "visualization": {
-                "visType": "rowChart"
-            }});
-            interactiveFilters.push({"attributeName": "isRobot", "visualization": {
-                "visType": "pieChart"
-            }});
-            interactiveFilters.push({"attributeName": "isMinor", "visualization": {
-                "visType": "rowChart"
-            }});
-            interactiveFilters.push({"attributeName": "channel", "visualization": {
-                "visType": "rowChart"
-            }});
+
             d3.json("config/visualization", function(err, data) {
 
                 if(err) {
