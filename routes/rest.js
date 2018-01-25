@@ -10,7 +10,7 @@ var interactiveFilters 	= require("../modules/interactiveFilters"),
 var fs = require('fs'),
 	multer = require("multer");
 
-exports.index = function(req, res){
+exports.index = function(req, res){ 
 	var dataraw = fs.readFileSync("data/small-data.json");
 	data = JSON.parse(dataraw);
 	res.writeHead(200, { 'content-type': 'application/json' });
@@ -52,16 +52,8 @@ exports.getVisualizationConfig = function (req, res) {
     Route for returning the dashboard configuration file.
 */
 exports.getDashboardConfig = function (req, res) {
-	try{
-		var file = fs.readFileSync("config/dashboard.json");
-		data = JSON.parse(file);
-	}
-	catch(e){
-		console.log(e.name);
-		data = {}
-	}
-	// if the theme is absent, it needs a blank theme
-	data['theme'] = data['theme'] || {}
+	var file = fs.readFileSync("config/dashboard.json");
+	data = JSON.parse(file);
 	res.writeHead(200, { 'content-type': 'application/json' });
 	res.end((JSON.stringify(data)));
 }

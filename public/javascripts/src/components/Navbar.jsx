@@ -42,7 +42,7 @@ var NavBar = React.createClass({
 
 
         }
-        
+        var url = "save?filter="+JSON.stringify(queryFilter); 
         //var theme = dashBoardConfig.theme;
         return (
             <div className='navbar navbar-inverse navbar-fixed-top' id='header' role='navigation' style={{"background": Theme.headerColor1}} >
@@ -56,7 +56,7 @@ var NavBar = React.createClass({
                     <Summary />
                     </div>                   
                     <ul className="nav navbar-nav navbar-right navbar-options">
-
+                      <a className='download' href={url} target='_blank' id='dl'><img src='images/Download1.png' />Cohort</a>
                     </ul>
             </div>
         );

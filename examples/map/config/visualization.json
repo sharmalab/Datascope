@@ -1,0 +1,8 @@
+[
+  {
+        "visualizationType": "markerMap",
+        "attributeName": ["lat","long"],
+        "heading": "Marker Map",
+        "subheading": "Counties"
+  }
+]

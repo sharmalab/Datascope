@@ -12,8 +12,7 @@ var summaryChart = function(data) {
 
     var Current = data.Current;
     var Total = data.Total;
-    //console.log("Rendering chart");
-    console.log(data); 
+
     d3.select(".summaryPopulationBar")
         .remove();
     
@@ -25,7 +24,7 @@ var summaryChart = function(data) {
             return 400 * (Current/Total) + "px"; 
         })
         .style("background", function(){
-            console.log("coloring steelblue");
+           
             return "#f47a7e";
         });
 };
@@ -40,8 +39,7 @@ var Summary = React.createClass({
 
 
         d3.json("populationInfo/?filter=" + JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (data) {
-            //console.log("Populationdata");
-            //console.log(data);
+
             self.setState({Current: data.Current, Total: data.Total});
         });
 
@@ -49,8 +47,7 @@ var Summary = React.createClass({
     onFilter: function(){
         var self = this;
         d3.json("populationInfo/?filter=" + JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (data) {
-            //console.log("Populationdata");
-            //console.log(data);   
+
             summaryChart(data);
             self.setState({Current: data.Current, Total: data.Total});
         });
@@ -59,13 +56,10 @@ var Summary = React.createClass({
 
     },
     removeFilter: function(f){
-        //console.log("removing filter");
-        //c.filterAll();
-        //remove filter from queryFilter 
         delete queryFilter[f.filter];
         AppActions.refresh(queryFilter);  
 
-        //console.log(queryFilter);
+u        //console.log(queryFilter);
     },
     hideSummary: function(){
         var show = this.state.showSummary;

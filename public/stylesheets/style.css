@@ -4,10 +4,14 @@ body {
 }
 #loadingMessage {
     position: absolute;
-    top: 100;
-    left: 100;
-    z-index: 100;
-    background: #ccc;
+    
+    z-index: 1000;
+    background: #fff;
+    width:100%;
+    height:100%;
+    text-align: center;
+    padding-top: 80px;
+    opacity: 0.8;
 }
 #filtering_attributes {
     padding: 0 30px 30px 30px;
@@ -29,6 +33,10 @@ body {
 }
 */
 
+.download img{
+    width:24px;
+    height: 24px;
+}   
 .navbar-brand {
     background: #F47A7E;
 }
@@ -50,6 +58,7 @@ footer {
 
 .filterRangeInput {
     color: #333;
+    font-weight: 100;
 }
 .navbar-options {}
 /*
@@ -240,9 +249,6 @@ th {
 th {
     //    border:1px solid #333;
 }
-tr {
-    cursor: pointer;
-}
 #activeRecords div {
     display: inline;
 }
@@ -304,7 +310,7 @@ tr {
   float: right;
   //top: 100px;
   //left: 320px;
-  z-index:1000;
+  z-index:999;
 }
 #heat {
     margin: 0px 30px 0 0;
@@ -339,8 +345,18 @@ tr {
 .chartAddons input {
     width: 40px;
     display: inline;
-    border: 1px solid #333;
+    border: 1px solid #808080;
     color: #666;
+}
+.geoLegend{
+   display: inline-block;
+    padding-left: 30px;
+
+}
+.geoLegendRect{
+    width: 25px;
+    height: 25px;
+    display: inline-block;
 }
 //React Modals
 #OptionsBar button {
@@ -512,11 +528,11 @@ a {
     font-size: 16.5;
 }
 img {
-    -webkit-transition: opacity 3s ease-in-out;
-    -moz-transition: opacity 2s ease-in-out;
-    -o-transition: opacity 2s ease-in-out;
-    transition: opacity 2s ease-in-out;
-    animation: 3s ease-in 1s 2 reverse both paused slidein;
+    //-webkit-transition: opacity 3s ease-in-out;
+    //-moz-transition: opacity 2s ease-in-out;
+    //-o-transition: opacity 2s ease-in-out;
+    //transition: opacity 2s ease-in-out;
+    //animation: 3s ease-in 1s 2 reverse both paused slidein;
 }
 .filteringAttributesList {
     margin-top: 40px;
@@ -567,10 +583,10 @@ ul.nav.nav-tabs {
     position: absolute;
     right: 10px;
 }
-.chart-title-icons svg {
-    opacity: 0.6;
+.chart-title-icons svg, .chart-title-icons img {
+    //opacity: 0.6;
 }
-.chart-title-icons svg:hover {
+.chart-title-icons svg:hover , .chart-title-icons img:hover{
     //   fill: #fff;
     opacity: 1;
     cursor: pointer;
@@ -729,4 +745,17 @@ ul.nav.nav-tabs {
 }
 .dc-chart g.row text {
     fill: black;
+}
+a.download, #dl{
+    font-weight:200;
+}
+.download{
+    padding: 10px;
+    position: relative;
+    top: 10px;
+    font-weight: 100;
+}
+
+.dc-chart g.deselected path{
+    fill: rgba(128, 128, 128, 0.21);
 }

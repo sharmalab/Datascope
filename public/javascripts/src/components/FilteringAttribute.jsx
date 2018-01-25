@@ -21,7 +21,7 @@ var ChartAddons = React.createClass({
         var self = this;
         var c = self.props.chart;
         if(e.keyCode === 13){
-            //console.log(this.props.chart);
+           
             var f = [self.state.beg, self.state.end];
             c.filterAll();
             c.filter(f);
@@ -37,12 +37,12 @@ var ChartAddons = React.createClass({
 
     handleElasticX: function(){
         var c = this.props.chart;
-        //console.log("handle checkbox..");
-        //console.log((this.state.elasticY));
+       
+      
         //var queryFilterBackup = queryFilter;
         //c.elasticY(true);
         //AppActions.refresh({});
-        //console.log(queryFilter);
+     
 
         if(this.state.elasticX === true){
 
@@ -79,7 +79,7 @@ var ChartAddons = React.createClass({
 
     },
     handleInvertSelection: function() {
-        console.log(this.props.config.attributeName);
+       
         var attributeName = this.props.config.attributeName;
         var c = this.props.chart;
         var availableFilters = (this.props.data[attributeName].values);
@@ -106,11 +106,11 @@ var ChartAddons = React.createClass({
             }
             */
         }
-        console.log(invertedFilter);
+        
         c.filter(null);
         c.filter(invertedFilter);
         ////c.filter({invert: invertedFilter});
-        console.log("filtered! woot");
+       
     },
     render: function(){
         var visType = this.props.config.visualization.visType;
@@ -187,13 +187,16 @@ var ChartAddons = React.createClass({
 var FilteringAttribute = React.createClass({
     getInitialState: function() {
         this.statistics = {};
-        return {showChart: true, showStatistics:false};
+        return {showChart: true, showStatistics:false, hasStatistics: false};
     },
     componentWillMount: function(){
      //Initialize crossfilter dimensions and groups before rendering
         var self = this;
         var attributeName = this.props.config.attributeName;
-
+       
+        if(this.props.config.statistics){
+          self.setState({"hasStatistics": true});
+        }
         var dim = {
             filter: function(f) {
                 if(f) {
@@ -292,6 +295,7 @@ var FilteringAttribute = React.createClass({
     componentDidMount: function(){
 
         var self = this;
+       
         var visType = this.props.config.visualization.visType;
         var divId = "#dc-"+this.props.config.attributeName;
 
@@ -361,21 +365,22 @@ var FilteringAttribute = React.createClass({
         case "barChart":
             c = dc.barChart(divId);
             var binFactor = self.props.config.visualization.binFactor;
-            var scale = (d3.scale.linear().domain([domain[0]-8, domain[1]+15])());
+            var scale = (d3.scale.linear().domain([domain[0], domain[1]])());
             var nBins = (domain[1]/binFactor);
             //console.log(Math.ceil(nBins));
             //console.log(scale);
             c.width(260)
                 .height(200).dimension(self.state.dimension)
                 .group(self.state.group)
-                .x(d3.scale.linear().domain([domain[0]-10, domain[1]+15]))
+                .x(d3.scale.linear().domain([domain[0]-binFactor, domain[1]+binFactor]))
                 //.barPadding(2)
                 .xUnits(function(){return nBins+1;})
                 .centerBar(true)
+                .margins({top: 10, right: 20, bottom: 45, left: 20})
                 //.xUnits(dc.units.fp.precision((1/binFactor)))
                 //.xUnits(function() {return 15})
                 //.xUnits(function(){return 500*(1/binFactor)})
-                //.elasticY(true)
+                .elasticY(true)
                 //.elasticX(true);
             c.renderlet(function(chart){
                 chart.selectAll("g.x text")
@@ -410,13 +415,14 @@ var FilteringAttribute = React.createClass({
 
             break;
         case "rowChart":
+            
             c = dc.rowChart(divId);
             c.width(250)
             .height(height)
             .dimension(self.state.dimension)
             .group(self.state.group)
             .renderLabel(true)
-            //.elasticX(true)
+            .elasticX(true)
             .margins({top: 10, right: 20, bottom: 45, left: 20});
             c.filterHandler(function(dimension, filters){
                 //console.log(filters);
@@ -453,7 +459,7 @@ var FilteringAttribute = React.createClass({
             c.label(function(d){
                 return d.key + " ("+ d.value + ")";
             });
-            c.ordering(function(d){return +d.key;});
+            c.ordering(function(d){return d.key;});
 			/*
 			c.renderlet(function(chart){
 				var bars = chart.selectAll("rect").each(function(d){barsData.push(d);});
@@ -473,7 +479,7 @@ var FilteringAttribute = React.createClass({
 
         //e.preventDefault();
         var c  = this.state.chart;
-        //console.log("Reset");
+        console.log("Reset");
         c.filterAll();
         //dc.renderAll();
     },
@@ -553,31 +559,34 @@ var FilteringAttribute = React.createClass({
                             {self.props.config.attributeName}
 							<div className="chart-title-icons">
                                 { isFilterActive ?
-                                <svg style={{width:iconWidth,height:iconHeight }} viewBox="0 0 24 24" onClick={self.onReset}>
-                                    <path fill={filterFillColor} d="M14.73,20.83L17.58,18L14.73,15.17L16.15,13.76L19,16.57L21.8,13.76L23.22,15.17L20.41,18L23.22,20.83L21.8,22.24L19,19.4L16.15,22.24L14.73,20.83M2,2H20V2H20V4H19.92L14,9.92V22.91L8,16.91V9.91L2.09,4H2V2M10,16.08L12,18.08V9H12.09L17.09,4H4.92L9.92,9H10V16.08Z">
-                                        <title>Remove filter</title>
-                                    </path>
-                                </svg>
+                                    <img src="images/Command-Reset-256-4.png"  onClick={self.onReset} style={{width:iconWidth,height:iconHeight,top:"-7px", position:"relative" }} />
                                 :
                                     <div />
                                 }
-                                { self.state.showStatistics ? /* show/hide statistics */
-                                    <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
-                                        <path fill="#fff"  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-                                        <path d="M0 0h24v24H0z" fill="none"/>
 
-                                            <title>Show statistics</title>
+                                {
+                                  self.state.hasStatistics ? 
+                                
+                                  <span> 
+                                  { self.state.showStatistics ? /* show/hide statistics */
+                                      <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
+                                          <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                          <path d="M0 0h24v24H0z" fill="none"/>
+                                              <title>Show statistics</title>
 
-                                    </svg>
-                                    :
-                                    <svg  style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
-                                        <path fill="#fff"  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-                                        <path d="M0 0h24v24H0z" fill="none"/>
+                                      </svg>
+                                      :
+                                      <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
+                                          <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                          <path d="M0 0h24v24H0z" fill="none"/>
 
+                                              <title>Show statistics hello</title>
 
-                                            <title>Show statistics</title>
-
-                                    </svg>
+                                      </svg>
+                                  }
+                                  </span>
+                                  :
+                                  <span />
                                 }
 
 							</div>
@@ -611,40 +620,34 @@ var FilteringAttribute = React.createClass({
                             {self.props.config.attributeName}
                             <div className="chart-title-icons">
                                 { isFilterActive ? /* delete filter */
-
-                                    <svg style={{width:iconWidth,height:iconHeight }} viewBox="0 0 24 24" onClick={self.onReset}>
-                                        <path fill={filterFillColor} d="M14.73,20.83L17.58,18L14.73,15.17L16.15,13.76L19,16.57L21.8,13.76L23.22,15.17L20.41,18L23.22,20.83L21.8,22.24L19,19.4L16.15,22.24L14.73,20.83M2,2H20V2H20V4H19.92L14,9.92V22.91L8,16.91V9.91L2.09,4H2V2M10,16.08L12,18.08V9H12.09L17.09,4H4.92L9.92,9H10V16.08Z">
-                                            <title>Remove filter</title>
-                                        </path>
-                                    </svg>
+                                    <img src="images/Command-Reset-256-4.png"  onClick={self.onReset} style={{width:iconWidth,height:iconHeight,top:"-8px", position:"relative" }} />
                                     :
                                     <div/>
                                 }
-                                { self.state.showStatistics ? /* show/hide statistics */
-                                    <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showStatistics} >
-                                        <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-                                        <path d="M0 0h24v24H0z" fill="none"/>
-                                            <title>Show statistics</title>
+                                {
+                                  self.state.hasStatistics ? 
+                                
+                                  <span> 
+                                  { self.state.showStatistics ? /* show/hide statistics */
+                                      <img src="images/Data-Find-256-5.png" style={{width:iconWidth,height:iconHeight,top:"-9px", position:"relative" }} onClick={self.showStatistics}/>
 
-                                    </svg>
-                                    :
-                                    <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showStatistics} viewBox="0 0 24 24">
-                                        <path fill="#fff" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-                                        <path d="M0 0h24v24H0z" fill="none"/>
-
-                                            <title>Show statistics</title>
-
-                                    </svg>
+                                      :
+                                      <img src="images/Data-Find-256-5.png" style={{width:iconWidth,height:iconHeight,top:"-9px", position:"relative" }} onClick={self.showStatistics}/>
+                                  }
+                                  </span>
+                                  :
+                                  <span />
                                 }
+                              
                                 { self.state.showChart ? /* show/hide attribute*/
                                     <svg  style={{width: iconWidth ,height:iconHeight}} viewBox="0 0 24 24" onClick={self.showChart} >
-                                        <path fill="#fff" d="M20,14H4V10H20">
+                                        <path fill="#6d2e46" d="M20,14H4V10H20">
                                             <title>Hide attribute</title>
                                         </path>
                                     </svg>
                                     :
                                     <svg style={{width: iconWidth, height: iconHeight}} onClick={self.showChart} viewBox="0 0 24 24">
-                                        <path fill="#fff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
+                                        <path fill="#6d2e46" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z">
                                             <title> Show attribute</title>
                                         </path>
                                     </svg>

@@ -1,10 +1,6 @@
 language: node_js
 node_js:
-    - 6
-    - 7
-    - node
+    - "7.3.0"
 before_install:
     - sudo apt-get install unixodbc unixodbc-dev
-script:
-- webpack
-- ./node_modules/.bin/mocha --timeout 20000 --require ./test/tests.js
+script: webpack

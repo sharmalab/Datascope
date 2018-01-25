@@ -1,0 +1,35 @@
+[
+  {
+    "attributeName": "Survival_months",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ]
+  },
+  {
+    "attributeName": "Age",
+    "attributeType": [
+      "filtering",
+      "visual"
+    ]
+  },
+  {
+    "attributeName": "State",
+    "attributeType": [
+     "filtering",
+      "visual"
+    ]
+  },
+  {
+    "attributeName": "FIPS_County_Code",
+    "attributeType": [
+      "visual"
+    ]
+  },
+  {
+    "attributeName": "FIPS_Coordinates",
+    "attributeType": [
+      "visual"
+    ]
+  }
+]

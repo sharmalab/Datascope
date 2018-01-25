@@ -14,7 +14,7 @@ var DataTable = React.createClass({
       var decoder = AppStore.decoder.decoder;
       var self = this;
       var tableAttributes = self.props.config.attributes;
-      console.log(d.length);
+     
       for(var i=0; i<d.length; i++){
         var row = d[i];
         for(var j=0; j<row.length; j++){
@@ -36,12 +36,12 @@ var DataTable = React.createClass({
         var columns = [];
         var count=0;
         var url;
-        console.log(AppStore.decoder);
+    
         var id = this.state.id;
         var tableId = "vis"+ id;
         TableCounts++;
         var tableAttributes = self.props.config.attributes;
-        console.log(tableAttributes);
+   
         for(var i in tableAttributes){
             if(!tableAttributes.hasOwnProperty(i)){
               continue;
@@ -49,8 +49,8 @@ var DataTable = React.createClass({
             columns[count] = {};
             //columns[count]["data"] = self.props.config.attributes[i].name;
             columns[count].title = self.props.config.attributes[i].label || self.props.config.attributes[i].attributeName;
-            columns[count].bSearchable = true;
-            columns[count].bSortable = true;
+            //columns[count].bSearchable = true;
+            //columns[count].bSortable = true;
             columns[count].name = self.props.config.attributes[i].attributeName;
             if(self.props.config.attributes[i].type){
                 url = self.props.config.attributes[i];
@@ -61,14 +61,12 @@ var DataTable = React.createClass({
         var ajaxUrl = "dataTable/next?dataSourceName=" + globalDataSourceName ;
         //console.log(ajaxUrl);
         var dataTable = $('#'+tableId).DataTable({
-            //bSort: false,
-            //bFilter: false,
+            bSort: false,
+            bFilter: false,
             aoColumns: columns,
             "ajax": {
               "url": ajaxUrl,
               "dataSrc": function(d){
-
-                console.log(d);
                 var data = self.decode(d.data);
                 return data;
               }
@@ -85,7 +83,7 @@ var DataTable = React.createClass({
             "responsive": true,
             "bAutoWidth": true
             //fixedHeader: true,
-            //responsive: true,
+            //responsive: true
         });
 
         url = self.props.config.url;
