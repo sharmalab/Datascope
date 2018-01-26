@@ -42,7 +42,8 @@ var NavBar = React.createClass({
 
 
         }
-        var url = "save?filter="+JSON.stringify(queryFilter); 
+        var url = "save?filter="+JSON.stringify(queryFilter);
+        var shareurl = "/?filter="+JSON.stringify(queryFilter);
         //var theme = dashBoardConfig.theme;
         return (
             <div className='navbar navbar-inverse navbar-fixed-top' id='header' role='navigation' style={{"background": Theme.headerColor1}} >
@@ -56,7 +57,8 @@ var NavBar = React.createClass({
                     <Summary />
                     </div>                   
                     <ul className="nav navbar-nav navbar-right navbar-options">
-                      <a className='download' href={url} target='_blank' id='dl'><img src='images/Download1.png' />Cohort</a>
+                      <a className='download' href={shareurl} target='_blank' id='dl'><img title="Share" src='images/ic_share_black_24dp_1x.png' /></a>                   
+                      <a className='download' href={url} target='_blank' id='dl'><img title="Download cohort" src='images/Download1.png' /></a>
                     </ul>
             </div>
         );
