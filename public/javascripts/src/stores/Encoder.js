@@ -23,8 +23,8 @@ var Encoder = class Encoder {
     var encoder = this.encoder;
     for(var key in queryFilter){
       if(queryFilter.hasOwnProperty(key)){
-           console.log(queryFilter);
-           console.log(key);
+          
+           
            var qf = queryFilter[key];
            if(encoder[key]){ //encoding exists for key?
               var e = encoder[key];

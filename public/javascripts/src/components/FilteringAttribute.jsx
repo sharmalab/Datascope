@@ -15,6 +15,7 @@ var ChartAddons = require("./ChartAddons.jsx");
 
 var ChartAddons = React.createClass({
     getInitialState: function(){
+
         return {elasticY: true, elasticX: true};
     },
     filter: function(e){
@@ -187,7 +188,8 @@ var ChartAddons = React.createClass({
 var FilteringAttribute = React.createClass({
     getInitialState: function() {
         this.statistics = {};
-        return {showChart: true, showStatistics:false, hasStatistics: false};
+        var initialFilters = this.props.initialFilters;
+        return {showChart: true, showStatistics:false, hasStatistics: false, initialFilters: initialFilters};
     },
     componentWillMount: function(){
      //Initialize crossfilter dimensions and groups before rendering
@@ -318,6 +320,7 @@ var FilteringAttribute = React.createClass({
             .radius(90)
             .renderLabel(true);
             c.colors(d3.scale.ordinal().range(["#F47A7E", "#FCDADB", "#F7A2A5", "#9C4E51"]));
+            
             c.filterHandler(function(dimension, filters){
                 if(filters){
                     dimension.filter(filters);
@@ -382,6 +385,8 @@ var FilteringAttribute = React.createClass({
                 //.xUnits(function(){return 500*(1/binFactor)})
                 .elasticY(true)
                 //.elasticX(true);
+                //
+        
             c.renderlet(function(chart){
                 chart.selectAll("g.x text")
                     .attr("transform", "translate(-10,10) rotate(315)");
@@ -460,6 +465,9 @@ var FilteringAttribute = React.createClass({
                 return d.key + " ("+ d.value + ")";
             });
             c.ordering(function(d){return d.key;});
+
+
+
 			/*
 			c.renderlet(function(chart){
 				var bars = chart.selectAll("rect").each(function(d){barsData.push(d);});
@@ -474,12 +482,32 @@ var FilteringAttribute = React.createClass({
         }
 
         this.setState({chart: c});
+        setTimeout(function(){
+          if(self.state.initialFilters){
+
+            if(self.props.config.visualization.visType == "barChart"){
+             
+              if(self.state.initialFilters.length > 1){
+             
+                var filter = dc.filters.RangedFilter(0, 100);
+                filter = self.state.initialFilters;
+              
+                //self.filter(filter);
+                c.filterAll();
+                c.filter(filter);
+               
+              }
+            } else {
+              c.filter(self.state.initialFilters);
+            }
+          }  
+        },1000)
     },
     onReset: function(){
 
         //e.preventDefault();
         var c  = this.state.chart;
-        console.log("Reset");
+       
         c.filterAll();
         //dc.renderAll();
     },
@@ -492,7 +520,7 @@ var FilteringAttribute = React.createClass({
     isFilterActive: function(){
         var dim = this.props.config.attributeName;
         var filters = queryFilter;
-        //console.log("Filters");
+
         for(var i in filters){
             //console.log(i);
             if(dim === i){
@@ -524,6 +552,9 @@ var FilteringAttribute = React.createClass({
             self.statistics[attributeName] = d;
             self.props.onToggleShow();
         });
+    },
+    getDcChart: function() {
+      return this.state.chart;
     },
     render: function(){
         var self = this;

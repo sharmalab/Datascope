@@ -27,10 +27,17 @@ var interactiveFilters = {},
     visualization = {};
 var Dashboard = React.createClass({
         //mixins: [Reflux.connect(AppStore,"currData")], // will set up listenTo call and then do this.setState("currData",data)
+    getUrlParam: function (name){
+         if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+                 return decodeURIComponent(name[1]);
+    },
     componentDidMount: function(){      
-        var self=this;    
-
-
+        var self=this;   
+        console.log("url parameters: ");
+        console.log(window.location.search);
+        var filter = self.getUrlParam("filter") || "{}";
+        console.log(JSON.parse(filter));
+        
         self.unsubscribe = AppStore.listen(self.onFilter);
 
         d3.json("config/interactiveFilters", function(err, data) {
@@ -50,13 +57,12 @@ var Dashboard = React.createClass({
                 AppActions.refresh(queryFilter); //Initial refresh
                 filteredData = AppStore.getData();
                 //Do the initial filtering 
-                d3.json("data/?filter={}&dataSourceName=" + globalDataSourceName, function(d) {
+                d3.json("data/?filter="+JSON.stringify(filter)+"&dataSourceName=" + globalDataSourceName, function(d) {
                     filteredData = d;
                     self.setState({
                         interactiveFilters: interactiveFilters,
                         visualization: visualization,
-                        currData: filteredData,
-                
+                        currData: filteredData,                
                         debug: 0
                     });
 
@@ -65,7 +71,6 @@ var Dashboard = React.createClass({
 
 					dc.renderAll();
                     setTimeout(function(){
-
                     	dc.renderAll(); //fix safari issue
                     },50);
 					
