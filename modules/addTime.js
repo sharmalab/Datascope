@@ -1,4 +1,4 @@
-
+/* Adds fake time dimension, loads data to druid */
 
 var fs = require('fs');
 var randomDate = require('random-datetime');
@@ -28,19 +28,25 @@ var addTime = function(data){
 };
 
 
-var dataSource = {
-    "sourceName": "movies", 
-    "sourceType": "jsonFile"
-};
 
 
-if(process.argv.length != 4){
-	console.log("Usage: node addTime.js <input_path> <output_path>");
+if(process.argv.length != 5){
+	console.log("Usage: node addTime.js <input_path> <output_path> <source_name>");
 	process.exit(1);
 }
 
+//var dimensions = ["Creative_Type", "Major_Genre", "IMDB_Votes", "Rotten_Tomatoes_Rating", "MPAA_Rating", "Worldwide_Gross", "Source", "Running_Time_min", "Netflix", "IMDB_Rating", "Production_Budget"];
+var dimensions = ["When__Time_of_day", "When__Phase_of_flight", "Wildlife__Size", "Wildlife__Species", "Effect__Amount_of_damage", "Aircraft__Airline_Operator"];
 var inPath = process.argv[2];
 var outPath = process.argv[3];
+
+var sourceName = process.argv[4];
+
+var dataSource = {
+    "sourceName": sourceName, 
+    "sourceType": "jsonFile"
+};
+
 var out = loadJson(process.argv[2], function(data){
 
     var str = "";
@@ -71,7 +77,7 @@ var out = loadJson(process.argv[2], function(data){
                 "format": "auto"
             },
 	    "dimensionsSpec": {
-	    	"dimensions": ["Creative_Type", "Major_Genre", "IMDB_Votes", "Rotten_Tomatoes_Rating", "MPAA_Rating", "Worldwide_Gross", "Source", "Running_Time_min", "Netflix", "IMDB_Rating", "Production_Budget"],
+	    	"dimensions": dimensions,
 		"dimensionExclusions": [],
 		"spatialDimensions": []
 	    }
