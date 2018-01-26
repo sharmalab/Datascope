@@ -483,8 +483,8 @@ var FilteringAttribute = React.createClass({
 
         this.setState({chart: c});
         setTimeout(function(){
-          if(self.state.initialFilters){
-
+          if(self.state.initialFilters.length){
+            console.log("setting initial filters"); 
             if(self.props.config.visualization.visType == "barChart"){
              
               if(self.state.initialFilters.length > 1){
@@ -493,7 +493,7 @@ var FilteringAttribute = React.createClass({
                 filter = self.state.initialFilters;
               
                 //self.filter(filter);
-                c.filterAll();
+            
                 c.filter(filter);
                
               }
