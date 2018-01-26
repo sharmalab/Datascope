@@ -32,7 +32,7 @@ We propose an environment for visualizing and exploring multidimensional data. W
 Read the [User Guide](https://github.com/sharmalab/Datascope/wiki)  for more details
 
 ##### Recommended production deployement 
-We recommend deploying Datascope with forever.js to restart in case of crashes etc.
+We recommend deploying Datascope with forever.js. 
 
 * Install forever.js `npm install forever -g`
 * `forever start app.js`
