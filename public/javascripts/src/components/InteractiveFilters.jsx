@@ -19,7 +19,7 @@ var Masonry = React.createClass({
 var InteractiveFilters = React.createClass({
     getInitialState: function(){
         //console.log("Rendering interactive filters");
-        return {full:false};
+        return {full:false, initialFilters: {}};
     },
     fullView: function(){
         if(this.state.full){
@@ -38,6 +38,18 @@ var InteractiveFilters = React.createClass({
     toggleShow: function(){
         this.setState({toggle: true});
     },
+    getUrlParam: function (name){
+         if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+                 return decodeURIComponent(name[1]);
+    },   
+    componentDidMount: function(){
+        var self = this;
+        var filter = self.getUrlParam("filter") || "{}";
+        console.log("filter: ");
+        console.log(JSON.parse(filter));
+        
+        self.setState({initialFilters : JSON.parse(filter)});
+    },
     render: function(){
         var filteringAttributes;
 
@@ -55,12 +67,22 @@ var InteractiveFilters = React.createClass({
 
         if(this.props.config){
             filteringAttributes = this.props.config.map(function(filteringAttribute){
+
+                var filteringAttributeName = filteringAttribute.attributeName;
+
+                var initialFilter = {};
+                if(self.state.initialFilters[filteringAttributeName]){
+
+                  initialFilter = self.state.initialFilters[filteringAttributeName];
+                }
                 key++;
+
                 return (
-                    <FilteringAttribute key={key} onToggleShow={self.toggleShow} config={filteringAttribute} currData={self.props.currData} full={self.state.full} />
+                    <FilteringAttribute key={key} onToggleShow={self.toggleShow} config={filteringAttribute} currData={self.props.currData} full={self.state.full} initialFilters={initialFilter}/>
                 );
             });
         }
+        //console.log(filteringAttributes[0].getDcChart());
 
 
         if(this.state.full){

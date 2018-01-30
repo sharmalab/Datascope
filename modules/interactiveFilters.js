@@ -4,7 +4,7 @@ var schemaValidator = new Validator();
 var fs = require("fs");
 var dataDescription = require("./dataDescription");
 //var visualization = require("./visualization");
-var crossfilter = require("crossfilter2");
+var crossfilter = require("crossfilter");
   
 var interactiveFilters = (function(){
 
