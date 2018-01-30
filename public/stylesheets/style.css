@@ -32,6 +32,9 @@ body {
   color: #ffffff;
 }
 */
+.download {
+    cursor: pointer;
+}
 
 .download img{
     width:24px;
@@ -45,7 +48,7 @@ footer {
     font-size: 12px;
 }
 .modal-content {
-    min-height: 400px;
+    min-height: 60px;
     padding: 30px;
 }
 /*
