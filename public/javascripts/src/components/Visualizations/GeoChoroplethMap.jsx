@@ -57,9 +57,6 @@ var GeoChoroplethMap = React.createClass({
             all: function () {
                 return self.props.currData[attributeName].values;
             },
-            order: function () {
-
-            },
             top: function () {
                 return self.props.currData[attributeName].values;
             }
@@ -97,7 +94,6 @@ var GeoChoroplethMap = React.createClass({
                     .title(function (d) {
                         return attributeName + ": " + d.key + "\nNo: " + (d.value ? d.value : 0);
                     });
-
             geo.filterHandler(function(dimension, filters){
                 if(filters)
                     dimension.filter(filters);
@@ -105,6 +101,17 @@ var GeoChoroplethMap = React.createClass({
                     dimension.filter(null);
                 return filters;
             });
+            /*
+            var filter = JSON.parse(self.getUrlParam("filter"));
+            console.log(filter);
+            console.log("geo");
+            console.log(filter["Origin_State"]);
+            if(filter["Origin_State"]){
+              console.log("geo filter");
+              geo.filter(filter);             
+            }
+            */
+
 
             dc.renderAll();
             self.setState({chart: geo, dimension: dim, group: group});
@@ -117,6 +124,11 @@ var GeoChoroplethMap = React.createClass({
         this.state.chart.filterAll();
         this.changeFilterState(false);
     },
+    getUrlParam: function (name){
+      if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search)){
+        return decodeURIComponent(name[1]);
+      }
+    },   
     render: function () {
         /* the color domain needs to be assigned with every render in case the data changed */
         if (this.state.group) {
@@ -140,6 +152,7 @@ var GeoChoroplethMap = React.createClass({
         if (queryFilter[attributeName]) {
             queryString = queryFilter[attributeName].toString();
         }
+        console.log(queryString);
 
         return(
             <div id="geo">
