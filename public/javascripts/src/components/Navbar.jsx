@@ -77,6 +77,9 @@ var NavBar = React.createClass({
               {self.state.showSharedUrl ?
               <div id="shareurldiv">
               <Modal.Dialog>
+                <Modal.Header>
+                  <Modal.Title>Sharable URL</Modal.Title>
+                </Modal.Header>
                 <Modal.Body>
                   URL copied to clipboard!
                   <FormControl value={shareurl} type="text" />
