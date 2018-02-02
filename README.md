@@ -9,7 +9,7 @@ We propose an environment for visualizing and exploring multidimensional data. W
 * Install [Node.js](https://nodejs.org/en/download/) and [NPM](https://www.npmjs.com/get-npm)
 * `npm install -g webpack`
 * `npm install -g forever` ((Optional) recommended for production deployements)
-* `npm install -g apidoc`
+* `npm install -g apidoc` ((Optional) for building documentation)
 
 
 ##### Installation
@@ -30,6 +30,14 @@ We propose an environment for visualizing and exploring multidimensional data. W
 * Goto ```http://localhost:3000``` from your favorite browser.
 
 Read the [User Guide](https://github.com/sharmalab/Datascope/wiki)  for more details
+
+##### Druid
+
+* Run `addTime.js <input> <output> <datasourcename>` to convert an existing json file into a line-by-line json with proxy timestamp added to each record. It'll also generate the druid spec in stdout.
+
+* Open the spec in vim and modify dimensions etc.
+
+* `curl -X "POST" -H "Content-Type:application/json" -d @spec.json localhost:8090/druid/indexer/v1/task`
 
 
 ## Developers
