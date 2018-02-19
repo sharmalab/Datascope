@@ -7,13 +7,13 @@ var async = require("async");
 var extend = require("extend");
 
 var anyToJSON = require("anytojson");
-
+var superagent = require("superagent");
 
 var plywood = require('plywood');
 var ply = plywood.ply;
 var $ = plywood.$;
 
-
+var DruidLoader = require('./druidLoader');
 var External = plywood.External;
 var druidRequesterFactory = require('plywood-druid-requester').druidRequesterFactory;
 
@@ -36,6 +36,7 @@ var dataSource = (function(){
         _init,
         _loadDataSourceConfig,
 	_isDruid = false,
+        _druidSourceName, 
         attributes = {},
         dataSourceSchema,
         validation,
@@ -49,37 +50,26 @@ var dataSource = (function(){
     	DATASOURCES = "dataSources",
     	DATAATTRIBUTES = "dataAttributes";
 
-	//#### loadData()
-	//Loads data using the type and path specified in ```public/config/dataSource.json```.
-	//Currently supports
-	// * JSON
-	// * CSV
-	// * REST JSON
-	// * REST CSV
-	// * ODBC
-	//
-	//The system can be extended to support more types using ```loadDataSources.js```
-	function loadData(dataSource, processData)
-	{
+    //#### loadData()
+    //Loads data using the type and path specified in ```public/config/dataSource.json```.
+    //Currently supports
+    // * JSON
+    // * CSV
+    // * REST JSON
+    // * REST CSV
+    // * ODBC
+    //
+    //The system can be extended to support more types using ```loadDataSources.js```
+    function loadData(dataSource, processData)
+    {
 
 
-	    var type=  dataSource.sourceType;
-	    var options = dataSource.options;
-
+        var type=  dataSource.sourceType;
+        var name = dataSource.sourceName;
+        var options = dataSource.options;
         var JSONStream = require('JSONStream');
         var es = require('event-stream');
-        /*
-        fileStream = fs.createReadStream(filePath, {encoding: 'utf-8'});
-        fileStream.pipe(JSONStream.parse('*')).pipe(es.through(function(data){
-          console.log(data);
-        },function end(){
-          console.log("end")
-          this.emit('end')
-        }));
-        function processOneCustomer(data, es){
-          
-        };
-        */
+
         function json(options, callback){
           var path = options.path;
           var stream = JSONStream.parse('*');
@@ -88,69 +78,62 @@ var dataSource = (function(){
             .pipe(stream);
           stream.on('data', function(data){
             fullData.push(data);
-            //console.log(data);
+
           });
           stream.on('footer', function(){
-           
             callback(fullData);
           });
         };
-        /*
-        function json(options, callback){
-              console.log("json");
-              console.log("....");
-              var path = options.path;
-              source.on("startObject", function(d){
-                console.log(d);
-              });
-              source.on("end", function(){
-                console.log("end");
-                callback([]);
-              
-              callback([]);});
-              fs.createReadStream(path).pipe(source.input);
-              //Read the file using filepath
-              /*
-              fs.readFile(path, 'utf8', function(err, d){
-                if(err){
-                  console.log("Error: "+ err);
-                  return;
-                }
-                data = JSON.parse(d);
-                //console.log(data); 
-                //Send data back to app.js
-                callback(data);
-              });
         
-        }
-        */
-
-
-        
-	    if(type== FILETYPES.JSONFILE){
-         
+        if(type== FILETYPES.JSONFILE){
           anyToJSON.json(options, processData);
           //anyToJSON.json(options, processData);
-	    } else if(type == FILETYPES.CSVFILE) {
-	      anyToJSON.csv(options, processData);
-	    } else if(type == FILETYPES.JSONREST) {
-	      anyToJSON.restJSON(options, processData);
-	    } else if (type == FILETYPES.CSVREST){
-	      anyToJSON.restCSV(options, processData);
-	    } else if (type == "odbc") {
-	      anyToJSON.odbc(options, processData);
-	    } else if(type == "druid") {
-		console.log("druid");
-		_isDruid = true;
-                console.log("opt:" + JSON.stringify(options));
-                _connectDruid(options);
-                console.log(_isDruid);
-		processData();
-	   }
-        
-	}
-	//### _init()
-	//Returns an array of dataSources
+        } else if(type == FILETYPES.CSVFILE) {
+          anyToJSON.csv(options, processData);
+        } else if(type == FILETYPES.JSONREST) {
+          anyToJSON.restJSON(options, processData);
+        } else if (type == FILETYPES.CSVREST){
+          anyToJSON.restCSV(options, processData);
+        } else if (type == "odbc") {
+          anyToJSON.odbc(options, processData);
+        } else if(type == "druid") {
+            _isDruid = true;
+            _druidSourceName = name;
+            _connectDruid(options);
+            console.log("Running in druid mode🚀");
+            //check if data is already loaded in druid  
+            _dataSourceExistsInDruid(dataSource, function(){
+              console.log("Loading data source name from druid: "+name);
+              
+              processData();             
+            });
+
+
+       }        
+    }
+
+    _dataSourceExistsInDruid = function(dataSource, callback){
+      var sourceName = dataSource.sourceName;
+      var url = "localhost:8082/druid/v2/datasources/"+sourceName+"s";
+
+      superagent.get(url, function(err,res){
+        console.log("response");
+
+        var body = res.body;
+
+        if(body.metrics){ // datasource exists
+          console.log("Data source exists! Will use Datascope against existing datasource: "+sourceName);
+        }else {
+          //Load druid data here
+          DruidLoader.loadData(dataSource);
+
+        }
+        callback();
+      });
+    };
+
+    //### _init()
+    //Returns an array of dataSources
     _init = function (){
         dataSources = [];
         for(var i in dataSourcesConfig[DATASOURCES]){
@@ -169,13 +152,11 @@ var dataSource = (function(){
     };
 
     _connectDruid = function(options) {
-      console.log("options; ");
-      console.log(options);
-      console.log(options.host);
+
       var druidRequester = druidRequesterFactory({
         host: options.host // Where ever your Druid may be
       });  
-      console.log("----");
+
 
       var dataSet = External.fromJS({
         engine: 'druid', 
@@ -188,7 +169,6 @@ var dataSource = (function(){
       });  
       
     }
-
     _loadDataSourceConfig = function (path){
         dataSourceConfigPath = path || dataSourceConfigPath;
         dataSourcesConfig = fs.readFileSync(dataSourceConfigPath);
@@ -225,14 +205,12 @@ var dataSource = (function(){
                 for(var i in merged){
                     var row = merged[i];
                 	for(var attr in row){
-                		//console.log(attr)
-                		flag = false;
-                		var x = attributes[attr]
-                		if(x === undefined){
-                			//delete row[attr];
-                		}
+                            flag = false;
+                            var x = attributes[attr]
+                            if(x === undefined){
+                            }
                 	}
-                	merged[i] = row;
+                    merged[i] = row;
                     count++;
                 	//console.log(row)
                 }
@@ -336,6 +314,9 @@ var dataSource = (function(){
         },
         getIsDruid: function() {
           return _isDruid;
+        },
+        getDruidSourceName: function(){
+          return _druidSourceName;
         },
         connectDruid: _connectDruid,
 	//druid: _isDruid, 
