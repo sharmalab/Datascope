@@ -12,9 +12,9 @@ var Decoder = require('./Decoder.js');
 var AppStore = Reflux.createStore({
     getInitialState: function(){
 
-      return {};
+      return {initialInteractiveFilerData: {} };
     },
-	init: function(){
+    init: function(){
       var self = this;
       d3.json("config/dataDescription", function(data){
         console.log("getting data description");
@@ -23,9 +23,15 @@ var AppStore = Reflux.createStore({
         self.encoder = new Encoder(data);
         self.decoder = new Decoder(data);
       });
+      d3.json("druid/filter?filter="+JSON.stringify({}), function(d){
+        //console.log("initial data");
+        ///console.log(d);
+        //console.log(self);
+        //self.setState({initialInteractiveFilerData: d});
+      });
 
-	  this.listenTo(AppActions.refresh, this.onRefresh);
-	},
+      this.listenTo(AppActions.refresh, this.onRefresh);
+    },
     decodeData: function(data){
       //var dataDescription = this.dataDescription;
       var decoder = this.decoder;
@@ -33,34 +39,32 @@ var AppStore = Reflux.createStore({
 
       return decodedData;
     },
-	onRefresh: function(queryFilter){
-		var filteredData = {};
-		var that = this;
+    onRefresh: function(queryFilter){
+        var filteredData = {};
+        var that = this;
         var encoder = this.encoder;
         queryFilter = encoder.encode(queryFilter);
-		for (var qf in queryFilter) {
-			if(queryFilter[qf].length === 0) {
-				delete queryFilter[qf];
-			}
-		}
-        //queryFilter = encodeURI(queryFilter);
-        console.log("query filter:");
-        console.log(queryFilter);
-        d3.json("druid/filter?filter="+JSON.stringify(queryFilter) + "&dataSourceName=" + globalDataSourceName, function (d) {
-            filteredData = d;
-            _currentData = filteredData;
-            console.log(that);
-            _currentData = that.decodeData(_currentData);
-            //that.state.currentData = _currentData;
-            that.trigger(_currentData); //Trigger the event and pass current state of data
+        for (var qf in queryFilter) {
+              if(queryFilter[qf].length === 0) {
+                      delete queryFilter[qf];
+              }
+        }
+        d3.json("druid/filter?filter="+JSON.stringify(queryFilter) + "&datasourcename=" + globalDataSourceName, function (d) {
+          filteredData = d;
+          _currentData = filteredData;
+          //console.log(d);
+          //console.log(that);
+          //console.log(that.state.initialInteractiveFilerData);
+          _currentData = that.decodeData(_currentData);
+          //that.state.currentData = _currentData;
+          that.trigger(_currentData); //Trigger the event and pass current state of data
 
         });
 
-	},
-	getData: function(){
+    },
+    getData: function(){
         return _currentData;
-		//return this.state.currentData;
-	}
+    }
 
 });
 
