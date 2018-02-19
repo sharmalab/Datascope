@@ -59,9 +59,38 @@ function init(callback){
     interactiveFilters.init();
     visualization.init();
 
+
+    // Listen for filtering requests on ```/data```
+    app.use("/sepsis", routes.getSepsisTimeData);
+    app.use("/timeseries", routes.getTimeSeriesData);
+    app.use("/data",routes.handleFilterRequest);
+    app.use("/populationInfo", routes.populationInfo);
+    app.use("/dataTable/next", routes.tableNext);
+    app.use("/druid/tableNext", routes.druidTableNext);
+    app.use("/druid/populationInfo", routes.druidPopulationInfo);
+    app.use("/state",  handleState);
+    app.use("/save", routes.save);
+    app.use("/heat", visualizationRoutes.heat);
+    app.use("/imageGrid/next", routes.imageGridNext);
+    app.use("/statistics", routes.getStatistics);
+    app.use("/druid/filter", routes.handleDruidRequest);
+    app.post('/uploadDataSource', rest.postDataSource);
+    app.post('/uploadVisualization', rest.postVisualization);
+    app.post('/uploadInteractiveFilters', rest.postInteractiveFilters);
+
+    // Change this to the static directory of the index.html file
+    app.get("/", routes.index);
+    app.get("/rest/json", rest.index);
+    app.get("/users", user.list);
+
+    app.get("/config/dataDescription", rest.getDataDescriptionConfig);
+    app.get("/config/interactiveFilters", rest.getInteractiveFiltersConfig);
+    app.get("/config/visualization", rest.getVisualizationConfig);
+    app.get("/config/dashboard", rest.getDashboardConfig);
+
+     
+
     dataSource.loadData(function(dataSourceName, data){
-	console.log("isDuid: "+ dataSource.getIsDruid());
-        console.log(dataSource);
         if(dataSource.getIsDruid()){
 
           //dataSource.connectDruid();
@@ -80,9 +109,11 @@ function init(callback){
           console.log("Initialized filters");
 
         }
-        listen(callback);
+        listen(callback);              
     });
 }
+
+
 
 //
 // listen to the specified port for HTTP requests
@@ -102,31 +133,4 @@ function handleState(req, res, next){
     res.writeHead(200, { "content-type": "application/json" });
 
 }
-
-// Listen for filtering requests on ```/data```
-app.use("/data",routes.handleFilterRequest);
-app.use("/populationInfo", routes.populationInfo);
-app.use("/dataTable/next", routes.tableNext);
-app.use("/druid/tableNext", routes.druidTableNext);
-app.use("/druid/populationInfo", routes.druidPopulationInfo);
-app.use("/state",  handleState);
-app.use("/save", routes.save);
-app.use("/heat", visualizationRoutes.heat);
-app.use("/imageGrid/next", routes.imageGridNext);
-app.use("/statistics", routes.getStatistics);
-app.use("/druid/filter", routes.handleDruidRequest);
-app.post('/uploadDataSource', rest.postDataSource);
-app.post('/uploadVisualization', rest.postVisualization);
-app.post('/uploadInteractiveFilters', rest.postInteractiveFilters);
-
-// Change this to the static directory of the index.html file
-app.get("/", routes.index);
-app.get("/rest/json", rest.index);
-app.get("/users", user.list);
-
-app.get("/config/dataDescription", rest.getDataDescriptionConfig);
-app.get("/config/interactiveFilters", rest.getInteractiveFiltersConfig);
-app.get("/config/visualization", rest.getVisualizationConfig);
-app.get("/config/dashboard", rest.getDashboardConfig);
-
 exports.init = init;
