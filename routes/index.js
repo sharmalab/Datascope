@@ -12,6 +12,12 @@ var dl = require('datalib');
 
 var CURRENTDATA = {};
 
+var GLOBAL_TIME_FILTER = {
+      start: new Date("2018-02-08T06:00:00Z"),
+      end: new Date("2018-02-08T09:00:00Z")
+};
+
+//var GLOBAL_TIME_FILTER = 
 
 var _containsTwoDimensional = function (f, d) {
     var fromBottomLeft;
@@ -163,25 +169,10 @@ var $ = plywood.$;
 var External = plywood.External;
 var druidRequesterFactory = require('plywood-druid-requester').druidRequesterFactory;
 
-var druidRequester = druidRequesterFactory({
-      host: '127.0.0.1:8082' // Where ever your Druid may be
-});
 
 
-var wikiDataset = External.fromJS({
-      engine: 'druid',
-      source: 'movies',  // The datasource name in Druid
-      timeAttribute: 'time',  // Druid's anonymous time attribute will be called 'time',
-      context: {
-              timeout: 10000 // The Druid context
-      },
-    allowSelectQueries: true
-}, druidRequester);
+var rangedFilters = ["Weight"];
 
-var context = {
-      wiki: wikiDataset,
-        seventy: 70
-};
 
 
 function druidToDatascopeFormat(json){
@@ -197,15 +188,31 @@ function druidToDatascopeFormat(json){
 
         dsjson[i] = {};
         dsjson[i]["values"] = [];
+        
+	//handle barcharts, converti druid number bucket ranges to datascope key-value pair	
 
+        if( rangedFilters.indexOf(i) != -1){
+
+        
+	 
+          var ag =  aggregate.data;
+          for(var x in ag){
+       
+            aggregate.data[x][i] = ag[x][i]["start"];
+          }
+          //console.log(ag);
+        }
+        
+        //console.log(aggregate.data["Weight"]);
         aggregate.data.map(function(d){
+             
             if(d["Count"]){
-            var obj = {};
-            obj["value"] = d["Count"];
-            obj["key"] = d[i];
-            dsjson[i]["values"].push(obj);
+              var obj = {};
+              obj["value"] = d["Count"];
+              obj["key"] = d[i];
+              dsjson[i]["values"].push(obj);
             } else {
-                dsjson[i]["values"].push(d);
+              dsjson[i]["values"].push(d);
             }
             
         });
@@ -230,76 +237,266 @@ function druidToDatascopeFormat(json){
 }
 
 
-
-
+/*
+ *
+ */ 
+var populateInitialFilters = function(data){
+  var filters = [];
+  var initialKeys = [];
+  //console.log("populate initial filters");
+  for(var i in data){
+    //console.log(data[i]);
+    initialKeys[data[i]] = [];
+    /*
+    for(var j in data[i][0].values){
+      console.log("...");
+      console.log(data[i][j]);
+      initialKeys[data[i]].push(data[i][j]);
+    }
+    */
+  }
+  //console.log(initialKeys);
+  /*
+  for(var i in data){
+    console.log(i);
+    console.log(data[i]);
+    initialKeys[data[i]] = [];
+    for(var j in data[i][j]){
+      initialKeys[data[i]].push(data[i][j]);
+    }
+  }
+  console.log(initialKeys);
+  */
+  //console.log(initialKe
+}
 /*
  * @api {get} request binned aggregated data from druid
  */
 
+var wikiDataset, druidRequester, speedDataset;
+setTimeout(function(){
+    druidRequester = druidRequesterFactory({
+          host: '127.0.0.1:8082' // Where ever your Druid may be
+    });
+
+    speedDataset = External.fromJS({
+      engine: 'druid', 
+      source: "experiments2",
+      timeAttribute: 'time',
+      context: {
+        timeout: 1000
+      },
+      allowSelectQueries: true
+
+    }, druidRequester);
+
+
+    wikiDataset = External.fromJS({
+          engine: 'druid',
+          source: dataSource.getDruidSourceName(),  // The datasource name in Druid
+          timeAttribute: 'time',  // Druid's anonymous time attribute will be called 'time',
+          context: {
+                  timeout: 10000 // The Druid context
+          },
+        allowSelectQueries: true
+    }, druidRequester);
+    context = {
+          wiki: wikiDataset,
+            seventy: 70
+    }; 
+},1000);
+
+var _handleImage = function(req, res){
+
+    filter = req.query.filter ? JSON.parse(req.query.filter) : {};
+
+    var interactiveFiltersConfig = (interactiveFilters.getInteractiveFiltersConfig());
+    var F = $("time").in(GLOBAL_TIME_FILTER)
+    var filters =     $('wiki').filter(F)
+    var ex = ply()
+    // Define the external in scope with a filter on time and language
+    .apply("wiki",filters)
+    ex = ex.apply("Table", $('wiki').limit(10)); 
+}
+
+
+var initial_aggregations = {};
+
+
 var _handleDruidRequest = function(req, res){
+
+
+    console.log("druid data source" +dataSource.getDruidSourceName());
+
     var filter = {};
     filter = req.query.filter ? JSON.parse(req.query.filter) : {};
 
     var interactiveFiltersConfig = (interactiveFilters.getInteractiveFiltersConfig());
   
     var query = filter;
-    var aggregations = [
+    console.log(query);
+    if(Object.keys(query).length == 0){
+      console.log("initial query");
+    }
 
-    ];
+    var aggregations = [];
 
     for(var i in interactiveFiltersConfig) {
       var aggregate = interactiveFiltersConfig[i].attributeName;
       aggregations.push(aggregate);
     }
-    console.log(aggregations);
+    //console.log(aggregations);
 
-    var F = $("time").in({
-      start: new Date("2010-09-12T00:00:00Z"),
-      end: new Date("2018-09-13T00:00:00Z")
-    })
-
-
+    var F = $("time").in(GLOBAL_TIME_FILTER);
+    var F_non_time = $("time").in({
+                    'start': new Date('2018-02-06T00:00:00Z'),
+                    'end': new Date('2018-02-09T00:00:00Z')
+    });
     for(var f in query){
         var filterval = query[f];
-
         if(typeof filterval == "string"){
+            F_non_time = F_non_time.and($(f).is(filterval));
             F = F.and($(f).is(filterval));
         } else if (typeof filterval == "object") {
-            F = F.and($(f).in(filterval));
+            console.log("using the in filter");
+            console.log(f);
+            console.log(query[f]);
+            console.log(filterval["HR"]);
+
+            if(f == "HR"){
+              F = F.and($(f).in(query[f][0], query[f][1]));
+              F_non_time = F_non_time.and($(f).in(query[f][0], query[f][1]));
+            } else {
+              F = F.and($(f).in(query[f]));
+              F_non_time = F_non_time.and($(f).in(query[f]));
+            }
         }
-
     }
+    //F = F.and($("HR").in(0.08,0.3));
+    //F_non_time = F_non_time.and($("HR").in(0.08, 0.3));
+    console.log(F);
+    //console.log("Filters: "+F);
+    //console.log("Aggregtaions: "+aggregations);
     var filters =     $('wiki').filter(F)
-
-
-    
     var ex = ply()
     // Define the external in scope with a filter on time and language
     .apply("wiki",filters)
-
-    ex = ex.apply("Table", $('wiki').limit(10));
+    ex = ex.apply("Table", $('wiki').limit(10));	
+    //ex = ex.apply(
 
     for(var i in aggregations){
         var attribute = aggregations[i];
         ex = ex.apply(attribute, $('wiki').split("$"+attribute, attribute)
                 .apply("Count", $('wiki').count()).sort('$Count', 'descending').limit(10));
-    }   
+    }
+    //ex = ex.apply(attribute, $('wiki').split('$'+attribute, attribute).apply("Count");
+    var F2 = $("time").in({
+			'start': new Date('2018-02-06T00:00:00Z'),
+			'end': new Date('2018-02-09T00:00:00Z')
+		})
+    for(var f in query){
+        var filterval = query[f];
+        if(typeof filterval == "string"){
+            F2 = F2.and($(f).is(filterval));
+        } else if (typeof filterval == "object") {
+            console.log("this filterval");
+            console.log(filterval);
+            F2 = F2.and($(f).in(filterval));
+        }
+    }
+    
+
+    /*
+    var filters2 = $('wiki').filter(F2);
+    var ex3 = ply()
+	.apply("wiki", filters2);
+    ex3 = ex3.apply("time", $('wiki').select('HR', 'time', 'patientId')); 
+    */
+
+   // ex3 = ex3.select('HR', 'time', 'patientId');
+    var ex3 = ply().apply("wiki",
+            $('wiki').filter(F_non_time).select('HR', 'time', 'patientId'));
+
+
+
+  
+
+    //ex = ex.apply('Weight', $('wiki').split($('Weight').numberBucket(100),'Weight').apply("Count", $('wiki').count()))
+    //ex = ex.apply("imageGrid", $('wiki').limit(100));
     //ex = ex.apply("added",$("wiki").apply("ad", ($('added').numberBucket(10))));
     //ex = ex.apply("added", $('wiki').apply('added', ($('added').numberBucket(10))));
     //add table data 
-
-
     ex.compute(context).then(function(data){
-
-
+        //console.log(data);
         var datascopeData = druidToDatascopeFormat(data);
-        res.json(datascopeData);
-        res.end();
-    });
-     
-    
+	//datascopeData["Image"] = {};
 
+        //datascopeData.Gender.values = [ { value: 20, key: '0' }, { value: 14, key: '1' } ];
+
+
+        var aggregates = Object.keys(datascopeData);
+        var current_filters = Object.keys(query);
+
+
+
+        var intersection = aggregates.filter(function(d){
+          return current_filters.indexOf(d) !== -1;
+        });
+
+
+
+        //console.log("filter: ");
+        //console.log(filter);
+        if(Object.keys(filter).length === 1 ){
+          //console.log("populating initial filters..");
+          populateInitialFilters(datascopeData);
+        }
+
+
+       ex3.compute(context).then(function(data2){
+	      var d = data2.data[0].wiki.data;
+	      var out = [];
+	      var i =0;
+	      d.map(function(x){
+		    //console.log(x);
+		    var row = {};
+		    row.key = [x.patientId, x.time];
+		    row.value = x.HR;
+		    //console.log(row);
+		    out.push(row);
+	      });
+	      //res.json(out);
+	      datascopeData.time = d;
+              if(Object.keys(query).length == 0){
+                console.log("initial query");
+                initial_aggregations = datascopeData;
+              }
+
+              for(var i in intersection){
+                var attribute = intersection[i];
+
+                datascopeData[attribute] = initial_aggregations[attribute];
+                console.log("here");
+                console.log(initial_aggregations);
+                console.log(attribute);
+                console.log(Object.keys(initial_aggregations));
+                console.log(initial_aggregations[attribute]);
+                console.log(datascopeData[attribute]);
+                console.log(attribute);
+
+              }            
+	      res.json(datascopeData);
+	      res.end();
+	      //res.end();
+       });
+    });     
 };
+
+
+var _timeSeriesData = function(req, res){
+
+
+}
 
 
 var _imageGridNext = function(req, res){
@@ -332,18 +529,15 @@ var _imageGridNext = function(req, res){
 var _druidTableNext = function(req, res){
     var filter = {};
     filter = req.query.filter ? JSON.parse(req.query.filter) : {};
-    console.log("filters:");
-    console.log(filter);
+    //console.log("filters:");
+    //console.log(filter);
     var query = filter;
     var aggregations = [
         //"countryIsoCode", "page", "isAnonymous", "isUnpatrolled", "isMinor", "isRobot", "channel"
         "Creative_Type", "Major_Genre"
     ];
 
-    var F = $("time").in({
-      start: new Date("2010-09-12T00:00:00Z"),
-      end: new Date("2018-09-13T00:00:00Z")
-    })
+    var F = $("time").in(GLOBAL_TIME_FILTER)
 
 
     for(var f in query){
@@ -356,8 +550,8 @@ var _druidTableNext = function(req, res){
 
     }
     var filters =     $('wiki').filter(F)
-    console.log("druidTableNext");
-    console.log(filters);
+    //console.log("druidTableNext");
+    //console.log(filters);
 
      
     var ex = ply()
@@ -365,9 +559,9 @@ var _druidTableNext = function(req, res){
     .apply("wiki",filters)
 
     ex = ex.apply("Table", $('wiki').limit(10));
-
+   
     ex.compute(context).then(function(data){
-        console.log("filtered data: ");
+        //console.log("filtered data: ");
         //console.log(data.data[0].added.data);
         //var datascopeData = druidToDatascopeFormat(data);
         var d = (data.data[0].Table.data);
@@ -387,6 +581,72 @@ var _druidTableNext = function(req, res){
         res.end();
     });
 }
+
+
+/*
+ *  @api {get] /timeseries Request timeseries data 
+ */
+var _getTimeSeriesData = function(req, res){
+
+  var filters = req.query.filters;
+
+  var ctx = {
+        wiki: speedDataset,
+        seventy: 70
+  }; 
+
+
+  var ex2 = ply().apply("wiki", 
+          $('wiki').filter($('time').in({
+		  start: new Date("2014-02-08T06:00:00Z"),
+	  	end: new Date("2018-02-08T07:00:00Z")
+	   }).and($('Speed').lessThan(1000)))//.and($('Expt').lessThan(6i))));
+          .select('Speed', 'Expt', 'Run', 'time'));
+
+
+ ex2.compute(ctx).then(function(data){
+    res.json(data);
+    res.end();
+ });
+
+
+};
+
+
+var _getSepsisTimeData = function(req, res){
+	var filters = req.query.filters;
+	var ctx = {
+		  wiki: wikiDataset,
+		  seventy: 70
+	}; 
+	var ex3 = ply().apply("wiki",
+		$('wiki').filter($('time').in({
+			'start': new Date('2018-02-06T00:00:00Z'),
+			'end': new Date('2018-02-09T00:00:00Z')
+		})).select('HR', 'time', 'patientId'));
+
+
+   ex3.compute(ctx).then(function(data){
+	  var d = data.data[0].wiki.data;
+	  var out = [];
+          var i =0;
+	  d.map(function(x){
+		//console.log(x);
+		var row = {};
+		row.key = [x.patientId, x.time];
+		row.value = x.HR;
+
+		out.push(row);
+	  });
+	  res.json(out);
+
+
+	  res.end();
+   });
+
+
+
+};
 
 /**
  * @api {get} dataTable/next Request paginated data for datatable
@@ -543,12 +803,8 @@ var _druidPopulationInfo = function(req, res, next){
     var query = filter;
     var total = 39244;
 
-    var F = $("time").in({
-      start: new Date("2010-09-12T00:00:00Z"),
-      end: new Date("2018-09-13T00:00:00Z")
-    })
-
-
+    var F = $("time").in(GLOBAL_TIME_FILTER)
+    var F_time = F;
     for(var f in query){
         var filterval = query[f];
 
@@ -560,22 +816,32 @@ var _druidPopulationInfo = function(req, res, next){
 
     }
     var filters =     $('wiki').filter(F)
+    var original_filters = $('wiki').filter(F_time);
+
+    var ex2 = ply()
+      .apply("wiki", F_time)
+      .apply("Count", $("wiki").count())
 
 
-    
     var ex = ply()
     // Define the external in scope with a filter on time and language
+    .apply("wiki", original_filters)
+    .apply("Original", $("wiki").count())
     .apply("wiki",filters)
     .apply("Count", $('wiki').count());
 
  
     ex.compute(context).then(function(data){
        //var datascopeData = druidToDatascopeFormat(data);
+       //
+//        ex2.compute(context).then(function(original_data){
         var response = {};
         response.Current = data.data[0].Count;
-        response.Total = total;
+        response.Total = data.data[0].Original;
         res.json(response);
-        res.end();
+        res.end();         
+//        });
+
     });
         
 
@@ -608,6 +874,7 @@ var _populationInfo = function(req, res, next){
 
     return res.json({"Current": filteredLength, "Total": originalLength});
 };
+
 
 /*
     Function that gets called when the user requires one or more one dimensional statistic for an attribute or
@@ -732,6 +999,9 @@ var _getStatistics = function(req, res) {
 exports.index = function(req, res){
     res.render("index", { title: "Express" });
 };
+
+exports.getSepsisTimeData = _getSepsisTimeData;
+exports.getTimeSeriesData = _getTimeSeriesData;
 exports.populationInfo = _populationInfo;
 exports.druidPopulationInfo = _druidPopulationInfo;
 exports.handleFilterRequest = _handleFilterRequest;
