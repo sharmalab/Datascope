@@ -14,7 +14,7 @@ var CURRENTDATA = {};
 
 var GLOBAL_TIME_FILTER = {
       start: new Date("2018-02-08T06:00:00Z"),
-      end: new Date("2018-02-08T09:00:00Z")
+      end: new Date("2018-02-09T07:00:00Z")
 };
 
 //var GLOBAL_TIME_FILTER = 
@@ -322,8 +322,158 @@ var _handleImage = function(req, res){
 
 var initial_aggregations = {};
 
+var GLOBAL_GRANULAR_SLICE = {
+                      'start': new Date('2018-02-08T08:00:00Z'),
+                      'end': new Date('2018-02-08T09:00:00Z')
+};
 
 var _handleDruidRequest = function(req, res){
+    var filter = {};
+    filter = req.query.filter ? JSON.parse(req.query.filter) : {};
+    var interactiveFiltersConfig = (interactiveFilters.getInteractiveFiltersConfig());
+
+    var query = filter;
+    console.log(Object.keys(query));
+    if(Object.keys(query).length == 0){
+      console.log("initial query");
+    }
+
+    var aggregations = [];
+
+    for(var i in interactiveFiltersConfig) {
+      var aggregate = interactiveFiltersConfig[i].attributeName;
+      aggregations.push(aggregate);
+    }
+ 
+
+
+    var init_F = $("time").in(GLOBAL_TIME_FILTER); //filter first on time
+    var F_time = $("time").in({
+                      'start': new Date('2018-02-06T00:00:00Z'),
+                      'end': new Date('2018-02-09T00:00:00Z')
+      })
+    var ex = ply();
+    ex = ex.apply('wiki', $('wiki').filter(init_F))
+
+    //handle time here
+
+
+     // ex.a
+    for(var i in aggregations){
+        var attribute = aggregations[i];
+        var F = $("time").in(GLOBAL_GRANULAR_SLICE)
+        //var F = $("time").in(GLOBAL_TIME_FILTER);
+        if(Object.keys(query).includes('time')){
+            var start_time = new Date(query['time'][0]);
+            var end_time = new Date(query['time'][1]);  
+          //if(time in query){
+            var copy_start_time = new Date(query['time'][0]);
+            var copy_start_time2 = new Date(query['time'][0]);
+            if(copy_start_time2 > end_time){
+              copy_start_time2 = end_time;
+            }
+          copy_start_time2.setHours(copy_start_time2.getHours()+1)           
+          //}
+          F = $("time").in({  
+            'start': copy_start_time,
+            'end': copy_start_time2
+          });
+          F_time = $("time").in({
+            'start': start_time,
+            'end': end_time
+          });
+        }
+        for(var f in query){
+
+          if(f == attribute){
+            continue;
+          }
+
+          if(f == "time"){
+ 
+
+            continue;
+          }
+          var filterval = query[f];
+          if(typeof filterval == "string"){
+          
+          } else if (typeof filterval == "object") {
+            //F = F.and($(f).in(query[f]))
+            if(f == "HR"){
+              if(Object.keys(F).length === 0){
+                F = $(f).in(query[f][0], query[f][1]);
+              } else {
+                F = F.and($(f).in(query[f][0], query[f][1]));
+              }
+              F_time = F_time.and($(f).in(query[f][0], query[f][1]));
+            } else {
+              if(Object.keys(F).length === 0){
+                F = $(f).in(query[f]);
+              } else {
+                F = F.and($(f).in(query[f]));
+              }
+              F_time = F_time.and($(f).in(query[f]));
+            }
+          }
+        }
+        
+
+
+        var dataSlice = "Data"+attribute;
+        console.log(attribute);
+        console.log(F);
+        //if(attribute == "Gender"){ 
+        //
+        if(Object.keys(F).length === 0){
+          console.log("empty F");
+          ex = ex.apply(attribute, $('wiki').split("$"+attribute, attribute)
+              .apply("Count", $('wiki').count()));
+        } else {
+          console.log("no we have some F");
+          ex = ex.apply(dataSlice, $('wiki').filter(F))
+            .apply(attribute, $(dataSlice).split("$"+attribute, attribute)
+              .apply("Count", $(dataSlice).count()));
+        }
+        /*} else {
+          var dataSlice = 'wiki';
+        ex = ex.apply(attribute, $('wiki').split("$"+attribute, attribute)
+              .apply("Count", $(dataSlice).count()));
+        }*/
+        
+       
+    }
+    ex = ex.apply("HR", $('wiki').filter(F_time).select('HR', 'time', 'patientId'))
+
+    ex.compute(context).then(function(data){
+      console.log("Final data");
+      console.log((data.data[0].Gender.data));
+      console.log((data.data[0].Race.data));
+      //console.log(
+      var datascopeData = druidToDatascopeFormat(data);
+
+      var d = data.data[0].HR.data;
+      console.log(d);
+      var out = [];
+      var i =0;
+      d.map(function(x){
+            //console.log(x);
+            var row = {};
+            row.key = [x.patientId, x.time];
+            row.value = x.HR;
+            //console.log(row);
+            out.push(row);
+      });
+      //res.json(out);
+      datascopeData.time = d;
+
+      res.json(datascopeData);
+    });
+
+
+
+};
+
+var _handleDruidRequest2 = function(req, res){
 
 
     console.log("druid data source" +dataSource.getDruidSourceName());
@@ -334,7 +484,7 @@ var _handleDruidRequest = function(req, res){
     var interactiveFiltersConfig = (interactiveFilters.getInteractiveFiltersConfig());
   
     var query = filter;
-    console.log(query);
+    console.log(Object.keys(query));
     if(Object.keys(query).length == 0){
       console.log("initial query");
     }
@@ -348,21 +498,66 @@ var _handleDruidRequest = function(req, res){
     //console.log(aggregations);
 
     var F = $("time").in(GLOBAL_TIME_FILTER);
-    var F_non_time = $("time").in({
-                    'start': new Date('2018-02-06T00:00:00Z'),
-                    'end': new Date('2018-02-09T00:00:00Z')
+    var F_non_time = {};
+  
+    console.log(query);
+    
+    if(Object.keys(query).includes('time')){
+      console.log("filtering on time");
+      console.log(query['time']);
+      var start_time = new Date(query['time'][0]);
+      var end_time = new Date(query['time'][1]);  
+      console.log("start time:"+ start_time)
+      console.log("end time: "+end_time);
+
+      var copy_start_time = new Date(query['time'][0]);
+      var copy_start_time2 = new Date(query['time'][0]);
+      if(copy_start_time2 > end_time){
+        copy_start_time2 = end_time;
+      }
+
+      copy_start_time2.setHours(copy_start_time2.getHours()+1)
+      console.log("hour time: "+copy_start_time);
+      /*F = $("time").in({
+  //                    'start': new Date('2018-02-08T00:00:00Z'),
+//                      'end': new Date('2018-02-09T00:00:00Z')
+      //start: new Date("2018-02-08T06:00:00Z"),
+      //end: new Date("2018-02-08T07:00:00Z")
+        'start': copy_start_time,
+        'end': copy_start_time2
+      });
+      */
+      console.log("hour end: "+copy_start_time2);
+      F_non_time = $("time").in({
+      
+        'start': start_time,
+        'end': end_time
+      });
+      
+    } else{
+      console.log("couldn't find time");
+      F_non_time = $("time").in({
+                      'start': new Date('2018-02-06T00:00:00Z'),
+                      'end': new Date('2018-02-09T00:00:00Z')
+      });
+    }
+//    console.log(F_non_time);
+    /*  
+    F_non_time = $("time").in({
+                      'start': new Date('2018-02-06T00:00:00Z'),
+                      'end': new Date('2018-02-09T00:00:00Z')
     });
+  
     for(var f in query){
+        //console.log(f);
+        if(f == "time"){
+          continue;
+        }
         var filterval = query[f];
         if(typeof filterval == "string"){
             F_non_time = F_non_time.and($(f).is(filterval));
             F = F.and($(f).is(filterval));
         } else if (typeof filterval == "object") {
-            console.log("using the in filter");
-            console.log(f);
-            console.log(query[f]);
-            console.log(filterval["HR"]);
-
             if(f == "HR"){
               F = F.and($(f).in(query[f][0], query[f][1]));
               F_non_time = F_non_time.and($(f).in(query[f][0], query[f][1]));
@@ -371,25 +566,65 @@ var _handleDruidRequest = function(req, res){
               F_non_time = F_non_time.and($(f).in(query[f]));
             }
         }
-    }
+    }*/
     //F = F.and($("HR").in(0.08,0.3));
     //F_non_time = F_non_time.and($("HR").in(0.08, 0.3));
-    console.log(F);
+    //console.log(F);
     //console.log("Filters: "+F);
     //console.log("Aggregtaions: "+aggregations);
-    var filters =     $('wiki').filter(F)
-    var ex = ply()
+    //var filters =     $('wiki').filter(F);
+   
+    //var ex = ply()
     // Define the external in scope with a filter on time and language
-    .apply("wiki",filters)
+    //.apply("wiki",filters)
+    var ex = ply()
     ex = ex.apply("Table", $('wiki').limit(10));	
     //ex = ex.apply(
 
     for(var i in aggregations){
         var attribute = aggregations[i];
+        var F = $("time").in(GLOBAL_TIME_FILTER);
+
+        for(var f in query){
+
+          if(f == attribute){
+            continue;
+          }
+
+          if(f == "time"){
+            continue;
+          }
+          var filterval = query[f];
+          if(typeof filterval == "string"){
+          
+          } else if (typeof filterval == "object") {
+            //F = F.and($(f).in(query[f]))
+            if(f == "HR"){
+              F = F.and($(f).in(query[f][0], query[f][1]));
+              F_non_time = F_non_time.and($(f).in(query[f][0], query[f][1]));
+            } else {
+              F = F.and($(f).in(query[f]));
+              F_non_time = F_non_time.and($(f).in(query[f]));
+            }
+          }
+        }
+
+        var dataSlice = "Data"+attribute;
+        console.log(F);
+        console.log(dataSlice);
+        console.log(attribute);
+        ex = ex.apply(dataSlice, $('wiki').filter(F))
+          .apply(attribute, $(dataSlice).split("$"+attribute, attribute)
+              .apply("Count", $('wiki').count()));
+
+
+        /*
         ex = ex.apply(attribute, $('wiki').split("$"+attribute, attribute)
-                .apply("Count", $('wiki').count()).sort('$Count', 'descending').limit(10));
+                .apply("Count", $('wiki').count()).sort('$Count', 'descending').limit(10));*/
     }
+    //ex = ex.apply("HRSlice", $('wiki').filter().select('HR', 'time', 'patientId'))
     //ex = ex.apply(attribute, $('wiki').split('$'+attribute, attribute).apply("Count");
+    /*
     var F2 = $("time").in({
 			'start': new Date('2018-02-06T00:00:00Z'),
 			'end': new Date('2018-02-09T00:00:00Z')
@@ -399,11 +634,10 @@ var _handleDruidRequest = function(req, res){
         if(typeof filterval == "string"){
             F2 = F2.and($(f).is(filterval));
         } else if (typeof filterval == "object") {
-            console.log("this filterval");
-            console.log(filterval);
+
             F2 = F2.and($(f).in(filterval));
         }
-    }
+    }*/
     
 
     /*
@@ -414,8 +648,8 @@ var _handleDruidRequest = function(req, res){
     */
 
    // ex3 = ex3.select('HR', 'time', 'patientId');
-    var ex3 = ply().apply("wiki",
-            $('wiki').filter(F_non_time).select('HR', 'time', 'patientId'));
+    //var ex3 = ply().apply("wiki",
+      //      $('wiki').filter(F_non_time).select('HR', 'time', 'patientId'));
 
 
 
@@ -425,10 +659,12 @@ var _handleDruidRequest = function(req, res){
     //ex = ex.apply("imageGrid", $('wiki').limit(100));
     //ex = ex.apply("added",$("wiki").apply("ad", ($('added').numberBucket(10))));
     //ex = ex.apply("added", $('wiki').apply('added', ($('added').numberBucket(10))));
-    //add table data 
+    //add table data c
     ex.compute(context).then(function(data){
         //console.log(data);
-        var datascopeData = druidToDatascopeFormat(data);
+        console.log("this one went through");
+        //var datascopeData = druidToDatascopeFormat(data);
+        var datascopeData = {};
 	//datascopeData["Image"] = {};
 
         //datascopeData.Gender.values = [ { value: 20, key: '0' }, { value: 14, key: '1' } ];
@@ -436,24 +672,26 @@ var _handleDruidRequest = function(req, res){
 
         var aggregates = Object.keys(datascopeData);
         var current_filters = Object.keys(query);
-
-
-
         var intersection = aggregates.filter(function(d){
           return current_filters.indexOf(d) !== -1;
         });
 
+        var Q = req.query.filter ? JSON.parse(req.query.filter) : {};
+        console.log("Queryyy");
+        console.log(Q);
+        
 
-
-        //console.log("filter: ");
-        //console.log(filter);
         if(Object.keys(filter).length === 1 ){
           //console.log("populating initial filters..");
           populateInitialFilters(datascopeData);
         }
-
-
+        
+        function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+        res.json(datascopeData);
+	res.end();
+      /*
        ex3.compute(context).then(function(data2){
+            console.log("this is the timeseries data");
 	      var d = data2.data[0].wiki.data;
 	      var out = [];
 	      var i =0;
@@ -467,28 +705,47 @@ var _handleDruidRequest = function(req, res){
 	      });
 	      //res.json(out);
 	      datascopeData.time = d;
+              /*
               if(Object.keys(query).length == 0){
-                console.log("initial query");
-                initial_aggregations = datascopeData;
+                //console.log("initial query");
+                initial_aggregations[query] = datascopeData;
               }
+              //console.log
+              Q_str = JSON.stringify(Q);
+              initial_aggregations[Q_str] = datascopeData;
+              //console.log(initial_aggregations);
+              //console.log(JSON.stringify(Object.keys(initial_aggregations)[0]));
+              //var Q = JSON.parse(filter);
+              console.log(Q);
 
               for(var i in intersection){
                 var attribute = intersection[i];
-
-                datascopeData[attribute] = initial_aggregations[attribute];
-                console.log("here");
-                console.log(initial_aggregations);
-                console.log(attribute);
-                console.log(Object.keys(initial_aggregations));
-                console.log(initial_aggregations[attribute]);
                 console.log(datascopeData[attribute]);
-                console.log(attribute);
-
+            
+                var currAttrData = datascopeData[attribute];
+                console.log("Query: ");
+                console.log(query);
+                //delete Q[attribute];
+                console.log("initial aggregation keys");
+                //console.log(initial_aggregations);
+                console.log(Object.keys(initial_aggregations));
+                var Q2 = _objectWithoutProperties(Q, [f]);
+                console.log("original query");
+                console.log(Q);
+                //datascopeData[attribute] = initial_aggregations[Q];
+                console.log("new query without current attribute");
+                console.log(Q2);
+                console.log(Object.keys(initial_aggregations));
+                Q2_str = JSON.stringify(Q2);
+                console.log(initial_aggregations[Q2_str][attribute]);
+                //datascopeData[attribute] = initial_aggregations[Q.splice(Q.indexOf(attribute))];
+                //datascopeData[attribute] = initial_aggregations[Q2_str][attribute];
               }            
 	      res.json(datascopeData);
 	      res.end();
 	      //res.end();
        });
+       */
     });     
 };
 
@@ -803,7 +1060,7 @@ var _druidPopulationInfo = function(req, res, next){
     var query = filter;
     var total = 39244;
 
-    var F = $("time").in(GLOBAL_TIME_FILTER)
+    var F = $("time").in(GLOBAL_GRANULAR_SLICE)
     var F_time = F;
     for(var f in query){
         var filterval = query[f];
