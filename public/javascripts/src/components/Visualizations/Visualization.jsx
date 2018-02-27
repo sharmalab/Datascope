@@ -5,7 +5,8 @@ var DataTable = require("./DataTable.jsx"),
     Splom = require("./Splom.jsx"),
     GeoChoroplethMap = require("./GeoChoroplethMap.jsx"),
     MarkerMap = require("./MarkerMap.jsx"),
-    TwoDimStat = require("./TwoDimStat.jsx");
+    TwoDimStat = require("./TwoDimStat.jsx"),
+    TimeSeries = require("./TimeSeries.jsx");
 
 var Visualization = React.createClass({
     render: function(){
@@ -51,6 +52,10 @@ var Visualization = React.createClass({
         case "twoDimStat":
             return (
                 <TwoDimStat config={this.props.config} currData={this.props.currData}/>
+            );
+        case "timeSeries":
+            return (
+              <TimeSeries config={this.props.config} currData={this.props.currData} />
             );
         default:
             return(
