@@ -13,8 +13,8 @@ var dl = require('datalib');
 var CURRENTDATA = {};
 
 var GLOBAL_TIME_FILTER = {
-      start: new Date("2018-02-08T06:00:00Z"),
-      end: new Date("2018-02-09T07:00:00Z")
+      start: new Date("2018-01-01T06:00:00Z"),
+      end: new Date("2018-01-02T07:00:00Z")
 };
 
 //var GLOBAL_TIME_FILTER = 
@@ -323,8 +323,12 @@ var _handleImage = function(req, res){
 var initial_aggregations = {};
 
 var GLOBAL_GRANULAR_SLICE = {
-                      'start': new Date('2018-02-08T08:00:00Z'),
-                      'end': new Date('2018-02-08T09:00:00Z')
+                      'start': new Date('2018-01-01T08:00:00Z'),
+                      'end': new Date('2018-01-01T09:00:00Z')
+};
+var GLOBAL_OVERALL_TIME = {
+  'start': new Date('2018-01-01T00:00:00Z'),
+  'end': new Date('2018-01-02T00:00:00Z')
 };
 
 var _handleDruidRequest = function(req, res){
@@ -348,10 +352,7 @@ var _handleDruidRequest = function(req, res){
 
 
     var init_F = $("time").in(GLOBAL_TIME_FILTER); //filter first on time
-    var F_time = $("time").in({
-                      'start': new Date('2018-02-06T00:00:00Z'),
-                      'end': new Date('2018-02-09T00:00:00Z')
-      })
+    var F_time = $("time").in(GLOBAL_OVERALL_TIME)
     var ex = ply();
     ex = ex.apply('wiki', $('wiki').filter(init_F))
 
@@ -382,6 +383,9 @@ var _handleDruidRequest = function(req, res){
             'start': start_time,
             'end': end_time
           });
+        } else {
+          F = $("time").in(GLOBAL_GRANULAR_SLICE);
+          F_time = $("time").in(GLOBAL_OVERALL_TIME);
         }
         for(var f in query){
 
@@ -420,16 +424,16 @@ var _handleDruidRequest = function(req, res){
 
 
         var dataSlice = "Data"+attribute;
-        console.log(attribute);
-        console.log(F);
+      
+       
         //if(attribute == "Gender"){ 
         //
         if(Object.keys(F).length === 0){
-          console.log("empty F");
+          
           ex = ex.apply(attribute, $('wiki').split("$"+attribute, attribute)
               .apply("Count", $('wiki').count()));
         } else {
-          console.log("no we have some F");
+         
           ex = ex.apply(dataSlice, $('wiki').filter(F))
             .apply(attribute, $(dataSlice).split("$"+attribute, attribute)
               .apply("Count", $(dataSlice).count()));
@@ -442,35 +446,24 @@ var _handleDruidRequest = function(req, res){
         
        
     }
-    ex = ex.apply("HR", $('wiki').filter(F_time).select('HR', 'time', 'patientId'))
+      ex = ex.apply("HR2", $('wiki').filter(F_time))
 
+      ex = ex.apply("HR", $("wiki").filter($("patientId").in($("HR2").split({"id": "$patientId"}).collect($("id")))).select("HR", "time", "patientId"));
     ex.compute(context).then(function(data){
-      console.log("Final data");
-      console.log((data.data[0].Gender.data));
-      console.log((data.data[0].Race.data));
-      //console.log(
       var datascopeData = druidToDatascopeFormat(data);
-
       var d = data.data[0].HR.data;
-      console.log(d);
       var out = [];
       var i =0;
       d.map(function(x){
-            //console.log(x);
             var row = {};
             row.key = [x.patientId, x.time];
             row.value = x.HR;
-            //console.log(row);
             out.push(row);
       });
       //res.json(out);
-      datascopeData.time = d;
-
+      datascopeData.HR = d;
       res.json(datascopeData);
     });
-
-
-
 };
 
 var _handleDruidRequest2 = function(req, res){
@@ -1059,9 +1052,63 @@ var _druidPopulationInfo = function(req, res, next){
 
     var query = filter;
     var total = 39244;
-
+    console.log(query);
     var F = $("time").in(GLOBAL_GRANULAR_SLICE)
     var F_time = F;
+    if(Object.keys(query).includes('time')){
+        var start_time = new Date(query['time'][0]);
+        var end_time = new Date(query['time'][1]);  
+      //if(time in query){
+        var copy_start_time = new Date(query['time'][0]);
+        var copy_start_time2 = new Date(query['time'][0]);
+        if(copy_start_time2 > end_time){
+          copy_start_time2 = end_time;
+        }
+      copy_start_time2.setHours(copy_start_time2.getHours()+1)           
+      //}
+      F = $("time").in({  
+        'start': copy_start_time,
+        'end': copy_start_time2
+      });
+      F_time = $("time").in({
+        'start': start_time,
+        'end': end_time
+      });
+    } else {
+      F = $("time").in(GLOBAL_GRANULAR_SLICE);
+      F_time = $("time").in(GLOBAL_OVERALL_TIME);
+    }
+    for(var f in query){
+
+          if(f == "time"){
+ 
+
+            continue;
+          }
+          var filterval = query[f];
+          if(typeof filterval == "string"){
+          
+          } else if (typeof filterval == "object") {
+            //F = F.and($(f).in(query[f]))
+            if(f == "HR"){
+              if(Object.keys(F).length === 0){
+                F = $(f).in(query[f][0], query[f][1]);
+              } else {
+                F = F.and($(f).in(query[f][0], query[f][1]));
+              }
+              F_time = F_time.and($(f).in(query[f][0], query[f][1]));
+            } else {
+              if(Object.keys(F).length === 0){
+                F = $(f).in(query[f]);
+              } else {
+                F = F.and($(f).in(query[f]));
+              }
+              F_time = F_time.and($(f).in(query[f]));
+            }
+          }
+    }
+    console.log(F);
+    /*   
     for(var f in query){
         var filterval = query[f];
 
@@ -1071,8 +1118,8 @@ var _druidPopulationInfo = function(req, res, next){
             F = F.and($(f).in(filterval));
         }
 
-    }
-    var filters =     $('wiki').filter(F)
+    }*/
+    var filters =     $('wiki').filter(F_time);
     var original_filters = $('wiki').filter(F_time);
 
     var ex2 = ply()
@@ -1082,10 +1129,10 @@ var _druidPopulationInfo = function(req, res, next){
 
     var ex = ply()
     // Define the external in scope with a filter on time and language
-    .apply("wiki", original_filters)
+    .apply("wiki", $("wiki").filter($("time").in(GLOBAL_GRANULAR_SLICE)))
     .apply("Original", $("wiki").count())
-    .apply("wiki",filters)
-    .apply("Count", $('wiki').count());
+    .apply("wiki2", filters)
+    .apply("Count", $('wiki2').count());
 
  
     ex.compute(context).then(function(data){
