@@ -172,7 +172,7 @@ var druidRequesterFactory = require('plywood-druid-requester').druidRequesterFac
 
 
 var rangedFilters = [];
-var timeSeriesFilters = ["HR", "M_A_P","Shamims_Sepsis_score"];
+var timeSeriesFilters = [];//["HR", "M_A_P","Shamims_Sepsis_score"];
 //var timeSeriesFilters = ["H"];
 
 function druidToDatascopeFormat(json){
@@ -349,7 +349,7 @@ var _handleDruidRequest = function(req, res){
  
 
 
-    var init_F = $("time").in(GLOBAL_TIME_FILTER); //filter first on time
+    var init_F = $("time").in(GLOBAL_OVERALL_TIME); //filter first on time
     var F_time = $("time").in(GLOBAL_OVERALL_TIME)
     var ex = ply();
     ex = ex.apply('wiki', $('wiki').filter(init_F))
@@ -361,7 +361,7 @@ var _handleDruidRequest = function(req, res){
     for(var i in aggregations){
         var attribute = aggregations[i];
 
-        var F = $("time").in(GLOBAL_GRANULAR_SLICE)
+        var F = $("time").in(GLOBAL_OVERALL_TIME)
         //var F = $("time").in(GLOBAL_TIME_FILTER);
         if(Object.keys(query).includes('time')){
             var start_time = new Date(query['time'][0]);
@@ -383,7 +383,7 @@ var _handleDruidRequest = function(req, res){
             'end': end_time
           });
         } else {
-          F = $("time").in(GLOBAL_GRANULAR_SLICE);
+          F = $("time").in(GLOBAL_OVERALL_TIME);
           F_time = $("time").in(GLOBAL_OVERALL_TIME);
         }
         for(var f in query){
@@ -471,7 +471,7 @@ var _handleDruidRequest = function(req, res){
     ex.compute(context).then(function(data){
      
       var datascopeData = druidToDatascopeFormat(data);
-      var d = data.data[0].HR.data;
+/*      var d = data.data[0].HR.data;
       var out = [];
       var i =0;
       d.map(function(x){
@@ -493,7 +493,7 @@ var _handleDruidRequest = function(req, res){
 	  for(var i in timeSeriesFilters){
 		var tf = timeSeriesFilters[i];
 		datascopeData[tf] = data.data[0][tf].data;
-	  }
+	  }*/
       //res.json(out);
 //      datascopeData.HR = d;
 //      datascopeData.M_A_P = d2;
@@ -528,7 +528,7 @@ var _handleDruidRequest2 = function(req, res){
     }
     //console.log(aggregations);
 
-    var F = $("time").in(GLOBAL_TIME_FILTER);
+    var F = $("time").in(GLOBAL_OVERALL_TIME);
     var F_non_time = {};
   
 
@@ -562,10 +562,7 @@ var _handleDruidRequest2 = function(req, res){
       
     } else{
 
-      F_non_time = $("time").in({
-                      'start': new Date('2018-02-06T00:00:00Z'),
-                      'end': new Date('2018-02-09T00:00:00Z')
-      });
+      F_non_time = $("time").in(GLOBAL_OVERALL_TIME);
     }
 //    console.log(F_non_time);
     /*  
@@ -604,14 +601,14 @@ var _handleDruidRequest2 = function(req, res){
     // Define the external in scope with a filter on time and language
     //.apply("wiki",filters)
     var ex = ply()
-    ex = ex.apply("Table", $('wiki').select(10));
+    //ex = ex.apply("Table", $('wiki').select(10));
     ex = ex.apply('Total', $('wiki').count());    
     //ex = ex.apply(
 
     for(var i in aggregations){
         var attribute = aggregations[i];
-        var F = $("time").in(GLOBAL_TIME_FILTER);
-
+        var F = $("time").in(GLOBAL_OVERALL_TIME);
+	console.log(GLOBAL_OVERALL_TIME);
         for(var f in query){
 
           if(f == attribute){
