@@ -4,15 +4,15 @@ module.exports = {
         filename: "./public/javascripts/browserify/bundle.js"
     },
     module: {
-        loaders:[
+        rules:[
             {
                 test: /\.js[x]?$/,
                 exclude: /node_modules/,
-                loader: "babel?presets[]=react&presets=es2015"
+                loader: "babel-loader?presets[]=react&presets=es2015"
             },
             {
                 test: /masonry|imagesloaded|fizzy\-ui\-utils|desandro\-|outlayer|get\-size|doc\-ready|eventie|eventemitter3/,
-                loader: "imports?define=>false&this=>window"
+                loader: "imports-loader?define=>false&this=>window"
             }
         ]
     }

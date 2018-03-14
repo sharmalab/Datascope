@@ -38,7 +38,8 @@
     "react-masonry-component": "^4.2.2",
     "reflux": "^0.1.13",
     "serve-favicon": "^2.1.7",
-    "should": "^6.0.3"
+    "should": "^6.0.3",
+    "webpack": "^2.1.0-beta.22"
   },
   "description": "Datascope is a platform for visualizing massive data. Datascope generates dashboards that are interactive and the visualizations are coordinated. This can be used to slice/dice the data and generate different views.",
   "main": "app.js",
@@ -49,8 +50,8 @@
   },
   "devDependencies": {
     "babel": "^6.3.26",
-    "babel-core": "^6.4.0",
-    "babel-loader": "^6.2.1",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "expect": "^1.8.0",
@@ -64,8 +65,7 @@
     "mocha": "^2.2.5",
     "react-bootstrap": "^0.30.6",
     "react-dom": "^15.3.2",
-    "superagent": "^1.8.5",
-    "webpack": "^1.12.11"
+    "superagent": "^1.8.5"
   },
   "repository": {
     "type": "git",
