@@ -4,8 +4,8 @@ var schemaValidator = new Validator();
 var fs = require("fs");
 var dataDescription = require("./dataDescription");
 //var visualization = require("./visualization");
-var crossfilter = require("crossfilter");
-  
+var crossfilter = require("crossfilter2");
+
 var interactiveFilters = (function(){
 
     //Crossfilter specific
@@ -69,16 +69,16 @@ var interactiveFilters = (function(){
         } else {
             ndx = allNdx[dataSourceName];
         }
-      
+
         for(var attr in filteringAttributes){
 
             var filteringAttribute = filteringAttributes[attr];
             //console.log(filteringAttribute.datatype);
-            
+
             var fconfig = _getFilterConfig(filteringAttribute.attributeName);
 
             if(fconfig){
-                var binFactor = fconfig.visualization.binFactor || 1; 
+                var binFactor = fconfig.visualization.binFactor || 1;
 
                 //Create a crossfilter dimension on this attribute
                 var dimension = {};
@@ -116,7 +116,7 @@ var interactiveFilters = (function(){
 
                             }
                             return d[filteringAttribute[ATTRIBUTENAME]];
-                        } 
+                        }
                         else {
                           if(filteringAttribute.datatype === "integer" || filteringAttribute.datatype === "float") {
                             return Number.MIN_SAFE_INTEGER;
@@ -124,9 +124,9 @@ var interactiveFilters = (function(){
                             return "";
                           }
                         }
-                    }                   
-                    
-                    
+                    }
+
+
                 });
 
                 dimensions[filteringAttribute[ATTRIBUTENAME]] = dimension;
@@ -134,7 +134,7 @@ var interactiveFilters = (function(){
                 var group = {};
                 if(binFactor != 1){
                     binwidth = 1/binFactor;
-                    
+
                     group = dimension.group(function(d){
                         if(d){
                             var binned = Math.floor(+d/binFactor)*binFactor;
@@ -192,5 +192,5 @@ var interactiveFilters = (function(){
     };
 
 })();
- 
+
 module.exports = interactiveFilters;
