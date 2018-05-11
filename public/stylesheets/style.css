@@ -4,7 +4,7 @@ body {
 }
 #loadingMessage {
     position: absolute;
-    
+
     z-index: 1000;
     background: #fff;
     width:100%;
@@ -39,7 +39,7 @@ body {
 .download img{
     width:24px;
     height: 24px;
-}   
+}
 .navbar-brand {
     background: #F47A7E;
 }
@@ -761,4 +761,8 @@ a.download, #dl{
 
 .dc-chart g.deselected path{
     fill: rgba(128, 128, 128, 0.21);
+}
+
+figcaption{
+  font-size: 1vw;
 }
