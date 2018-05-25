@@ -3,9 +3,9 @@ MAINTAINER Ryan Birmingham "rbirmin@emory.edu"
 
 RUN mkdir -p /var/www/Datascope
 COPY . /var/www/Datascope
+
 WORKDIR /var/www/Datascope
 
-#odbc@1.4.1 requires node-gyp requires python
 RUN apk add --update \
     python \
     python-dev \
@@ -15,13 +15,15 @@ RUN apk add --update \
 
 RUN npm install -g webpack
 RUN npm install -g forever
+RUN npm install -g nodemon
 
-# TODO copy user specified instead
+# copy user data and config
 
-RUN cp -r examples/TitanicSurvivors/* .
+ADD ./config /var/www/Datascope
+ADD ./data /var/www/Datascope
 
 RUN npm run-script build
 
 EXPOSE 3001:3001
 
-CMD node app.js
+CMD nodemon app.js -w config -w data
