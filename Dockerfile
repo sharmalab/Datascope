@@ -13,7 +13,7 @@ RUN apk add --update \
     git \
     bash
 
-RUN npm install -g webpack
+RUN npm install -g webpack@3
 RUN npm install -g forever
 RUN npm install -g nodemon
 
