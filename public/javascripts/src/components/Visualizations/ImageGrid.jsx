@@ -16,7 +16,7 @@ var ImageGridItem = React.createClass({
             fontSize: "7px"
 
         };
-        return <div className="imageGridItem" style={itemStyle}>
+        return <div className="imageGridItem" data-label={label} style={itemStyle}>
             <figure>
                 <img src={image} style={{zoom: zoom}} />
                 <p className="imagelabel">{label}</p>
@@ -34,13 +34,25 @@ var ImageGrid = React.createClass({
         return {
             gridState: 0,
             currData: currData,
-            zoom: 0.2
+            zoom: 0.1
         };
     },
     onZoom: function(event){
         var self = this;
         var zoom = event.target.value;
         self.setState({zoom: zoom});
+    },
+    onSearch: function(event){
+      var filter = event.target.value.toLowerCase();
+      var nodes = document.getElementsByClassName('imageGridItem');
+
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].dataset.label.toLowerCase().includes(filter)) {
+          nodes[i].style.display = "";
+        } else {
+          nodes[i].style.display = "none";
+        }
+      }
     },
     componentWillReceiveProps: function(){
         var self =this;
@@ -149,6 +161,7 @@ var ImageGrid = React.createClass({
                     step="0.1" defaultValue={self.state.zoom} style={
                         {width: "100px", display: "inline", position: "relative", top: "4.5px"}
                 }/>
+                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search"></input>
 	                </span>
                     </div>
 
@@ -174,6 +187,7 @@ var ImageGrid = React.createClass({
                     step="0.1" defaultValue={self.state.zoom} style={
                         {width: "100px", display: "inline", position: "relative", top: "4.5px"}
                 }/>
+                                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search"></input>
 	                </span>
                     </div>
 
@@ -195,6 +209,7 @@ var ImageGrid = React.createClass({
                     step="0.1" defaultValue={self.state.zoom} style={
                         {width: "100px", display: "inline", position: "relative", top: "4.5px"}
                 }/>
+                                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search"></input>
 	                </span>
                     </div>
                         <div id="imageGridImages">
@@ -219,6 +234,7 @@ var ImageGrid = React.createClass({
                     step="0.1" defaultValue={self.state.zoom} style={
                         {width: "100px", display: "inline", position: "relative", top: "4.5px"}
                 }/>
+                                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search"></input>
 	                </span>
                     </div>
                     <div id="imageGridImages">
