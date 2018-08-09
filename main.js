@@ -48,7 +48,7 @@ app.use(cookieSession({
   keys: ['key1', 'key2']
 }));
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(express.static(path.join(__dirname, "images")));
 //
 //#### init()
 //Initializtion function

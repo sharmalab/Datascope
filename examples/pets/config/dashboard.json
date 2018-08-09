@@ -1,0 +1,10 @@
+{
+    "projectTitle": "Pets",
+    "theme": {
+        "primaryColor1": "#f47a7e",
+        "primaryColor2": "#ebebeb",
+        "headerColor1": "#c9c9d8",
+        "headerColor2": "#9c9cab",
+        "backgroundColor": "#ebebeb"
+    }
+}

@@ -1,0 +1,30 @@
+[
+  {
+      "attributeName": "name",
+  "attributeType": [
+      "filtering",
+      "visual"
+    ]
+  },
+  {
+      "attributeName": "height",
+  "attributeType": [
+      "filtering",
+      "visual"
+    ]
+  },
+  {
+      "attributeName": "image",
+  "attributeType": [
+      "filtering",
+      "visual"
+    ]
+  },
+  {
+      "attributeName": "url",
+  "attributeType": [
+      "filtering",
+      "visual"
+    ]
+  }
+]
