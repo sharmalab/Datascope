@@ -67,7 +67,7 @@ var _filterFunction = function(filter, dataSourceName){
                 if (filter[dim].length > 1) {
                     if (dataDescription.getDataType(dim) === "enum") {
                         dimensions[dim].filterFunction(function(d) {
-                            return filter[dim].indexOf(d) >= 0; 
+                            return filter[dim].indexOf(d) >= 0;
                         });
                     }
                     else {
@@ -91,7 +91,7 @@ var _filterFunction = function(filter, dataSourceName){
 
     if(visualization.hasVisualization("imageGrid")){
 
-        CURRENTDATA = dimensions[interactiveFiltersConfig.attributeName].top(100);
+        CURRENTDATA = dimensions["imageGrid"].top(100);
 
         var reqLength = 100;
         var paginate = true;
@@ -117,7 +117,7 @@ var _filterFunction = function(filter, dataSourceName){
 
 //
 //#### handleFilterRequest(request, response, next)
-//Is fired on GET "/data" request. Performs filtering using the filtering information provided in the GET parameter:    ```filter```    
+//Is fired on GET "/data" request. Performs filtering using the filtering information provided in the GET parameter:    ```filter```
 //
 //
 
@@ -178,7 +178,7 @@ var _imageGridNext = function(req, res){
         finalState: finalState,
         paginate: paginate
     };
-    
+
     res.writeHead(200, {"content-type": "application/json"});
     res.end(JSON.stringify(results));
 };
@@ -216,7 +216,7 @@ var _tableNext = function(req, res){
       dataTableAttributes.push(req.query.columns[i].name);
       }
     }
-   
+
     /* if the query contains a value to be searched,
         then filter the rows that don't contain the value
 
@@ -249,11 +249,11 @@ var _tableNext = function(req, res){
 
         var sortColumn = dataTableAttributes[sortColumnI].attributeName;
 
-    
+
         TABLE_DATA.sort(function(a,b){
             var strcol1 = ""+a[sortColumn];
             var strcol2 = ""+b[sortColumn];
-            var comparison;           
+            var comparison;
             if(sortDir == "asc"){
                 comparison = (strcol1.localeCompare(strcol2));
             } else {
@@ -261,11 +261,11 @@ var _tableNext = function(req, res){
             }
 
             return comparison;
-            //return 
+            //return
             //return 1;
-            
+
         });
-        
+
     }
     */
     //var len = TABLE_DATA.length;
@@ -274,8 +274,8 @@ var _tableNext = function(req, res){
     //var end = start+length;
 
     var DATA_ARRAY = [];
-    TABLE_DATA = dimensions[interactiveFiltersConfig[0].attributeName].top(length,start);   
-    //console.log(dataTableAttributes); 
+    TABLE_DATA = dimensions[interactiveFiltersConfig[0].attributeName].top(length,start);
+    //console.log(dataTableAttributes);
     for(var i2 in TABLE_DATA){
         if(! TABLE_DATA.hasOwnProperty(i2)){
           continue;
@@ -291,7 +291,7 @@ var _tableNext = function(req, res){
 
         DATA_ARRAY.push(row);
     }
-    
+
     //DATA_ARRAY = TABLE_DATA;
 
     var all = {};
@@ -312,7 +312,7 @@ var _tableNext = function(req, res){
  * @api {get} save Request complete filtered data in JSON format
  * @apiGroup Datascope
  * @apiName Save
- * @apiParam {String} filter Stringified JSON filter object 
+ * @apiParam {String} filter Stringified JSON filter object
  */
 
 var _save = function(req, res) {
@@ -332,7 +332,7 @@ var _save = function(req, res) {
  * @api {get} populationInfo Request global population info
  * @apiGroup Datascope
  * @apiName PopulationInfo
- * @apiParam {String} filter Stringified JSON filter object 
+ * @apiParam {String} filter Stringified JSON filter object
  * @apiParam {String} dataSourceName name of the datasource
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
@@ -379,7 +379,7 @@ var _populationInfo = function(req, res, next){
 	"mean": 8.073854447439347,
 	"median": 8,
 	"stdev": 0.3217199896341025
- *  
+ *
  *  }
  */
 

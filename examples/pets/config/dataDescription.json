@@ -1,6 +1,6 @@
 [
   {
-      "attributeName": "name",
+      "attributeName": "TCGA-ID",
   "attributeType": [
       "filtering",
       "visual"
@@ -14,17 +14,13 @@
     ]
   },
   {
-      "attributeName": "image",
-  "attributeType": [
-      "filtering",
-      "visual"
-    ]
+          "attributeName": "Image_URL",
+          "attributeType": ["visual"]
   },
   {
-      "attributeName": "url",
-  "attributeType": [
-      "filtering",
-      "visual"
-    ]
-  }
+        "attributeName": "image"
+    },
+    {
+          "attributeName": "Image_URL"
+      }
 ]
