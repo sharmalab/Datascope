@@ -771,3 +771,7 @@ figcaption{
   font-size: 1.5vw;
   text-align: center;
 }
+
+.imageGridItem img{
+  max-width: 150px
+}
