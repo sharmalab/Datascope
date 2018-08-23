@@ -29,7 +29,7 @@ var dataSource = require("./modules/dataSource"),
 var app = express();
 
 // all environments
-app.set("port", process.env.PORT || 3001);
+app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 //app.use(favicon());
@@ -47,8 +47,8 @@ app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2']
 }));
-app.use(express.static(path.join(__dirname, "public")));
-app.use("/images",express.static(path.join(__dirname, "images")));
+app.use("/datascope/cptac",express.static(path.join(__dirname, "public")));
+app.use("/datascope/cptac/images",express.static(path.join(__dirname, "images")));
 //
 //#### init()
 //Initializtion function
@@ -92,29 +92,29 @@ function handleState(req, res, next){
     res.writeHead(200, { "content-type": "application/json" });
 
 }
-
+var prefix = "/datascope/cptac"
 // Listen for filtering requests on ```/data```
-app.use("/data",routes.handleFilterRequest);
-app.use("/populationInfo", routes.populationInfo);
-app.use("/dataTable/next", routes.tableNext);
-app.use("/state",  handleState);
-app.use("/save", routes.save);
-app.use("/heat", visualizationRoutes.heat);
-app.use("/imageGrid/next", routes.imageGridNext);
-app.use("/statistics", routes.getStatistics);
+app.use(prefix+"/data",routes.handleFilterRequest);
+app.use(prefix+"/populationInfo", routes.populationInfo);
+app.use(prefix+"/dataTable/next", routes.tableNext);
+app.use(prefix+"/state",  handleState);
+app.use(prefix+"/save", routes.save);
+app.use(prefix+"/heat", visualizationRoutes.heat);
+app.use(prefix+"/imageGrid/next", routes.imageGridNext);
+app.use(prefix+"/statistics", routes.getStatistics);
 
-app.post('/uploadDataSource', rest.postDataSource);
-app.post('/uploadVisualization', rest.postVisualization);
-app.post('/uploadInteractiveFilters', rest.postInteractiveFilters);
+app.post(prefix+'/uploadDataSource', rest.postDataSource);
+app.post(prefix+'/uploadVisualization', rest.postVisualization);
+app.post(prefix+'/uploadInteractiveFilters', rest.postInteractiveFilters);
 
 // Change this to the static directory of the index.html file
-app.get("/", routes.index);
-app.get("/rest/json", rest.index);
-app.get("/users", user.list);
+app.get(prefix+"/", routes.index);
+app.get(prefix+"/rest/json", rest.index);
+app.get(prefix+"/users", user.list);
 
-app.get("/config/dataDescription", rest.getDataDescriptionConfig);
-app.get("/config/interactiveFilters", rest.getInteractiveFiltersConfig);
-app.get("/config/visualization", rest.getVisualizationConfig);
-app.get("/config/dashboard", rest.getDashboardConfig);
+app.get(prefix+"/config/dataDescription", rest.getDataDescriptionConfig);
+app.get(prefix+"/config/interactiveFilters", rest.getInteractiveFiltersConfig);
+app.get(prefix+"/config/visualization", rest.getVisualizationConfig);
+app.get(prefix+"/config/dashboard", rest.getDashboardConfig);
 
 exports.init = init;
