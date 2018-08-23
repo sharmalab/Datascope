@@ -91,16 +91,16 @@ var _filterFunction = function(filter, dataSourceName){
 
     if(visualization.hasVisualization("imageGrid")){
 
-        CURRENTDATA = dimensions["imageGrid"].top(100);
+        CURRENTDATA = dimensions["imageGrid"].top(Infinity);
 
-        var reqLength = 100;
-        var paginate = true;
+        var reqLength = 4000;
+        var paginate = false;
         if(CURRENTDATA.length < reqLength){
             paginate = false;
         }
         //console.log(CURRENTDATA);
         results.imageGrid = {
-            values: CURRENTDATA.slice(0,500),
+            values: CURRENTDATA,
             active: 100,
             size: 100,
             state: Math.floor(reqLength/100),

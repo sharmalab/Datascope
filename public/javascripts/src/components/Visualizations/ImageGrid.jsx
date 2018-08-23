@@ -16,12 +16,14 @@ var ImageGridItem = React.createClass({
             fontSize: "7px"
 
         };
-        return <div className="imageGridItem" data-label={label} style={itemStyle}>
-            <figure>
-                <img src={image} style={{zoom: zoom}} />
-                <p className="imagelabel">{label}</p>
-            </figure>
-        </div>;
+        return <a href={url} target="_blank">
+          <div className="imageGridItem" data-label={label} style={itemStyle}>
+              <figure>
+                  <img src={image} style={{width: (zoom*120 + 30)}} />
+                  <p className="imagelabel">{label}</p>
+              </figure>
+          </div>
+        </a>;
 	}
 });
 
@@ -40,6 +42,7 @@ var ImageGrid = React.createClass({
     onZoom: function(event){
         var self = this;
         var zoom = event.target.value;
+        console.log(zoom)
         self.setState({zoom: zoom});
     },
     onSearch: function(event){
@@ -120,14 +123,11 @@ var ImageGrid = React.createClass({
 			item.key = key;
 			key++;
 			items.push(item);
-			var url = URL;
+			var url = d["url"] || d["Image_URL"];
             return (
 
                     <span>
-                    <a href={d["Image_URL"]} target="_blank">
-
                     <ImageGridItem image={image} url={url} label={label} zoom={self.state.zoom}/>
-                    </a>
                     </span>
             );
 

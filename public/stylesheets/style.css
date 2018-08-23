@@ -632,6 +632,10 @@ ul.nav.nav-tabs {
     margin: 9px;
     box-shadow: 0 0 11px gray;
 }
+
+.imageGridItem {
+    padding:12px;
+}
 .imageGridItem img:hover {
     box-shadow: 0 0 11px black;
 }
