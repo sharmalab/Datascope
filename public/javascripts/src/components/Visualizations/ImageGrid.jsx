@@ -181,13 +181,13 @@ var ImageGrid = React.createClass({
                 return(
                     <div id="imageGrid" >
                     <div style={{whiteSpace: "nowrap"}} >
-                    <span  style={{width:"140px", position: "fixed", display: "inline", padding:"2px", opacity: "0.7", background: "#fff", lineHeight: "18px", fontSize: "8px"}}>
+                    <span className="HeadBar" style={{width:"90%", position: "fixed", display: "inline", padding:"8px", opacity: "0.9", background: "#C9C9D8", lineHeight: "18px", fontSize: "8px"}}>
                     Zoom:
-				<input onChange={self.onZoom} type="range" min="0.1" max="1.5"
+				<input onChange={self.onZoom} type="range" min="0.1" max="1.2"
                     step="0.1" defaultValue={self.state.zoom} style={
-                        {width: "100px", display: "inline", position: "relative", top: "4.5px"}
+                        {width: "30%", display: "inline", position: "relative", top: "4.5px"}
                 }/>
-                                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search"></input>
+                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search" style={{width:"60%"}}></input>
 	                </span>
                     </div>
 
@@ -203,13 +203,13 @@ var ImageGrid = React.createClass({
                 return(
                     <div id="imageGrid" >
                     <div style={{whiteSpace: "nowrap"}} >
-                    <span  style={{width:"140px", position: "fixed", display: "inline", padding:"2px", opacity: "0.7", background: "#fff", lineHeight: "18px", fontSize: "8px"}}>
+                    <span className="HeadBar" style={{width:"90%", position: "fixed", display: "inline", padding:"8px", opacity: "0.9", background: "#C9C9D8", lineHeight: "18px", fontSize: "8px"}}>
                     Zoom:
-				<input onChange={self.onZoom} type="range" min="0.1" max="1.5"
+				<input onChange={self.onZoom} type="range" min="0.1" max="1.2"
                     step="0.1" defaultValue={self.state.zoom} style={
-                        {width: "100px", display: "inline", position: "relative", top: "4.5px"}
+                        {width: "30%", display: "inline", position: "relative", top: "4.5px"}
                 }/>
-                                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search"></input>
+                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search" style={{width:"60%"}}></input>
 	                </span>
                     </div>
                         <div id="imageGridImages">

@@ -19,7 +19,7 @@ block content
 
         var globalDataSourceName = getParameterByName('dataSourceName') || 'main';
         console.log("data source name: " + globalDataSourceName)
-        
+
         var Theme = {};
 
         d3.json("config/dashboard", function(config){
@@ -33,10 +33,11 @@ block content
         var queryFilter = {};
         var dataTable = {};
 
-   
+
     script(src='https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js',  type='text/javascript')
-    script(src='javascripts/lib/bootstrap/dataTables.bootstrap.js')   
+    script(src='javascripts/lib/bootstrap/dataTables.bootstrap.js')
     script(src='javascripts/browserify/bundle.js', type='text/javascript')
+    meta(name="keywords",content="datascope")
     // Unindent and Uncomment to enable google analytics
     // Replace 'UA-XXXXXXXXX-1' with the tracking code
         script.
@@ -46,4 +47,3 @@ block content
             })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
             ga('create', 'UA-XXXXXXXXX-1', 'auto');
             ga('send', 'pageview');
-
