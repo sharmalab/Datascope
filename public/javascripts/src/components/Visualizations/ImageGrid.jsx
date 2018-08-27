@@ -51,7 +51,7 @@ var ImageGrid = React.createClass({
 
       for (let i = 0; i < nodes.length; i++) {
         if (nodes[i].dataset.label.toLowerCase().includes(filter)) {
-          nodes[i].style.display = "";
+          nodes[i].style.display = "inline-block";
         } else {
           nodes[i].style.display = "none";
         }
