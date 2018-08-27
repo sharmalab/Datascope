@@ -161,7 +161,7 @@ var ImageGrid = React.createClass({
                     step="0.1" defaultValue={self.state.zoom} style={
                         {width: "30%", display: "inline", position: "relative", top: "4.5px"}
                 }/>
-                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search" style={width:"60%"}></input>
+                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search" style={{width:"60%"}}></input>
 	                </span>
                     </div>
 
