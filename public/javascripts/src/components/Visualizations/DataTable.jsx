@@ -85,10 +85,19 @@ var DataTable = React.createClass({
             //fixedHeader: true,
             //responsive: true
         });
-        $(".datatablevis").first().delegate("tr", "click", function(e) {
-            var slide = $(e.currentTarget).html().split("<td>")[3].slice(0,-5);
-            var url = "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId=" +slide;
-            window.open(url, '_blank');
+        $(".datatablevis").first().delegate("td", "click", function(e) {
+            var elem = $(e.currentTarget)
+            var slide = elem.text();
+            console.log()
+            if (elem.index()==0){
+              var url = "https://public.cancerimagingarchive.net/beta/?PatientCriteria=" +slide;
+              window.open(url, '_blank');
+            }
+            else if (elem.index()==2){
+              var url = "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId=" +slide;
+              window.open(url, '_blank');
+            }
+
         });
 
         url = self.props.config.url;
