@@ -14,7 +14,7 @@ var DataTable = React.createClass({
       var decoder = AppStore.decoder.decoder;
       var self = this;
       var tableAttributes = self.props.config.attributes;
-     
+
       for(var i=0; i<d.length; i++){
         var row = d[i];
         for(var j=0; j<row.length; j++){
@@ -36,12 +36,12 @@ var DataTable = React.createClass({
         var columns = [];
         var count=0;
         var url;
-    
+
         var id = this.state.id;
         var tableId = "vis"+ id;
         TableCounts++;
         var tableAttributes = self.props.config.attributes;
-   
+
         for(var i in tableAttributes){
             if(!tableAttributes.hasOwnProperty(i)){
               continue;
@@ -76,7 +76,7 @@ var DataTable = React.createClass({
             //"scrollY": true,
             //"scrollX": true,
             //"width": "100%",
-            "bScrollAutoCss": true,           
+            "bScrollAutoCss": true,
             //"scrollX": "100%",
             "pageLength": 10,
             columns: columns,
@@ -84,6 +84,11 @@ var DataTable = React.createClass({
             "bAutoWidth": true
             //fixedHeader: true,
             //responsive: true
+        });
+        $(".datatablevis").first().delegate("tr", "click", function(e) {
+            var slide = $(e.currentTarget).html().split("<td>")[3].slice(0,-5);
+            var url = "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId=" +slide;
+            window.open(url, '_blank');
         });
 
         url = self.props.config.url;
@@ -118,7 +123,7 @@ var DataTable = React.createClass({
         var tableId = "vis"+ id;
             return(
                 <table id={tableId} className="display datatablevis">
-                    
+
                 </table>
             );
     }
