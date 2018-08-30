@@ -777,5 +777,17 @@ figcaption{
 }
 
 .imageGridItem img{
-  max-width: 150px
+  max-width: 150px;
+}
+
+td:nth-child(3) {
+    color: blue;
+    cursor: poiner;
+    text-decoration: underline;
+}
+
+td:nth-child(1) {
+  color: blue;
+  cursor: poiner;
+  text-decoration: underline;
 }
