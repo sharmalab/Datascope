@@ -99,6 +99,19 @@ var DataTable = React.createClass({
             }
 
         });
+        $(".datatablevis").first().children().each(function(){
+          $(this).children().each(function(){
+          $(this).children().each(
+            function(index){
+            if (index==2 || index ==0){
+              $(this).css("cursor","pointer")
+              $(this).css("color","blue")
+              $(this).css("text-decoration","underline")
+            }
+          })
+        })
+
+        })
 
         url = self.props.config.url;
 
