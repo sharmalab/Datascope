@@ -49,7 +49,7 @@ var DataTable = React.createClass({
             columns[count] = {};
             //columns[count]["data"] = self.props.config.attributes[i].name;
             columns[count].title = self.props.config.attributes[i].label || self.props.config.attributes[i].attributeName;
-            //columns[count].bSearchable = true;
+            columns[count].bSearchable = true;
             //columns[count].bSortable = true;
             columns[count].name = self.props.config.attributes[i].attributeName;
             if(self.props.config.attributes[i].type){
@@ -61,8 +61,6 @@ var DataTable = React.createClass({
         var ajaxUrl = "dataTable/next?dataSourceName=" + globalDataSourceName ;
         //console.log(ajaxUrl);
         var dataTable = $('#'+tableId).DataTable({
-            bSort: false,
-            bFilter: false,
             aoColumns: columns,
             "ajax": {
               "url": ajaxUrl,

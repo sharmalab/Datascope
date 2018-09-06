@@ -1,0 +1,60 @@
+<html>
+<style>
+.dataTables_filter input {
+    width: 500px;
+}
+.dataTables_filter label {
+    font-weight: bolder;
+    font-size: large;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></link>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<h1>CPTAC III Digital Pathology</h1>
+<p>Click on a row to open that image in caMicroscope</p>
+<table id="data" class="row-border stripe hover cell-border"></table>
+<script>
+var fields = ["Case_ID","Specimen_ID","Slide IDs"]
+var urlField = "url"
+var urlPrefix = ""
+//var url = "https://jsonplaceholder.typicode.com/todos/"
+var url = "https://cancerimagingarchive.net/datascope/cptac/data/?filter={}&dataSourceName=main"
+$(document).ready( function () {
+  // populate table headers
+  console.log('hi')
+  let head = document.createElement("thead")
+  let hr = document.createElement("tr")
+  fields.forEach(x=>{
+    console.log(x)
+    let y = document.createElement("th")
+    y.innerHTML = x;
+    hr.appendChild(y);
+  })
+  head.appendChild(hr)
+  document.getElementById("data").appendChild(head)
+  let body = document.createElement("tbody")
+  fetch(url,{mode: "cors"}).then(x=>x.json()).then(alpha=>{
+    var data = alpha.imageGrid.values
+    data.forEach(row=>{
+      let br = document.createElement("tr")
+      br.onclick = (x=>window.open(urlPrefix + row[urlField], '_blank').focus())
+      fields.forEach(x=>{
+        let y = document.createElement("td")
+        y.innerHTML = row[x];
+        br.appendChild(y);
+      })
+
+      body.appendChild(br)
+    })
+    document.getElementById("data").appendChild(body);
+    $('#data').DataTable();
+    $('#myTable').on( 'click', 'tbody tr', function () {
+      window.location.href = $(this).attr('href');
+});
+  })
+  // TODO links
+})
+</script>
+</html>
+

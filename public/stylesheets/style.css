@@ -1,3 +1,7 @@
+.summaryPopulationBar{
+    background: #4971B0 !important;
+}
+
 body {
     padding-top: 70px;
     overflow-y: hidden;
@@ -41,7 +45,7 @@ body {
     height: 24px;
 }
 .navbar-brand {
-    background: #F47A7E;
+    background: #4971B0;
 }
 footer {
     padding: 2em 0 1em 0;
@@ -205,12 +209,12 @@ table#dataTable{
 .pagination>.active>span:hover,
 .pagination>.active>a:focus,
 .pagination>.active>span:focus {
-    background-color: #f47a7e;
+    background-color: #4971B0;
     border: 0px solid #f47a7e
 }
 .pagination>li>a,
 .pagination>li>span {
-    color: #f47a7e;
+    color: #4971B0;
 }
 #totalChart {
     height: 25px;
