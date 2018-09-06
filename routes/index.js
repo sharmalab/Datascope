@@ -219,25 +219,8 @@ var _tableNext = function(req, res){
 
     /* if the query contains a value to be searched,
         then filter the rows that don't contain the value
-
-    var searchValue = req.query.search.value;
-    if (searchValue) {
-        dimensions[interactiveFiltersConfig[0]["attributeName"]].filter(function(d){
-          console.log(d);
-          return d.toString().match(searchValue);
-        });
-        /*
-        TABLE_DATA = TABLE_DATA.filter(function (row) {
-            for (key in row) {
-                if (row[key].toString().match(searchValue))
-                    return true;
-            }
-            return false;
-        })
-
-
-    }
     */
+    
     /* perform sorting of columns */
     /*
     var order = req.query.order;
@@ -274,7 +257,18 @@ var _tableNext = function(req, res){
     //var end = start+length;
 
     var DATA_ARRAY = [];
-    TABLE_DATA = dimensions[interactiveFiltersConfig[0].attributeName].top(length,start);
+    TABLE_DATA = dimensions[interactiveFiltersConfig[0].attributeName].top(4000);
+    var searchValue = req.query.search.value;
+    if (searchValue) {
+        TABLE_DATA = TABLE_DATA.filter(function (row) {
+            for (key in row) {
+                if (row[key].toString().match(searchValue))
+                    return true;
+            }
+            return false;
+        })
+}
+    TABLE_DATA = TABLE_DATA.slice(0,length)
     //console.log(dataTableAttributes);
     for(var i2 in TABLE_DATA){
         if(! TABLE_DATA.hasOwnProperty(i2)){
