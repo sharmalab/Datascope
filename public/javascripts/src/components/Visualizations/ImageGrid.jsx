@@ -82,12 +82,21 @@ var ImageGrid = React.createClass({
 
     },
     componentDidMount: function(e){
+      var self = this;
       document.getElementById("imgrid_search").oninput=function(){
         document.querySelectorAll('[type="search"]')[0].value = document.getElementById("imgrid_search").value
       }
 
 
       document.querySelectorAll('[type="search"]')[0].oninput=function(){
+        var filter = document.querySelectorAll('[type="search"]')[0].value
+        for (let i = 0; i < nodes.length; i++) {
+          if (nodes[i].dataset.label.toLowerCase().includes(filter)) {
+            nodes[i].style.display = "inline-block";
+          } else {
+            nodes[i].style.display = "none";
+          }
+        }
         document.getElementById("imgrid_search").value = document.querySelectorAll('[type="search"]')[0].value
       }
     },
