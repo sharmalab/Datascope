@@ -81,6 +81,16 @@ var ImageGrid = React.createClass({
         });
 
     },
+    componentDidMount: function(e){
+      document.getElementById("imgrid_search").oninput=function(){
+        document.querySelectorAll('[type="search"]')[0].value = document.getElementById("imgrid_search").value
+      }
+
+
+      document.querySelectorAll('[type="search"]')[0].oninput=function(){
+        document.getElementById("imgrid_search").value = document.querySelectorAll('[type="search"]')[0].value
+      }
+    },
     onNext: function(e){
         var self = this;
         e.preventDefault();
