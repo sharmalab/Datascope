@@ -89,7 +89,7 @@ var ImageGrid = React.createClass({
 
 
       document.querySelectorAll('[type="search"]')[0].oninput=function(){
-        var filter = document.querySelectorAll('[type="search"]')[0].value
+        var filter = document.querySelectorAll('[type="search"]')[0].value.toLowerCase()
         var nodes = document.getElementsByClassName('imageGridItem');
         for (let i = 0; i < nodes.length; i++) {
           if (nodes[i].dataset.label.toLowerCase().includes(filter)) {
