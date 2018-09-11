@@ -220,7 +220,7 @@ var _tableNext = function(req, res){
     /* if the query contains a value to be searched,
         then filter the rows that don't contain the value
     */
-    
+
     /* perform sorting of columns */
     /*
     var order = req.query.order;
@@ -262,7 +262,7 @@ var _tableNext = function(req, res){
     if (searchValue) {
         TABLE_DATA = TABLE_DATA.filter(function (row) {
             for (key in row) {
-                if (row[key].toString().match(searchValue))
+                if (row[key].toString().toLowerCase().match(searchValue.toLowerCase()))
                     return true;
             }
             return false;

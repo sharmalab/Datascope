@@ -84,7 +84,7 @@ var ImageGrid = React.createClass({
     componentDidMount: function(e){
       var self = this;
       document.getElementById("imgrid_search").oninput=function(){
-        $(".datatablevis").first().DataTable().search(document.getElementById("imgrid_search").value).draw() 
+        $(".datatablevis").first().DataTable().search(document.getElementById("imgrid_search").value).draw()
       }
 
 
