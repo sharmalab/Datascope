@@ -1,0 +1,10 @@
+{
+    "projectTitle": "CPTAC Pathology Slides",
+    "theme": {
+        "primaryColor1": "#4971B0",
+        "primaryColor2": "#ebebeb",
+        "headerColor1": "#c9c9d8",
+        "headerColor2": "#9c9cab",
+        "backgroundColor": "#ebebeb"
+    }
+}

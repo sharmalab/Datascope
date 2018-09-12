@@ -1,0 +1,64 @@
+[
+    {
+        "attributeName": "Tumor",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    },
+    {
+        "attributeName": "Topographic_Site",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    },
+    {
+        "attributeName": "Percent_Tumor_Nuclei",
+        "attributeType": [
+            "filtering"
+        ],
+        "dataProvider": "",
+        "datatype": "integer"
+    },
+    {
+        "attributeName": "Percent_Total_Cellularity",
+        "attributeType": [
+            "filtering"
+        ],
+        "dataProvider": "",
+        "datatype": "integer"
+    },
+    {
+        "attributeName": "Percent_Necrosis",
+        "attributeType": [
+            "filtering"
+        ],
+        "dataProvider": "",
+        "datatype": "integer"
+    },
+    {
+        "attributeName": "Volume",
+        "attributeType": [
+            "filtering"
+        ],
+        "dataProvider": "",
+        "datatype": "integer"
+    },
+    {
+        "attributeName": "Pathology",
+        "attributeType": [
+            "visual"
+        ]
+    },
+    {
+        "attributeName": "Radiology",
+        "attributeType": [
+            "visual"
+        ]
+    }
+]

@@ -784,13 +784,13 @@ figcaption{
   max-width: 150px;
 }
 
-td:nth-child(3) {
+td:nth-child(7) {
     color: blue;
     cursor: poiner;
     text-decoration: underline;
 }
 
-td:nth-child(1) {
+td:nth-child(8) {
   color: blue;
   cursor: poiner;
   text-decoration: underline;

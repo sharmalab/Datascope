@@ -1,0 +1,32 @@
+[{
+        "visualizationType": "dataTable",
+        "attributes": [{
+            "attributeName": "Case_ID"
+        }, {
+            "attributeName": "Specimen_ID"
+        }, {
+            "attributeName": "Slide_ID"
+        }, {
+            "attributeName": "Tumor"
+        }, {
+            "attributeName": "Topographic_Site"
+        }, {
+            "attributeName": "Tumor_Site"
+        }, {
+            "attributeName": "Radiology"
+        }, {
+            "attributeName": "Pathology"
+        }]
+      ,
+      "tabTitle":"Specimen Data"
+    },
+    {
+        "visualizationType": "imageGrid",
+        "tabTitle": "Slide Browser",
+        "attributes": [{
+            "attributeName": "Image",
+            "type": "image"
+
+        }]
+    }
+]

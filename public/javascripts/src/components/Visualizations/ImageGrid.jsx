@@ -137,13 +137,14 @@ var ImageGrid = React.createClass({
         var key = 1;
         var Img = images.map(function(d){
 			var item = {}
-      var image = d["Image"];
-      var label = d["label"] || d["TCGA_ID"] || d["Slide IDs"] || "Image #" + key
-			item.image = image;
+
+      var label = d["label"] || d["TCGA_ID"] || d["Slide IDs"] || d["Slide_ID"] || "Image #" + key
+      var image = d["Image"] || "images/" + label + ".jpg";
+      item.image = image;
 			item.key = key;
 			key++;
 			items.push(item);
-			var url = d["url"] || d["Image_URL"];
+			var url = d["url"] || d["Image_URL"] || "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId=" + label;
             return (
 
                     <span>

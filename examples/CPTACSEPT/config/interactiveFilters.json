@@ -1,0 +1,39 @@
+[{
+    "attributeName": "Tumor",
+    "visualization": {
+        "visType": "rowChart"
+    }
+}, {
+    "attributeName": "Topographic_Site",
+    "visualization": {
+        "visType": "rowChart"
+    }
+}, {
+    "attributeName": "Percent_Tumor_Nuclei",
+    "visualization": {
+        "visType": "barChart",
+        "binFactor": 10,
+        "domain" : [-10,100]
+    }
+}, {
+    "attributeName": "Percent_Total_Cellularity",
+    "visualization": {
+        "visType": "barChart",
+        "binFactor": 10,
+        "domain" : [-10,100]
+    }
+}, {
+    "attributeName": "Percent_Necrosis",
+    "visualization": {
+        "visType": "barChart",
+        "binFactor": 10,
+        "domain" : [-10,100]
+    }
+}, {
+    "attributeName": "Volume",
+    "visualization": {
+        "visType": "barChart",
+        "binFactor": 10,
+        "domain" : [-10,100]
+    }
+}]
