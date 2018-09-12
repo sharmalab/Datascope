@@ -3,6 +3,11 @@
     "visualization": {
         "visType": "rowChart"
     }
+},{
+    "attributeName": "HasRadiology",
+    "visualization": {
+        "visType": "rowChart"
+    }
 }, {
     "attributeName": "Topographic_Site",
     "visualization": {

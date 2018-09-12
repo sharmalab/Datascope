@@ -139,7 +139,7 @@ var ImageGrid = React.createClass({
 			var item = {}
 
       var label = d["label"] || d["TCGA_ID"] || d["Slide IDs"] || d["Slide_ID"] || "Image #" + key
-      var image = d["Image"] || "images/" + label + ".jpg";
+      var image = d["Image"] || "https://cancerimagingarchive.net/datascope/cptac/images/" + label + ".jpg";
       item.image = image;
 			item.key = key;
 			key++;

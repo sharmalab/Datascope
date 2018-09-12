@@ -9,6 +9,15 @@
         "datatype": "enum"
     },
     {
+        "attributeName": "HasRadiology",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    },
+    {
         "attributeName": "Topographic_Site",
         "attributeType": [
             "filtering",
