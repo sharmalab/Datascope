@@ -202,7 +202,7 @@ var ImageGrid = React.createClass({
                 return(
                     <div id="imageGrid" >
                     <div style={{whiteSpace: "nowrap"}} >
-                    <span className="HeadBar" style={{width:"50%", position: "fixed", display: "inline", padding:"8px", opacity: "0.9", background: "#C9C9D8", lineHeight: "18px", fontSize: "15px"}}>
+                    <span className="HeadBar" style={{width:"60%", display: "inline", padding:"8px", opacity: "0.9", background: "#C9C9D8", lineHeight: "18px", fontSize: "15px"}}>
                     Zoom:
 				<input onChange={self.onZoom} type="range" min="0.1" max="1.2"
                     step="0.1" defaultValue={self.state.zoom} style={
@@ -224,7 +224,7 @@ var ImageGrid = React.createClass({
                 return(
                     <div id="imageGrid" >
                     <div style={{whiteSpace: "nowrap"}} >
-                    <span className="HeadBar" style={{width:"50%", position: "fixed", display: "inline", padding:"8px", opacity: "0.9", background: "#C9C9D8", lineHeight: "18px", fontSize: "15px"}}>
+                    <span className="HeadBar" style={{width:"60%", display: "inline", padding:"8px", opacity: "0.9", background: "#C9C9D8", lineHeight: "18px", fontSize: "15px"}}>
                     Zoom:
 				<input onChange={self.onZoom} type="range" min="0.1" max="1.2"
                     step="0.1" defaultValue={self.state.zoom} style={
