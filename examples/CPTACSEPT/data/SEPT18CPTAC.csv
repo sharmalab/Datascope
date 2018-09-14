@@ -1,4 +1,16 @@
 Case_ID,Specimen_ID,Slide_ID,Tumor,Topographic_Site,Specimen_Type,Weight_(mg),Tumor_Site,Percent_Tumor_Nuclei,Percent_Total_Cellularity,Percent_Necrosis,Volume,Percent_Blast,HasRadiology,Radiology,Pathology
+11LU013,195a0cb5-5fb4-4ee8-9b43-118326,,LUAD,Lung,normal_tissue,200,,,,,,,no,,
+11LU013,5cabe560-5828-4130-978f-5cb734,,LUAD,Lung,normal_tissue,200,,,,,,,no,,
+11LU013,9f905736-f662-41d6-b3ac-16758d,9f905736-f662-41d6-b3ac-16758d_D1_D1,LUAD,Lung,tumor_tissue,235,not specified,70,85,10,,,no,,9f905736-f662-41d6-b3ac-16758d_D1_D1
+11LU016,00aa2de0-043c-487e-944d-aee066,,LUAD,Lung,normal_tissue,210,,,,,,,no,,
+11LU016,93e30fd5-e57e-4503-a175-863c7d,93e30fd5-e57e-4503-a175-863c7d_D1_D1,LUAD,Lung,tumor_tissue,230,not specified,80,85,5,,,no,,93e30fd5-e57e-4503-a175-863c7d_D1_D1
+11LU016,e63d6952-e469-4622-bd68-c2d44b,,LUAD,Lung,normal_tissue,210,,,,,,,no,,
+11LU022,453482e4-ecdd-49ed-ae7e-07d36d,,LUAD,Lung,normal_tissue,215,,,,,,,no,,
+11LU022,5a84eae1-197e-4463-ad65-59becc,5a84eae1-197e-4463-ad65-59becc_D1_D1,LUAD,Lung,tumor_tissue,240,not specified,75,90,5,,,no,,5a84eae1-197e-4463-ad65-59becc_D1_D1
+11LU022,78f06d19-6faf-4281-a9c8-7a2348,,LUAD,Lung,normal_tissue,215,,,,,,,no,,
+11LU035,2e06e4fc-9bfa-4b4f-832a-237e42,,LUAD,Lung,normal_tissue,300,,,,,,,no,,
+11LU035,2f2e5477-42a4-4906-a943-bf7f80,2f2e5477-42a4-4906-a943-bf7f80_D1_D1,LUAD,Lung,tumor_tissue,300,not specified,70,80,5,,,no,,2f2e5477-42a4-4906-a943-bf7f80_D1_D1
+11LU035,7944a59c-9b46-4927-99ab-474450,,LUAD,Lung,normal_tissue,300,,,,,,,no,,
 C3L-00001,C3L-00001-02,C3L-00001-21,LUAD,Lung,tumor_tissue,224,Right Upper Lobe,85,90,1,,,no,,C3L-00001-21
 C3L-00001,C3L-00001-06,C3L-00001-26,LUAD,Lung,normal_tissue,335,,,,,,,no,,C3L-00001-26
 C3L-00004,C3L-00004-01,C3L-00004-21,CCRCC,Kidney,tumor_tissue,484,Lower pole,85,95,0,,,no,,C3L-00004-21
