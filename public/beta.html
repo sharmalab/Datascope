@@ -163,5 +163,19 @@
     <noscript>
         <meta content="0;url=/ncia/xmlhttp/javascript-blocked" http-equiv="refresh" /></noscript>
 </body>
-
+<script>
+function getUrlParam(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+var filter = getUrlParam("filter")
+if (filter){
+  document.getElementById("datascope").src = "https://cancerimagingarchive.net/datascope/cptac/?filter=" + filter;
+}
+</script>
 </html>
