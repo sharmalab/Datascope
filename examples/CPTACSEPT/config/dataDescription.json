@@ -9,6 +9,15 @@
         "datatype": "enum"
     },
     {
+        "attributeName": "Specimen_Type",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    },
+    {
         "attributeName": "HasRadiology",
         "attributeType": [
             "filtering",
@@ -51,7 +60,7 @@
         "datatype": "integer"
     },
     {
-        "attributeName": "Volume",
+        "attributeName": "Weight",
         "attributeType": [
             "filtering"
         ],

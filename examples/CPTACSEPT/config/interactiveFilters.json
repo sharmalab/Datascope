@@ -13,6 +13,11 @@
     "visualization": {
         "visType": "rowChart"
     }
+},{
+    "attributeName": "Specimen_Type",
+    "visualization": {
+        "visType": "rowChart"
+    }
 }, {
     "attributeName": "Percent_Tumor_Nuclei",
     "visualization": {
@@ -35,10 +40,10 @@
         "domain" : [-10,100]
     }
 }, {
-    "attributeName": "Volume",
+    "attributeName": "Weight",
     "visualization": {
         "visType": "barChart",
-        "binFactor": 10,
-        "domain" : [-10,100]
+        "binFactor": 200,
+        "domain" : [0,4000]
     }
 }]

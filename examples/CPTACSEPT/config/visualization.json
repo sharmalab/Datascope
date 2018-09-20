@@ -12,7 +12,9 @@
             "attributeName": "Topographic_Site"
         }, {
             "attributeName": "Tumor_Site"
-        }, {
+        },{
+	    "attributeName": "Specimen_Type"
+	},{
             "attributeName": "Radiology"
         }, {
             "attributeName": "Pathology"
