@@ -87,13 +87,13 @@ var DataTable = React.createClass({
             var elem = $(e.currentTarget)
             var slide = elem.text();
             console.log()
-            if (elem.index()==6){
+            if (elem.index()==7){
               if (slide){
                 var url = "https://public.cancerimagingarchive.net/beta/?PatientCriteria=" +slide;
                 window.open(url, '_blank');
               }
             }
-            else if (elem.index()==7){
+            else if (elem.index()==8){
               if (slide){
                 var url = "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId=" +slide;
                 window.open(url, '_blank');

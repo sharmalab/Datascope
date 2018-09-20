@@ -105,7 +105,7 @@ var NavBar = React.createClass({
                   <Modal.Title>Dictionary</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <table>
+                <table id="dicttable">
                   <thead><tr><th>Data Dictionary  Headers</th><th>Header Descriptions</th></tr></thead><tbody>
                   <tr><td>Case ID</td><td>Case identifier that is assigned by TSS after completing the "Screening and Eligibility" and "Consent and Enrollment" forms and the candidate meets protocol criteria. This includes cases that have not filled out ANY other forms, so tumor type might not by assigned yet or most any other values in this table.</td></tr>
                   <tr><td>Speciment ID</td><td>Unique identifier for each tumor segement collected at TSS</td></tr>
@@ -122,6 +122,7 @@ var NavBar = React.createClass({
                   <tr><td>Percent Blast</td><td>Percent of blasts out of all marrow (or blood) cells. Leukemic blasts are immature blood cells that do not grow and age normally; they proliferate wildly and fail to mature. This is often used to determine if a patient has Leukemia.</td></tr>
                   </tbody>
                 </table>
+                <div><p>**Note that negative values denote missing data for numeric fields.</p></div>
                 </Modal.Body>
                 <Modal.Footer>
                   <Button onClick={self.handleClose}>Close</Button>
