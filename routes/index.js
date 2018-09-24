@@ -205,7 +205,7 @@ var _tableNext = function(req, res){
     var interactiveFiltersConfig = interactiveFilters.getInteractiveFiltersConfig();
     var start = 1*req.query.start;
 
-    var TABLE_DATA = dimensions[interactiveFiltersConfig[0].attributeName].top(10,start);
+    var TABLE_DATA = dimensions[interactiveFiltersConfig[0].attributeName].top(start).slice(start-10);
     ///console.log(TABLE_DATA);
     //console.log(state);
     var dataTableAttributes = visualization.getAttributes("dataTable");
@@ -268,7 +268,7 @@ var _tableNext = function(req, res){
             return false;
         })
 }
-    TABLE_DATA = TABLE_DATA.slice(0,length)
+    TABLE_DATA = TABLE_DATA.slice(start,start+length)
     //console.log(dataTableAttributes);
     for(var i2 in TABLE_DATA){
         if(! TABLE_DATA.hasOwnProperty(i2)){
