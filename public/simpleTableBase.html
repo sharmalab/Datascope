@@ -15,9 +15,9 @@
 <p>Click on a row to open that image in caMicroscope</p>
 <table id="data" class="row-border stripe hover cell-border"></table>
 <script>
-var fields = ["Case_ID","Specimen_ID","Slide IDs"]
-var urlField = "url"
-var urlPrefix = ""
+var fields = ["Case_ID","Specimen_ID","Slide_ID"]
+var urlField = "Slide_ID"
+var urlPrefix = "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId="
 //var url = "https://jsonplaceholder.typicode.com/todos/"
 var url = "https://cancerimagingarchive.net/datascope/cptac/data/?filter={}&dataSourceName=main"
 $(document).ready( function () {
