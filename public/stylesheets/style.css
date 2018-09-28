@@ -676,6 +676,8 @@ ul.nav.nav-tabs {
     //border: 1px solid #333;
     font-size: 12px;
     background: #9c9cab;
+    top: -6px;
+    position:relative;
 }
 .summaryPopulation div {
     //z-index:10;
