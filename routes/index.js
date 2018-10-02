@@ -275,14 +275,19 @@ var _tableNext = function(req, res){
       console.log("sorting on " + colname)
       TABLE_DATA = TABLE_DATA.sort(function(a,b){
         var reverse = req.query.order[0].dir == "desc";
+        var ret = 0;
+        if (a[colname] > b[colname]){
+          ret = 1
+        } else if (b[colname] > a[colname]){
+          ret = -1
+        }
         if (reverse){
-          return a[colname] < b[colname]
+          return -1*ret
         } else {
-          return a[colname] > b[colname]
+          return ret
         }
       })
     }
-    console.log(TABLE_DATA[0])
     TABLE_DATA = TABLE_DATA.slice(start,start+length)
     //console.log(dataTableAttributes);
     for(var i2 in TABLE_DATA){
