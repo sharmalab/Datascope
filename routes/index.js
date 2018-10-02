@@ -288,6 +288,7 @@ var _tableNext = function(req, res){
         }
       })
     }
+    var TABLE_DATA_orig_len = TABLE_DATA.length
     TABLE_DATA = TABLE_DATA.slice(start,start+length)
     //console.log(dataTableAttributes);
     for(var i2 in TABLE_DATA){
@@ -316,7 +317,7 @@ var _tableNext = function(req, res){
         state: state,
         draw: req.query.draw,
         recordsTotal: dataSource.getTotalRecords(dataSourceName),
-        recordsFiltered: TABLE_DATA.length
+        recordsFiltered: TABLE_DATA_orig_len
     };
     res.writeHead(200, {"content-type": "application/json"});
     res.end(JSON.stringify(results));
