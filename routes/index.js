@@ -316,7 +316,7 @@ var _tableNext = function(req, res){
         state: state,
         draw: req.query.draw,
         recordsTotal: dataSource.getTotalRecords(dataSourceName),
-        recordsFiltered: dimensions[interactiveFiltersConfig[0].attributeName].top(Infinity).length
+        recordsFiltered: TABLE_DATA.length
     };
     res.writeHead(200, {"content-type": "application/json"});
     res.end(JSON.stringify(results));
