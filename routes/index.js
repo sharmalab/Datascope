@@ -267,7 +267,18 @@ var _tableNext = function(req, res){
             }
             return false;
         })
-}
+    }
+    // SORT!
+    if (req.query.order && req.query.order[0].dir){
+      TABLE_DATA = TABLE_DATA.sort(function(a,b){
+        var reverse = req.query.order[0].dir== "desc";
+        if (reverse){
+          return a[req.query.order[0].column] < b[req.query.order[0].column]
+        } else {
+          return a[req.query.order[0].column] > b[req.query.order[0].column]
+        }
+      })
+    }
     TABLE_DATA = TABLE_DATA.slice(start,start+length)
     //console.log(dataTableAttributes);
     for(var i2 in TABLE_DATA){
