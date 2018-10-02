@@ -269,16 +269,20 @@ var _tableNext = function(req, res){
         })
     }
     // SORT!
+    console.log(req.query.order)
     if (req.query.order && req.query.order[0].dir){
+      var colname = req.query.columns[req.query.order[0].column].name
+      console.log("sorting on " + colname)
       TABLE_DATA = TABLE_DATA.sort(function(a,b){
-        var reverse = req.query.order[0].dir== "desc";
+        var reverse = req.query.order[0].dir == "desc";
         if (reverse){
-          return a[req.query.order[0].column] < b[req.query.order[0].column]
+          return a[colname] < b[colname]
         } else {
-          return a[req.query.order[0].column] > b[req.query.order[0].column]
+          return a[colname] > b[colname]
         }
       })
     }
+    console.log(TABLE_DATA[0])
     TABLE_DATA = TABLE_DATA.slice(start,start+length)
     //console.log(dataTableAttributes);
     for(var i2 in TABLE_DATA){
