@@ -76,7 +76,7 @@ var DataTable = React.createClass({
             //"width": "100%",
             "bScrollAutoCss": true,
             //"scrollX": "100%",
-            "pageLength": 10,
+            "pageLength": 25,
             columns: columns,
             "responsive": true,
             "bAutoWidth": true
