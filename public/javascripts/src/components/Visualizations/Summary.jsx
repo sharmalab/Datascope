@@ -15,16 +15,16 @@ var summaryChart = function(data) {
 
     d3.select(".summaryPopulationBar")
         .remove();
-    
+
     d3.select(".summaryPopulation")
         .append("div")
         .attr("class", "summaryPopulationBar")
         .style("width", function(){
             //console.log("..");
-            return 400 * (Current/Total) + "px"; 
+            return 400 * (Current/Total) + "px";
         })
         .style("background", function(){
-           
+
             return "#f47a7e";
         });
 };
@@ -32,9 +32,9 @@ var summaryChart = function(data) {
 var Summary = React.createClass({
     getInitialState: function(){
         return {Current: "", Total: "", showSummary: false};
-    },  
+    },
     componentDidMount: function(){
-        var self=this;    
+        var self=this;
         self.unsubscribe = AppStore.listen(self.onFilter);
 
 
@@ -57,18 +57,18 @@ var Summary = React.createClass({
     },
     removeFilter: function(f){
         delete queryFilter[f.filter];
-        AppActions.refresh(queryFilter);  
+        AppActions.refresh(queryFilter);
 
 u        //console.log(queryFilter);
     },
     hideSummary: function(){
         var show = this.state.showSummary;
-        this.setState({showSummary: !show}); 
-    },  
+        this.setState({showSummary: !show});
+    },
     render: function(){
         var self = this;
         //var filters  = queryFilter;
-        //console.log(AppStore.getData());    
+        //console.log(AppStore.getData());
         //console.log(filters);
         var filters_arr = [];
         var i =0;
@@ -102,16 +102,16 @@ u        //console.log(queryFilter);
             <div id="summary">
                 <span className="summaryBody">
                     <div>
-                   
+
                         <div style={{"display": display}} id="summaryMain">
                         <span className="summaryPopulation">
                                 <span className="summaryPopulationLabel">
-                                    {self.state.Current}/{self.state.Total} Selected
+                                    {self.state.Current}/{self.state.Total} Slides Selected
                                 </span>
                         </span>
 
                         </div>
-                
+
                     </div>
 
                 </span>
