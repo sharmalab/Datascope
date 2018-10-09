@@ -2,6 +2,11 @@
     background: #4971B0 !important;
 }
 
+.updatedate {
+  padding-top: 22px;
+  vertical-align: middle;
+}
+
 body {
     padding-top: 70px;
     overflow-y: hidden;
