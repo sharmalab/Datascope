@@ -106,7 +106,7 @@ u        //console.log(queryFilter);
                         <div style={{"display": display}} id="summaryMain">
                         <span className="summaryPopulation">
                                 <span className="summaryPopulationLabel">
-                                    {self.state.Current}/{self.state.Total} Slides Selected
+                                  Selected: {self.state.Current} slides. Total: {self.state.Total} slides.
                                 </span>
                         </span>
 

@@ -76,6 +76,8 @@ var NavBar = React.createClass({
                       <span className='download dictionary' href={'#'} onClick={() => self.handleDict()} id='dd'><img style={{"height": "24px", "width": "24px"}} title="Dictionary" src='images/Pencil.png' /></span>
                       <span className='download' href={'#'} onClick={() => self.handleShare(shareurl)} id='dl'><img title="Share" src='images/ic_share_black_24dp_1x.png' /></span>
                       <a className='download' href={url} target='_blank' id='dl'><img title="Download cohort" src='images/Download1.png' /></a>
+                      <a className='download bulk_downlad' href="mailto:help@cancerimagingarchive.net?subject=Bulk%20Download%20Request" id='bdl'><img title="Request for Bulk Download" src='images/folder.png' /></a>
+                      <a className='download help' href="https://docs.google.com/presentation/d/1NuFCBDh9AV3Q8PgUveGXdBbYNVw8Jl5ZJB9h0UVUw6E/edit?usp=sharing" target='_blank' id='hlp'><img title="Help Presentation" src='images/information.png' /></a>
                     </ul>
 
             </div>
