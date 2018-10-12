@@ -137,20 +137,23 @@ var ImageGrid = React.createClass({
         var key = 1;
         var Img = images.map(function(d){
 			var item = {}
+      // specific skip for no path data/slide
+      if (d['Pathology']){
+        var label = d["label"] || d["TCGA_ID"] || d["Slide IDs"] || d["Slide_ID"] || "Image #" + key
+        var image = d["Image"] || "images/" + label + ".jpg";
+        item.image = image;
+  			item.key = key;
+  			key++;
+  			items.push(item);
+  			var url = d["url"] || d["Image_URL"] || "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId=" + label;
+              return (
 
-      var label = d["label"] || d["TCGA_ID"] || d["Slide IDs"] || d["Slide_ID"] || "Image #" + key
-      var image = d["Image"] || "images/" + label + ".jpg";
-      item.image = image;
-			item.key = key;
-			key++;
-			items.push(item);
-			var url = d["url"] || d["Image_URL"] || "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId=" + label;
-            return (
+                      <span>
+                      <ImageGridItem image={image} url={url} label={label} zoom={self.state.zoom}/>
+                      </span>
+              );
+      }
 
-                    <span>
-                    <ImageGridItem image={image} url={url} label={label} zoom={self.state.zoom}/>
-                    </span>
-            );
 
 
         });
