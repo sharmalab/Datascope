@@ -5,7 +5,7 @@ We propose an environment for visualizing and exploring multidimensional data. W
 ### Quickstart guide ###
 
 (requires docker)
-* `docker build -t datascope.`
+* `docker build -t datascope .`
 * `docker run -p 3001:3001 datascope`
 
 ### Running Without Containers ###
