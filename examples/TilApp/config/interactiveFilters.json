@@ -2,7 +2,8 @@
     {
         "attributeName": "CancerType",
         "visualization": {
-            "visType": "rowChart"
+            "visType": "rowChart",
+            "height": 500
         }
     },
     {
@@ -45,21 +46,22 @@
     {
         "attributeName": "tumor_stage",
         "visualization": {
-            "visType": "rowChart"
+            "visType": "rowChart",
+            "height": 500
         }
     },
     {
         "attributeName": "Ball_Hall_Adjusted",
         "visualization": {
           "visType": "barChart",
-          "binFactor": 500
+          "binFactor": 1000
         }
     },
     {
         "attributeName": "Banfeld_Raftery_Adjusted",
         "visualization": {
           "visType": "barChart",
-          "binFactor": 10
+          "binFactor": 500
 
         }
     },
@@ -67,14 +69,14 @@
         "attributeName": "C_index_Adjusted",
         "visualization": {
           "visType": "barChart",
-          "binFactor": 10
+          "binFactor": 500
         }
     },
     {
         "attributeName": "Det_Ratio_Adjusted",
         "visualization": {
             "visType": "barChart",
-            "binFactor": 10
+            "binFactor": 500
         }
     },
     {
