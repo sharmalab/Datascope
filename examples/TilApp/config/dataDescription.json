@@ -72,15 +72,6 @@
         "datatype": "enum"
     },
     {
-        "attributeName": "TIL_On_Ink_Artifacts",
-        "attributeType": [
-            "filtering",
-            "visual"
-        ],
-        "dataProvider": "",
-        "datatype": "enum"
-    },
-    {
         "attributeName": "PatientID",
         "attributeType": [
             "visual"
@@ -110,8 +101,7 @@
             "filtering",
             "visual"
         ],
-        "dataProvider": "TCGA-TIL-Maps",
-        "datatype": "float"
+        "dataProvider": "TCGA-TIL-Maps"
     },
     {
         "attributeName": "Banfeld_Raftery_Adjusted",
@@ -119,8 +109,7 @@
             "filtering",
             "visual"
         ],
-        "dataProvider": "TCGA-TIL-Maps",
-        "datatype": "float"
+        "dataProvider": "TCGA-TIL-Maps"
     },
     {
         "attributeName": "C_index_Adjusted",
@@ -128,8 +117,7 @@
             "filtering",
             "visual"
         ],
-        "dataProvider": "TCGA-TIL-Maps",
-        "datatype": "float"
+        "dataProvider": "TCGA-TIL-Maps"
     },
     {
         "attributeName": "Det_Ratio_Adjusted",
@@ -137,47 +125,10 @@
             "filtering",
             "visual"
         ],
-        "dataProvider": "TCGA-TIL-Maps",
-        "datatype": "float"
-    },
-    {
-        "attributeName": "DuplicatePatient",
-        "attributeType": [
-            "visual"
-        ]
-    },
-    {
-        "attributeName": "year_of_birth",
-        "attributeType": [
-            "visual"
-        ]
-    },
-    {
-        "attributeName": "year_of_death",
-        "attributeType": [
-            "visual"
-        ]
-    },
-    {
-        "attributeName": "Yr_To_Death",
-        "attributeType": [
-            "visual"
-        ]
-    },
-    {
-        "attributeName": "days_to_birth",
-        "attributeType": [
-            "visual"
-        ]
+        "dataProvider": "TCGA-TIL-Maps"
     },
     {
         "attributeName": "image",
-        "attributeType": [
-            "visual"
-        ]
-    },
-    {
-        "attributeName": "url",
         "attributeType": [
             "visual"
         ]

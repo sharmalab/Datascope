@@ -7,15 +7,16 @@
         }
     },
     {
-        "attributeName": "vital_status",
+        "attributeName": "tumor_stage",
         "visualization": {
-            "visType": "pieChart"
+            "visType": "rowChart",
+            "height": 500
         }
     },
     {
-        "attributeName": "PatternLabels",
+        "attributeName": "vital_status",
         "visualization": {
-            "visType": "rowChart"
+            "visType": "pieChart"
         }
     },
     {
@@ -44,45 +45,34 @@
         }
     },
     {
-        "attributeName": "tumor_stage",
+        "attributeName": "PatternLabels",
         "visualization": {
-            "visType": "rowChart",
-            "height": 500
+            "visType": "rowChart"
         }
     },
     {
         "attributeName": "Ball_Hall_Adjusted",
         "visualization": {
-          "visType": "barChart",
-          "binFactor": 1000
+          "visType": "rowChart"
         }
     },
     {
         "attributeName": "Banfeld_Raftery_Adjusted",
         "visualization": {
-          "visType": "barChart",
-          "binFactor": 500
+          "visType": "rowChart"
 
         }
     },
     {
         "attributeName": "C_index_Adjusted",
         "visualization": {
-          "visType": "barChart",
-          "binFactor": 500
+          "visType": "rowChart"
         }
     },
     {
         "attributeName": "Det_Ratio_Adjusted",
         "visualization": {
-            "visType": "barChart",
-            "binFactor": 500
-        }
-    },
-    {
-        "attributeName": "TIL_On_Ink_Artifacts",
-        "visualization": {
-            "visType": "pieChart"
+            "visType": "rowChart"
         }
     }
 ]
