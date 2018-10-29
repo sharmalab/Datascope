@@ -1,0 +1,86 @@
+[
+    {
+        "attributeName": "CancerType",
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },
+    {
+        "attributeName": "vital_status",
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },
+    {
+        "attributeName": "PatternLabels",
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },
+    {
+        "attributeName": "Diagnosis_Age_Yrs",
+        "visualization": {
+          "visType": "barChart",
+          "binFactor": 10
+        }
+    },
+    {
+        "attributeName": "gender",
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },
+    {
+        "attributeName": "race",
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },
+    {
+        "attributeName": "ethnicity",
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },
+    {
+        "attributeName": "tumor_stage",
+        "visualization": {
+            "visType": "rowChart"
+        }
+    },
+    {
+        "attributeName": "Ball_Hall_Adjusted",
+        "visualization": {
+          "visType": "barChart",
+          "binFactor": 500
+        }
+    },
+    {
+        "attributeName": "Banfeld_Raftery_Adjusted",
+        "visualization": {
+          "visType": "barChart",
+          "binFactor": 10
+
+        }
+    },
+    {
+        "attributeName": "C_index_Adjusted",
+        "visualization": {
+          "visType": "barChart",
+          "binFactor": 10
+        }
+    },
+    {
+        "attributeName": "Det_Ratio_Adjusted",
+        "visualization": {
+            "visType": "barChart",
+            "binFactor": 10
+        }
+    },
+    {
+        "attributeName": "TIL_On_Ink_Artifacts",
+        "visualization": {
+            "visType": "pieChart"
+        }
+    }
+]
