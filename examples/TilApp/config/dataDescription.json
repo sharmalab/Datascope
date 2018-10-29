@@ -175,5 +175,11 @@
         "attributeType": [
             "visual"
         ]
+    },
+    {
+        "attributeName": "url",
+        "attributeType": [
+            "visual"
+        ]
     }
 ]
