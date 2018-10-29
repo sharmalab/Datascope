@@ -118,7 +118,7 @@ var ImageGrid = React.createClass({
         var Img = images.map(function(d){
 			var item = {}
       var image = d["image"];
-      var label = d["label"] || d["TCGA_ID"] || d["Slide ID"] || "Image #" + key
+      var label = d["label"] || d["TCGA_ID"] || d["SlideID"] || d["Slide ID"] || "Image #" + key
 			item.image = image;
 			item.key = key;
 			key++;
