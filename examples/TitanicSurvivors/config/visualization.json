@@ -1,1 +1,28 @@
-[{"visualizationType":"dataTable","attributes":[{"attributeName":"PassengerId"},{"attributeName":"Survived"},{"attributeName":"Pclass"},{"attributeName":"Name"},{"attributeName":"Sex"},{"attributeName":"Age"},{"attributeName":"SibSp"},{"attributeName":"Parch"},{"attributeName":"Ticket"},{"attributeName":"Fare"},{"attributeName":"Cabin"},{"attributeName":"Embarked"}]}]
+[{
+	"visualizationType": "dataTable",
+	"attributes": [{
+		"attributeName": "PassengerId"
+	}, {
+		"attributeName": "Survived"
+	}, {
+		"attributeName": "Pclass"
+	}, {
+		"attributeName": "Name"
+	}, {
+		"attributeName": "Sex"
+	}, {
+		"attributeName": "Age"
+	}, {
+		"attributeName": "SibSp"
+	}, {
+		"attributeName": "Parch"
+	}, {
+		"attributeName": "Ticket"
+	}, {
+		"attributeName": "Fare"
+	}, {
+		"attributeName": "Cabin"
+	}, {
+		"attributeName": "Embarked"
+	}]
+}]

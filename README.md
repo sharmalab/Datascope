@@ -2,7 +2,13 @@
 
 We propose an environment for visualizing and exploring multidimensional data. We propose methods to create a new search interface to the data as an alternate way to explore data, create dynamic dashboards that can be extended to support data exploration using Javascript libraries like crossfilter and dc.js. This method is extendible to support data from other remote archives.
 
-### Quick start guide ###
+### Quickstart guide ###
+
+(requires docker)
+* `docker build -t datascope .`
+* `docker run -p 3001:3001 datascope`
+
+### Running Without Containers ###
 
 ##### Prerequisites
 
@@ -20,8 +26,8 @@ We propose an environment for visualizing and exploring multidimensional data. W
 ##### Running
 
 * Modify the files present in ```config``` to fit your needs:
-    * dataSource.json 
-    * dataDescription.json 
+    * dataSource.json
+    * dataDescription.json
     * interactiveFilters.json
     * visualization.json
     * dashboard.json (For dashboard settings)
@@ -31,8 +37,8 @@ We propose an environment for visualizing and exploring multidimensional data. W
 
 Read the [User Guide](https://github.com/sharmalab/Datascope/wiki)  for more details
 
-##### Recommended production deployement 
-We recommend deploying Datascope with forever.js. 
+##### Recommended production deployement
+We recommend deploying Datascope with forever.js.
 
 * Install forever.js `npm install forever -g`
 * `forever start app.js`
@@ -42,8 +48,7 @@ We recommend deploying Datascope with forever.js.
 ## Developers
 
 * Use ```webpack --watch``` to rebuild automatically after edits.
-* Use ```nodemon```(https://github.com/remy/nodemon) to restart the server automatically after edits. 
+* Use ```nodemon```(https://github.com/remy/nodemon) to restart the server automatically after edits.
 
 ### API Documentation
 Head over to [API Doc](https://sharmalab.github.io/Datascope/apidoc/) for documentation about Datascope's REST API.
-

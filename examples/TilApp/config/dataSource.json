@@ -1,0 +1,12 @@
+{
+    "dataSourceAlias": "TCGA-TIL-Maps",
+    "dataSources": [
+        {
+            "sourceName": "TCGA-TIL-Maps",
+            "sourceType": "csvFile",
+            "options": {
+                "path": "data/TCGA-TIL-Data-Harmonized.csv"
+            }
+        }
+    ]
+}

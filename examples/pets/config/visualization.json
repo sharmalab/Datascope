@@ -1,0 +1,29 @@
+[
+    {
+        "visualizationType": "dataTable",
+        "attributes": [
+
+          {
+              "attributeName": "name"
+          },{
+              "attributeName": "height"
+          },{
+              "attributeName": "image"
+          },{
+              "attributeName": "url"
+          }
+        ],
+	"tabTitle": "Pet Data"
+    },{
+        "visualizationType": "imageGrid",
+        "attributes":[
+            {
+                "attributeName": "image",
+                "type": "image"
+            }
+        ],
+        "heading": "Image Grid",
+        "subheading": "",
+        "tabTitle": "Pet Photos"
+    }
+]

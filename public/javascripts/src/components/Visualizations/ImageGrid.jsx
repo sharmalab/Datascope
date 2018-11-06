@@ -8,20 +8,22 @@ var ImageGridItem = React.createClass({
 		//console.log(image);
         var url = this.props.url;
         var zoom = this.props.zoom;
-        //var label = this.props.item.label;
-        var label = "Label";
+        var label = this.props.label;
+        //var label = "Label";
         //console.log(zoom);
         var itemStyle = {
             display: "inline-block",
             fontSize: "7px"
 
         };
-        return <div className="imageGridItem" style={itemStyle}>
-            <figure>
-                <img src={image} style={{zoom: zoom}} /> 
-             
-            </figure>
-        </div>;
+        return <a href={url} target="_blank">
+          <div className="imageGridItem" data-label={label} style={itemStyle}>
+              <figure>
+                  <img src={image} style={{width: (zoom*120 + 30)}} />
+                  <p className="imagelabel">{label}</p>
+              </figure>
+          </div>
+        </a>;
 	}
 });
 
@@ -34,13 +36,26 @@ var ImageGrid = React.createClass({
         return {
             gridState: 0,
             currData: currData,
-            zoom: 0.2
+            zoom: 0.1
         };
     },
     onZoom: function(event){
         var self = this;
         var zoom = event.target.value;
+        console.log(zoom)
         self.setState({zoom: zoom});
+    },
+    onSearch: function(event){
+      var filter = event.target.value.toLowerCase();
+      var nodes = document.getElementsByClassName('imageGridItem');
+
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].dataset.label.toLowerCase().includes(filter)) {
+          nodes[i].style.display = "inline-block";
+        } else {
+          nodes[i].style.display = "none";
+        }
+      }
     },
     componentWillReceiveProps: function(){
         var self =this;
@@ -65,7 +80,7 @@ var ImageGrid = React.createClass({
             });
         });
 
-    }, 
+    },
     onNext: function(e){
         var self = this;
         e.preventDefault();
@@ -93,7 +108,7 @@ var ImageGrid = React.createClass({
         //console.log(currData["imageGrid"]["values"].length);
         var images = currData["imageGrid"]["values"];
         var finalState = currData["imageGrid"]["finalState"];
-        var gridState = this.state.gridState;   
+        var gridState = this.state.gridState;
         var paginate = this.state.paginate;
         //console.log(currData);
         //console.log(this.state.gridState)
@@ -102,19 +117,17 @@ var ImageGrid = React.createClass({
         var key = 1;
         var Img = images.map(function(d){
 			var item = {}
-            var image = d["image"];
+      var image = d["image"];
+      var label = d["label"] || d["TCGA_ID"] || d["SlideID"] || d["Slide ID"] || d["Slide_ID"]|| "Image #" + key
 			item.image = image;
 			item.key = key;
 			key++;
 			items.push(item);
-			var url = URL;
+			var url = d["url"] || d["Image_URL"];
             return (
 
                     <span>
-                    <a href={d["Image_URL"]} target="_blank"> 
-
-                    <ImageGridItem image={image} url={url} zoom={self.state.zoom}/>
-                    </a>
+                    <ImageGridItem image={image} url={url} label={label} zoom={self.state.zoom}/>
                     </span>
             );
 
@@ -134,7 +147,7 @@ var ImageGrid = React.createClass({
 		);
 		*/
         console.log("Paginate: ");
-        console.log(paginate); 
+        console.log(paginate);
         if(paginate == true){
             if(gridState == 0){
                 return(
@@ -144,10 +157,11 @@ var ImageGrid = React.createClass({
                     <div style={{whiteSpace: "nowrap"}} >
                     <span  style={{width:"140px", position: "fixed", display: "inline", padding:"2px", opacity: "0.7", background: "#fff", lineHeight: "18px", fontSize: "8px"}}>
                     Zoom:
-				<input onChange={self.onZoom} type="range" min="0.1" max="1.5" 
+				<input onChange={self.onZoom} type="range" min="0.1" max="1.5"
                     step="0.1" defaultValue={self.state.zoom} style={
                         {width: "100px", display: "inline", position: "relative", top: "4.5px"}
                 }/>
+                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search"></input>
 	                </span>
                     </div>
 
@@ -161,7 +175,7 @@ var ImageGrid = React.createClass({
                         </div>
                     </div>
 
-                );           
+                );
             } else if(gridState == finalState) {
 
                 return(
@@ -169,10 +183,11 @@ var ImageGrid = React.createClass({
                     <div style={{whiteSpace: "nowrap"}} >
                     <span  style={{width:"140px", position: "fixed", display: "inline", padding:"2px", opacity: "0.7", background: "#fff", lineHeight: "18px", fontSize: "8px"}}>
                     Zoom:
-				<input onChange={self.onZoom} type="range" min="0.1" max="1.5" 
+				<input onChange={self.onZoom} type="range" min="0.1" max="1.5"
                     step="0.1" defaultValue={self.state.zoom} style={
                         {width: "100px", display: "inline", position: "relative", top: "4.5px"}
                 }/>
+                                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search"></input>
 	                </span>
                     </div>
 
@@ -190,10 +205,11 @@ var ImageGrid = React.createClass({
                     <div style={{whiteSpace: "nowrap"}} >
                     <span  style={{width:"140px", position: "fixed", display: "inline", padding:"2px", opacity: "0.7", background: "#fff", lineHeight: "18px", fontSize: "8px"}}>
                     Zoom:
-				<input onChange={self.onZoom} type="range" min="0.1" max="1.5" 
+				<input onChange={self.onZoom} type="range" min="0.1" max="1.5"
                     step="0.1" defaultValue={self.state.zoom} style={
                         {width: "100px", display: "inline", position: "relative", top: "4.5px"}
                 }/>
+                                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search"></input>
 	                </span>
                     </div>
                         <div id="imageGridImages">
@@ -214,10 +230,11 @@ var ImageGrid = React.createClass({
                     <div style={{whiteSpace: "nowrap"}} >
                     <span  style={{width:"140px", position: "fixed", display: "inline", padding:"2px", opacity: "0.7", background: "#fff", lineHeight: "18px", fontSize: "8px"}}>
                     Zoom:
-				<input onChange={self.onZoom} type="range" min="0.1" max="1.5" 
+				<input onChange={self.onZoom} type="range" min="0.1" max="1.5"
                     step="0.1" defaultValue={self.state.zoom} style={
                         {width: "100px", display: "inline", position: "relative", top: "4.5px"}
                 }/>
+                                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search"></input>
 	                </span>
                     </div>
                     <div id="imageGridImages">
@@ -226,16 +243,14 @@ var ImageGrid = React.createClass({
 
                 </div>
 
-            );     
+            );
 
         }
 
-		
+
     }
 
 
 });
 
 module.exports = ImageGrid;
-
-
