@@ -1,4 +1,4 @@
-Case_ID,Specimen_ID,Slide_ID,Tumor,Topographic_Site,Specimen_Type,Weight,Tumor_Site,Percent_Tumor_Nuclei,Percent_Total_Cellularity,Percent_Necrosis,Volume,Percent_Blast,HasRadiology,Radiology,Slide_ID
+Case_ID,Specimen_ID,Slide_ID,Tumor,Topographic_Site,Specimen_Type,Weight,Tumor_Site,Percent_Tumor_Nuclei,Percent_Total_Cellularity,Percent_Necrosis,Volume,Percent_Blast,HasRadiology,Radiology,Pathology
 11LU013,195a0cb5-5fb4-4ee8-9b43-118326,,LUAD,Lung,normal_tissue,200,N/A,-10,-10,-10,-10,-10,no,,
 11LU013,5cabe560-5828-4130-978f-5cb734,,LUAD,Lung,normal_tissue,200,N/A,-10,-10,-10,-10,-10,no,,
 11LU013,9f905736-f662-41d6-b3ac-16758d,9f905736-f662-41d6-b3ac-16758d_D1_D1,LUAD,Lung,tumor_tissue,235,not specified,70,85,10,-10,-10,no,,9f905736-f662-41d6-b3ac-16758d_D1_D1
