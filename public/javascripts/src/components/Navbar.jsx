@@ -72,7 +72,7 @@ var NavBar = React.createClass({
                     <Summary />
                     </div>
                     <ul className="nav navbar-nav navbar-right navbar-options">
-                      <span className='updatedate'>Last Updated:  January 7, 2019</span>
+                      <span className='updatedate'>Last Updated:  March 21, 2019</span>
                       <span className='download dictionary' href={'#'} onClick={() => self.handleDict()} id='dd'><img style={{"height": "24px", "width": "24px"}} title="Dictionary" src='images/Pencil.png' /></span>
                       <span className='download' href={'#'} onClick={() => self.handleShare(shareurl)} id='dl'><img title="Share" src='images/ic_share_black_24dp_1x.png' /></span>
                       <a className='download' href={url} target='_blank' id='dl'><img title="Download cohort" src='images/Download1.png' /></a>
