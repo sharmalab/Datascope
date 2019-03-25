@@ -89,7 +89,7 @@ var DataTable = React.createClass({
             console.log()
             if (elem.index()==7){
               if (slide){
-                var url = "https://public.cancerimagingarchive.net/beta/?PatientCriteria=" +slide;
+                var url = "https://public.cancerimagingarchive.net/nbia-search/?PatientCriteria=" +slide;
                 window.open(url, '_blank');
               }
             }
