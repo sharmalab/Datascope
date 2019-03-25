@@ -1038,8 +1038,8 @@ C3L-01978,C3L-01978-03,C3L-01978-23,CCRCC,Kidney,tumor_tissue,150,Lower pole,80,
 C3L-01978,C3L-01978-04,C3L-01978-24,CCRCC,Kidney,normal_tissue,160,-1,-1,-1,-1,-1,-1,no,,C3L-01978-24
 C3L-01978,C3L-01978-05,C3L-01978-25,CCRCC,Kidney,normal_tissue,200,-1,-1,-1,-1,-1,-1,no,,C3L-01978-25
 C3L-01978,C3L-01978-06,C3L-01978-26,CCRCC,Kidney,normal_tissue,20,-1,-1,-1,-1,-1,-1,no,,C3L-01978-26
-C3L-02041,C3L-02041-01,C3L-02041-21,GBM,Brain,tumor_tissue,200,Temporal Lobe,85,90,2,-1,-1,no,,C3L-02041-21
-C3L-02041,C3L-02041-02,C3L-02041-22,GBM,Brain,tumor_tissue,250,Temporal Lobe,80,85,5,-1,-1,no,,C3L-02041-22
+C3L-02041,C3L-02041-01,C3L-02041-21,GBM,Brain,tumor_tissue,200,Temporal Lobe,85,90,2,-1,-1,yes,C3L-02041,C3L-02041-21
+C3L-02041,C3L-02041-02,C3L-02041-22,GBM,Brain,tumor_tissue,250,Temporal Lobe,80,85,5,-1,-1,yes,C3L-02041,C3L-02041-22
 C3L-02102,C3L-02102-01,C3L-02102-21,CM,Skin,tumor_tissue,227,Lymph node,60,95,2,-1,-1,no,,C3L-02102-21
 C3L-02102,C3L-02102-02,C3L-02102-22,CM,Skin,tumor_tissue,227,Lymph node,80,95,5,-1,-1,no,,C3L-02102-22
 C3L-02102,C3L-02102-03,C3L-02102-23,CM,Skin,tumor_tissue,175,Lymph node,70,100,0,-1,-1,no,,C3L-02102-23
@@ -1233,28 +1233,28 @@ C3L-02412,C3L-02412-01,C3L-02412-21,UCEC,Uterus Endometrium,tumor_tissue,305,Ute
 C3L-02412,C3L-02412-02,C3L-02412-23,UCEC,Uterus Endometrium,tumor_tissue,289,Uterine Mass,90,90,0,-1,-1,no,,C3L-02412-23
 C3L-02412,C3L-02412-03,C3L-02412-25,UCEC,Uterus Endometrium,tumor_tissue,272,Uterine Mass,0,100,0,-1,-1,no,,C3L-02412-25
 C3L-02412,C3L-02412-04,C3L-02412-27,UCEC,Uterus Endometrium,normal_tissue,100,-1,-1,-1,-1,-1,-1,no,,C3L-02412-27
-C3L-02463,C3L-02463-01,C3L-02463-21,PDA,Pancreas,tumor_tissue,60,Head,70,100,0,-1,-1,no,,C3L-02463-21
-C3L-02463,C3L-02463-02,C3L-02463-22,PDA,Pancreas,tumor_tissue,130,Head,60,100,0,-1,-1,no,,C3L-02463-22
-C3L-02463,C3L-02463-03,C3L-02463-23,PDA,Pancreas,tumor_tissue,80,Head,50,100,0,-1,-1,no,,C3L-02463-23
-C3L-02463,C3L-02463-04,C3L-02463-24,PDA,Pancreas,normal_tissue,120,-1,-1,-1,-1,-1,-1,no,,C3L-02463-24
-C3L-02463,C3L-02463-05,C3L-02463-25,PDA,Pancreas,normal_tissue,180,-1,-1,-1,-1,-1,-1,no,,C3L-02463-25
-C3L-02463,C3L-02463-06,C3L-02463-26,PDA,Pancreas,normal_tissue,150,-1,-1,-1,-1,-1,-1,no,,C3L-02463-26
-C3L-02465,C3L-02465-01,C3L-02465-21,GBM,Brain,tumor_tissue,190,Frontal Lobe,85,85,5,-1,-1,no,,C3L-02465-21
-C3L-02465,C3L-02465-02,C3L-02465-22,GBM,Brain,tumor_tissue,210,Frontal Lobe,85,90,2,-1,-1,no,,C3L-02465-22
-C3L-02468,C3L-02468-01,C3L-02468-21,UCEC,Uterus Endometrium,tumor_tissue,190,Anterior and Posterior Endometrium,25,90,0,-1,-1,no,,C3L-02468-21
-C3L-02468,C3L-02468-02,C3L-02468-22,UCEC,Uterus Endometrium,tumor_tissue,320,Anterior and Posterior Endometrium,50,90,0,-1,-1,no,,C3L-02468-22
-C3L-02468,C3L-02468-03,C3L-02468-23,UCEC,Uterus Endometrium,tumor_tissue,270,Anterior and Posterior Endometrium,80,90,0,-1,-1,no,,C3L-02468-23
-C3L-02468,C3L-02468-04,C3L-02468-24,UCEC,Uterus Endometrium,normal_tissue,130,-1,-1,-1,-1,-1,-1,no,,C3L-02468-24
-C3L-02468,C3L-02468-05,C3L-02468-25,UCEC,Uterus Endometrium,normal_tissue,200,-1,-1,-1,-1,-1,-1,no,,C3L-02468-25
-C3L-02468,C3L-02468-06,C3L-02468-26,UCEC,Uterus Endometrium,normal_tissue,120,-1,-1,-1,-1,-1,-1,no,,C3L-02468-26
-C3L-02504,C3L-02504-01,C3L-02504-21,GBM,Brain,tumor_tissue,230,Occipital Lobe,85,95,2,-1,-1,no,,C3L-02504-21
-C3L-02504,C3L-02504-02,C3L-02504-22,GBM,Brain,tumor_tissue,130,Occipital Lobe,75,85,7,-1,-1,no,,C3L-02504-22
-C3L-02508,C3L-02508-01,C3L-02508-21,LUAD,Lung,tumor_tissue,180,Left Upper Lobe,75,55,0,-1,-1,no,,C3L-02508-21
-C3L-02508,C3L-02508-02,C3L-02508-22,LUAD,Lung,tumor_tissue,190,Left Upper Lobe,60,65,0,-1,-1,no,,C3L-02508-22
-C3L-02508,C3L-02508-03,C3L-02508-23,LUAD,Lung,tumor_tissue,150,Left Upper Lobe,20,80,3,-1,-1,no,,C3L-02508-23
-C3L-02508,C3L-02508-04,C3L-02508-24,LUAD,Lung,normal_tissue,160,-1,-1,-1,-1,-1,-1,no,,C3L-02508-24
-C3L-02508,C3L-02508-05,C3L-02508-25,LUAD,Lung,normal_tissue,130,-1,-1,-1,-1,-1,-1,no,,C3L-02508-25
-C3L-02508,C3L-02508-06,C3L-02508-26,LUAD,Lung,normal_tissue,150,-1,-1,-1,-1,-1,-1,no,,C3L-02508-26
+C3L-02463,C3L-02463-01,C3L-02463-21,PDA,Pancreas,tumor_tissue,60,Head,70,100,0,-1,-1,yes,C3L-02463,C3L-02463-21
+C3L-02463,C3L-02463-02,C3L-02463-22,PDA,Pancreas,tumor_tissue,130,Head,60,100,0,-1,-1,yes,C3L-02463,C3L-02463-22
+C3L-02463,C3L-02463-03,C3L-02463-23,PDA,Pancreas,tumor_tissue,80,Head,50,100,0,-1,-1,yes,C3L-02463,C3L-02463-23
+C3L-02463,C3L-02463-04,C3L-02463-24,PDA,Pancreas,normal_tissue,120,-1,-1,-1,-1,-1,-1,yes,C3L-02463,C3L-02463-24
+C3L-02463,C3L-02463-05,C3L-02463-25,PDA,Pancreas,normal_tissue,180,-1,-1,-1,-1,-1,-1,yes,C3L-02463,C3L-02463-25
+C3L-02463,C3L-02463-06,C3L-02463-26,PDA,Pancreas,normal_tissue,150,-1,-1,-1,-1,-1,-1,yes,C3L-02463,C3L-02463-26
+C3L-02465,C3L-02465-01,C3L-02465-21,GBM,Brain,tumor_tissue,190,Frontal Lobe,85,85,5,-1,-1,yes,C3L-02465,C3L-02465-21
+C3L-02465,C3L-02465-02,C3L-02465-22,GBM,Brain,tumor_tissue,210,Frontal Lobe,85,90,2,-1,-1,yes,C3L-02465,C3L-02465-22
+C3L-02468,C3L-02468-01,C3L-02468-21,UCEC,Uterus Endometrium,tumor_tissue,190,Anterior and Posterior Endometrium,25,90,0,-1,-1,yes,C3L-02468,C3L-02468-21
+C3L-02468,C3L-02468-02,C3L-02468-22,UCEC,Uterus Endometrium,tumor_tissue,320,Anterior and Posterior Endometrium,50,90,0,-1,-1,yes,C3L-02468,C3L-02468-22
+C3L-02468,C3L-02468-03,C3L-02468-23,UCEC,Uterus Endometrium,tumor_tissue,270,Anterior and Posterior Endometrium,80,90,0,-1,-1,yes,C3L-02468,C3L-02468-23
+C3L-02468,C3L-02468-04,C3L-02468-24,UCEC,Uterus Endometrium,normal_tissue,130,-1,-1,-1,-1,-1,-1,yes,C3L-02468,C3L-02468-24
+C3L-02468,C3L-02468-05,C3L-02468-25,UCEC,Uterus Endometrium,normal_tissue,200,-1,-1,-1,-1,-1,-1,yes,C3L-02468,C3L-02468-25
+C3L-02468,C3L-02468-06,C3L-02468-26,UCEC,Uterus Endometrium,normal_tissue,120,-1,-1,-1,-1,-1,-1,yes,C3L-02468,C3L-02468-26
+C3L-02504,C3L-02504-01,C3L-02504-21,GBM,Brain,tumor_tissue,230,Occipital Lobe,85,95,2,-1,-1,yes,C3L-02504,C3L-02504-21
+C3L-02504,C3L-02504-02,C3L-02504-22,GBM,Brain,tumor_tissue,130,Occipital Lobe,75,85,7,-1,-1,yes,C3L-02504,C3L-02504-22
+C3L-02508,C3L-02508-01,C3L-02508-21,LUAD,Lung,tumor_tissue,180,Left Upper Lobe,75,55,0,-1,-1,yes,C3L-02508,C3L-02508-21
+C3L-02508,C3L-02508-02,C3L-02508-22,LUAD,Lung,tumor_tissue,190,Left Upper Lobe,60,65,0,-1,-1,yes,C3L-02508,C3L-02508-22
+C3L-02508,C3L-02508-03,C3L-02508-23,LUAD,Lung,tumor_tissue,150,Left Upper Lobe,20,80,3,-1,-1,yes,C3L-02508,C3L-02508-23
+C3L-02508,C3L-02508-04,C3L-02508-24,LUAD,Lung,normal_tissue,160,-1,-1,-1,-1,-1,-1,yes,C3L-02508,C3L-02508-24
+C3L-02508,C3L-02508-05,C3L-02508-25,LUAD,Lung,normal_tissue,130,-1,-1,-1,-1,-1,-1,yes,C3L-02508,C3L-02508-25
+C3L-02508,C3L-02508-06,C3L-02508-26,LUAD,Lung,normal_tissue,150,-1,-1,-1,-1,-1,-1,yes,C3L-02508,C3L-02508-26
 C3L-02533,C3L-02533-01,C3L-02533-21,SAR,Soft Tissue,tumor_tissue,443,flank,80,50,5,-1,-1,no,,C3L-02533-21
 C3L-02533,C3L-02533-02,C3L-02533-22,SAR,Soft Tissue,tumor_tissue,504,flank,80,60,2,-1,-1,no,,C3L-02533-22
 C3L-02533,C3L-02533-04,C3L-02533-24,SAR,Soft Tissue,normal_tissue,359,-1,-1,-1,-1,-1,-1,no,,C3L-02533-24
@@ -2380,10 +2380,10 @@ C3N-00737,C3N-00737-02,C3N-00737-22,LUAD,Lung,tumor_tissue,68,Left Upper Lobe,65
 C3N-00737,C3N-00737-03,C3N-00737-23,LUAD,Lung,tumor_tissue,56,Left Upper Lobe,75,80,5,-1,-1,yes,C3N-00737,C3N-00737-23
 C3N-00737,C3N-00737-06,C3N-00737-26,LUAD,Lung,normal_tissue,300,-1,-1,-1,-1,-1,-1,yes,C3N-00737,C3N-00737-26
 C3N-00737,C3N-00737-07,C3N-00737-27,LUAD,Lung,normal_tissue,246,-1,-1,-1,-1,-1,-1,yes,C3N-00737,C3N-00737-27
-C3N-00738,C3N-00738-01,C3N-00738-21,LUAD,Lung,tumor_tissue,146,Right Upper Lobe,65,70,5,-1,-1,no,,C3N-00738-21
-C3N-00738,C3N-00738-02,C3N-00738-22,LUAD,Lung,tumor_tissue,100,Right Upper Lobe,60,60,5,-1,-1,no,,C3N-00738-22
-C3N-00738,C3N-00738-03,C3N-00738-23,LUAD,Lung,normal_tissue,142,-1,-1,-1,-1,-1,-1,no,,C3N-00738-23
-C3N-00738,C3N-00738-04,C3N-00738-24,LUAD,Lung,normal_tissue,90,-1,-1,-1,-1,-1,-1,no,,C3N-00738-24
+C3N-00738,C3N-00738-01,C3N-00738-21,LUAD,Lung,tumor_tissue,146,Right Upper Lobe,65,70,5,-1,-1,yes,C3N-00738,C3N-00738-21
+C3N-00738,C3N-00738-02,C3N-00738-22,LUAD,Lung,tumor_tissue,100,Right Upper Lobe,60,60,5,-1,-1,yes,C3N-00738,C3N-00738-22
+C3N-00738,C3N-00738-03,C3N-00738-23,LUAD,Lung,normal_tissue,142,-1,-1,-1,-1,-1,-1,yes,C3N-00738,C3N-00738-23
+C3N-00738,C3N-00738-04,C3N-00738-24,LUAD,Lung,normal_tissue,90,-1,-1,-1,-1,-1,-1,yes,C3N-00738,C3N-00738-24
 C3N-00743,C3N-00743-01,C3N-00743-21,UCEC,Uterus Endometrium,tumor_tissue,253,"Endometrium, NOS",80,90,2,-1,-1,yes,C3N-00743,C3N-00743-21
 C3N-00743,C3N-00743-02,C3N-00743-22,UCEC,Uterus Endometrium,tumor_tissue,145,"Endometrium, NOS",80,90,5,-1,-1,yes,C3N-00743,C3N-00743-22
 C3N-00743,C3N-00743-03,C3N-00743-23,UCEC,Uterus Endometrium,normal_tissue,290,-1,-1,-1,-1,-1,-1,yes,C3N-00743,C3N-00743-23
@@ -2407,11 +2407,11 @@ C3N-00822,C3N-00822-05,C3N-00822-25,HNSCC,"Head, Neck",normal_tissue,130,-1,-1,-
 C3N-00825,C3N-00825-03,C3N-00825-23,HNSCC,"Head, Neck",tumor_tissue,161,Tongue,90,85,5,-1,-1,no,,C3N-00825-23
 C3N-00825,C3N-00825-04,C3N-00825-24,HNSCC,"Head, Neck",tumor_tissue,116,Tongue,80,80,5,-1,-1,no,,C3N-00825-24
 C3N-00825,C3N-00825-05,C3N-00825-25,HNSCC,"Head, Neck",normal_tissue,113,-1,-1,-1,-1,-1,-1,no,,C3N-00825-25
-C3N-00828,C3N-00828-01,C3N-00828-21,HNSCC,"Head, Neck",tumor_tissue,277,Larynx,60,70,15,-1,-1,no,,C3N-00828-21
-C3N-00828,C3N-00828-02,C3N-00828-22,HNSCC,"Head, Neck",tumor_tissue,266,Larynx,80,75,20,-1,-1,no,,C3N-00828-22
-C3N-00828,C3N-00828-03,C3N-00828-23,HNSCC,"Head, Neck",tumor_tissue,147,Larynx,80,85,10,-1,-1,no,,C3N-00828-23
-C3N-00828,C3N-00828-04,C3N-00828-24,HNSCC,"Head, Neck",tumor_tissue,264,Larynx,85,80,15,-1,-1,no,,C3N-00828-24
-C3N-00828,C3N-00828-05,C3N-00828-25,HNSCC,"Head, Neck",normal_tissue,220,-1,-1,-1,-1,-1,-1,no,,C3N-00828-25
+C3N-00828,C3N-00828-01,C3N-00828-21,HNSCC,"Head, Neck",tumor_tissue,277,Larynx,60,70,15,-1,-1,yes,C3N-00828,C3N-00828-21
+C3N-00828,C3N-00828-02,C3N-00828-22,HNSCC,"Head, Neck",tumor_tissue,266,Larynx,80,75,20,-1,-1,yes,C3N-00828,C3N-00828-22
+C3N-00828,C3N-00828-03,C3N-00828-23,HNSCC,"Head, Neck",tumor_tissue,147,Larynx,80,85,10,-1,-1,yes,C3N-00828,C3N-00828-23
+C3N-00828,C3N-00828-04,C3N-00828-24,HNSCC,"Head, Neck",tumor_tissue,264,Larynx,85,80,15,-1,-1,yes,C3N-00828,C3N-00828-24
+C3N-00828,C3N-00828-05,C3N-00828-25,HNSCC,"Head, Neck",normal_tissue,220,-1,-1,-1,-1,-1,-1,yes,C3N-00828,C3N-00828-25
 C3N-00829,C3N-00829-01,C3N-00829-21,HNSCC,"Head, Neck",tumor_tissue,89,Tongue,80,80,15,-1,-1,yes,C3N-00829,C3N-00829-21
 C3N-00829,C3N-00829-02,C3N-00829-22,HNSCC,"Head, Neck",tumor_tissue,46,Tongue,85,80,20,-1,-1,yes,C3N-00829,C3N-00829-22
 C3N-00829,C3N-00829-03,C3N-00829-23,HNSCC,"Head, Neck",tumor_tissue,22,Tongue,40,50,10,-1,-1,yes,C3N-00829,C3N-00829-23
@@ -2701,8 +2701,8 @@ C3N-01168,C3N-01168-02,C3N-01168-22,PDA,Pancreas,tumor_tissue,215,Head,40,90,2,-
 C3N-01168,C3N-01168-03,C3N-01168-23,PDA,Pancreas,tumor_tissue,150,Head,50,90,2,-1,-1,no,,C3N-01168-23
 C3N-01169,C3N-01169-01,C3N-01169-21,PDA,Pancreas,tumor_tissue,119,Head,5,90,2,-1,-1,no,,C3N-01169-21
 C3N-01169,C3N-01169-02,C3N-01169-22,PDA,Pancreas,tumor_tissue,123,Head,5,90,2,-1,-1,no,,C3N-01169-22
-C3N-01171,C3N-01171-01,C3N-01171-21,UCEC,Uterus Endometrium,tumor_tissue,159,Anterior endometrium,90,90,5,-1,-1,no,,C3N-01171-21
-C3N-01171,C3N-01171-03,C3N-01171-23,UCEC,Uterus Endometrium,tumor_tissue,266,Anterior endometrium,80,90,3,-1,-1,no,,C3N-01171-23
+C3N-01171,C3N-01171-01,C3N-01171-21,UCEC,Uterus Endometrium,tumor_tissue,159,Anterior endometrium,90,90,5,-1,-1,yes,C3N-01171,C3N-01171-21
+C3N-01171,C3N-01171-03,C3N-01171-23,UCEC,Uterus Endometrium,tumor_tissue,266,Anterior endometrium,80,90,3,-1,-1,yes,C3N-01171,C3N-01171-23
 C3N-01172,C3N-01172-01,C3N-01172-21,UCEC,Uterus Endometrium,tumor_tissue,247,Anterior endometrium,90,90,2,-1,-1,yes,C3N-01172,C3N-01172-21
 C3N-01172,C3N-01172-02,C3N-01172-22,UCEC,Uterus Endometrium,tumor_tissue,123,Anterior endometrium,90,90,2,-1,-1,yes,C3N-01172,C3N-01172-22
 C3N-01175,C3N-01175-01,C3N-01175-21,CCRCC,Kidney,tumor_tissue,221,Middle,90,90,5,-1,-1,no,,C3N-01175-21
@@ -2779,9 +2779,9 @@ C3N-01338,C3N-01338-05,C3N-01338-25,HNSCC,"Head, Neck",normal_tissue,139,-1,-1,-
 C3N-01339,C3N-01339-01,C3N-01339-21,HNSCC,"Head, Neck",tumor_tissue,14,Larynx,85,70,7,-1,-1,yes,C3N-01339,C3N-01339-21
 C3N-01339,C3N-01339-02,C3N-01339-22,HNSCC,"Head, Neck",tumor_tissue,110,Larynx,80,80,10,-1,-1,yes,C3N-01339,C3N-01339-22
 C3N-01339,C3N-01339-05,C3N-01339-25,HNSCC,"Head, Neck",normal_tissue,40,-1,-1,-1,-1,-1,-1,yes,C3N-01339,C3N-01339-25
-C3N-01340,C3N-01340-01,C3N-01340-21,HNSCC,"Head, Neck",tumor_tissue,169,Larynx,85,70,2,-1,-1,no,,C3N-01340-21
-C3N-01340,C3N-01340-02,C3N-01340-22,HNSCC,"Head, Neck",tumor_tissue,122,Larynx,80,90,2,-1,-1,no,,C3N-01340-22
-C3N-01340,C3N-01340-05,C3N-01340-24,HNSCC,"Head, Neck",normal_tissue,127,-1,-1,-1,-1,-1,-1,no,,C3N-01340-24
+C3N-01340,C3N-01340-01,C3N-01340-21,HNSCC,"Head, Neck",tumor_tissue,169,Larynx,85,70,2,-1,-1,yes,C3N-01340,C3N-01340-21
+C3N-01340,C3N-01340-02,C3N-01340-22,HNSCC,"Head, Neck",tumor_tissue,122,Larynx,80,90,2,-1,-1,yes,C3N-01340,C3N-01340-22
+C3N-01340,C3N-01340-05,C3N-01340-24,HNSCC,"Head, Neck",normal_tissue,127,-1,-1,-1,-1,-1,-1,yes,C3N-01340,C3N-01340-24
 C3N-01341,C3N-01341-02,C3N-01341-22,UCEC,Uterus Endometrium,tumor_tissue,210,Anterior endometrium,80,90,2,-1,-1,yes,C3N-01341,C3N-01341-22
 C3N-01342,C3N-01342-01,C3N-01342-21,UCEC,Uterus Endometrium,tumor_tissue,161,Anterior endometrium,90,90,2,-1,-1,yes,C3N-01342,C3N-01342-21
 C3N-01342,C3N-01342-02,C3N-01342-22,UCEC,Uterus Endometrium,tumor_tissue,247,Anterior endometrium,90,90,2,-1,-1,yes,C3N-01342,C3N-01342-22
@@ -2964,10 +2964,10 @@ C3N-01523,C3N-01523-01,C3N-01523-21,SAR,Soft Tissue,tumor_tissue,480,Superficial
 C3N-01523,C3N-01523-02,C3N-01523-22,SAR,Soft Tissue,tumor_tissue,500,Superficial trunk,90,100,0,-1,-1,no,,C3N-01523-22
 C3N-01523,C3N-01523-03,C3N-01523-23,SAR,Soft Tissue,tumor_tissue,500,Superficial trunk,90,100,0,-1,-1,no,,C3N-01523-23
 C3N-01523,C3N-01523-06,C3N-01523-26,SAR,Soft Tissue,normal_tissue,200,-1,-1,-1,-1,-1,-1,no,,C3N-01523-26
-C3N-01524,C3N-01524-01,C3N-01524-21,CCRCC,Kidney,tumor_tissue,500,Upper pole,80,70,10,-1,-1,no,,C3N-01524-21
-C3N-01524,C3N-01524-02,C3N-01524-22,CCRCC,Kidney,tumor_tissue,460,Upper pole,85,75,15,-1,-1,no,,C3N-01524-22
-C3N-01524,C3N-01524-03,C3N-01524-23,CCRCC,Kidney,tumor_tissue,550,Upper pole,90,90,0,-1,-1,no,,C3N-01524-23
-C3N-01524,C3N-01524-06,C3N-01524-26,CCRCC,Kidney,normal_tissue,210,-1,-1,-1,-1,-1,-1,no,,C3N-01524-26
+C3N-01524,C3N-01524-01,C3N-01524-21,CCRCC,Kidney,tumor_tissue,500,Upper pole,80,70,10,-1,-1,yes,C3N-01524,C3N-01524-21
+C3N-01524,C3N-01524-02,C3N-01524-22,CCRCC,Kidney,tumor_tissue,460,Upper pole,85,75,15,-1,-1,yes,C3N-01524,C3N-01524-22
+C3N-01524,C3N-01524-03,C3N-01524-23,CCRCC,Kidney,tumor_tissue,550,Upper pole,90,90,0,-1,-1,yes,C3N-01524,C3N-01524-23
+C3N-01524,C3N-01524-06,C3N-01524-26,CCRCC,Kidney,normal_tissue,210,-1,-1,-1,-1,-1,-1,yes,C3N-01524,C3N-01524-26
 C3N-01525,C3N-01525-01,C3N-01525-21,UCEC,Uterus Endometrium,tumor_tissue,450,Entire uterine cavity.,85,90,5,-1,-1,no,,C3N-01525-21
 C3N-01525,C3N-01525-02,C3N-01525-22,UCEC,Uterus Endometrium,tumor_tissue,400,Entire uterine cavity.,98,95,0,-1,-1,no,,C3N-01525-22
 C3N-01525,C3N-01525-03,C3N-01525-23,UCEC,Uterus Endometrium,tumor_tissue,400,Entire uterine cavity.,70,80,5,-1,-1,no,,C3N-01525-23
@@ -3001,17 +3001,17 @@ C3N-01535,C3N-01535-01,C3N-01535-21,SAR,Soft Tissue,tumor_tissue,300,Lower extre
 C3N-01535,C3N-01535-02,C3N-01535-22,SAR,Soft Tissue,tumor_tissue,400,Lower extremity,100,100,0,-1,-1,no,,C3N-01535-22
 C3N-01535,C3N-01535-03,C3N-01535-23,SAR,Soft Tissue,tumor_tissue,300,Lower extremity,100,100,0,-1,-1,no,,C3N-01535-23
 C3N-01535,C3N-01535-06,C3N-01535-26,SAR,Soft Tissue,normal_tissue,200,-1,-1,-1,-1,-1,-1,no,,C3N-01535-26
-C3N-01536,C3N-01536-01,C3N-01536-21,CCRCC,Kidney,tumor_tissue,400,Upper pole,90,90,5,-1,-1,no,,C3N-01536-21
-C3N-01536,C3N-01536-02,C3N-01536-22,CCRCC,Kidney,tumor_tissue,410,Upper pole,90,85,5,-1,-1,no,,C3N-01536-22
-C3N-01536,C3N-01536-03,C3N-01536-23,CCRCC,Kidney,tumor_tissue,420,Upper pole,90,85,5,-1,-1,no,,C3N-01536-23
-C3N-01536,C3N-01536-06,C3N-01536-26,CCRCC,Kidney,normal_tissue,230,-1,-1,-1,-1,-1,-1,no,,C3N-01536-26
+C3N-01536,C3N-01536-01,C3N-01536-21,CCRCC,Kidney,tumor_tissue,400,Upper pole,90,90,5,-1,-1,yes,C3N-01536,C3N-01536-21
+C3N-01536,C3N-01536-02,C3N-01536-22,CCRCC,Kidney,tumor_tissue,410,Upper pole,90,85,5,-1,-1,yes,C3N-01536,C3N-01536-22
+C3N-01536,C3N-01536-03,C3N-01536-23,CCRCC,Kidney,tumor_tissue,420,Upper pole,90,85,5,-1,-1,yes,C3N-01536,C3N-01536-23
+C3N-01536,C3N-01536-06,C3N-01536-26,CCRCC,Kidney,normal_tissue,230,-1,-1,-1,-1,-1,-1,yes,C3N-01536,C3N-01536-26
 C3N-01537,C3N-01537-01,C3N-01537-21,UCEC,Uterus Endometrium,tumor_tissue,500,Entire uterine cavity.,90,90,5,-1,-1,no,,C3N-01537-21
 C3N-01537,C3N-01537-02,C3N-01537-22,UCEC,Uterus Endometrium,tumor_tissue,450,Entire uterine cavity.,90,90,5,-1,-1,no,,C3N-01537-22
 C3N-01537,C3N-01537-03,C3N-01537-23,UCEC,Uterus Endometrium,tumor_tissue,500,Entire uterine cavity.,90,95,2,-1,-1,no,,C3N-01537-23
 C3N-01537,C3N-01537-06,C3N-01537-26,UCEC,Uterus Endometrium,normal_tissue,210,-1,-1,-1,-1,-1,-1,no,,C3N-01537-26
-C3N-01620,C3N-01620-01,C3N-01620-21,HNSCC,"Head, Neck",tumor_tissue,110,Larynx,60,35,10,-1,-1,no,,C3N-01620-21
-C3N-01620,C3N-01620-03,C3N-01620-23,HNSCC,"Head, Neck",tumor_tissue,137,Larynx,80,80,2,-1,-1,no,,C3N-01620-23
-C3N-01620,C3N-01620-05,C3N-01620-25,HNSCC,"Head, Neck",normal_tissue,57,-1,-1,-1,-1,-1,-1,no,,C3N-01620-25
+C3N-01620,C3N-01620-01,C3N-01620-21,HNSCC,"Head, Neck",tumor_tissue,110,Larynx,60,35,10,-1,-1,yes,C3N-01620,C3N-01620-21
+C3N-01620,C3N-01620-03,C3N-01620-23,HNSCC,"Head, Neck",tumor_tissue,137,Larynx,80,80,2,-1,-1,yes,C3N-01620,C3N-01620-23
+C3N-01620,C3N-01620-05,C3N-01620-25,HNSCC,"Head, Neck",normal_tissue,57,-1,-1,-1,-1,-1,-1,yes,C3N-01620,C3N-01620-25
 C3N-01643,C3N-01643-03,C3N-01643-23,HNSCC,"Head, Neck",tumor_tissue,150,Larynx,85,85,3,-1,-1,no,,C3N-01643-23
 C3N-01643,C3N-01643-04,C3N-01643-24,HNSCC,"Head, Neck",tumor_tissue,177,Larynx,90,90,0,-1,-1,no,,C3N-01643-24
 C3N-01645,C3N-01645-02,C3N-01645-22,HNSCC,"Head, Neck",tumor_tissue,213,Larynx,80,80,5,-1,-1,no,,C3N-01645-22
@@ -3045,23 +3045,23 @@ C3N-01714,C3N-01714-02,C3N-01714-22,PDA,Pancreas,tumor_tissue,318,Head,10,60,2,-
 C3N-01715,C3N-01715-01,C3N-01715-21,PDA,Pancreas,tumor_tissue,170,Head,70,90,10,-1,-1,no,,C3N-01715-21
 C3N-01715,C3N-01715-02,C3N-01715-22,PDA,Pancreas,tumor_tissue,207,Head,50,80,20,-1,-1,no,,C3N-01715-22
 C3N-01716,C3N-01716-03,C3N-01716-23,PDA,Pancreas,tumor_tissue,338,Head,80,80,5,-1,-1,no,,C3N-01716-23
-C3N-01752,C3N-01752-01,C3N-01752-21,HNSCC,"Head, Neck",tumor_tissue,180,Tongue,80,90,2,-1,-1,no,,C3N-01752-21
-C3N-01752,C3N-01752-02,C3N-01752-22,HNSCC,"Head, Neck",tumor_tissue,205,Tongue,80,90,0,-1,-1,no,,C3N-01752-22
-C3N-01754,C3N-01754-01,C3N-01754-21,HNSCC,"Head, Neck",tumor_tissue,236,Tongue,10,90,0,-1,-1,no,,C3N-01754-21
-C3N-01754,C3N-01754-02,C3N-01754-22,HNSCC,"Head, Neck",tumor_tissue,75,Tongue,80,80,2,-1,-1,no,,C3N-01754-22
-C3N-01754,C3N-01754-03,C3N-01754-23,HNSCC,"Head, Neck",tumor_tissue,35,Tongue,80,85,0,-1,-1,no,,C3N-01754-23
-C3N-01754,C3N-01754-04,C3N-01754-24,HNSCC,"Head, Neck",tumor_tissue,102,Tongue,80,80,2,-1,-1,no,,C3N-01754-24
-C3N-01754,C3N-01754-05,C3N-01754-25,HNSCC,"Head, Neck",normal_tissue,216,-1,-1,-1,-1,-1,-1,no,,C3N-01754-25
+C3N-01752,C3N-01752-01,C3N-01752-21,HNSCC,"Head, Neck",tumor_tissue,180,Tongue,80,90,2,-1,-1,yes,C3N-01752,C3N-01752-21
+C3N-01752,C3N-01752-02,C3N-01752-22,HNSCC,"Head, Neck",tumor_tissue,205,Tongue,80,90,0,-1,-1,yes,C3N-01752,C3N-01752-22
+C3N-01754,C3N-01754-01,C3N-01754-21,HNSCC,"Head, Neck",tumor_tissue,236,Tongue,10,90,0,-1,-1,yes,C3N-01754,C3N-01754-21
+C3N-01754,C3N-01754-02,C3N-01754-22,HNSCC,"Head, Neck",tumor_tissue,75,Tongue,80,80,2,-1,-1,yes,C3N-01754,C3N-01754-22
+C3N-01754,C3N-01754-03,C3N-01754-23,HNSCC,"Head, Neck",tumor_tissue,35,Tongue,80,85,0,-1,-1,yes,C3N-01754,C3N-01754-23
+C3N-01754,C3N-01754-04,C3N-01754-24,HNSCC,"Head, Neck",tumor_tissue,102,Tongue,80,80,2,-1,-1,yes,C3N-01754,C3N-01754-24
+C3N-01754,C3N-01754-05,C3N-01754-25,HNSCC,"Head, Neck",normal_tissue,216,-1,-1,-1,-1,-1,-1,yes,C3N-01754,C3N-01754-25
 C3N-01755,C3N-01755-01,C3N-01755-21,HNSCC,"Head, Neck",tumor_tissue,197,Larynx,80,90,3,-1,-1,no,,C3N-01755-21
 C3N-01755,C3N-01755-02,C3N-01755-22,HNSCC,"Head, Neck",tumor_tissue,130,Larynx,60,90,2,-1,-1,no,,C3N-01755-22
 C3N-01755,C3N-01755-03,C3N-01755-23,HNSCC,"Head, Neck",tumor_tissue,144,Larynx,80,85,8,-1,-1,no,,C3N-01755-23
 C3N-01756,C3N-01756-01,C3N-01756-21,HNSCC,"Head, Neck",tumor_tissue,280,Larynx,80,90,5,-1,-1,no,,C3N-01756-21
 C3N-01756,C3N-01756-05,C3N-01756-25,HNSCC,"Head, Neck",normal_tissue,128,-1,-1,-1,-1,-1,-1,no,,C3N-01756-25
-C3N-01757,C3N-01757-01,C3N-01757-21,HNSCC,"Head, Neck",tumor_tissue,160,Larynx,35,75,10,-1,-1,no,,C3N-01757-21
-C3N-01757,C3N-01757-02,C3N-01757-22,HNSCC,"Head, Neck",tumor_tissue,95,Larynx,20,60,5,-1,-1,no,,C3N-01757-22
-C3N-01757,C3N-01757-03,C3N-01757-23,HNSCC,"Head, Neck",tumor_tissue,55,Larynx,75,80,25,-1,-1,no,,C3N-01757-23
-C3N-01757,C3N-01757-04,C3N-01757-24,HNSCC,"Head, Neck",tumor_tissue,200,Larynx,85,80,10,-1,-1,no,,C3N-01757-24
-C3N-01757,C3N-01757-05,C3N-01757-25,HNSCC,"Head, Neck",normal_tissue,80,-1,-1,-1,-1,-1,-1,no,,C3N-01757-25
+C3N-01757,C3N-01757-01,C3N-01757-21,HNSCC,"Head, Neck",tumor_tissue,160,Larynx,35,75,10,-1,-1,yes,C3N-01757,C3N-01757-21
+C3N-01757,C3N-01757-02,C3N-01757-22,HNSCC,"Head, Neck",tumor_tissue,95,Larynx,20,60,5,-1,-1,yes,C3N-01757,C3N-01757-22
+C3N-01757,C3N-01757-03,C3N-01757-23,HNSCC,"Head, Neck",tumor_tissue,55,Larynx,75,80,25,-1,-1,yes,C3N-01757,C3N-01757-23
+C3N-01757,C3N-01757-04,C3N-01757-24,HNSCC,"Head, Neck",tumor_tissue,200,Larynx,85,80,10,-1,-1,yes,C3N-01757,C3N-01757-24
+C3N-01757,C3N-01757-05,C3N-01757-25,HNSCC,"Head, Neck",normal_tissue,80,-1,-1,-1,-1,-1,-1,yes,C3N-01757,C3N-01757-25
 C3N-01758,C3N-01758-01,C3N-01758-21,HNSCC,"Head, Neck",tumor_tissue,139,Floor of Mouth,80,90,5,-1,-1,no,,C3N-01758-21
 C3N-01758,C3N-01758-02,C3N-01758-22,HNSCC,"Head, Neck",tumor_tissue,126,Floor of Mouth,80,80,5,-1,-1,no,,C3N-01758-22
 C3N-01758,C3N-01758-03,C3N-01758-23,HNSCC,"Head, Neck",tumor_tissue,164,Floor of Mouth,85,85,3,-1,-1,no,,C3N-01758-23
@@ -3072,9 +3072,9 @@ C3N-01761,C3N-01761-05,C3N-01761-25,UCEC,Uterus Endometrium,normal_tissue,191,-1
 C3N-01763,C3N-01763-03,C3N-01763-23,UCEC,Uterus Endometrium,tumor_tissue,393,Anterior endometrium,85,90,2,-1,-1,yes,C3N-01763,C3N-01763-23
 C3N-01763,C3N-01763-04,C3N-01763-24,UCEC,Uterus Endometrium,tumor_tissue,466,Anterior endometrium,90,90,2,-1,-1,yes,C3N-01763,C3N-01763-24
 C3N-01763,C3N-01763-05,C3N-01763-25,UCEC,Uterus Endometrium,normal_tissue,106,-1,-1,-1,-1,-1,-1,yes,C3N-01763,C3N-01763-25
-C3N-01765,C3N-01765-01,C3N-01765-21,UCEC,Uterus Endometrium,tumor_tissue,333,Anterior endometrium,80,70,20,-1,-1,no,,C3N-01765-21
-C3N-01765,C3N-01765-04,C3N-01765-24,UCEC,Uterus Endometrium,tumor_tissue,281,Anterior endometrium,85,95,5,-1,-1,no,,C3N-01765-24
-C3N-01765,C3N-01765-05,C3N-01765-25,UCEC,Uterus Endometrium,normal_tissue,155,-1,-1,-1,-1,-1,-1,no,,C3N-01765-25
+C3N-01765,C3N-01765-01,C3N-01765-21,UCEC,Uterus Endometrium,tumor_tissue,333,Anterior endometrium,80,70,20,-1,-1,yes,C3N-01765,C3N-01765-21
+C3N-01765,C3N-01765-04,C3N-01765-24,UCEC,Uterus Endometrium,tumor_tissue,281,Anterior endometrium,85,95,5,-1,-1,yes,C3N-01765,C3N-01765-24
+C3N-01765,C3N-01765-05,C3N-01765-25,UCEC,Uterus Endometrium,normal_tissue,155,-1,-1,-1,-1,-1,-1,yes,C3N-01765,C3N-01765-25
 C3N-01798,C3N-01798-01,C3N-01798-21,GBM,Brain,tumor_tissue,100,Frontal Lobe,85,90,5,-1,-1,no,,C3N-01798-21
 C3N-01798,C3N-01798-02,C3N-01798-22,GBM,Brain,tumor_tissue,100,Frontal Lobe,80,70,30,-1,-1,no,,C3N-01798-22
 C3N-01798,C3N-01798-03,C3N-01798-23,GBM,Brain,tumor_tissue,100,Frontal Lobe,50,25,60,-1,-1,no,,C3N-01798-23
@@ -3163,17 +3163,17 @@ C3N-01848,C3N-01848-01,C3N-01848-21,UCEC,Uterus Endometrium,tumor_tissue,450,Ent
 C3N-01848,C3N-01848-02,C3N-01848-22,UCEC,Uterus Endometrium,tumor_tissue,420,Entire uterine cavity,85,80,10,-1,-1,no,,C3N-01848-22
 C3N-01848,C3N-01848-03,C3N-01848-23,UCEC,Uterus Endometrium,tumor_tissue,410,Entire uterine cavity,85,80,10,-1,-1,no,,C3N-01848-23
 C3N-01848,C3N-01848-06,C3N-01848-26,UCEC,Uterus Endometrium,normal_tissue,200,-1,-1,-1,-1,-1,-1,no,,C3N-01848-26
-C3N-01850,C3N-01850-01,C3N-01850-21,GBM,Brain,tumor_tissue,468,Temporal Lobe,70,75,15,-1,-1,no,,C3N-01850-21
-C3N-01850,C3N-01850-03,C3N-01850-23,GBM,Brain,tumor_tissue,387,Temporal Lobe,85,80,5,-1,-1,no,,C3N-01850-23
-C3N-01851,C3N-01851-01,C3N-01851-21,GBM,Brain,tumor_tissue,151,Left Hemisphere,65,70,30,-1,-1,no,,C3N-01851-21
-C3N-01852,C3N-01852-04,C3N-01852-24,GBM,Brain,tumor_tissue,380,Frontal Lobe,80,90,5,-1,-1,no,,C3N-01852-24
-C3N-01852,C3N-01852-05,C3N-01852-25,GBM,Brain,tumor_tissue,713,Frontal Lobe,0,0,0,-1,-1,no,,C3N-01852-25
+C3N-01850,C3N-01850-01,C3N-01850-21,GBM,Brain,tumor_tissue,468,Temporal Lobe,70,75,15,-1,-1,yes,C3N-01850,C3N-01850-21
+C3N-01850,C3N-01850-03,C3N-01850-23,GBM,Brain,tumor_tissue,387,Temporal Lobe,85,80,5,-1,-1,yes,C3N-01850,C3N-01850-23
+C3N-01851,C3N-01851-01,C3N-01851-21,GBM,Brain,tumor_tissue,151,Left Hemisphere,65,70,30,-1,-1,yes,C3N-01851,C3N-01851-21
+C3N-01852,C3N-01852-04,C3N-01852-24,GBM,Brain,tumor_tissue,380,Frontal Lobe,80,90,5,-1,-1,yes,C3N-01852,C3N-01852-24
+C3N-01852,C3N-01852-05,C3N-01852-25,GBM,Brain,tumor_tissue,713,Frontal Lobe,0,0,0,-1,-1,yes,C3N-01852,C3N-01852-25
 C3N-01856,C3N-01856-03,C3N-01856-23,GBM,Brain,tumor_tissue,374,Temporal Lobe,85,90,5,-1,-1,no,,C3N-01856-23
 C3N-01857,C3N-01857-01,C3N-01857-21,GBM,Brain,tumor_tissue,119,Temporal Lobe,90,95,2,-1,-1,no,,C3N-01857-21
 C3N-01857,C3N-01857-02,C3N-01857-22,GBM,Brain,tumor_tissue,169,Temporal Lobe,85,90,2,-1,-1,no,,C3N-01857-22
-C3N-01858,C3N-01858-01,C3N-01858-21,HNSCC,"Head, Neck",tumor_tissue,163,Larynx,85,85,2,-1,-1,no,,C3N-01858-21
-C3N-01858,C3N-01858-02,C3N-01858-22,HNSCC,"Head, Neck",tumor_tissue,156,Larynx,80,85,5,-1,-1,no,,C3N-01858-22
-C3N-01858,C3N-01858-05,C3N-01858-25,HNSCC,"Head, Neck",normal_tissue,82,-1,-1,-1,-1,-1,-1,no,,C3N-01858-25
+C3N-01858,C3N-01858-01,C3N-01858-21,HNSCC,"Head, Neck",tumor_tissue,163,Larynx,85,85,2,-1,-1,yes,C3N-01858,C3N-01858-21
+C3N-01858,C3N-01858-02,C3N-01858-22,HNSCC,"Head, Neck",tumor_tissue,156,Larynx,80,85,5,-1,-1,yes,C3N-01858,C3N-01858-22
+C3N-01858,C3N-01858-05,C3N-01858-25,HNSCC,"Head, Neck",normal_tissue,82,-1,-1,-1,-1,-1,-1,yes,C3N-01858,C3N-01858-25
 C3N-01859,C3N-01859-01,C3N-01859-21,HNSCC,"Head, Neck",tumor_tissue,271,Larynx,80,90,2,-1,-1,no,,C3N-01859-21
 C3N-01859,C3N-01859-04,C3N-01859-24,HNSCC,"Head, Neck",normal_tissue,50,-1,-1,-1,-1,-1,-1,no,,C3N-01859-24
 C3N-01871,C3N-01871-01,C3N-01871-21,UCEC,Uterus Endometrium,tumor_tissue,52,Anterior endometrium,80,75,2,-1,-1,yes,C3N-01871,C3N-01871-21
@@ -3211,21 +3211,21 @@ C3N-01902,C3N-01902-09,C3N-01902-29,CCRCC,Kidney,normal_tissue,161,-1,-1,-1,-1,-
 C3N-01905,C3N-01905-01,C3N-01905-21,CCRCC,Kidney,tumor_tissue,290,Upper pole,85,90,0,-1,-1,no,,C3N-01905-21
 C3N-01905,C3N-01905-02,C3N-01905-22,CCRCC,Kidney,tumor_tissue,303,Upper pole,80,80,3,-1,-1,no,,C3N-01905-22
 C3N-01905,C3N-01905-09,C3N-01905-29,CCRCC,Kidney,normal_tissue,527,-1,-1,-1,-1,-1,-1,no,,C3N-01905-29
-C3N-01943,C3N-01943-02,C3N-01943-22,HNSCC,"Head, Neck",tumor_tissue,200,Larynx,85,90,5,-1,-1,no,,C3N-01943-22
-C3N-01943,C3N-01943-03,C3N-01943-23,HNSCC,"Head, Neck",tumor_tissue,212,Larynx,85,95,2,-1,-1,no,,C3N-01943-23
-C3N-01943,C3N-01943-06,C3N-01943-26,HNSCC,"Head, Neck",normal_tissue,141,-1,-1,-1,-1,-1,-1,no,,C3N-01943-26
+C3N-01943,C3N-01943-02,C3N-01943-22,HNSCC,"Head, Neck",tumor_tissue,200,Larynx,85,90,5,-1,-1,yes,C3N-01943,C3N-01943-22
+C3N-01943,C3N-01943-03,C3N-01943-23,HNSCC,"Head, Neck",tumor_tissue,212,Larynx,85,95,2,-1,-1,yes,C3N-01943,C3N-01943-23
+C3N-01943,C3N-01943-06,C3N-01943-26,HNSCC,"Head, Neck",normal_tissue,141,-1,-1,-1,-1,-1,-1,yes,C3N-01943,C3N-01943-26
 C3N-01944,C3N-01944-01,C3N-01944-21,HNSCC,"Head, Neck",tumor_tissue,221,Tongue,80,90,0,-1,-1,no,,C3N-01944-21
 C3N-01944,C3N-01944-04,C3N-01944-24,HNSCC,"Head, Neck",normal_tissue,200,-1,-1,-1,-1,-1,-1,no,,C3N-01944-24
-C3N-01945,C3N-01945-01,C3N-01945-21,HNSCC,"Head, Neck",tumor_tissue,133,Larynx,80,90,5,-1,-1,no,,C3N-01945-21
-C3N-01945,C3N-01945-04,C3N-01945-24,HNSCC,"Head, Neck",tumor_tissue,200,Larynx,60,95,3,-1,-1,no,,C3N-01945-24
-C3N-01945,C3N-01945-05,C3N-01945-25,HNSCC,"Head, Neck",normal_tissue,51,-1,-1,-1,-1,-1,-1,no,,C3N-01945-25
+C3N-01945,C3N-01945-01,C3N-01945-21,HNSCC,"Head, Neck",tumor_tissue,133,Larynx,80,90,5,-1,-1,yes,C3N-01945,C3N-01945-21
+C3N-01945,C3N-01945-04,C3N-01945-24,HNSCC,"Head, Neck",tumor_tissue,200,Larynx,60,95,3,-1,-1,yes,C3N-01945,C3N-01945-24
+C3N-01945,C3N-01945-05,C3N-01945-25,HNSCC,"Head, Neck",normal_tissue,51,-1,-1,-1,-1,-1,-1,yes,C3N-01945,C3N-01945-25
 C3N-01946,C3N-01946-01,C3N-01946-21,HNSCC,"Head, Neck",tumor_tissue,218,Larynx,90,95,3,-1,-1,no,,C3N-01946-21
 C3N-01946,C3N-01946-04,C3N-01946-24,HNSCC,"Head, Neck",normal_tissue,134,-1,-1,-1,-1,-1,-1,no,,C3N-01946-24
 C3N-01947,C3N-01947-02,C3N-01947-22,HNSCC,"Head, Neck",tumor_tissue,207,Floor of Mouth,85,95,5,-1,-1,no,,C3N-01947-22
 C3N-01947,C3N-01947-05,C3N-01947-25,HNSCC,"Head, Neck",normal_tissue,221,-1,-1,-1,-1,-1,-1,no,,C3N-01947-25
-C3N-01948,C3N-01948-01,C3N-01948-21,HNSCC,"Head, Neck",tumor_tissue,208,Tongue,85,90,3,-1,-1,no,,C3N-01948-21
-C3N-01948,C3N-01948-03,C3N-01948-23,HNSCC,"Head, Neck",tumor_tissue,188,Tongue,80,90,5,-1,-1,no,,C3N-01948-23
-C3N-01948,C3N-01948-04,C3N-01948-24,HNSCC,"Head, Neck",normal_tissue,99,-1,-1,-1,-1,-1,-1,no,,C3N-01948-24
+C3N-01948,C3N-01948-01,C3N-01948-21,HNSCC,"Head, Neck",tumor_tissue,208,Tongue,85,90,3,-1,-1,yes,C3N-01948,C3N-01948-21
+C3N-01948,C3N-01948-03,C3N-01948-23,HNSCC,"Head, Neck",tumor_tissue,188,Tongue,80,90,5,-1,-1,yes,C3N-01948,C3N-01948-23
+C3N-01948,C3N-01948-04,C3N-01948-24,HNSCC,"Head, Neck",normal_tissue,99,-1,-1,-1,-1,-1,-1,yes,C3N-01948,C3N-01948-24
 C3N-01989,C3N-01989-01,C3N-01989-21,CCRCC,Kidney,tumor_tissue,307,Not Specified,85,85,2,-1,-1,no,,C3N-01989-21
 C3N-01989,C3N-01989-02,C3N-01989-22,CCRCC,Kidney,tumor_tissue,290,Not Specified,90,90,3,-1,-1,no,,C3N-01989-22
 C3N-01989,C3N-01989-03,C3N-01989-23,CCRCC,Kidney,normal_tissue,73,-1,-1,-1,-1,-1,-1,no,,C3N-01989-23
@@ -3277,10 +3277,10 @@ C3N-02040,C3N-02040-01,C3N-02040-21,CM,Skin,tumor_tissue,380,Lymph node,90,100,0
 C3N-02040,C3N-02040-02,C3N-02040-22,CM,Skin,tumor_tissue,350,Lymph node,90,100,0,-1,-1,no,,C3N-02040-22
 C3N-02040,C3N-02040-03,C3N-02040-23,CM,Skin,tumor_tissue,370,Lymph node,90,100,0,-1,-1,no,,C3N-02040-23
 C3N-02040,C3N-02040-06,C3N-02040-26,CM,Skin,normal_tissue,150,-1,-1,-1,-1,-1,-1,no,,C3N-02040-26
-C3N-02063,C3N-02063-01,C3N-02063-21,CCRCC,Kidney,tumor_tissue,460,Upper pole,85,85,2,-1,-1,no,,C3N-02063-21
-C3N-02063,C3N-02063-02,C3N-02063-22,CCRCC,Kidney,tumor_tissue,480,Upper pole,80,75,5,-1,-1,no,,C3N-02063-22
-C3N-02063,C3N-02063-03,C3N-02063-23,CCRCC,Kidney,tumor_tissue,460,Upper pole,60,70,5,-1,-1,no,,C3N-02063-23
-C3N-02063,C3N-02063-06,C3N-02063-26,CCRCC,Kidney,normal_tissue,200,-1,-1,-1,-1,-1,-1,no,,C3N-02063-26
+C3N-02063,C3N-02063-01,C3N-02063-21,CCRCC,Kidney,tumor_tissue,460,Upper pole,85,85,2,-1,-1,yes,C3N-02063,C3N-02063-21
+C3N-02063,C3N-02063-02,C3N-02063-22,CCRCC,Kidney,tumor_tissue,480,Upper pole,80,75,5,-1,-1,yes,C3N-02063,C3N-02063-22
+C3N-02063,C3N-02063-03,C3N-02063-23,CCRCC,Kidney,tumor_tissue,460,Upper pole,60,70,5,-1,-1,yes,C3N-02063,C3N-02063-23
+C3N-02063,C3N-02063-06,C3N-02063-26,CCRCC,Kidney,normal_tissue,200,-1,-1,-1,-1,-1,-1,yes,C3N-02063,C3N-02063-26
 C3N-02064,C3N-02064-01,C3N-02064-21,SAR,Soft Tissue,tumor_tissue,380,Upper extremity,90,100,0,-1,-1,no,,C3N-02064-21
 C3N-02064,C3N-02064-02,C3N-02064-22,SAR,Soft Tissue,tumor_tissue,380,Upper extremity,98,100,0,-1,-1,no,,C3N-02064-22
 C3N-02064,C3N-02064-03,C3N-02064-23,SAR,Soft Tissue,tumor_tissue,400,Upper extremity,95,100,0,-1,-1,no,,C3N-02064-23
@@ -3489,11 +3489,11 @@ C3N-02270,C3N-02270-02,C3N-02270-22,CM,Skin,tumor_tissue,77,Lymph node,90,90,10,
 C3N-02270,C3N-02270-03,C3N-02270-23,CM,Skin,tumor_tissue,66,Lymph node,90,90,10,-1,-1,no,,C3N-02270-23
 C3N-02270,C3N-02270-04,C3N-02270-24,CM,Skin,tumor_tissue,51,Lymph node,90,95,5,-1,-1,no,,C3N-02270-24
 C3N-02270,C3N-02270-05,C3N-02270-25,CM,Skin,normal_tissue,220,-1,-1,-1,-1,-1,-1,no,,C3N-02270-25
-C3N-02275,C3N-02275-02,C3N-02275-22,HNSCC,"Head, Neck",normal_tissue,207,-1,-1,-1,-1,-1,-1,no,,C3N-02275-22
-C3N-02275,C3N-02275-03,C3N-02275-23,HNSCC,"Head, Neck",tumor_tissue,172,Larynx,90,90,5,-1,-1,no,,C3N-02275-23
-C3N-02275,C3N-02275-04,C3N-02275-24,HNSCC,"Head, Neck",tumor_tissue,198,Larynx,80,75,10,-1,-1,no,,C3N-02275-24
-C3N-02279,C3N-02279-01,C3N-02279-21,HNSCC,"Head, Neck",tumor_tissue,245,Larynx,85,80,5,-1,-1,no,,C3N-02279-21
-C3N-02279,C3N-02279-05,C3N-02279-25,HNSCC,"Head, Neck",normal_tissue,138,-1,-1,-1,-1,-1,-1,no,,C3N-02279-25
+C3N-02275,C3N-02275-02,C3N-02275-22,HNSCC,"Head, Neck",normal_tissue,207,-1,-1,-1,-1,-1,-1,yes,C3N-02275,C3N-02275-22
+C3N-02275,C3N-02275-03,C3N-02275-23,HNSCC,"Head, Neck",tumor_tissue,172,Larynx,90,90,5,-1,-1,yes,C3N-02275,C3N-02275-23
+C3N-02275,C3N-02275-04,C3N-02275-24,HNSCC,"Head, Neck",tumor_tissue,198,Larynx,80,75,10,-1,-1,yes,C3N-02275,C3N-02275-24
+C3N-02279,C3N-02279-01,C3N-02279-21,HNSCC,"Head, Neck",tumor_tissue,245,Larynx,85,80,5,-1,-1,yes,C3N-02279,C3N-02279-21
+C3N-02279,C3N-02279-05,C3N-02279-25,HNSCC,"Head, Neck",normal_tissue,138,-1,-1,-1,-1,-1,-1,yes,C3N-02279,C3N-02279-25
 C3N-02281,C3N-02281-02,C3N-02281-22,LUAD,Lung,tumor_tissue,123,Left Upper Lobe,60,75,2,-1,-1,no,,C3N-02281-22
 C3N-02281,C3N-02281-03,C3N-02281-23,LUAD,Lung,tumor_tissue,109,Left Upper Lobe,75,85,3,-1,-1,no,,C3N-02281-23
 C3N-02281,C3N-02281-04,C3N-02281-24,LUAD,Lung,normal_tissue,196,-1,-1,-1,-1,-1,-1,no,,C3N-02281-24
@@ -3530,10 +3530,10 @@ C3N-02330,C3N-02330-01,C3N-02330-21,CM,Skin,tumor_tissue,380,Trunk,40,100,0,-1,-
 C3N-02330,C3N-02330-02,C3N-02330-22,CM,Skin,tumor_tissue,380,Trunk,90,95,3,-1,-1,no,,C3N-02330-22
 C3N-02330,C3N-02330-03,C3N-02330-23,CM,Skin,tumor_tissue,370,Trunk,90,100,2,-1,-1,no,,C3N-02330-23
 C3N-02330,C3N-02330-06,C3N-02330-26,CM,Skin,normal_tissue,200,-1,-1,-1,-1,-1,-1,no,,C3N-02330-26
-C3N-02332,C3N-02332-01,C3N-02332-21,CCRCC,Kidney,tumor_tissue,400,Upper pole,85,95,5,-1,-1,no,,C3N-02332-21
-C3N-02332,C3N-02332-02,C3N-02332-22,CCRCC,Kidney,tumor_tissue,410,Upper pole,80,90,7,-1,-1,no,,C3N-02332-22
-C3N-02332,C3N-02332-03,C3N-02332-23,CCRCC,Kidney,tumor_tissue,400,Upper pole,80,70,20,-1,-1,no,,C3N-02332-23
-C3N-02332,C3N-02332-06,C3N-02332-26,CCRCC,Kidney,normal_tissue,200,-1,-1,-1,-1,-1,-1,no,,C3N-02332-26
+C3N-02332,C3N-02332-01,C3N-02332-21,CCRCC,Kidney,tumor_tissue,400,Upper pole,85,95,5,-1,-1,yes,C3N-02332,C3N-02332-21
+C3N-02332,C3N-02332-02,C3N-02332-22,CCRCC,Kidney,tumor_tissue,410,Upper pole,80,90,7,-1,-1,yes,C3N-02332,C3N-02332-22
+C3N-02332,C3N-02332-03,C3N-02332-23,CCRCC,Kidney,tumor_tissue,400,Upper pole,80,70,20,-1,-1,yes,C3N-02332,C3N-02332-23
+C3N-02332,C3N-02332-06,C3N-02332-26,CCRCC,Kidney,normal_tissue,200,-1,-1,-1,-1,-1,-1,yes,C3N-02332,C3N-02332-26
 C3N-02333,C3N-02333-01,C3N-02333-21,HNSCC,"Head, Neck",tumor_tissue,400,Larynx,70,90,5,-1,-1,no,,C3N-02333-21
 C3N-02333,C3N-02333-02,C3N-02333-22,HNSCC,"Head, Neck",tumor_tissue,440,Larynx,80,90,3,-1,-1,no,,C3N-02333-22
 C3N-02333,C3N-02333-03,C3N-02333-23,HNSCC,"Head, Neck",tumor_tissue,300,Larynx,80,85,3,-1,-1,no,,C3N-02333-23
@@ -3695,10 +3695,10 @@ C3N-02722,C3N-02722-02,C3N-02722-22,SAR,Soft Tissue,tumor_tissue,60,Head & neck,
 C3N-02722,C3N-02722-03,C3N-02722-23,SAR,Soft Tissue,tumor_tissue,80,Head & neck,90,99,0,-1,-1,no,,C3N-02722-23
 C3N-02722,C3N-02722-04,C3N-02722-24,SAR,Soft Tissue,tumor_tissue,70,Head & neck,80,100,0,-1,-1,no,,C3N-02722-24
 C3N-02722,C3N-02722-06,C3N-02722-26,SAR,Soft Tissue,normal_tissue,50,-1,-1,-1,-1,-1,-1,no,,C3N-02722-26
-C3N-02723,C3N-02723-01,C3N-02723-21,CCRCC,Kidney,tumor_tissue,300,Upper pole,85,85,3,-1,-1,no,,C3N-02723-21
-C3N-02723,C3N-02723-02,C3N-02723-22,CCRCC,Kidney,tumor_tissue,250,Upper pole,80,90,2,-1,-1,no,,C3N-02723-22
-C3N-02723,C3N-02723-03,C3N-02723-23,CCRCC,Kidney,tumor_tissue,310,Upper pole,40,30,65,-1,-1,no,,C3N-02723-23
-C3N-02723,C3N-02723-06,C3N-02723-26,CCRCC,Kidney,normal_tissue,200,-1,-1,-1,-1,-1,-1,no,,C3N-02723-26
+C3N-02723,C3N-02723-01,C3N-02723-21,CCRCC,Kidney,tumor_tissue,300,Upper pole,85,85,3,-1,-1,yes,C3N-02723,C3N-02723-21
+C3N-02723,C3N-02723-02,C3N-02723-22,CCRCC,Kidney,tumor_tissue,250,Upper pole,80,90,2,-1,-1,yes,C3N-02723,C3N-02723-22
+C3N-02723,C3N-02723-03,C3N-02723-23,CCRCC,Kidney,tumor_tissue,310,Upper pole,40,30,65,-1,-1,yes,C3N-02723,C3N-02723-23
+C3N-02723,C3N-02723-06,C3N-02723-26,CCRCC,Kidney,normal_tissue,200,-1,-1,-1,-1,-1,-1,yes,C3N-02723,C3N-02723-26
 C3N-02725,C3N-02725-01,C3N-02725-21,LSCC,Lung,tumor_tissue,70,Right Upper Lobe,70,90,0,-1,-1,no,,C3N-02725-21
 C3N-02725,C3N-02725-02,C3N-02725-22,LSCC,Lung,tumor_tissue,80,Right Upper Lobe,60,80,0,-1,-1,no,,C3N-02725-22
 C3N-02725,C3N-02725-03,C3N-02725-23,LSCC,Lung,tumor_tissue,70,Right Upper Lobe,75,85,0,-1,-1,no,,C3N-02725-23
