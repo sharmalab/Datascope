@@ -4247,3 +4247,67 @@ C3N-04611,C3N-04611-01,C3N-04611-21,HNSCC,"Head, Neck",tumor_tissue,1390,Larynx,
 C3N-04611,C3N-04611-02,C3N-04611-22,HNSCC,"Head, Neck",tumor_tissue,830,Larynx,80,80,10,-1,-1,no,,C3N-04611-22
 C3N-04611,C3N-04611-03,C3N-04611-23,HNSCC,"Head, Neck",tumor_tissue,540,Larynx,80,90,7,-1,-1,no,,C3N-04611-23
 C3N-04611,C3N-04611-06,C3N-04611-26,HNSCC,"Head, Neck",normal_tissue,790,-1,-1,-1,-1,-1,-1,no,,C3N-04611-26
+C3L-04011,C3L-04011-01,C3L-04011-21,CM,Skin,tumor_tissue,260,Lymph node,90,100,0,-1,-1,no,,C3N-04611-27
+C3L-04011,C3L-04011-02,C3L-04011-22,CM,Skin,tumor_tissue,326,Lymph node,80,100,0,-1,-1,no,,C3N-04611-28
+C3L-04011,C3L-04011-03,C3L-04011-23,CM,Skin,tumor_tissue,272,Lymph node,40,100,0,-1,-1,no,,C3N-04611-29
+C3L-04011,C3L-04011-04,C3L-04011-24,CM,Skin,tumor_tissue,379,Lymph node,90,100,0,-1,-1,no,,C3N-04611-30
+C3L-04011,C3L-04011-05,C3L-04011-25,CM,Skin,tumor_tissue,320,Lymph node,90,100,0,-1,-1,no,,C3N-04611-31
+C3L-04733,C3L-04733-01,C3L-04733-21,CM,Skin,tumor_tissue,106,Extremities,70,80,0,-1,-1,no,,C3N-04611-32
+C3L-04733,C3L-04733-02,C3L-04733-22,CM,Skin,tumor_tissue,403,Extremities,80,90,0,-1,-1,no,,C3N-04611-33
+C3L-04733,C3L-04733-03,C3L-04733-23,CM,Skin,tumor_tissue,248,Extremities,80,90,0,-1,-1,no,,C3N-04611-34
+C3L-04733,C3L-04733-04,C3L-04733-24,CM,Skin,tumor_tissue,76,Extremities,0,100,0,-1,-1,no,,C3N-04611-35
+C3L-04733,C3L-04733-06,C3L-04733-26,CM,Skin,normal_tissue,429,-1,-1,-1,-1,-1,-1,no,,C3N-04611-36
+C3N-03029,C3N-03029-01,C3N-03029-21,CM,Skin,tumor_tissue,166,Lymph node,90,100,0,-1,-1,no,,C3N-04611-37
+C3N-03617,C3N-03617-01,C3N-03617-21,CM,Skin,tumor_tissue,120,Trunk,90,95,0,-1,-1,no,,C3N-04611-38
+C3N-03617,C3N-03617-02,C3N-03617-22,CM,Skin,tumor_tissue,100,Trunk,95,95,0,-1,-1,no,,C3N-04611-39
+C3N-03617,C3N-03617-03,C3N-03617-23,CM,Skin,tumor_tissue,110,Trunk,80,90,5,-1,-1,no,,C3N-04611-40
+C3N-03617,C3N-03617-06,C3N-03617-26,CM,Skin,normal_tissue,100,-1,-1,-1,-1,-1,-1,no,,C3N-04611-41
+C3N-04293,C3N-04293-02,C3N-04293-22,CM,Skin,tumor_tissue,141,Lymph node,90,100,0,-1,-1,no,,C3N-04611-42
+C3N-04294,C3N-04294-01,C3N-04294-21,CM,Skin,tumor_tissue,164,Lymph node,80,100,0,-1,-1,no,,C3N-04611-43
+C3L-03962,C3L-03962-01,C3L-03962-21,LSCC,Lung,tumor_tissue,210,Left lung,60,50,45,-1,-1,no,,C3N-04611-44
+C3L-03962,C3L-03962-02,C3L-03962-22,LSCC,Lung,tumor_tissue,142,Left lung,65,70,30,-1,-1,no,,C3N-04611-45
+C3L-03962,C3L-03962-03,C3L-03962-23,LSCC,Lung,tumor_tissue,210,Left lung,85,90,5,-1,-1,no,,C3N-04611-46
+C3L-03962,C3L-03962-04,C3L-03962-24,LSCC,Lung,tumor_tissue,278,Left lung,40,50,5,-1,-1,no,,C3N-04611-47
+C3L-03962,C3L-03962-05,C3L-03962-25,LSCC,Lung,tumor_tissue,150,Left lung,70,90,10,-1,-1,no,,C3N-04611-48
+C3L-03962,C3L-03962-06,C3L-03962-26,LSCC,Lung,normal_tissue,127,-1,-1,-1,-1,-1,-1,no,,C3N-04611-49
+C3L-03962,C3L-03962-07,C3L-03962-27,LSCC,Lung,normal_tissue,425,-1,-1,-1,-1,-1,-1,no,,C3N-04611-50
+C3L-03962,C3L-03962-08,C3L-03962-28,LSCC,Lung,normal_tissue,181,-1,-1,-1,-1,-1,-1,no,,C3N-04611-51
+C3N-02435,C3N-02435-01,C3N-02435-21,LSCC,Lung,tumor_tissue,191,Left Lower Lobe,60,80,10,-1,-1,no,,C3N-04611-52
+C3N-02435,C3N-02435-02,C3N-02435-22,LSCC,Lung,tumor_tissue,152,Left Lower Lobe,20,80,5,-1,-1,no,,C3N-04611-53
+C3N-02435,C3N-02435-03,C3N-02435-23,LSCC,Lung,tumor_tissue,194,Left Lower Lobe,50,75,5,-1,-1,no,,C3N-04611-54
+C3N-02435,C3N-02435-06,C3N-02435-26,LSCC,Lung,normal_tissue,198,-1,-1,-1,-1,-1,-1,no,,C3N-04611-55
+C3N-02435,C3N-02435-07,C3N-02435-27,LSCC,Lung,normal_tissue,301,-1,-1,-1,-1,-1,-1,no,,C3N-04611-56
+C3N-03424,C3N-03424-03,C3N-03424-23,LSCC,Lung,tumor_tissue,164,Right Lower Lobe,75,85,7,-1,-1,no,,C3N-04611-57
+C3N-03424,C3N-03424-09,C3N-03424-29,LSCC,Lung,normal_tissue,303,-1,-1,-1,-1,-1,-1,no,,C3N-04611-58
+C3N-03425,C3N-03425-05,C3N-03425-25,LSCC,Lung,tumor_tissue,245,Left Upper Lobe,65,80,5,-1,-1,no,,C3N-04611-59
+C3N-03425,C3N-03425-09,C3N-03425-29,LSCC,Lung,normal_tissue,351,-1,-1,-1,-1,-1,-1,no,,C3N-04611-60
+C3N-03441,C3N-03441-01,C3N-03441-21,LSCC,Lung,tumor_tissue,305,Left Upper Lobe,70,85,5,-1,-1,no,,C3N-04611-61
+C3N-03441,C3N-03441-09,C3N-03441-29,LSCC,Lung,normal_tissue,350,-1,-1,-1,-1,-1,-1,no,,C3N-04611-62
+C3N-03877,C3N-03877-01,C3N-03877-21,LSCC,Lung,tumor_tissue,48,Right Lower Lobe,70,80,20,-1,-1,no,,C3N-04611-63
+C3N-03877,C3N-03877-02,C3N-03877-22,LSCC,Lung,tumor_tissue,78,Right Lower Lobe,55,60,5,-1,-1,no,,C3N-04611-64
+C3N-03877,C3N-03877-03,C3N-03877-23,LSCC,Lung,normal_tissue,255,-1,-1,-1,-1,-1,-1,no,,C3N-04611-65
+C3N-03880,C3N-03880-01,C3N-03880-21,LSCC,Lung,tumor_tissue,80,Left Upper Lobe,85,90,5,-1,-1,no,,C3N-04611-66
+C3N-03880,C3N-03880-02,C3N-03880-22,LSCC,Lung,tumor_tissue,83,Left Upper Lobe,75,85,3,-1,-1,no,,C3N-04611-67
+C3N-03880,C3N-03880-03,C3N-03880-23,LSCC,Lung,normal_tissue,95,-1,-1,-1,-1,-1,-1,no,,C3N-04611-68
+C3N-04124,C3N-04124-01,C3N-04124-21,LSCC,Lung,tumor_tissue,56,Left Upper Lobe,70,85,10,-1,-1,no,,C3N-04611-69
+C3N-04124,C3N-04124-02,C3N-04124-22,LSCC,Lung,tumor_tissue,78,Left Upper Lobe,65,80,5,-1,-1,no,,C3N-04611-70
+C3N-04124,C3N-04124-03,C3N-04124-23,LSCC,Lung,normal_tissue,306,-1,-1,-1,-1,-1,-1,no,,C3N-04611-71
+C3N-04127,C3N-04127-01,C3N-04127-21,LSCC,Lung,tumor_tissue,121,Right Lower Lobe,75,90,5,-1,-1,no,,C3N-04611-72
+C3N-04127,C3N-04127-02,C3N-04127-22,LSCC,Lung,tumor_tissue,103,Right Lower Lobe,70,85,5,-1,-1,no,,C3N-04611-73
+C3N-04127,C3N-04127-03,C3N-04127-23,LSCC,Lung,normal_tissue,129,-1,-1,-1,-1,-1,-1,no,,C3N-04611-74
+C3L-02630,C3L-02630-01,C3L-02630-21,SAR,Soft Tissue,tumor_tissue,74,Lower extremity,80,100,0,-1,-1,no,,C3N-04611-75
+C3L-02630,C3L-02630-02,C3L-02630-22,SAR,Soft Tissue,tumor_tissue,84,Lower extremity,80,100,0,-1,-1,no,,C3N-04611-76
+C3L-02630,C3L-02630-03,C3L-02630-23,SAR,Soft Tissue,tumor_tissue,160,Lower extremity,80,100,0,-1,-1,no,,C3N-04611-77
+C3L-02630,C3L-02630-04,C3L-02630-24,SAR,Soft Tissue,tumor_tissue,71,Lower extremity,90,100,0,-1,-1,no,,C3N-04611-78
+C3L-02630,C3L-02630-05,C3L-02630-25,SAR,Soft Tissue,tumor_tissue,84,Lower extremity,80,100,0,-1,-1,no,,C3N-04611-79
+C3L-03641,C3L-03641-01,C3L-03641-21,SAR,Soft Tissue,tumor_tissue,193,Lower extremity,80,90,0,-1,-1,no,,C3N-04611-80
+C3L-03641,C3L-03641-02,C3L-03641-22,SAR,Soft Tissue,tumor_tissue,277,Lower extremity,80,80,0,-1,-1,no,,C3N-04611-81
+C3L-03641,C3L-03641-03,C3L-03641-23,SAR,Soft Tissue,tumor_tissue,335,Lower extremity,80,90,0,-1,-1,no,,C3N-04611-82
+C3L-03641,C3L-03641-04,C3L-03641-24,SAR,Soft Tissue,normal_tissue,162,-1,-1,-1,-1,-1,-1,no,,C3N-04611-83
+C3L-03641,C3L-03641-05,C3L-03641-25,SAR,Soft Tissue,normal_tissue,271,-1,-1,-1,-1,-1,-1,no,,C3N-04611-84
+C3L-03641,C3L-03641-06,C3L-03641-26,SAR,Soft Tissue,normal_tissue,204,-1,-1,-1,-1,-1,-1,no,,C3N-04611-85
+C3L-03647,C3L-03647-01,C3L-03647-21,SAR,Soft Tissue,tumor_tissue,203,Upper extremity,80,100,0,-1,-1,no,,C3N-04611-86
+C3L-03647,C3L-03647-02,C3L-03647-22,SAR,Soft Tissue,tumor_tissue,237,Upper extremity,60,90,0,-1,-1,no,,C3N-04611-87
+C3L-03647,C3L-03647-03,C3L-03647-23,SAR,Soft Tissue,tumor_tissue,141,Upper extremity,80,100,0,-1,-1,no,,C3N-04611-88
+C3L-03647,C3L-03647-04,C3L-03647-24,SAR,Soft Tissue,normal_tissue,107,-1,-1,-1,-1,-1,-1,no,,C3N-04611-89
+C3L-03647,C3L-03647-05,C3L-03647-26,SAR,Soft Tissue,normal_tissue,179,-1,-1,-1,-1,-1,-1,no,,C3N-04611-90
