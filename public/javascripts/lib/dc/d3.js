@@ -393,7 +393,7 @@ d3 = function() {
   d3.xhr = function(url, mimeType, callback) {
     // fire a tracking event -- CUSTOM START
     try{
-      var _event = new Event('track-xhr', {detail: url});
+      var _event = new CustomEvent('track-xhr', {detail: url});
       window.dispatchEvent(_event);
     }
     catch(e){
