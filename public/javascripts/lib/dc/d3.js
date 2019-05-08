@@ -391,6 +391,15 @@ d3 = function() {
     return n ? Math.round(x * (n = Math.pow(10, n))) / n : Math.round(x);
   };
   d3.xhr = function(url, mimeType, callback) {
+    // fire a tracking event -- CUSTOM START
+    try{
+      var _event = new Event('track-xhr', {detail: url});
+      window.dispatchEvent(_event);
+    }
+    catch(e){
+      console.log(e)
+    }
+    // CUSTOM END
     var xhr = {}, dispatch = d3.dispatch("progress", "load", "error"), headers = {}, response = d3_identity, request = new (d3_window.XDomainRequest && /^(http(s)?:)?\/\//.test(url) ? XDomainRequest : XMLHttpRequest)();
     "onload" in request ? request.onload = request.onerror = respond : request.onreadystatechange = function() {
       request.readyState > 3 && respond();
