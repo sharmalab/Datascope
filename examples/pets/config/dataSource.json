@@ -1,0 +1,10 @@
+{
+    "dataSourceAlias": "",
+    "dataSources": [{
+        "sourceName": "cptac",
+        "sourceType": "csvFile",
+        "options": {
+            "path": "data/pets.csv"
+        }
+    }]
+}

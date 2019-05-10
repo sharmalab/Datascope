@@ -17,10 +17,11 @@ RUN npm install -g webpack@3
 RUN npm install -g forever
 RUN npm install -g nodemon
 
-# copy user data and config
+# copy user data, images, and config
 
 ADD ./config /var/www/Datascope
 ADD ./data /var/www/Datascope
+ADD ./images /var/www/Datascope
 
 RUN npm run-script build
 

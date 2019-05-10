@@ -632,6 +632,10 @@ ul.nav.nav-tabs {
     margin: 9px;
     box-shadow: 0 0 11px gray;
 }
+
+.imageGridItem {
+    padding:12px;
+}
 .imageGridItem img:hover {
     box-shadow: 0 0 11px black;
 }
@@ -765,4 +769,13 @@ a.download, #dl{
 
 figcaption{
   font-size: 1vw;
+}
+
+.imagelabel{
+  font-size: 1.5vw;
+  text-align: center;
+}
+
+.imageGridItem img{
+  max-width: 150px
 }

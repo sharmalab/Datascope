@@ -1,0 +1,26 @@
+[
+  {
+      "attributeName": "TCGA-ID",
+  "attributeType": [
+      "filtering",
+      "visual"
+    ]
+  },
+  {
+      "attributeName": "height",
+  "attributeType": [
+      "filtering",
+      "visual"
+    ]
+  },
+  {
+          "attributeName": "Image_URL",
+          "attributeType": ["visual"]
+  },
+  {
+        "attributeName": "image"
+    },
+    {
+          "attributeName": "Image_URL"
+      }
+]

@@ -5,7 +5,8 @@ We propose an environment for visualizing and exploring multidimensional data. W
 ### Quickstart guide ###
 
 (requires docker)
-* `docker build -t datascope.`
+* Enter the datascope directory (this directory)
+* `docker build -t datascope .`
 * `docker run -p 3001:3001 datascope`
 
 ### Running Without Containers ###
@@ -13,18 +14,19 @@ We propose an environment for visualizing and exploring multidimensional data. W
 ##### Prerequisites
 
 * Install [Node.js](https://nodejs.org/en/download/) and [NPM](https://www.npmjs.com/get-npm)
-* `npm install -g webpack`
-* `npm install -g forever` ((Optional) recommended for production deployements)
-* `npm install -g apidoc`
+* `sudo npm install -g webpack`
+* `sudo npm install -g forever` ((Optional) recommended for production deployements)
+* `sudo npm install -g apidoc`
 
 
 ##### Installation
 
 * Clone the repository
+* Enter the datascope directory (this directory)
 * Run ```npm run-script build```
 
 ##### Running
-
+* Copy an example config and data folders to this directory from ```examples```
 * Modify the files present in ```config``` to fit your needs:
     * dataSource.json
     * dataDescription.json

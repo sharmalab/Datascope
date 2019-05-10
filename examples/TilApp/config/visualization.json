@@ -1,0 +1,50 @@
+[{
+    "visualizationType": "dataTable",
+    "attributes": [
+        {
+            "attributeName": "CancerType"
+        },
+        {
+            "attributeName": "PatientID"
+        },
+        {
+            "attributeName": "SlideID"
+        },
+        {
+            "attributeName": "primary_diagnosis"
+        },
+        {
+            "attributeName": "tumor_stage"
+        },
+        {
+            "attributeName": "vital_status"
+        },
+        {
+            "attributeName": "tissue_or_organ_of_origin"
+        },
+        {
+            "attributeName": "PatternLabels"
+        },
+        {
+            "attributeName": "Ball_Hall_Adjusted"
+        },
+        {
+            "attributeName": "Banfeld_Raftery_Adjusted"
+        },
+        {
+            "attributeName": "C_index_Adjusted"
+        },
+        {
+            "attributeName": "Det_Ratio_Adjusted"
+        }
+    ]
+},
+    {
+        "visualizationType": "imageGrid",
+        "tabTitle": "TIL Browser",
+        "attributes": [{
+            "attributeName": "SlideID",
+            "type": "image"
+
+        }]
+}]
