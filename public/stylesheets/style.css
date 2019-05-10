@@ -772,10 +772,28 @@ figcaption{
 }
 
 .imagelabel{
-  font-size: 1.5vw;
+  font-size: 15px;
   text-align: center;
 }
 
 .imageGridItem img{
   max-width: 150px
+}
+
+.tableLink {
+    color: blue;
+    cursor: poiner;
+    text-decoration: underline;
+}
+.HeadBar {
+    width: 60%;
+    display: inline;
+    opacity: 0.9;
+    padding: 8px;
+    background: rgb(201, 201, 216) none repeat scroll 0% 0%;
+    line-height: 18px;
+    font-size: 15px;
+}
+HeadBar > input {
+  margin:1px;
 }
