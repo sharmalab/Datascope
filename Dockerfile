@@ -26,4 +26,4 @@ RUN npm run-script build
 
 EXPOSE 3001:3001
 
-CMD forever app.js
+CMD node app.js
