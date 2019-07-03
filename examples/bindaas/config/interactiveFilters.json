@@ -1,19 +1,19 @@
 [
     {
-        "attributeName": "userId",
+        "attributeName": "c0",
         "visualization": {
             "visType": "pieChart"
         }
     },
     {
-        "attributeName": "id",
+        "attributeName": "f0",
         "visualization": {
             "visType": "barChart",
             "binFactor": 2
         }
     },
     {
-        "attributeName": "completed",
+        "attributeName": "c1",
         "visualization": {
             "visType": "rowChart"
         }

@@ -1,6 +1,6 @@
 [
     {
-        "attributeName": "userId",
+        "attributeName": "i0",
         "attributeType": [
             "filtering",
             "visual"
@@ -9,16 +9,34 @@
         "datatype": "integer"
     },
     {
-        "attributeName": "id",
+        "attributeName": "f0",
         "attributeType": [
             "filtering",
             "visual"
         ],
         "dataProvider": "",
-        "datatype": "integer"
+        "datatype": "float"
     },
     {
-        "attributeName": "completed",
+        "attributeName": "c0",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    },
+    {
+        "attributeName": "c1",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    },
+    {
+        "attributeName": "u0",
         "attributeType": [
             "filtering",
             "visual"

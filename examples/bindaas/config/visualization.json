@@ -1,12 +1,14 @@
 [{
 	"visualizationType": "dataTable",
 	"attributes": [{
-		"attributeName": "userId"
+		"attributeName": "t0"
 	}, {
-		"attributeName": "id"
+		"attributeName": "i0"
 	}, {
-		"attributeName": "completed"
+		"attributeName": "c0"
 	}, {
-		"attributeName": "title"
+		"attributeName": "c1"
+	}, {
+		"attributeName": "f0"
 	}]
 }]
