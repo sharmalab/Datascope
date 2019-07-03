@@ -1,0 +1,29 @@
+[
+    {
+        "attributeName": "userId",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "integer"
+    },
+    {
+        "attributeName": "id",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "integer"
+    },
+    {
+        "attributeName": "completed",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    }
+]

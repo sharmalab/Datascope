@@ -1,0 +1,12 @@
+[{
+	"visualizationType": "dataTable",
+	"attributes": [{
+		"attributeName": "userId"
+	}, {
+		"attributeName": "id"
+	}, {
+		"attributeName": "completed"
+	}, {
+		"attributeName": "title"
+	}]
+}]

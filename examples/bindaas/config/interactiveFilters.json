@@ -1,0 +1,21 @@
+[
+    {
+        "attributeName": "userId",
+        "visualization": {
+            "visType": "pieChart"
+        }
+    },
+    {
+        "attributeName": "id",
+        "visualization": {
+            "visType": "barChart",
+            "binFactor": 2
+        }
+    },
+    {
+        "attributeName": "completed",
+        "visualization": {
+            "visType": "rowChart"
+        }
+    }
+]
