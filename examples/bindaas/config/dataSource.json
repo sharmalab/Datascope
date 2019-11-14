@@ -1,0 +1,8 @@
+{
+	"dataSourceAlias": "",
+	"dataSources": [{
+		"sourceName": "Titanic",
+		"sourceType": "jsonREST",
+		"options": "http://ds-data:9099/services/data/data/query/all"
+	}]
+}

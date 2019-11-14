@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo
+    container_name: ds-mongo
+    restart: unless-stopped
+    volumes:
+      - ./db:/data/db
+  seed:
+    image: mongo
+    container_name: ds-seed
+    links:
+      - mongo
+    volumes:
+      - ./config:/config
+    command:
+      - /config/seed.sh
+    depends_on:
+      - mongo
+  data:
+    build: "./Deps/Bindaas/"
+    depends_on:
+      - "mongo"
+    container_name: ds-data
+    restart: unless-stopped
+    ports:
+      - 8081:8080
+      - 9999:9099
+    volumes:
+      - ./bindaas_projects/:/root/bindaas/bin/projects/
+      - ./bindaas.config.json:/root/bindaas/bin/bindaas.config.json
+  datascope:
+    build: "../../"
+    container_name: ds-datascope
+    restart: unless-stopped
+    ports:
+      - 3001:3001
+    volumes:
+      - ./config:/var/www/Datascope/config
