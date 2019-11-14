@@ -61,7 +61,7 @@
     "mocha": "^2.2.5",
     "react-bootstrap": "^0.30.6",
     "react-dom": "^15.3.2",
-    "superagent": "^3.7.0",
+    "superagent": "^5.1.0",
     "should": "^6.0.3",
     "webpack": "^1.12.11"
   },
