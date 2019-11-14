@@ -1,9 +1,6 @@
 FROM node:9-alpine
 MAINTAINER Ryan Birmingham "rbirmin@emory.edu"
 
-RUN mkdir -p /var/www/Datascope
-COPY . /var/www/Datascope
-
 WORKDIR /var/www/Datascope
 
 RUN apk add --update \
@@ -15,9 +12,11 @@ RUN apk add --update \
 
 RUN npm install -g webpack@3
 RUN npm install -g forever
-RUN npm install -g nodemon
 
 # copy user data, images, and config
+
+RUN mkdir -p /var/www/Datascope
+COPY . /var/www/Datascope
 
 ADD ./config /var/www/Datascope
 ADD ./data /var/www/Datascope
@@ -27,4 +26,4 @@ RUN npm run-script build
 
 EXPOSE 3001:3001
 
-CMD nodemon app.js -w config -w data
+CMD node app.js

@@ -1,0 +1,47 @@
+[
+    {
+        "attributeName": "i0",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "integer"
+    },
+    {
+        "attributeName": "f0",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "float"
+    },
+    {
+        "attributeName": "c0",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    },
+    {
+        "attributeName": "c1",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    },
+    {
+        "attributeName": "u0",
+        "attributeType": [
+            "filtering",
+            "visual"
+        ],
+        "dataProvider": "",
+        "datatype": "enum"
+    }
+]

@@ -49,6 +49,7 @@ app.use(cookieSession({
 }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images",express.static(path.join(__dirname, "images")));
+app.use("/configs",express.static(path.join(__dirname, "config")));
 //
 //#### init()
 //Initializtion function
