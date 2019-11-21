@@ -36,7 +36,9 @@ var ImageGrid = React.createClass({
         return {
             gridState: 0,
             currData: currData,
-            zoom: 0.1
+            zoom: 0.1,
+            pageNo: 0,
+            search: false
         };
     },
     onZoom: function(event){
@@ -46,16 +48,9 @@ var ImageGrid = React.createClass({
         self.setState({zoom: zoom});
     },
     onSearch: function(event){
+      var self = this;
       var filter = event.target.value.toLowerCase();
-      var nodes = document.getElementsByClassName('imageGridItem');
-
-      for (let i = 0; i < nodes.length; i++) {
-        if (nodes[i].dataset.label.toLowerCase().includes(filter)) {
-          nodes[i].style.display = "inline-block";
-        } else {
-          nodes[i].style.display = "none";
-        }
-      }
+      self.setState({search: filter, pageNo: 0});
     },
     componentWillReceiveProps: function(){
         var self =this;
@@ -67,19 +62,17 @@ var ImageGrid = React.createClass({
 
     },
     onPrev: function(e){
-        var self = this;
-        e.preventDefault();
-        var gridState = this.state.gridState;
-        gridState--;
-
-        $.get("/imageGrid/next?state="+gridState, function(data){
-
-            self.setState({
-                gridState: gridState,
-                images: data
-            });
+      var self = this;
+      e.preventDefault();
+      if (self.state.pageNo <=0){
+        self.setState({
+            pageNo: 0
         });
-
+      } else {
+        self.setState({
+            pageNo: self.state.pageNo-1
+        });
+      }
     },
     componentDidMount: function(e){
       var self = this;
@@ -104,14 +97,8 @@ var ImageGrid = React.createClass({
     onNext: function(e){
         var self = this;
         e.preventDefault();
-        var gridState = this.state.gridState;
-        gridState++;
-        $.get("/imageGrid/next?state="+gridState, function(data){
-
-            self.setState({
-                gridState: gridState,
-                images: data
-            });
+        self.setState({
+            pageNo: self.state.pageNo+1
         });
 
     },
@@ -140,7 +127,7 @@ var ImageGrid = React.createClass({
       // specific skip for no path data/slide
       if (d['Pathology']){
         var label = d["label"] || d["TCGA_ID"] || d["Slide IDs"] || d["Slide_ID"] || "Image #" + key
-        var image = d["Image"] || "images/" + label + ".jpg";
+        var image = d["Image"] || "images/jpg/" + label + ".jpg";
         item.image = image;
   			item.key = key;
   			key++;
@@ -172,108 +159,55 @@ var ImageGrid = React.createClass({
 		*/
         console.log("Paginate: ");
         console.log(paginate);
-        if(paginate == true){
-            if(gridState == 0){
-                return(
+        var Img = images.map(function(d){
+          var item = {}
+          // specific skip for no path data/slide
+          if (d['Pathology']){
+            var label = d["label"] || d["TCGA_ID"] || d["Slide IDs"] || d["Slide_ID"] || "Image #" + key
+            var image = d["Image"] || "images/jpg/" + label + ".jpg";
+            item.image = image;
+            item.key = key;
+            key++;
+            if(!self.state.search || label.indexOf(self.state.search)>=0){
+                          items.push(item);
+                          var url = d["url"] || d["Image_URL"] || "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId=" + label;
+                                return (
 
-                    <div id="imageGrid" >
-
-                    <div style={{whiteSpace: "nowrap"}} >
-                    <span className="HeadBar" style={{width:"60%", display: "inline", padding:"8px", opacity: "0.9", background: "#C9C9D8", lineHeight: "18px", fontSize: "15px"}}>
-                    Zoom:
-				<input onChange={self.onZoom} type="range" min="0.1" max="1.2"
-                    step="0.1" defaultValue={self.state.zoom} style={
-                        {width: "30%", display: "inline", position: "relative", top: "4.5px"}
-                }/>
-                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search" style={{width:"60%"}}></input>
-	                </span>
-                    </div>
-
-
-
-                        <div id="imageGridImages">
-                                {Img}
-                        </div>
-                       <div id="imageGridPagination">
-                            <a href="#" className="next" onClick={this.onNext} >Next</a>
-                        </div>
-                    </div>
-
-                );
-            } else if(gridState == finalState) {
-
-                return(
-                    <div id="imageGrid" >
-                    <div style={{whiteSpace: "nowrap"}} >
-                    <span className="HeadBar" style={{width:"60%", display: "inline", padding:"8px", opacity: "0.9", background: "#C9C9D8", lineHeight: "18px", fontSize: "15px"}}>
-                    Zoom:
-				<input onChange={self.onZoom} type="range" min="0.1" max="1.2"
-                    step="0.1" defaultValue={self.state.zoom} style={
-                        {width: "30%", display: "inline", position: "relative", top: "4.5px"}
-                }/>
-                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search" style={{width:"60%"}}></input>
-	                </span>
-                    </div>
-
-                        <div id="imageGridImages">
-                                {Img}
-                        </div>
-                       <div id="imageGridPagination">
-                            <a href="#" className="prev" onClick={this.onPrev}>Prev</a>
-                        </div>
-                    </div>
-                );
+                                        <span id={label+"-img"}>
+                                        <ImageGridItem image={image} url={url} label={label} zoom={self.state.zoom}/>
+                                        </span>
+                          );
             } else {
-                return(
-                    <div id="imageGrid" >
-                    <div style={{whiteSpace: "nowrap"}} >
-                    <span className="HeadBar" style={{width:"60%", display: "inline", padding:"8px", opacity: "0.9", background: "#C9C9D8", lineHeight: "18px", fontSize: "15px"}}>
-                    Zoom:
-				<input onChange={self.onZoom} type="range" min="0.1" max="1.2"
-                    step="0.1" defaultValue={self.state.zoom} style={
-                        {width: "30%", display: "inline", position: "relative", top: "4.5px"}
-                }/>
-                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search" style={{width:"60%"}}></input>
-	                </span>
-                    </div>
-                        <div id="imageGridImages">
-                                {Img}
-                        </div>
-                       <div id="imageGridPagination">
-                            <a href="#" className="prev" onClick={this.onPrev}>Prev</a>
-                            <a href="#" className="next" onClick={this.onNext}>Next</a>
-                        </div>
-                    </div>
-                );
+              return(<span id={label+"-img"}></span>)
             }
+          }
+        });
+        return(
 
-        } else {
-            return(
+            <div id="imageGrid" >
 
-                <div id="imageGrid" >
-                    <div style={{whiteSpace: "nowrap"}} >
-                    <span className="HeadBar" style={{width:"60%", display: "inline", padding:"8px", opacity: "0.9", background: "#C9C9D8", lineHeight: "18px", fontSize: "15px"}}>
-                    Zoom:
-				<input onChange={self.onZoom} type="range" min="0.1" max="1.2"
-                    step="0.1" defaultValue={self.state.zoom} style={
-                        {width: "30%", display: "inline", position: "relative", top: "4.5px"}
-                }/>
-                Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search" style={{width:"60%"}}></input>
-	                </span>
-                    </div>
-                    <div id="imageGridImages">
-                            {Img}
-                    </div>
+            <div style={{whiteSpace: "nowrap"}} >
+            <span className="HeadBar" style={{width:"60%", display: "inline", padding:"8px", opacity: "0.9", background: "#C9C9D8", lineHeight: "18px", fontSize: "15px"}}>
+            Zoom:
+<input onChange={self.onZoom} type="range" min="0.1" max="1.2"
+            step="0.1" defaultValue={self.state.zoom} style={
+                {width: "30%", display: "inline", position: "relative", top: "4.5px"}
+        }/>
+        Search: <input onChange={self.onSearch} type="text" id="imgrid_search" title="search" style={{width:"60%"}}></input>
+          </span>
+            </div>
 
+                <div id="imageGridImages">
+                        {Img.slice((self.state.pageNo)*100, (self.state.pageNo+1)*100)}
                 </div>
+               <div id="imageGridPagination">
+                    <a href="#" className="prev" onClick={this.onPrev}>Prev</a>
+                    <a href="#" className="next" onClick={this.onNext}>Next</a>
+                </div>
+            </div>
 
-            );
-
-        }
-
-
-    }
-
+        );
+}
 
 });
 
