@@ -5,12 +5,9 @@ var React = require("react");
 var ImageGridItem = React.createClass({
     render: function() {
         var image = this.props.image;
-		//console.log(image);
         var url = this.props.url;
         var zoom = this.props.zoom;
         var label = this.props.label;
-        //var label = "Label";
-        //console.log(zoom);
         var itemStyle = {
             display: "inline-block",
             fontSize: "7px"
@@ -105,58 +102,17 @@ var ImageGrid = React.createClass({
 
     render: function(){
         var self = this;
-		var displayObject = (<ImageGridItem />);
-        //console.log("rendering imageGrid");
-        //console.log(this.props.debug);
-        //var self =this;
+		    var displayObject = (<ImageGridItem />);
         var currData = this.props.currData;
-        //var currData = this.state.currData;
-        //var data = this.state.images;
-        //console.log(currData["imageGrid"]["values"].length);
         var images = currData["imageGrid"]["values"];
         var finalState = currData["imageGrid"]["finalState"];
         var gridState = this.state.gridState;
         var paginate = this.state.paginate;
-        //console.log(currData);
-        //console.log(this.state.gridState)
+
 
         var items = [];
         var key = 1;
-        var Img = images.map(function(d){
-			var item = {}
-      // specific skip for no path data/slide
-      if (d['Pathology']){
-        var label = d["label"] || d["TCGA_ID"] || d["Slide IDs"] || d["Slide_ID"] || "Image #" + key
-        var image = d["Image"] || "images/jpg/" + label + ".jpg";
-        item.image = image;
-  			item.key = key;
-  			key++;
-  			items.push(item);
-  			var url = d["url"] || d["Image_URL"] || "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId=" + label;
-              return (
 
-                      <span>
-                      <ImageGridItem image={image} url={url} label={label} zoom={self.state.zoom}/>
-                      </span>
-              );
-      }
-
-
-
-        });
-		/*
-        return (
-			<div>
-			<AbsoluteGrid
-					items={items}
-				   	displayObject={displayObject}
-				   	responsive={true}
-				   	verticalMargin={42}
-				   	itemWidth={180}
-				   	itemHeight={80} />
-			</div>
-		);
-		*/
         console.log("Paginate: ");
         console.log(paginate);
         var Img = images.map(function(d){
@@ -177,8 +133,6 @@ var ImageGrid = React.createClass({
                                         <ImageGridItem image={image} url={url} label={label} zoom={self.state.zoom}/>
                                         </span>
                           );
-            } else {
-              return(<span id={label+"-img"}></span>)
             }
           }
         });
