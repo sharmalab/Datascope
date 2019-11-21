@@ -113,8 +113,6 @@ var ImageGrid = React.createClass({
         var items = [];
         var key = 1;
 
-        console.log("Paginate: ");
-        console.log(paginate);
         var Img = images.map(function(d){
           var item = {}
           // specific skip for no path data/slide
@@ -128,14 +126,29 @@ var ImageGrid = React.createClass({
                           items.push(item);
                           var url = d["url"] || d["Image_URL"] || "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId=" + label;
                                 return (
-
                                         <span id={label+"-img"}>
                                         <ImageGridItem image={image} url={url} label={label} zoom={self.state.zoom}/>
                                         </span>
                           );
+            } else {
+              return (false)
             }
           }
-        });
+        }).filter(function(x) {return x});
+        var RenderImg = Img.slice((self.state.pageNo)*100, (self.state.pageNo+1)*100)
+        console.log(self.state.search, Img.length)
+        var PaginationBtns
+        if (Img.length <= 100){
+          PaginationBtns = []
+          RenderImg = Img
+        }
+        else if ((self.state.pageNo+1)*100 > Img.length){
+          PaginationBtns =[<a href="#" className="prev pagebtn" onClick={this.onPrev}>Prev</a>]
+        } else if (self.state.pageNo==0){
+          PaginationBtns= [<a href="#" className="next pagebtn" onClick={this.onNext}>Next</a>]
+        } else {
+          PaginationBtns = [<a href="#" className="prev pagebtn" onClick={this.onPrev}>Prev</a>, <a href="#" className="next" onClick={this.onNext}>Next</a>]
+        }
         return(
 
             <div id="imageGrid" >
@@ -152,11 +165,10 @@ var ImageGrid = React.createClass({
             </div>
 
                 <div id="imageGridImages">
-                        {Img.slice((self.state.pageNo)*100, (self.state.pageNo+1)*100)}
+                        {RenderImg}
                 </div>
                <div id="imageGridPagination">
-                    <a href="#" className="prev" onClick={this.onPrev}>Prev</a>
-                    <a href="#" className="next" onClick={this.onNext}>Next</a>
+                    {PaginationBtns}
                 </div>
             </div>
 
