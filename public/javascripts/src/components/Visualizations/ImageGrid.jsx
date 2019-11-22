@@ -109,29 +109,24 @@ var ImageGrid = React.createClass({
         var gridState = this.state.gridState;
         var paginate = this.state.paginate;
 
-
-        var items = [];
         var key = 1;
 
         var Img = images.map(function(d){
-          var item = {}
           // specific skip for no path data/slide
           if (d['Pathology']){
             var label = d["label"] || d["TCGA_ID"] || d["Slide IDs"] || d["Slide_ID"] || "Image #" + key
             var image = d["Image"] || "images/jpg/" + label + ".jpg";
-            item.image = image;
-            item.key = key;
             key++;
-            if(!self.state.search || label.indexOf(self.state.search)>=0){
-                          items.push(item);
-                          var url = d["url"] || d["Image_URL"] || "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId=" + label;
-                                return (
-                                        <span id={label+"-img"}>
-                                        <ImageGridItem image={image} url={url} label={label} zoom={self.state.zoom}/>
-                                        </span>
-                          );
-            } else {
+            if(self.state.search && label.toLowerCase().indexOf(self.state.search.toLowerCase())<0){
               return (false)
+
+            } else {
+              var url = d["url"] || d["Image_URL"] || "https://pathology.cancerimagingarchive.net/pathdata/cptac_camicroscope/osdCamicroscope.php?tissueId=" + label;
+              return (
+                      <span id={label+"-img"}>
+                      <ImageGridItem image={image} url={url} label={label} zoom={self.state.zoom}/>
+                      </span>
+                      );
             }
           }
         }).filter(function(x) {return x});
