@@ -23,6 +23,7 @@ We propose an environment for visualizing and exploring multidimensional data. W
 
 * Clone the repository
 * Enter the datascope directory (this directory)
+* Get dependencies with ```npm install``
 * Run ```npm run-script build```
 
 ##### Running
