@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "build": "npm install; webpack"
+    "build": "webpack"
   },
   "dependencies": {
     "anytojson": "git+https://github.com/birm/anyToJSON.git",
