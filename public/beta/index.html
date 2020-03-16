@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<!-- BEGIN TCIA GLOBAL BRANDING - CUSTOM HEAD CODE -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+	h1,
+	.navbar-brand,
+	.navbar-nav a {
+	  font-family: 'Open Sans', Verdana, Tahoma, Arial;
+	font-weight: 400;
+	font-size: .9em;
+	}
+
+	.nav-link:hover {
+		color: #64C6FF!important;
+	}
+
+	.navbar-dark .navbar-nav .nav-link {
+	    color: rgba(255,255,255,.75);
+	}
+
+	.navbar-inner, .navbar .btn-navbar {
+		border:0px;
+	}
+
+	.dropdown-menu {
+	    background-color: rgba(0,0,0,.9); /*#343a40;*/
+	    background-clip: padding-box;
+	    border: 0px solid rgba(255,255,255,.15);
+		padding: .5rem 0;
+	    margin: .125rem 0 0;
+		font-size: .85em;
+		font-weight: 400;
+		border-radius: 0rem;
+		padding: 10px;
+	}
+
+	.dropdown-item {
+		color: #cccccc!important;
+		padding: 5px;
+	}
+
+
+	.dropdown-item:hover {
+		background-color: #64C6FF;
+	}
+
+	.dropdown-item:focus, .dropdown-item:hover {
+	    color: #16181b!important;
+	}
+
+	.bg-dark {
+		background-color: #222222!important;
+	}
+
+	.navbar {
+		background-image: url('https://www.cancerimagingarchive.net/wp-content/uploads/2020/03/tcia-header-bkgd.jpg');
+		background-repeat: no-repeat;/* Determine what direction the image will repeat */
+		background-position: center center; /* Where the image will be positioned relative to "top, right, bottom, and/or left */
+		background-size: cover;
+	    background-position: center;
+
+		/* -webkit-box-shadow: 0 2px 6px 0px #999;
+		-moz-box-shadow: 0 2px 6px 0px #999;
+		box-shadow: 0 2px 6px 0px #999;*/
+	}
+
+		@media (min-width: 980px) {
+		/* HOVER shows dropdown, rather than click and show */
+		.navbar-nav li:hover>.dropdown-menu {
+		  display: block;
+		}
+
+		/* FIX hover for dropdown moving slowly to dropdown hides */
+		.navbar .dropdown-menu {
+		 margin-top: 0px;
+		}
+	}
+
+	.navbar-toggler {
+	    border: 0px solid transparent;
+	}
+
+
+
+	@media (min-width: 980px) {
+		body {
+			padding-top: 0px;
+		}
+
+		.social {
+			display: block;
+		}
+
+		#social-in-menu, .button_social_group {
+			float: left;
+			position: absolute;
+			left: -40px;
+			top: 0px;
+			z-index: 100000;
+			margin: 10px;
+		}
+	}
+
+	@media (max-width: 980px) {
+		body {
+			padding-top: 0px;
+		}
+
+		.social {
+			display: block;
+		}
+
+		#social-in-menu, .button_social_group {
+			float: right;
+			position: absolute;
+			right: 80px;
+			top: 13px;
+			z-index: 100000;
+			margin: 10px;
+		}
+	}
+
+
+
+	@media (max-width: 540px) {
+		body {
+			padding-top: 0px;
+		}
+
+		.social {
+			display: block;
+		}
+
+		#social-in-menu, .button_social_group {
+			float: right;
+			position: absolute;
+			right: 60px;
+			top: 13px;
+			z-index: 100000;
+			margin: 10px;
+		}
+
+		.navbar {
+		    padding: .5rem 1rem;
+		    padding-top: 0.5rem;
+		    padding-right: 0.5rem;
+		    padding-bottom: 0.5rem;
+		    padding-left: 0.5rem;
+		}
+	}
+
+	@media (max-width: 410px) {
+		body {
+			padding-top: 0px;
+		}
+
+		.social {
+			display: none;
+		}
+
+		#social-in-menu, .button_social_group {
+			float: right;
+			position: absolute;
+			right: 80px;
+			top: 13px;
+			z-index: 100000;
+			margin: 10px;
+		}
+	}
+
+
+
+
+	.social li {
+		list-style-type: none;
+		display: inline;
+		padding-left: 10px;
+		font-size: .8em;
+	}
+
+	.social li a {
+		color: #ffffff;
+		opacity: 0.6;
+		transition: 0.3s;
+	}
+
+	.social li a:hover {
+		color: #ffffff; /* 64C6FF */
+		opacity: 1;
+		transition: transform 0.25s ease,opacity 0.2s ease;
+	    -webkit-transition: -webkit-transform 0.25s ease,opacity 0.2s ease;
+		transition: opacity 0.2s ease, color 0.2s ease;
+		text-decoration: none;
+	}
+
+	.navbar-nav {
+		margin-top: 10px;
+	}
+
+</style>
+
+<!-- END TCIA GLOBAL BRANDING - CUSTOM HEAD CODE -->
+
+    <title>TCIA Global Header</title>
+  </head>
+  <body>
+	<!-- BEGIN TCIA GLOBAL HEADER - CUSTOM BODY CODE -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark main-nav shadow"><!--fixed-top-->
+
+	<a class="navbar-toggler" href="#">
+			<img src="https://www.cancerimagingarchive.net/wp-content/uploads/2019/12/TCIA-logo-2x.png" width="170" height="50" class="d-inline-block align-middle" alt="">
+			<!--<img src="tcia-global-logo-horiz.svg" width="306" height="40" class="d-inline-block align-middle" alt="">-->
+	</a>
+
+
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="container justify-content-center">
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+			<ul class="navbar-nav pull-sm-left flex-fill w-100 flex-nowrap">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="https://www.cancerimagingarchive.net/primary-data/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Submit Your Data<span class="sr-only">(current)</span></a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="https://www.cancerimagingarchive.net/primary-data/">New TCIA Dataset</a>
+						<a class="dropdown-item" href="https://www.cancerimagingarchive.net/analysis-results/">Analyses of Existing TCIA Datasets</a>
+						<a class="dropdown-item" href="https://wiki.cancerimagingarchive.net/x/ZwA2">Submission and De-identification Overview</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="https://www.cancerimagingarchive.net/access-data" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Access The Data<span class="sr-only">(current)</span></a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="https://wiki.cancerimagingarchive.net/x/c4hF">Data Usage Policies and Restrictions</a>
+						<a class="dropdown-item" href="https://www.cancerimagingarchive.net/collections/">Browse Data Collections</a>
+						<a class="dropdown-item" href="https://wiki.cancerimagingarchive.net/x/sgH1">Browse Analysis Results</a>
+						<a class="dropdown-item" href="https://nbia.cancerimagingarchive.net/">Search Radiology Portal</a>
+						<a class="dropdown-item" href="https://www.cancerimagingarchive.net/histopathology-imaging-on-tcia/">Search Histopathology Portal</a>
+						<a class="dropdown-item" href="https://wiki.cancerimagingarchive.net/x/NIIiAQ">Rest API</a>
+						<a class="dropdown-item" href="https://wiki.cancerimagingarchive.net/x/x49XAQ">Data Analysis Centers</a>
+						<a class="dropdown-item" href="https://www.cancerimagingarchive.net/stats">Data Usage Statistics</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="https://www.cancerimagingarchive.net/support" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Help<span class="sr-only">(current)</span></a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="https://www.cancerimagingarchive.net/support">Help Desk</a>
+						<a class="dropdown-item" href="https://wiki.cancerimagingarchive.net/display/Public/User+Guides">User Guides</a>
+						<a class="dropdown-item" href="https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=4555089">FAQs</a>
+					</div>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav flex-fill justify-content-center d-none d-lg-block">
+	            <li class="nav-item"><a class="nav-link" href="#"><img src="https://www.cancerimagingarchive.net/wp-content/uploads/2019/12/TCIA-logo-2x.png" width="272" height="80" class="d-inline-block align-middle" alt=""></a></li>
+	        </ul>
+			<ul class="navbar-nav pull-sm-right flex-fill w-100 justify-content-end">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="https://www.cancerimagingarchive.net/about-the-cancer-imaging-archive-tcia/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About Us<span class="sr-only">(current)</span></a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="https://www.cancerimagingarchive.net/about-the-cancer-imaging-archive-tcia/">About The Cancer Imaging Archive (TCIA)</a>
+						<a class="dropdown-item" href="https://www.cancerimagingarchive.net/about-the-cancer-imaging-program-cip/">About the Cancer Imaging Program (CIP)</a>
+						<a class="dropdown-item" href="https://www.cancerimagingarchive.net/about-the-university-of-arkansas-for-medical-sciences-uams/">About the University of Arkansas for Medical Sciences (UAMS)</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="https://www.cancerimagingarchive.net/histopathology-imaging-on-tcia/#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Research Activities<span class="sr-only">(current)</span></a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="https://www.cancerimagingarchive.net/publications/">Publications Based on TCIA</a>
+						<a class="dropdown-item" href="https://www.cancerimagingarchive.net/imaging-proteogenomics/">Imaging Proteogenomics</a>
+						<a class="dropdown-item" href="https://wiki.cancerimagingarchive.net/x/BQHDAg">Imaging Clinical Trials</a>
+						<a class="dropdown-item" href="https://wiki.cancerimagingarchive.net/display/Public/Challenge+competitions">Challenge Competitions</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="https://www.cancerimagingarchive.net/news/">News<span class="sr-only">(current)</span></a>
+				</li>
+
+			</ul>
+
+		</div>
+	</div>
+</nav>
+
+<div id="social-in-menu" class="button_social_group navbar-expand-lg">
+<ul class="social">
+	<li><a target="_blank" href="https://twitter.com/tcia_news"><i class="fa fa-twitter fa-lg"></i> </a></li>
+	<li><a target="_blank" href="https://www.facebook.com/The.Cancer.Imaging.Archive"><i class="fa fa-facebook fa-lg"></i> </a></li>
+	<li><a target="_blank" href="https://vimeo.com/thecancerimagingarchive"><i class="fa fa-vimeo fa-lg"></i> </a></li>
+	<li><a target="_blank" href="https://www.linkedin.com/groups/4371904/"><i class="fa fa-linkedin fa-lg"></i> </a></li>
+	<li><a href="https://groups.google.com/forum/#!forum/tcia-announcements"><i class="fa fa-envelope fa-lg"></i> </a></li>
+
+</ul>
+</div>
+
+<!-- END TCIA GLOBAL HEADER - CUSTOM BODY CODE -->
+
+<tr id="iframerow" style="padding:5%;">
+  <iframe id="datascope"src="https://cancerimagingarchive.net/datascope/cptac/" style="height:1000px;width:100%;padding-left:5%;padding-right:5%"></iframe>
+</tr>
+
+
+<script>
+function getUrlParam(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+var filter = getUrlParam("filter")
+if (filter){
+  document.getElementById("datascope").src = "https://cancerimagingarchive.net/datascope/cptac/?filter=" + filter;
+}
+</script>
+
+<!-- END CUSTOM BODY CODE -->
+
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  </body>
+</html>
