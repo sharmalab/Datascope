@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "anytojson": "git+https://github.com/birm/anyToJSON.git",
-    "async": "^1.0.0",
+    "async": "^2.6.4",
     "babel-preset-es2015": "^6.16.0",
     "babel-runtime": "^6.11.6",
     "babelify": "~7.2.0",
